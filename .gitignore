@@ -2,3 +2,4 @@
 dist
 .yarn
 .env
+yarn-error.log
