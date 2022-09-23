@@ -4,19 +4,23 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\""
+    "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
+    "lint": "yarn eslint --config .eslintrc.js  ./src"
   },
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@typescript-eslint/parser": "^5.38.0",
     "body-parser": "^1.20.0",
     "dotenv": "^16.0.2",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.14",
+    "@types/mysql2": "types/mysql2",
     "@types/node": "^18.7.18",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "concurrently": "^7.4.0",
@@ -26,8 +30,10 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
+    "jest": "^29.0.3",
     "nodemon": "^2.0.20",
     "prettier": "^2.7.1",
+    "supertest": "^6.2.4",
     "ts-loader": "^9.4.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
