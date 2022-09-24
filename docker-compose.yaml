@@ -1,0 +1,9 @@
+version: "3.7"
+services:
+  api:
+    image: openpodcast-api
+    build: ./
+    environment:
+      DB_CONNECTION_STRING: invalid
+    ports:
+      - "8080:8080"      
