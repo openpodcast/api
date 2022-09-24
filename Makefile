@@ -1,15 +1,16 @@
 .DEFAULT_GOAL := help
 
 .PHONY: help
-help: ## Outputs the help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+help: ## help message, list all command
+	@echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
+
 
 .PHONY: dev
 dev: ## Starts the development server
 	yarn dev
 
 .PHONY: lint
-lint: ## Installs dependencies
+lint: ## run linter
 	yarn lint	
 
 .PHONY: init
@@ -17,7 +18,7 @@ init: ## Installs dependencies
 	yarn install
 
 .PHONY: e2e-tests
-e2e-tests: ## Installs dependencies
+e2e-tests: ## Start end2end tests (local running server is required)
 	yarn jest ./tests/api_e2e --verbose true
 
 .PHONY: send-api-req-local
