@@ -18,6 +18,7 @@ app.use(bodyParser.json())
 app.post('/events', (async (req: Request, res: Response) => {
   const authToken = Array.isArray(req.headers.authorization) ? req.headers.authorization[0] : req.headers.authorization
   try {
+    console.log(req)
     await api.handleApiPost(authToken, req.body)
     res.send('Data stored. Thx')
   } catch (e) {
