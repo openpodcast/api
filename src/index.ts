@@ -1,13 +1,13 @@
 import dotenv from 'dotenv'
 import express, { Express, Request, Response, RequestHandler } from 'express'
 import bodyParser from 'body-parser'
-import { Api } from './api'
+import { EventsApi } from './api'
 import { MySQLEvents } from './db'
 import { AuthError } from './types/api'
 
 dotenv.config()
 const dbEvents = new MySQLEvents(process.env.DB_CONNECTION_STRING)
-const api = new Api(dbEvents)
+const api = new EventsApi(dbEvents)
 
 const app: Express = express()
 const port = 8080
