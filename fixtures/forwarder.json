@@ -3,6 +3,8 @@
   "timestamp": "2022-09-26T10:50:49.342000+00:00",
   "event": "mp3",
   "distinct_id": "https://feeds.redcircle.com/2c2cd740-1c1f-4928-adac-98a692dbf4c2",
+  "ip": "2003:ee:8f16:a700:1f5:8c40:3502:a432",
+  "user-agent": "Spotify/1.0",
   "properties": {
       "$geoip_city_name": "Düsseldorf",
       "$geoip_continent_code": "EU",
@@ -38,7 +40,6 @@
       "longitude": 6.796199798583984,
       "path": "/r/episodes/3c0f3763-a825-456a-87c3-2e1c5a55cc25/stream.mp3",
       "upstream": "https://stream.redcircle.com/episodes/3c0f3763-a825-456a-87c3-2e1c5a55cc25/stream.mp3",
-      "user-agent": "Spotify/1.0",
       "x-forwarded-proto": "https",
       "x-real-ip": "2003:ee:8f16:a700:1f5:8c40:3502:a432"
   },

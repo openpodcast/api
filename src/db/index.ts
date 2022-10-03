@@ -21,7 +21,8 @@ class MySQLEvents implements EventRepository {
   async storeEvent (accountId: number, event: Event): Promise<any> {
     const connection = await this.connection
     console.log(accountId, JSON.stringify(event))
-    return await connection.query('INSERT INTO events (account_id, ev_raw) VALUES (?,?)', [accountId.toString(), JSON.stringify(event)])
+    // return await connection.query('INSERT INTO events (account_id, ev_raw) VALUES (?,?)', [accountId.toString(), JSON.stringify(event)])
+    return await connection.query('SELECT 1')
   }
 }
 

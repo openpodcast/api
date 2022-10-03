@@ -11,6 +11,13 @@ describe('check API', () => {
     const response = await request(baseURL)
       .post('/events')
       .set({ Authorization: 'Bearer cn389ncoiwuencr', Accept: 'application/json' })
+      .send({ 'some data': 'anything' })
     expect(response.statusCode).toBe(200)
+  })
+  it('should return status 400 as no payload specified', async () => {
+    const response = await request(baseURL)
+      .post('/events')
+      .set({ Authorization: 'Bearer cn389ncoiwuencr', Accept: 'application/json' })
+    expect(response.statusCode).toBe(400)
   })
 })
