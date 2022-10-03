@@ -2,9 +2,9 @@ import dotenv from 'dotenv'
 import express, { Express, Request, Response, RequestHandler } from 'express'
 import bodyParser from 'body-parser'
 import { EventsApi, ConnectorApi } from './api'
-import { MySQLEvents } from './db'
+import { MySQLEvents } from './db/MySQLEvents'
 import { authMiddleware } from './auth'
-import { PayloadError } from './types/api'
+import { HttpError, PayloadError } from './types/api'
 
 dotenv.config()
 const dbEvents = new MySQLEvents(process.env.DB_CONNECTION_STRING)
@@ -29,27 +29,44 @@ app.use(function (req: Request, res: Response, next: Function) {
   return next()
 })
 
-app.post('/events', (async (req: Request, res: Response) => {
-  await eventsApi.handleApiPost(res.locals.user.accountId, req.body)
-  res.send('Data stored. Thx')
+// endpoint for events coming from the proxy
+app.post('/events', (async (req: Request, res: Response, next: Function) => {
+  // express can't directly catch errors in await calls, so we have re-throw it
+  try {
+    await eventsApi.handleApiPost(res.locals.user.accountId, req.body)
+    res.send('Data stored. Thx')
+  } catch (err) {
+    next(err)
+  }
 }) as RequestHandler)
 
-app.post('/connector', (async (req: Request, res: Response) => {
-  await connectorApi.handleApiPost(res.locals.user.accountId, req.body)
-  res.send('Data stored. Thx')
+// endpoint for the connectors importing data from spotify and apple
+app.post('/connector', (async (req: Request, res: Response, next: Function) => {
+  try {
+    await connectorApi.handleApiPost(res.locals.user.accountId, req.body)
+    res.send('Data stored. Thx')
+  } catch (err) {
+    next(err)
+  }
 }) as RequestHandler)
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: Function) {
-  const err = new Error('File Not Found')
+  const err = new HttpError('File Not Found')
   err.status = 404
   next(err)
 })
 
 // error handler
-// define as the last app.use callback
 app.use(function (err: Error, req: Request, res: Response, next: Function) {
-  res.status(err.status || 500)
+  let httpCode: number = 500
+  if (err instanceof HttpError) {
+    httpCode = err.status
+  } else {
+    // if it is not a known http error, print it for debugging purposes
+    console.log(err)
+  }
+  res.status(httpCode)
   res.send(err.message)
 })
 

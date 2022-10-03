@@ -1,22 +1,21 @@
-import { PayloadError } from '../types/api'
+import { MySQLEvents } from '../db/MySQLEvents'
+import { JsonPayload, PayloadError } from '../types/api'
+import { getConnectorHandler } from './connectors'
 
 class ConnectorApi {
-  connectorRepository: ConnectorRepository
-
-  async handleApiPost (accountId: number, payload: JsonPayload): Promise<any> {
-    if (!payload.connector) {
-      throw new PayloadError('No connector specified')
+  async handleApiPost (accountId: number, payload: JsonPayload): Promise<void> | never {
+    if (payload.provider === undefined) {
+      throw new PayloadError('No provider specified')
     }
-    const connector = getConnectorHandler(payload.connector)
-
-    return true
+    const connectorHandler = getConnectorHandler(payload.provider)
+    if (connectorHandler === null) {
+      throw new PayloadError('No valid provider specified')
+    }
+    return await connectorHandler.handleRequest(accountId, payload)
   }
 
-  constructor (repository: ConnectorRepository | null) {
-    if (repository == null) {
-      throw new Error('given ConnectorRepository is invalid')
-    }
-    this.connectorRepository = repository
+  constructor (db: MySQLEvents) {
+    // TODO: use DB
   }
 }
 
