@@ -1,23 +1,23 @@
-import { ForwarderPayload, Event } from '../types/api'
+import { JsonPayload, Event } from '../types/api'
 import { EventRepository } from '../types/db'
 
 class EventsApi {
-  dbEvents: EventRepository
+  eventRepository: EventRepository
 
-  getEventFromRawBodyPayload (payload: ForwarderPayload): Event | never {
+  getEventFromRawBodyPayload (payload: JsonPayload): Event | never {
     return payload
   }
 
-  async handleApiPost (accountId: number, payload: ForwarderPayload): Promise<any> {
+  async handleApiPost (accountId: number, payload: JsonPayload): Promise<any> {
     const cleanedPayload = this.getEventFromRawBodyPayload(payload)
-    return await this.dbEvents.storeEvent(accountId, cleanedPayload)
+    return await this.eventRepository.storeEvent(accountId, cleanedPayload)
   }
 
-  constructor (db: EventRepository | null) {
-    if (db == null) {
+  constructor (repository: EventRepository | null) {
+    if (repository == null) {
       throw new Error('given EventRepository is invalid')
     }
-    this.dbEvents = db
+    this.eventRepository = repository
   }
 }
 

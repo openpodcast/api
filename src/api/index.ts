@@ -1,3 +1,4 @@
+import { ConnectorApi } from './ConnectorApi'
 import { EventsApi } from './EventsApi'
 
-export { EventsApi }
+export { EventsApi, ConnectorApi }

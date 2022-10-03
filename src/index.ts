@@ -1,13 +1,15 @@
 import dotenv from 'dotenv'
 import express, { Express, Request, Response, RequestHandler } from 'express'
 import bodyParser from 'body-parser'
-import { EventsApi } from './api'
+import { EventsApi, ConnectorApi } from './api'
 import { MySQLEvents } from './db'
 import { authMiddleware } from './auth'
+import { PayloadError } from './types/api'
 
 dotenv.config()
 const dbEvents = new MySQLEvents(process.env.DB_CONNECTION_STRING)
-const api = new EventsApi(dbEvents)
+const eventsApi = new EventsApi(dbEvents)
+const connectorApi = new ConnectorApi(dbEvents)
 
 const app: Express = express()
 const port = 8080
@@ -18,11 +20,22 @@ app.use(bodyParser.json())
 // throw exception if not authorized
 app.use(authMiddleware)
 
-app.post('/events', (async (req: Request, res: Response) => {
+// throw error if no payload submitted
+app.use(function (req: Request, res: Response, next: Function) {
   if (Object.keys(req.body).length === 0) {
-    res.status(400).send('Request format invalid')
+    const err = new PayloadError('Request format invalid')
+    return next(err)
   }
-  await api.handleApiPost(res.locals.user.accountId, req.body)
+  return next()
+})
+
+app.post('/events', (async (req: Request, res: Response) => {
+  await eventsApi.handleApiPost(res.locals.user.accountId, req.body)
+  res.send('Data stored. Thx')
+}) as RequestHandler)
+
+app.post('/connector', (async (req: Request, res: Response) => {
+  await connectorApi.handleApiPost(res.locals.user.accountId, req.body)
   res.send('Data stored. Thx')
 }) as RequestHandler)
 

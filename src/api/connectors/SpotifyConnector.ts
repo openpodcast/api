@@ -1,1 +1,10 @@
-// parse spotify payload and convert it to internal representation to store it finally in the DB
+import { ConnectorHandler } from '.'
+import { JsonPayload } from '../../types/api'
+
+class SpotifyConnector implements ConnectorHandler {
+  async handleRequest (accountId: number, payload: JsonPayload): Promise<boolean> | never {
+    return await new Promise()
+  }
+}
+
+export { SpotifyConnector }
