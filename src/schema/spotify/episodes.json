@@ -1,0 +1,141 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Generated schema for Episodes",
+    "type": "object",
+    "properties": {
+        "episodes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    },
+                    "releaseDate": {
+                        "type": "string"
+                    },
+                    "artworkUrl": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "explict": {
+                        "type": "boolean"
+                    },
+                    "language": {
+                        "type": "string"
+                    },
+                    "duration": {
+                        "type": "number"
+                    },
+                    "starts": {
+                        "type": "number"
+                    },
+                    "streams": {
+                        "type": "number"
+                    },
+                    "listeners": {
+                        "type": "number"
+                    },
+                    "sparkLine": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "hasVideo": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "name",
+                    "id",
+                    "url",
+                    "releaseDate",
+                    "artworkUrl",
+                    "description",
+                    "explict",
+                    "language",
+                    "duration",
+                    "starts",
+                    "streams",
+                    "listeners",
+                    "sparkLine",
+                    "hasVideo"
+                ]
+            }
+        },
+        "totalPages": {
+            "type": "number"
+        },
+        "currentPage": {
+            "type": "number"
+        },
+        "totalEpisodes": {
+            "type": "number"
+        },
+        "metadata": {
+            "type": "object",
+            "properties": {
+                "network": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "doingBusinessAs": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "name",
+                        "doingBusinessAs"
+                    ]
+                },
+                "show": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id",
+                        "name"
+                    ]
+                },
+                "startDate": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "network",
+                "show",
+                "startDate",
+                "endDate"
+            ]
+        }
+    },
+    "required": [
+        "episodes",
+        "totalPages",
+        "currentPage",
+        "totalEpisodes",
+        "metadata"
+    ]
+}
