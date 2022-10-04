@@ -5,7 +5,7 @@ import mysql from 'mysql2/promise'
 class SpotifyConnector implements ConnectorHandler {
     async handleDetailedStreams(
         accountId: number,
-        payload: { detailedStreams: Object[] } | undefined
+        payload: any
     ): Promise<void> | never {
         // just a quick and dirty approach to implement one api
 
