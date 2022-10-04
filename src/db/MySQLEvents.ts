@@ -19,9 +19,10 @@ class MySQLEvents {
 
     async storeEvent(accountId: number, event: Event): Promise<any> {
         const connection = await this.connection
-        // TODO: we need a dev/stage db, otherwise we will always store data in the prod db while testing
-        // return await connection.query('INSERT INTO events (account_id, ev_raw) VALUES (?,?)', [accountId.toString(), JSON.stringify(event)])
-        return await connection.query('SELECT 1')
+        return await connection.query(
+            'INSERT INTO events (account_id, ev_raw) VALUES (?,?)',
+            [accountId.toString(), JSON.stringify(event)]
+        )
     }
 }
 
