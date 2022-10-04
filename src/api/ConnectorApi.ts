@@ -3,6 +3,9 @@ import { JsonPayload, PayloadError } from '../types/api'
 import { getConnectorHandler } from './connectors'
 
 class ConnectorApi {
+    constructor(db: MySQLEvents) {
+        // TODO: use DB
+    }
     async handleApiPost(
         accountId: number,
         payload: JsonPayload
@@ -15,10 +18,6 @@ class ConnectorApi {
             throw new PayloadError('No valid provider specified')
         }
         return await connectorHandler.handleRequest(accountId, payload)
-    }
-
-    constructor(db: MySQLEvents) {
-        // TODO: use DB
     }
 }
 
