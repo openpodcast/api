@@ -1,0 +1,60 @@
+{
+  "$id": "http://openpodcast.dev/schema/connector.schema.json",
+  "title": "connector api",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    },
+    "retrieved": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "show": {
+          "type": "string"
+        },
+        "episode": {
+          "type":  "string",
+          "nullable": true
+        },
+        "endpoint": {
+          "type": "string"
+        }        
+      },
+      "required": [
+        "show",
+        "endpoint"
+      ]
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string",
+          "format": "date"
+        },
+        "end": {
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    }
+  },
+  "required": [
+    "provider",
+    "version",
+    "retrieved",
+    "meta",
+    "range"
+  ]
+}

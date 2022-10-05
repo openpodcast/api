@@ -1,12 +1,14 @@
 {
   "provider": "spotify",
+  "version": 1,
+  "retrieved":"2022-07-21T09:35:31.820Z",
   "meta": {
     "show": "0tJRC0UsObPCWLmmzmOkIs",
-    "range": {
-      "start": "2022-09-26",
-      "end": "2022-10-02"
-    },
     "endpoint": "detailedStreams"
+  },
+  "range": {
+    "start": "2022-09-26",
+    "end": "2022-10-02"
   },
   "data": {
     "detailedStreams": [

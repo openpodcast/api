@@ -1,13 +1,21 @@
 import { ConnectorHandler } from '.'
 import { JsonPayload, PayloadError } from '../../types/api'
 import mysql from 'mysql2/promise'
+import {
+    ConnectorPayload,
+    SpotifyDetailedStreamsPayload,
+} from '../../types/connector'
+import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
+import { validateAdditionalItems } from 'ajv/dist/vocabularies/applicator/additionalItems'
+import { validateJsonApiPayload } from '../JsonPayloadValidator'
 
 class SpotifyConnector implements ConnectorHandler {
     async handleDetailedStreams(
         accountId: number,
-        payload: any
+        payload: SpotifyDetailedStreamsPayload
     ): Promise<void> | never {
         // just a quick and dirty approach to implement one api
+        // TODO: move to SpotifyRepository
 
         if (
             payload === undefined ||
@@ -17,10 +25,10 @@ class SpotifyConnector implements ConnectorHandler {
             throw new PayloadError('no Detailed Stream data found')
         }
         const connection = await mysql.createConnection(
-            process.env.DB_CONNECTION_STRING
+            process.env.DB_CONNECTION_STRING as string
         )
         const insertStmt =
-            'INSERT INTO spotifyDetailedStreams (account_id, sps_date, sps_starts, sps_streams) VALUES (?,?,?,?)'
+            'REPLACE INTO spotifyDetailedStreams (account_id, sps_date, sps_starts, sps_streams) VALUES (?,?,?,?)'
 
         await Promise.all(
             payload.detailedStreams.map(
@@ -39,16 +47,15 @@ class SpotifyConnector implements ConnectorHandler {
 
     async handleRequest(
         accountId: number,
-        payload: JsonPayload
+        payload: ConnectorPayload
     ): Promise<void> | never {
-        if (payload.meta === undefined || payload.meta.endpoint === undefined) {
-            throw new PayloadError('Endpoint in meta is not defined')
-        }
-        if (payload.data === undefined) {
-            throw new PayloadError('No valid data section found')
-        }
         if (payload.meta.endpoint === 'detailedStreams') {
-            return await this.handleDetailedStreams(accountId, payload.data)
+            //validates the payload and throws an error if it is not valid
+            validateJsonApiPayload(detailedStreamsSchema, payload.data)
+            return await this.handleDetailedStreams(
+                accountId,
+                payload.data as SpotifyDetailedStreamsPayload
+            )
         } else {
             throw new PayloadError('Unknown endpoint in meta')
         }

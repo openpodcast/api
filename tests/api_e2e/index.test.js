@@ -33,7 +33,6 @@ describe('check connector API', () => {
             .post('/connector')
             .set(auth)
             .send(spotifyPayload)
-        console.log(response)
         expect(response.statusCode).toBe(200)
     })
     it('should return status 400 when no proper payload is sent', async () => {

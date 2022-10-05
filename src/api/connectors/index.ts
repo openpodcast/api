@@ -1,10 +1,11 @@
 import { JsonPayload } from '../../types/api'
+import { ConnectorPayload } from '../../types/connector'
 import { SpotifyConnector } from './SpotifyConnector'
 
 interface ConnectorHandler {
     handleRequest: (
         accountId: number,
-        payload: JsonPayload
+        payload: ConnectorPayload
     ) => Promise<void> | never
 }
 

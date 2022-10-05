@@ -1,8 +1,8 @@
-import { MySQLEvents } from '../db/MySQLEvents'
+import { EventRepository } from '../db/EventRepository'
 import { JsonPayload, Event } from '../types/api'
 
 class EventsApi {
-    eventRepository: MySQLEvents
+    eventRepository: EventRepository
 
     getEventFromRawBodyPayload(payload: JsonPayload): Event | never {
         return payload
@@ -13,7 +13,7 @@ class EventsApi {
         return await this.eventRepository.storeEvent(accountId, cleanedPayload)
     }
 
-    constructor(repository: MySQLEvents | null) {
+    constructor(repository: EventRepository | null) {
         if (repository == null) {
             throw new Error('given EventRepository is invalid')
         }

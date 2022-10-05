@@ -1,14 +1,14 @@
 import mysql from 'mysql2/promise'
 import { Event } from '../types/api'
 
-class MySQLEvents {
+class EventRepository {
     connection
 
     constructor(connectionString: string | undefined) {
         if (connectionString === undefined) {
             throw new Error('connection string to connect to DB is undefined')
         }
-        // TODO: maybe use pooling for more throughput
+        // TODO: change to pooling and setup pool outside
         this.connection = mysql.createConnection(connectionString)
     }
 
@@ -26,4 +26,4 @@ class MySQLEvents {
     }
 }
 
-export { MySQLEvents }
+export { EventRepository }

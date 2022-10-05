@@ -2,12 +2,12 @@ import dotenv from 'dotenv'
 import express, { Express, Request, Response, RequestHandler } from 'express'
 import bodyParser from 'body-parser'
 import { EventsApi, ConnectorApi } from './api'
-import { MySQLEvents } from './db/MySQLEvents'
+import { EventRepository } from './db/EventRepository'
 import { authMiddleware } from './auth'
 import { HttpError, PayloadError } from './types/api'
 
 dotenv.config()
-const dbEvents = new MySQLEvents(process.env.DB_CONNECTION_STRING)
+const dbEvents = new EventRepository(process.env.DB_CONNECTION_STRING)
 const eventsApi = new EventsApi(dbEvents)
 const connectorApi = new ConnectorApi(dbEvents)
 
