@@ -43,7 +43,9 @@ class SpotifyConnector implements ConnectorHandler {
                 payload.data as SpotifyListenersPayload
             )
         } else {
-            throw new PayloadError('Unknown endpoint in meta')
+            throw new PayloadError(
+                `Unknown endpoint in meta: ${payload.meta.endpoint}`
+            )
         }
     }
 }
