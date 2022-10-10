@@ -11,7 +11,7 @@ This thin API layer is used to store `POST`ed payload to the main storage system
 
 ### Connector Format
 
-```(json)
+```json
 {
   "provider": "Spotify",
   "version": 1,
