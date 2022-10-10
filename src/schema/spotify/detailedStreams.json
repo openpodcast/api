@@ -1,0 +1,33 @@
+{
+  "$id": "http://openpodcast.dev/schema/spotify/detailedStreams.schema.json",
+  "title": "Detailed streams endpoint at spotify",
+  "type": "object",
+  "properties": {
+    "detailedStreams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "starts": {
+            "type": "number"
+          },
+          "streams": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "date",
+          "starts",
+          "streams"
+        ]
+      }
+    }
+  },
+  "required": [
+    "detailedStreams"
+  ]
+}
