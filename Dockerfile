@@ -1,5 +1,8 @@
 FROM node:16
 
+# Install nodemon
+RUN npm install -g nodemon
+
 # create root application folder
 WORKDIR /app
 
@@ -14,4 +17,4 @@ RUN yarn build
 
 EXPOSE 7777
 
-CMD [ "node", "./dist/index.js" ]
+CMD [ "nodemon", "./dist/index.js" ]

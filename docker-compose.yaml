@@ -3,7 +3,7 @@ services:
   api:
     image: openpodcast-api
     build: ./
-    environment:
-      DB_CONNECTION_STRING: invalid
+    env_file:
+      - .env
     ports:
       - "8080:8080"      
