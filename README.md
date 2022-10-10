@@ -19,11 +19,11 @@ This thin API layer is used to store `POST`ed payload to the main storage system
     "meta": {
         "show": "<spotify_show_id>",
         "episode": null || "<episode_id>",
-        "range": {
-            "start": "<date>", //2022-01-01
-            "end": "<date>"
-        },
         "endpoint": "<endpoint_name>", // e.g. aggregate
+    },
+    "range": {
+        "start": "<date>", //2022-01-01
+        "end": "<date>"
     },
     "data": <raw_json>
 }
