@@ -1,0 +1,29 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/listeners.schema.json",
+    "title": "Spotify listener data",
+    "type": "object",
+    "properties": {
+        "counts": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "count": {
+                        "type": "number"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    }
+                },
+                "required": [
+                    "count",
+                    "date"
+                ]
+            }
+        }
+    },
+    "required": [
+        "counts"
+    ]
+}

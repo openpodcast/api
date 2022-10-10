@@ -1,12 +1,19 @@
-import { EventRepository } from '../db/EventRepository'
 import { PayloadError } from '../types/api'
-import { getConnectorHandler } from './connectors'
+import { ConnectorHandler } from './connectors'
 import connectorSchema from '../schema/connector.json'
 import { ConnectorPayload } from '../types/connector'
 import { validateJsonApiPayload } from './JsonPayloadValidator'
 
 class ConnectorApi {
-    constructor(db: EventRepository) {}
+    connectorHandlerMap: { [x: string]: ConnectorHandler }
+
+    constructor(connectorHandlerMap: { [x: string]: ConnectorHandler }) {
+        this.connectorHandlerMap = connectorHandlerMap
+    }
+
+    getConnectorHandler(provider: string): ConnectorHandler | null {
+        return this.connectorHandlerMap[provider] ?? null
+    }
 
     async handleApiPost(
         accountId: number,
@@ -20,7 +27,9 @@ class ConnectorApi {
         const connectorPayload = payload as ConnectorPayload
 
         //get responsible connector handler such as Spotify or Apple
-        const connectorHandler = getConnectorHandler(connectorPayload.provider)
+        const connectorHandler = this.getConnectorHandler(
+            connectorPayload.provider
+        )
         if (connectorHandler === null) {
             throw new PayloadError('No valid provider specified')
         }

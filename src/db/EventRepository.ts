@@ -1,25 +1,15 @@
-import mysql from 'mysql2/promise'
 import { Event } from '../types/api'
+import { Pool } from 'mysql2/promise'
 
 class EventRepository {
-    connection
+    pool
 
-    constructor(connectionString: string | undefined) {
-        if (connectionString === undefined) {
-            throw new Error('connection string to connect to DB is undefined')
-        }
-        // TODO: change to pooling and setup pool outside
-        this.connection = mysql.createConnection(connectionString)
-    }
-
-    async close(): Promise<any> {
-        const connection = await this.connection
-        return await connection.end()
+    constructor(pool: Pool) {
+        this.pool = pool
     }
 
     async storeEvent(accountId: number, event: Event): Promise<any> {
-        const connection = await this.connection
-        return await connection.query(
+        return await this.pool.query(
             'INSERT INTO events (account_id, ev_raw) VALUES (?,?)',
             [accountId.toString(), JSON.stringify(event)]
         )

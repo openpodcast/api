@@ -2,7 +2,11 @@ import { EventRepository } from '../db/EventRepository'
 import { JsonPayload, Event } from '../types/api'
 
 class EventsApi {
-    eventRepository: EventRepository
+    repo: EventRepository
+
+    constructor(repository: EventRepository) {
+        this.repo = repository
+    }
 
     getEventFromRawBodyPayload(payload: JsonPayload): Event | never {
         return payload
@@ -10,14 +14,7 @@ class EventsApi {
 
     async handleApiPost(accountId: number, payload: JsonPayload): Promise<any> {
         const cleanedPayload = this.getEventFromRawBodyPayload(payload)
-        return await this.eventRepository.storeEvent(accountId, cleanedPayload)
-    }
-
-    constructor(repository: EventRepository | null) {
-        if (repository == null) {
-            throw new Error('given EventRepository is invalid')
-        }
-        this.eventRepository = repository
+        return await this.repo.storeEvent(accountId, cleanedPayload)
     }
 }
 

@@ -3,13 +3,29 @@ import express, { Express, Request, Response, RequestHandler } from 'express'
 import bodyParser from 'body-parser'
 import { EventsApi, ConnectorApi } from './api'
 import { EventRepository } from './db/EventRepository'
+import { SpotifyRepository } from './db/SpotifyRepository'
 import { authMiddleware } from './auth'
 import { HttpError, PayloadError } from './types/api'
+import mysql from 'mysql2/promise'
+import { SpotifyConnector } from './api/connectors/SpotifyConnector'
 
 dotenv.config()
-const dbEvents = new EventRepository(process.env.DB_CONNECTION_STRING)
-const eventsApi = new EventsApi(dbEvents)
-const connectorApi = new ConnectorApi(dbEvents)
+
+const pool = mysql.createPool({
+    uri: process.env.DB_CONNECTION_STRING,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+})
+
+const eventRepo = new EventRepository(pool)
+const eventsApi = new EventsApi(eventRepo)
+
+const spotifyRepo = new SpotifyRepository(pool)
+const spotifyConnector = new SpotifyConnector(spotifyRepo)
+
+// parameter map will consist of spotify and apple in the future
+const connectorApi = new ConnectorApi({ spotify: spotifyConnector })
 
 const app: Express = express()
 const port = 8080

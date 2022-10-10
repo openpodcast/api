@@ -7,6 +7,7 @@ CREATE TABLE events (
   PRIMARY KEY (account_id, ev_timestamp)
 );
 
+DROP TABLE IF EXISTS spotifyDetailedStreams;
 CREATE TABLE spotifyDetailedStreams (
   account_id INTEGER NOT NULL,
   sps_date DATE NOT NULL,
@@ -15,3 +16,11 @@ CREATE TABLE spotifyDetailedStreams (
   PRIMARY KEY (account_id, sps_date)
 );
 
+DROP TABLE IF EXISTS spotifyListeners;
+CREATE TABLE spotifyListeners (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  spl_date DATE NOT NULL,
+  spl_count INTEGER NOT NULL,
+  PRIMARY KEY (account_id, episode_id, spl_date)
+);

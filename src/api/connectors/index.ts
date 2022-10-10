@@ -1,6 +1,4 @@
-import { JsonPayload } from '../../types/api'
 import { ConnectorPayload } from '../../types/connector'
-import { SpotifyConnector } from './SpotifyConnector'
 
 interface ConnectorHandler {
     handleRequest: (
@@ -9,14 +7,4 @@ interface ConnectorHandler {
     ) => Promise<void> | never
 }
 
-const map: { [x: string]: ConnectorHandler } = {
-    spotify: new SpotifyConnector(),
-}
-
-const getConnectorHandler = function (
-    connector: string
-): ConnectorHandler | null {
-    return map[connector] ?? null
-}
-
-export { getConnectorHandler, ConnectorHandler }
+export { ConnectorHandler }
