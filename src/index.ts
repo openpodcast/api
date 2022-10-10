@@ -77,6 +77,7 @@ app.use(function (req: Request, res: Response, next: Function) {
 app.use(function (err: Error, req: Request, res: Response, next: Function) {
     let httpCode: number = 500
     if (err instanceof HttpError) {
+        console.log(err)
         httpCode = err.status
     } else {
         // if it is not a known http error, print it for debugging purposes

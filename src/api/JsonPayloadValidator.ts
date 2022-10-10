@@ -13,7 +13,6 @@ const validateJsonApiPayload = function (schema: any, json: any) {
     try {
         validateJson(schema, json)
     } catch (err) {
-        console.log('JSON validation error', err)
         throw new PayloadError(getJsonValidationErrorSummary(err))
     }
 }
