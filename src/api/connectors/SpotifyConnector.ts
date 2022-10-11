@@ -4,9 +4,11 @@ import {
     ConnectorPayload,
     SpotifyDetailedStreamsPayload,
     SpotifyListenersPayload,
+    SpotifyAggregatePayload,
 } from '../../types/connector'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'
+import aggregateSchema from '../../schema/spotify/aggregate.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
 
@@ -41,6 +43,21 @@ class SpotifyConnector implements ConnectorHandler {
                 accountId,
                 payload.meta.episode,
                 payload.data as SpotifyListenersPayload
+            )
+        } else if (payload.meta.endpoint === 'aggregate') {
+            //validates the payload and throws an error if it is not valid
+            validateJsonApiPayload(aggregateSchema, payload.data)
+
+            // check if episode id exists in metadata
+            if (payload.meta.episode === undefined) {
+                throw new PayloadError('missing episode id')
+            }
+
+            return await this.repo.storeAggregate(
+                accountId,
+                payload.meta.episode,
+                payload.range.start,
+                payload.data as SpotifyAggregatePayload
             )
         } else {
             throw new PayloadError(

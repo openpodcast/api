@@ -1,0 +1,309 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/detailedStreams.schema.json",
+    "title": "Aggregated Spotify Gender Counts",
+    "type": "object",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "ageFacetedCounts": {
+            "type": "object",
+            "properties": {
+                "28-34": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                },
+                "0-17": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                },
+                "45-59": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                },
+                "60-150": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                },
+                "23-27": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                },
+                "18-22": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                },
+                "35-44": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                },
+                "unknown": {
+                    "type": "object",
+                    "properties": {
+                        "counts": {
+                            "type": "object",
+                            "properties": {
+                                "NOT_SPECIFIED": {
+                                    "type": "number"
+                                },
+                                "FEMALE": {
+                                    "type": "number"
+                                },
+                                "MALE": {
+                                    "type": "number"
+                                },
+                                "NON_BINARY": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "NOT_SPECIFIED",
+                                "FEMALE",
+                                "MALE",
+                                "NON_BINARY"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "counts"
+                    ]
+                }
+            },
+            "required": [
+                "28-34",
+                "0-17",
+                "45-59",
+                "60-150",
+                "23-27",
+                "18-22",
+                "35-44",
+                "unknown"
+            ]
+        },
+        "genderedCounts": {
+            "type": "object",
+            "properties": {
+                "counts": {
+                    "type": "object",
+                    "properties": {
+                        "NOT_SPECIFIED": {
+                            "type": "number"
+                        },
+                        "FEMALE": {
+                            "type": "number"
+                        },
+                        "MALE": {
+                            "type": "number"
+                        },
+                        "NON_BINARY": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "NOT_SPECIFIED",
+                        "FEMALE",
+                        "MALE",
+                        "NON_BINARY"
+                    ]
+                }
+            },
+            "required": [
+                "counts"
+            ]
+        }
+    },
+    "required": [
+        "count",
+        "ageFacetedCounts",
+        "genderedCounts"
+    ]
+}
