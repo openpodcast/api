@@ -43,3 +43,21 @@ CREATE TABLE spotifyEpisodePerformance (
   spp_samples JSON NOT NULL,
   PRIMARY KEY (account_id, episode_id)
 );
+
+DROP TABLE IF EXISTS spotifyEpisodeMetadata;
+CREATE TABLE spotifyEpisodeMetadata (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  ep_name VARCHAR(2048) NOT NULL,
+  ep_url VARCHAR(2048),
+  ep_artwork_url VARCHAR(2048),
+  ep_release_date DATE,
+  ep_description TEXT,
+  ep_explicit BOOLEAN,
+  ep_duration INTEGER,
+  ep_language VARCHAR(100),
+  -- no clue what sparkLine is (was always empty)
+  ep_spark_line JSON,
+  ep_has_video BOOLEAN,
+  PRIMARY KEY (account_id, episode_id)
+);
