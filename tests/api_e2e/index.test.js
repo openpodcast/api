@@ -3,6 +3,7 @@ const baseURL = 'http://localhost:8080'
 const spotifyDetailedStreamsPayload = require('../../fixtures/spotifyDetailedStreams.json')
 const spotifyListenersPayload = require('../../fixtures/spotifyListeners.json')
 const spotifyPerformancePayload = require('../../fixtures/spotifyPerformance.json')
+const spotifyEpisodesPayload = require('../../fixtures/spotifyEpisodesMetadata.json')
 
 const auth = {
     Authorization: 'Bearer cn389ncoiwuencr',
@@ -66,5 +67,15 @@ describe('check Connector API error cases', () => {
             .set(auth)
             .send(someRandomContent)
         expect(response.statusCode).toBe(400)
+    })
+})
+
+describe('check Connector API with spotifyEpisodesPayload', () => {
+    it('should return status 200 when sending proper spotify payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyEpisodesPayload)
+        expect(response.statusCode).toBe(200)
     })
 })

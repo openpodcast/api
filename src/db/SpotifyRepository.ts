@@ -1,15 +1,58 @@
 import { Pool } from 'mysql2/promise'
 import {
     SpotifyDetailedStreamsPayload,
+    SpotifyEpisodeMetadata,
+    SpotifyEpisodesMetadataPayload,
     SpotifyListenersPayload,
     SpotifyPerformancePayload,
 } from '../types/connector'
 
 class SpotifyRepository {
-    pool: Pool
+    pool
 
     constructor(pool: Pool) {
         this.pool = pool
+    }
+
+    // store metadata of multiple episodes
+    async storeEpisodesMetadata(
+        accountId: number,
+        payload: SpotifyEpisodesMetadataPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO spotifyEpisodeMetadata (
+            account_id,
+            episode_id,
+            ep_name,
+            ep_url,
+            ep_artwor_url,
+            ep_release_date,
+            ep_description,
+            ep_explicit,
+            ep_duration,
+            ep_language,
+            ep_spark_line,
+            ep_has_video) VALUES
+            (?,?,?,?,?,?,?,?,?,?,?,?)`
+
+        return await Promise.all(
+            payload.episodes.map(
+                async (entry: SpotifyEpisodeMetadata): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        entry.id,
+                        entry.name,
+                        entry.url,
+                        entry.artworkUrl,
+                        entry.releaseDate,
+                        entry.description,
+                        entry.explict,
+                        entry.duration,
+                        entry.language,
+                        JSON.stringify(entry.sparkLine),
+                        entry.hasVideo,
+                    ])
+            )
+        )
     }
 
     // store performance data of one single episode
