@@ -5,10 +5,12 @@ import {
     SpotifyDetailedStreamsPayload,
     SpotifyListenersPayload,
     SpotifyAggregatePayload,
+    SpotifyPerformancePayload,
 } from '../../types/connector'
+import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'
-import aggregateSchema from '../../schema/spotify/aggregate.json'
+import performanceSchema from '../../schema/spotify/performance.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
 
@@ -29,6 +31,19 @@ class SpotifyConnector implements ConnectorHandler {
             return await this.repo.storeDetailedStreams(
                 accountId,
                 payload.data as SpotifyDetailedStreamsPayload
+            )
+            // contains performance data of one single episode
+        } else if (payload.meta.endpoint === 'performance') {
+            validateJsonApiPayload(performanceSchema, payload.data)
+
+            if (payload.meta.episode === undefined) {
+                throw new PayloadError('missing episode id')
+            }
+
+            return await this.repo.storeEpisodePerformance(
+                accountId,
+                payload.meta.episode,
+                payload.data as SpotifyPerformancePayload
             )
         } else if (payload.meta.endpoint === 'listeners') {
             //validates the payload and throws an error if it is not valid
