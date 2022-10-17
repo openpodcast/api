@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 const getAccountId = function (authToken: String): Number {
     // dirty hack to integrate new podcast engineering kiosk
     // should be kind of a database later
-    if ((authToken = 'engkiosk-81ztQL36e')) {
+    if (authToken === 'engkiosk-81ztQL36e') {
         return 2
     }
     return 1
