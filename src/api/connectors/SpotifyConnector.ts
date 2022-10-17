@@ -38,11 +38,11 @@ class SpotifyConnector implements ConnectorHandler {
                 throw new PayloadError('missing episode id')
             }
 
-            return await this.repo.storeEpisodePerformance({
+            return await this.repo.storeEpisodePerformance(
                 accountId,
-                episodeId: payload.meta.episode,
-                data: payload.data as SpotifyPerformancePayload,
-            })
+                payload.meta.episode,
+                payload.data as SpotifyPerformancePayload
+            )
         } else if (payload.meta.endpoint === 'listeners') {
             //validates the payload and throws an error if it is not valid
             validateJsonApiPayload(listenersSchema, payload.data)
