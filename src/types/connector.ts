@@ -52,4 +52,9 @@ export interface SpotifyAggregatePayload {
             }
         }
     }
+    genderedCounts: {
+        counts: {
+            [name: string]: number
+        }
+    }
 }

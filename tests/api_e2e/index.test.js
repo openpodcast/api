@@ -3,6 +3,7 @@ const baseURL = 'http://localhost:8080'
 const spotifyDetailedStreamsPayload = require('../../fixtures/spotifyDetailedStreams.json')
 const spotifyListenersPayload = require('../../fixtures/spotifyListeners.json')
 const spotifyPerformancePayload = require('../../fixtures/spotifyPerformance.json')
+const spotifyAggregatePayload = require('../../fixtures/spotifyAggregate.json')
 
 const auth = {
     Authorization: 'Bearer cn389ncoiwuencr',
