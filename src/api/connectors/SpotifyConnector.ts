@@ -30,7 +30,7 @@ class SpotifyConnector implements ConnectorHandler {
                 accountId,
                 payload.data as SpotifyDetailedStreamsPayload
             )
-            // contains perofmance data of one single episode
+            // contains performance data of one single episode
         } else if (payload.meta.endpoint === 'performance') {
             validateJsonApiPayload(performanceSchema, payload.data)
 
