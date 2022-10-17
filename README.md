@@ -28,3 +28,7 @@ This thin API layer is used to store `POST`ed payload to the main storage system
     "data": <raw_json>
 }
 ```
+
+### Tools to create (json) schemata
+
+- https://transform.tools/json-to-json-schema

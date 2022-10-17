@@ -24,3 +24,22 @@ CREATE TABLE spotifyListeners (
   spl_count INTEGER NOT NULL,
   PRIMARY KEY (account_id, episode_id, spl_date)
 );
+
+DROP TABLE IF EXISTS spotifyEpisodePerformance;
+CREATE TABLE spotifyEpisodePerformance (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  spp_median_percentage TINYINT unsigned NOT NULL DEFAULT '0',
+  spp_median_seconds MEDIUMINT unsigned NOT NULL DEFAULT '0',
+  spp_percentile_25 TINYINT unsigned NOT NULL DEFAULT '0',
+  spp_percentile_50 TINYINT unsigned NOT NULL DEFAULT '0',
+  spp_percentile_75 TINYINT unsigned NOT NULL DEFAULT '0',
+  spp_percentile_100 TINYINT unsigned NOT NULL DEFAULT '0',
+  spp_sample_rate MEDIUMINT unsigned NOT NULL DEFAULT '0',
+  spp_sample_max INTEGER unsigned NOT NULL DEFAULT '0',
+  spp_sample_seconds INTEGER unsigned NOT NULL DEFAULT '0',
+  -- detailed samples stored as json to reduce rows in DB
+  -- otherwise we would add e.g. 3000 rows for just one episode  
+  spp_samples JSON NOT NULL,
+  PRIMARY KEY (account_id, episode_id)
+);

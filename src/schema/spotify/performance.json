@@ -1,0 +1,68 @@
+{
+  "$id": "http://openpodcast.dev/schema/spotify/performance.schema.json",
+  "title": "Performance of one episode",
+  "type": "object",
+  "properties": {
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "sampleRate": {
+      "type": "number"
+    },
+    "max": {
+      "type": "number"
+    },
+    "seconds": {
+      "type": "number"
+    },
+    "percentiles": {
+      "type": "object",
+      "properties": {
+        "25": {
+          "type": "number"
+        },
+        "50": {
+          "type": "number"
+        },
+        "75": {
+          "type": "number"
+        },
+        "100": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "25",
+        "50",
+        "75",
+        "100"
+      ]
+    },
+    "medianCompletion": {
+      "type": "object",
+      "properties": {
+        "percentage": {
+          "type": "number"
+        },
+        "seconds": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "percentage",
+        "seconds"
+      ]
+    }
+  },
+  "required": [
+    "samples",
+    "sampleRate",
+    "max",
+    "seconds",
+    "percentiles",
+    "medianCompletion"
+  ]
+}
