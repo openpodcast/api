@@ -7,6 +7,10 @@
     "episode": "08VSwqmWlk8DgknnmwYxK0",
     "endpoint": "performance"
   },
+  "range": {
+    "start": "2022-10-03",
+    "end": "2022-10-04"
+  },  
   "data": {
     "samples": [
         1,

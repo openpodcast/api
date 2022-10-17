@@ -54,6 +54,7 @@
     "provider",
     "version",
     "retrieved",
-    "meta"
+    "meta",
+    "range"
   ]
 }
