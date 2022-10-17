@@ -35,5 +35,5 @@ CREATE TABLE spotifyAggregate (
   spa_gender_female INTEGER NOT NULL,
   spa_gender_male INTEGER NOT NULL,
   spa_gender_non_binary INTEGER NOT NULL,
-  PRIMARY KEY (account_id, episode_id, spl_date)
+  PRIMARY KEY (account_id, episode_id, spa_date)
 );

@@ -64,17 +64,17 @@ class SpotifyRepository {
 
         return await Promise.all(
             Object.keys(payload.ageFacetedCounts).map(
-                async (key: string): Promise<any> => {
-                    const entry = payload.ageFacetedCounts[key]
+                async (ageGroup: string): Promise<any> => {
+                    const entry = payload.ageFacetedCounts[ageGroup]
                     return await this.pool.execute(replaceStmt, [
                         accountId,
                         episodeId,
                         date,
-                        key,
-                        entry.counts['NOT_SPECIFIED'],
-                        entry.counts['FEMALE'],
-                        entry.counts['MALE'],
-                        entry.counts['NON_BINARY'],
+                        ageGroup,
+                        entry['counts']['NOT_SPECIFIED'],
+                        entry['counts']['FEMALE'],
+                        entry['counts']['MALE'],
+                        entry['counts']['NON_BINARY'],
                     ])
                 }
             )

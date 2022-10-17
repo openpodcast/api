@@ -29,9 +29,9 @@ export interface SpotifyListenersPayload {
 export interface SpotifyAggregatePayload {
     count: number
     ageFacetedCounts: {
-        [key: string]: {
+        [ageGroup: string]: {
             counts: {
-                [key: string]: number
+                [name: string]: number
             }
         }
     }
