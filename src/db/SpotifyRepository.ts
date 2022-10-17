@@ -24,7 +24,7 @@ class SpotifyRepository {
             episode_id,
             ep_name,
             ep_url,
-            ep_artwor_url,
+            ep_artwork_url,
             ep_release_date,
             ep_description,
             ep_explicit,

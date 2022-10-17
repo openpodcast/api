@@ -50,7 +50,7 @@ CREATE TABLE spotifyEpisodeMetadata (
   episode_id VARCHAR(128) NOT NULL,
   ep_name VARCHAR(2048) NOT NULL,
   ep_url VARCHAR(2048),
-  ep_artwor_url VARCHAR(2048),
+  ep_artwork_url VARCHAR(2048),
   ep_release_date DATE,
   ep_description TEXT,
   ep_explicit BOOLEAN,
