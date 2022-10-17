@@ -60,6 +60,16 @@ describe('check Connector API with spotifyPerformancePayload', () => {
     })
 })
 
+describe('check Connector API with spotifyAggregatePayload', () => {
+    it('should return status 200 when sending proper spotify payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyAggregatePayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
 describe('check Connector API error cases', () => {
     it('should return status 400 when no proper payload is sent', async () => {
         const response = await request(baseURL)
