@@ -1,6 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Generated schema for Episodes",
+    "$id": "http://openpodcast.dev/schema/spotify/episodes.schema.json",
+    "title": "metadata of episodes",
     "type": "object",
     "properties": {
         "episodes": {
@@ -18,7 +18,8 @@
                         "type": "string"
                     },
                     "releaseDate": {
-                        "type": "string"
+                        "type": "string",
+                        "format": "date"
                     },
                     "artworkUrl": {
                         "type": "string"
@@ -69,66 +70,6 @@
                     "hasVideo"
                 ]
             }
-        },
-        "totalPages": {
-            "type": "number"
-        },
-        "currentPage": {
-            "type": "number"
-        },
-        "totalEpisodes": {
-            "type": "number"
-        },
-        "metadata": {
-            "type": "object",
-            "properties": {
-                "network": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "name": {
-                            "type": "string"
-                        },
-                        "doingBusinessAs": {
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "id",
-                        "name",
-                        "doingBusinessAs"
-                    ]
-                },
-                "show": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string"
-                        },
-                        "name": {
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "id",
-                        "name"
-                    ]
-                },
-                "startDate": {
-                    "type": "string"
-                },
-                "endDate": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "network",
-                "show",
-                "startDate",
-                "endDate"
-            ]
         }
     },
     "required": [

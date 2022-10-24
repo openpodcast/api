@@ -3,6 +3,7 @@ import { PayloadError } from '../../types/api'
 import {
     ConnectorPayload,
     SpotifyDetailedStreamsPayload,
+    SpotifyEpisodesMetadataPayload,
     SpotifyListenersPayload,
     SpotifyAggregatePayload,
     SpotifyPerformancePayload,
@@ -11,6 +12,7 @@ import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'
 import performanceSchema from '../../schema/spotify/performance.json'
+import episodesMetadataSchema from '../../schema/spotify/episodesMetadata.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
 
@@ -32,8 +34,16 @@ class SpotifyConnector implements ConnectorHandler {
                 accountId,
                 payload.data as SpotifyDetailedStreamsPayload
             )
-            // contains performance data of one single episode
+        } else if (payload.meta.endpoint === 'episodes') {
+            // metadata of multiple episodes
+            validateJsonApiPayload(episodesMetadataSchema, payload.data)
+
+            return await this.repo.storeEpisodesMetadata(
+                accountId,
+                payload.data as SpotifyEpisodesMetadataPayload
+            )
         } else if (payload.meta.endpoint === 'performance') {
+            // contains performance data of one single episode
             validateJsonApiPayload(performanceSchema, payload.data)
 
             if (payload.meta.episode === undefined) {
