@@ -1,7 +1,7 @@
 {
   "provider": "spotify",
   "version": 1,
-  "retrieved":"2022-07-21T09:35:31.820Z",
+  "retrieved": "2022-07-21T09:35:31.820Z",
   "meta": {
     "show": "0tJRC0UsObPCWLmmzmOkIs",
     "endpoint": "detailedStreams"
