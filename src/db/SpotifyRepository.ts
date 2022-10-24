@@ -46,7 +46,7 @@ class SpotifyRepository {
                         entry.artworkUrl,
                         entry.releaseDate,
                         entry.description,
-                        entry.explict,
+                        entry.explict, // typo in Spotify API
                         entry.duration,
                         entry.language,
                         JSON.stringify(entry.sparkLine),
@@ -152,10 +152,10 @@ class SpotifyRepository {
                         episodeId,
                         date,
                         ageGroup,
-                        entry['counts']['NOT_SPECIFIED'],
-                        entry['counts']['FEMALE'],
-                        entry['counts']['MALE'],
-                        entry['counts']['NON_BINARY'],
+                        entry.counts.NOT_SPECIFIED,
+                        entry.counts.FEMALE,
+                        entry.counts.MALE,
+                        entry.counts.NON_BINARY,
                     ])
                 }
             ),
@@ -164,10 +164,10 @@ class SpotifyRepository {
                 episodeId,
                 date,
                 'ALL',
-                payload.genderedCounts['counts']['NOT_SPECIFIED'],
-                payload.genderedCounts['counts']['FEMALE'],
-                payload.genderedCounts['counts']['MALE'],
-                payload.genderedCounts['counts']['NON_BINARY'],
+                payload.genderedCounts.counts.NOT_SPECIFIED,
+                payload.genderedCounts.counts.FEMALE,
+                payload.genderedCounts.counts.MALE,
+                payload.genderedCounts.counts.NON_BINARY,
             ]),
         ])
     }
