@@ -23,11 +23,19 @@ CREATE TABLE spotifyEpisodeDetailedStreams (
   sps_date DATE NOT NULL,
   sps_starts INTEGER NOT NULL,
   sps_streams INTEGER NOT NULL,
-  PRIMARY KEY (account_id, sps_date)
+  PRIMARY KEY (account_id, episode_id, sps_date)
 );
 
-DROP TABLE IF EXISTS spotifyListeners;
-CREATE TABLE spotifyListeners (
+DROP TABLE IF EXISTS spotifyPodcastListeners;
+CREATE TABLE spotifyPodcastListeners (
+  account_id INTEGER NOT NULL,
+  spl_date DATE NOT NULL,
+  spl_count INTEGER NOT NULL,
+  PRIMARY KEY (account_id, spl_date)
+);
+
+DROP TABLE IF EXISTS spotifyEpisodeListeners;
+CREATE TABLE spotifyEpisodeListeners (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   spl_date DATE NOT NULL,
