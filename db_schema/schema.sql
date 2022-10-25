@@ -7,9 +7,19 @@ CREATE TABLE events (
   PRIMARY KEY (account_id, ev_timestamp)
 );
 
-DROP TABLE IF EXISTS spotifyDetailedStreams;
-CREATE TABLE spotifyDetailedStreams (
+DROP TABLE IF EXISTS spotifyPodcastDetailedStreams;
+CREATE TABLE spotifyPodcastDetailedStreams (
   account_id INTEGER NOT NULL,
+  sps_date DATE NOT NULL,
+  sps_starts INTEGER NOT NULL,
+  sps_streams INTEGER NOT NULL,
+  PRIMARY KEY (account_id, sps_date)
+);
+
+DROP TABLE IF EXISTS spotifyEpisodeDetailedStreams;
+CREATE TABLE spotifyEpisodeDetailedStreams (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
   sps_date DATE NOT NULL,
   sps_starts INTEGER NOT NULL,
   sps_streams INTEGER NOT NULL,
