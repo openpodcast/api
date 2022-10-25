@@ -1,0 +1,25 @@
+{
+    "provider": "spotify",
+    "version": 1,
+    "retrieved": "2022-10-04T10:09:46.463Z",
+    "meta": {
+        "show": "0tJRC0UsObPCWLmmzmOkIs",
+        "endpoint": "listeners"
+    },
+    "range": {
+        "start": "2022-10-03",
+        "end": "2022-10-04"
+    },
+    "data": {
+        "counts": [
+            {
+                "count": 42,
+                "date": "2022-10-03"
+            },
+            {
+                "count": 0,
+                "date": "2022-10-04"
+            }
+        ]
+    }
+}
