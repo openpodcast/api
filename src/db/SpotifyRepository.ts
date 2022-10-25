@@ -92,12 +92,34 @@ class SpotifyRepository {
         ])
     }
 
-    async storeDetailedStreams(
+    async storeEpisodeDetailedStreams(
+        accountId: number,
+        episodeId: string | null,
+        payload: SpotifyDetailedStreamsPayload
+    ): Promise<any> {
+        const replaceStmt =
+            'REPLACE INTO spotifyEpisodeDetailedStreams (account_id, episode_id, sps_date, sps_starts, sps_streams) VALUES (?,?,?,?,?)'
+
+        return await Promise.all(
+            payload.detailedStreams.map(
+                async (entry: any): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        episodeId,
+                        entry.date,
+                        entry.starts,
+                        entry.streams,
+                    ])
+            )
+        )
+    }
+
+    async storePodcastDetailedStreams(
         accountId: number,
         payload: SpotifyDetailedStreamsPayload
     ): Promise<any> {
         const replaceStmt =
-            'REPLACE INTO spotifyDetailedStreams (account_id, sps_date, sps_starts, sps_streams) VALUES (?,?,?,?)'
+            'REPLACE INTO spotifyPodcastDetailedStreams (account_id, sps_date, sps_starts, sps_streams) VALUES (?,?,?,?)'
 
         return await Promise.all(
             payload.detailedStreams.map(

@@ -26,12 +26,23 @@ class SpotifyConnector implements ConnectorHandler {
         payload: ConnectorPayload
     ): Promise<void> | never {
         if (payload.meta.endpoint === 'detailedStreams') {
-            //validates the payload and throws an error if it is not valid
+            // validates the payload and throws an error if it is not valid
             validateJsonApiPayload(detailedStreamsSchema, payload.data)
-            return await this.repo.storeDetailedStreams(
-                accountId,
-                payload.data as SpotifyDetailedStreamsPayload
-            )
+
+            // detailedStreams API has the same format for episodes and podcasts
+            // it is distinguished by the presence/absence of the episode id
+            if (payload.meta.episode !== undefined) {
+                return await this.repo.storeEpisodeDetailedStreams(
+                    accountId,
+                    payload.meta.episode,
+                    payload.data as SpotifyDetailedStreamsPayload
+                )
+            } else {
+                return await this.repo.storePodcastDetailedStreams(
+                    accountId,
+                    payload.data as SpotifyDetailedStreamsPayload
+                )
+            }
         } else if (payload.meta.endpoint === 'episodes') {
             // metadata of multiple episodes
             validateJsonApiPayload(episodesMetadataSchema, payload.data)

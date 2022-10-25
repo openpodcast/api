@@ -1,6 +1,7 @@
 const request = require('supertest')
 const baseURL = 'http://localhost:8080'
-const spotifyDetailedStreamsPayload = require('../../fixtures/spotifyDetailedStreams.json')
+const spotifyPodcastDetailedStreamsPayload = require('../../fixtures/spotifyPodcastDetailedStreams.json')
+const spotifyEpisodeDetailedStreamsPayload = require('../../fixtures/spotifyEpisodeDetailedStreams.json')
 const spotifyListenersPayload = require('../../fixtures/spotifyListeners.json')
 const spotifyPerformancePayload = require('../../fixtures/spotifyPerformance.json')
 const spotifyEpisodesPayload = require('../../fixtures/spotifyEpisodesMetadata.json')
@@ -30,12 +31,22 @@ describe('check auth pn api', () => {
     })
 })
 
-describe('check Connector API with spotifyDetailedStreamsPayload', () => {
+describe('check Connector API with spotifyPodcastDetailedStreamsPayload ', () => {
     it('should return status 200 when sending proper spotify payload', async () => {
         const response = await request(baseURL)
             .post('/connector')
             .set(auth)
-            .send(spotifyDetailedStreamsPayload)
+            .send(spotifyPodcastDetailedStreamsPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyEpisodeDetailedStreamsPayload ', () => {
+    it('should return status 200 when sending proper spotify payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyEpisodeDetailedStreamsPayload)
         expect(response.statusCode).toBe(200)
     })
 })
