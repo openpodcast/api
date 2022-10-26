@@ -91,6 +91,13 @@ class SpotifyConnector implements ConnectorHandler {
                 throw new PayloadError('missing episode id')
             }
 
+            if (
+                payload.range === undefined ||
+                payload.range.start === undefined
+            ) {
+                throw new PayloadError('Missing range for aggregate data')
+            }
+
             return await this.repo.storeEpisodeAggregate(
                 accountId,
                 payload.meta.episode,
