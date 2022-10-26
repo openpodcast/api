@@ -3,6 +3,10 @@ export interface ConnectorPayload {
         endpoint: string
         episode?: string
     }
+    range: {
+        start: string
+        end: string
+    }
     data: Object
     provider: string
 }
@@ -39,6 +43,21 @@ export interface SpotifyListenersPayload {
     }[]
 }
 
+export interface SpotifyAggregatePayload {
+    count: number
+    ageFacetedCounts: {
+        [ageGroup: string]: {
+            counts: {
+                [name: string]: number
+            }
+        }
+    }
+    genderedCounts: {
+        counts: {
+            [name: string]: number
+        }
+    }
+}
 export interface SpotifyEpisodeMetadata {
     name: string
     id: string

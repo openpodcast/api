@@ -43,6 +43,19 @@ CREATE TABLE spotifyEpisodeListeners (
   PRIMARY KEY (account_id, episode_id, spl_date)
 );
 
+DROP TABLE IF EXISTS spotifyAggregate;
+CREATE TABLE spotifyAggregate (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  spa_date DATE NOT NULL,
+  spa_age CHAR(8) NOT NULL,
+  spa_gender_not_specified INTEGER NOT NULL,
+  spa_gender_female INTEGER NOT NULL,
+  spa_gender_male INTEGER NOT NULL,
+  spa_gender_non_binary INTEGER NOT NULL,
+  PRIMARY KEY (account_id, episode_id, spa_date, spa_age)
+);
+
 DROP TABLE IF EXISTS spotifyEpisodePerformance;
 CREATE TABLE spotifyEpisodePerformance (
   account_id INTEGER NOT NULL,

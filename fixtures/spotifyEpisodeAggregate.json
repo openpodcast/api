@@ -1,0 +1,91 @@
+{
+    "provider": "spotify",
+    "version": 1,
+    "retrieved": "2022-10-04T10:09:46.463Z",
+    "meta": {
+        "show": "0tJRC0UsObPCWLmmzmOkIs",
+        "episode": "08VSwqmWlk8DgknnmwYxK0",
+        "endpoint": "aggregate"
+    },
+    "range": {
+        "start": "2022-10-03",
+        "end": "2022-10-04"
+    },
+    "data": {
+        "count": 0,
+        "ageFacetedCounts": {
+            "28-34": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            },
+            "0-17": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            },
+            "45-59": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            },
+            "60-150": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            },
+            "23-27": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            },
+            "18-22": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            },
+            "35-44": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            },
+            "unknown": {
+                "counts": {
+                    "NOT_SPECIFIED": 0,
+                    "FEMALE": 0,
+                    "MALE": 0,
+                    "NON_BINARY": 0
+                }
+            }
+        },
+        "genderedCounts": {
+            "counts": {
+                "NOT_SPECIFIED": 0,
+                "FEMALE": 0,
+                "MALE": 0,
+                "NON_BINARY": 0
+            }
+        }
+    }
+}

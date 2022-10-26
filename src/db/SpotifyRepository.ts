@@ -1,5 +1,6 @@
 import { Pool } from 'mysql2/promise'
 import {
+    SpotifyAggregatePayload,
     SpotifyDetailedStreamsPayload,
     SpotifyEpisodeMetadata,
     SpotifyEpisodesMetadataPayload,
@@ -45,7 +46,7 @@ class SpotifyRepository {
                         entry.artworkUrl,
                         entry.releaseDate,
                         entry.description,
-                        entry.explict,
+                        entry.explict, // typo in Spotify API
                         entry.duration,
                         entry.language,
                         JSON.stringify(entry.sparkLine),
@@ -134,6 +135,25 @@ class SpotifyRepository {
         )
     }
 
+    async storePodcastListeners(
+        accountId: number,
+        payload: SpotifyListenersPayload
+    ): Promise<any> {
+        const replaceStmt =
+            'REPLACE INTO spotifyPodcastListeners (account_id, spl_date, spl_count) VALUES (?,?,?)'
+
+        return await Promise.all(
+            payload.counts.map(
+                async (entry: any): Promise<any> =>
+                    await this.pool.execute(replaceStmt, [
+                        accountId,
+                        entry.date,
+                        entry.count,
+                    ])
+            )
+        )
+    }
+
     async storeEpisodeListeners(
         accountId: number,
         episodeId: string,
@@ -155,23 +175,42 @@ class SpotifyRepository {
         )
     }
 
-    async storePodcastListeners(
+    async storeEpisodeAggregate(
         accountId: number,
-        payload: SpotifyListenersPayload
+        episodeId: string,
+        date: string,
+        payload: SpotifyAggregatePayload
     ): Promise<any> {
-        const replaceStmt =
-            'REPLACE INTO spotifyPodcastListeners (account_id, spl_date, spl_count) VALUES (?,?,?)'
+        const replaceStmt = `REPLACE INTO spotifyAggregate (account_id, episode_id, spa_date, spa_age, 
+            spa_gender_not_specified, spa_gender_female, spa_gender_male, spa_gender_non_binary) VALUES (?,?,?,?,?,?,?,?)`
 
-        return await Promise.all(
-            payload.counts.map(
-                async (entry: any): Promise<any> =>
-                    await this.pool.execute(replaceStmt, [
+        return await Promise.all([
+            Object.keys(payload.ageFacetedCounts).map(
+                async (ageGroup: string): Promise<any> => {
+                    const entry = payload.ageFacetedCounts[ageGroup]
+                    return await this.pool.execute(replaceStmt, [
                         accountId,
-                        entry.date,
-                        entry.count,
+                        episodeId,
+                        date,
+                        ageGroup,
+                        entry.counts.NOT_SPECIFIED,
+                        entry.counts.FEMALE,
+                        entry.counts.MALE,
+                        entry.counts.NON_BINARY,
                     ])
-            )
-        )
+                }
+            ),
+            this.pool.execute(replaceStmt, [
+                accountId,
+                episodeId,
+                date,
+                'ALL',
+                payload.genderedCounts.counts.NOT_SPECIFIED,
+                payload.genderedCounts.counts.FEMALE,
+                payload.genderedCounts.counts.MALE,
+                payload.genderedCounts.counts.NON_BINARY,
+            ]),
+        ])
     }
 }
 

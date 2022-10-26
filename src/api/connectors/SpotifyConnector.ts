@@ -5,8 +5,10 @@ import {
     SpotifyDetailedStreamsPayload,
     SpotifyEpisodesMetadataPayload,
     SpotifyListenersPayload,
+    SpotifyAggregatePayload,
     SpotifyPerformancePayload,
 } from '../../types/connector'
+import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'
 import performanceSchema from '../../schema/spotify/performance.json'
@@ -80,6 +82,21 @@ class SpotifyConnector implements ConnectorHandler {
                     payload.data as SpotifyListenersPayload
                 )
             }
+        } else if (payload.meta.endpoint === 'aggregate') {
+            //validates the payload and throws an error if it is not valid
+            validateJsonApiPayload(aggregateSchema, payload.data)
+
+            // check if episode id exists in metadata
+            if (payload.meta.episode === undefined) {
+                throw new PayloadError('missing episode id')
+            }
+
+            return await this.repo.storeEpisodeAggregate(
+                accountId,
+                payload.meta.episode,
+                payload.range.start,
+                payload.data as SpotifyAggregatePayload
+            )
         } else {
             throw new PayloadError(
                 `Unknown endpoint in meta: ${payload.meta.endpoint}`

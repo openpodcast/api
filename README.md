@@ -4,16 +4,16 @@ This thin API layer is used to store `POST`ed payload to the main storage system
 
 ## Getting Started
 
-- `npm install`
-- Start dev server with `make dev`.
-- Create `.env` file based on `env.example` and change the credentials to access the database.
-- In a new window, run e.g. `make send-api-req-local` to send a test request to the local dev server (result is stored to DB).
+-   `npm install`
+-   Start dev server with `make dev`.
+-   Create `.env` file based on `env.example` and change the credentials to access the database.
+-   In a new window, run e.g. `make send-api-req-local` to send a test request to the local dev server (result is stored to DB).
 
 ### Connector Format
 
 ```javascript
 {
-    "provider": "Spotify",
+    "provider": "spotify",
     "version": 1,
     "retrieved": "<timestamp ISO 8601>", //2022-07-21T09:35:31.820Z
     "meta": {
@@ -29,6 +29,6 @@ This thin API layer is used to store `POST`ed payload to the main storage system
 }
 ```
 
-### Tools to create (json) schemata
+### Tools to create (JSON) schemata
 
-- https://transform.tools/json-to-json-schema
+-   https://transform.tools/json-to-json-schema
