@@ -1,5 +1,5 @@
 {
-    "$id": "http://openpodcast.dev/schema/spotify/detailedStreams.schema.json",
+    "$id": "http://openpodcast.dev/schema/spotify/aggregate.schema.json",
     "title": "Aggregated Spotify Gender Counts",
     "type": "object",
     "properties": {
