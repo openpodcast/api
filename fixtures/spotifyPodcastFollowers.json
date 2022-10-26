@@ -1,0 +1,45 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2022-07-21T09:35:31.820Z",
+  "meta": {
+    "show": "0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "followers"
+  },
+  "range": {
+    "start": "2022-10-19",
+    "end": "2022-10-25"
+  },
+  "data": {
+    "counts": [
+      {
+        "count": 239,
+        "date": "2022-10-19"
+      },
+      {
+        "count": 240,
+        "date": "2022-10-20"
+      },
+      {
+        "count": 241,
+        "date": "2022-10-21"
+      },
+      {
+        "count": 242,
+        "date": "2022-10-22"
+      },
+      {
+        "count": 242,
+        "date": "2022-10-23"
+      },
+      {
+        "count": 242,
+        "date": "2022-10-24"
+      },
+      {
+        "count": 242,
+        "date": "2022-10-25"
+      }
+    ]
+  }
+}

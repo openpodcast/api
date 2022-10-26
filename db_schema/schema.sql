@@ -34,6 +34,14 @@ CREATE TABLE spotifyPodcastListeners (
   PRIMARY KEY (account_id, spl_date)
 );
 
+DROP TABLE IF EXISTS spotifyPodcastFollowers;
+CREATE TABLE spotifyPodcastFollowers (
+  account_id INTEGER NOT NULL,
+  spf_date DATE NOT NULL,
+  spf_count INTEGER NOT NULL,
+  PRIMARY KEY (account_id, spf_date)
+);
+
 DROP TABLE IF EXISTS spotifyEpisodeListeners;
 CREATE TABLE spotifyEpisodeListeners (
   account_id INTEGER NOT NULL,

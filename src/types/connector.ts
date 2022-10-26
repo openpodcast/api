@@ -80,3 +80,12 @@ export interface SpotifyEpisodesMetadataPayload {
     episodes: SpotifyEpisodeMetadata[]
     [k: string]: unknown
 }
+
+export interface SpotifyPodcastFollowersPayload {
+    counts: {
+        count: number
+        date: string
+        [k: string]: unknown
+    }[]
+    [k: string]: unknown
+}

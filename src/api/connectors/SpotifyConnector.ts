@@ -7,12 +7,14 @@ import {
     SpotifyListenersPayload,
     SpotifyAggregatePayload,
     SpotifyPerformancePayload,
+    SpotifyPodcastFollowersPayload,
 } from '../../types/connector'
 import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'
 import performanceSchema from '../../schema/spotify/performance.json'
 import episodesMetadataSchema from '../../schema/spotify/episodesMetadata.json'
+import followerSchema from '../../schema/spotify/followers.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
 
@@ -52,6 +54,14 @@ class SpotifyConnector implements ConnectorHandler {
             return await this.repo.storeEpisodesMetadata(
                 accountId,
                 payload.data as SpotifyEpisodesMetadataPayload
+            )
+        } else if (payload.meta.endpoint === 'followers') {
+            // follower count per day
+            validateJsonApiPayload(followerSchema, payload.data)
+
+            return await this.repo.storePodcastFollowers(
+                accountId,
+                payload.data as SpotifyPodcastFollowersPayload
             )
         } else if (payload.meta.endpoint === 'performance') {
             // contains performance data of one single episode

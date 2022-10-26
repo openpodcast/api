@@ -6,6 +6,7 @@ import {
     SpotifyEpisodesMetadataPayload,
     SpotifyListenersPayload,
     SpotifyPerformancePayload,
+    SpotifyPodcastFollowersPayload,
 } from '../types/connector'
 
 class SpotifyRepository {
@@ -135,17 +136,17 @@ class SpotifyRepository {
         )
     }
 
-    async storePodcastListeners(
+    async storePodcastFollowers(
         accountId: number,
-        payload: SpotifyListenersPayload
+        payload: SpotifyPodcastFollowersPayload
     ): Promise<any> {
         const replaceStmt =
-            'REPLACE INTO spotifyPodcastListeners (account_id, spl_date, spl_count) VALUES (?,?,?)'
+            'REPLACE INTO spotifyPodcastFollowers (account_id, spf_date, spf_count) VALUES (?,?,?)'
 
         return await Promise.all(
             payload.counts.map(
                 async (entry: any): Promise<any> =>
-                    await this.pool.execute(replaceStmt, [
+                    await this.pool.query(replaceStmt, [
                         accountId,
                         entry.date,
                         entry.count,
@@ -168,6 +169,25 @@ class SpotifyRepository {
                     await this.pool.execute(replaceStmt, [
                         accountId,
                         episodeId,
+                        entry.date,
+                        entry.count,
+                    ])
+            )
+        )
+    }
+
+    async storePodcastListeners(
+        accountId: number,
+        payload: SpotifyListenersPayload
+    ): Promise<any> {
+        const replaceStmt =
+            'REPLACE INTO spotifyPodcastListeners (account_id, spl_date, spl_count) VALUES (?,?,?)'
+
+        return await Promise.all(
+            payload.counts.map(
+                async (entry: any): Promise<any> =>
+                    await this.pool.execute(replaceStmt, [
+                        accountId,
                         entry.date,
                         entry.count,
                     ])
