@@ -48,7 +48,7 @@ CREATE TABLE spotifyAggregate (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   spa_date DATE NOT NULL,
-  spa_age CHAR(5) NOT NULL,
+  spa_age CHAR(8) NOT NULL,
   spa_gender_not_specified INTEGER NOT NULL,
   spa_gender_female INTEGER NOT NULL,
   spa_gender_male INTEGER NOT NULL,
