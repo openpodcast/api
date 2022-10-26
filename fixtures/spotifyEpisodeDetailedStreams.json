@@ -1,0 +1,53 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2022-07-21T09:35:31.820Z",
+  "meta": {
+    "show": "0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "detailedStreams",
+    "episode": "08VSwqmWlk8DgknnmwYxK0"
+  },
+  "range": {
+    "start": "2022-09-26",
+    "end": "2022-10-02"
+  },
+  "data": {
+    "detailedStreams": [
+      {
+        "date": "2022-09-26",
+        "starts": 15,
+        "streams": 11
+      },
+      {
+        "date": "2022-09-27",
+        "starts": 44,
+        "streams": 32
+      },
+      {
+        "date": "2022-09-28",
+        "starts": 40,
+        "streams": 32
+      },
+      {
+        "date": "2022-09-29",
+        "starts": 33,
+        "streams": 28
+      },
+      {
+        "date": "2022-09-30",
+        "starts": 13,
+        "streams": 11
+      },
+      {
+        "date": "2022-10-01",
+        "starts": 21,
+        "streams": 17
+      },
+      {
+        "date": "2022-10-02",
+        "starts": 3,
+        "streams": 2
+      }
+    ]
+  }
+}
