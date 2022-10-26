@@ -31,7 +31,7 @@ const app: Express = express()
 const port = 8080
 
 // extract json payload from body automatically
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: '1mb' }))
 
 // throw exception if not authorized
 app.use(authMiddleware)
