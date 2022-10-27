@@ -76,6 +76,7 @@ describe('check Connector API with spotifyPodcastListenersPayload', () => {
     })
 })
 
+
 describe('check Connector API with spotifyPerformancePayload', () => {
     it('should return status 200 when sending proper spotify payload', async () => {
         const response = await request(baseURL)
