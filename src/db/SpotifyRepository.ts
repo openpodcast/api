@@ -7,6 +7,7 @@ import {
     SpotifyListenersPayload,
     SpotifyPerformancePayload,
     SpotifyPodcastFollowersPayload,
+    SpotifyPodcastMetadataPayload,
 } from '../types/connector'
 
 class SpotifyRepository {
@@ -14,6 +15,30 @@ class SpotifyRepository {
 
     constructor(pool: Pool) {
         this.pool = pool
+    }
+
+    // store metadata for the entire podcast
+    async storePodcastMetadata(
+        accountId: number,
+        payload: SpotifyPodcastMetadataPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO spotifyPodcastMetadata (
+            account_id,
+            spm_total_episodes,
+            spm_starts,
+            spm_streams,
+            spm_listeners,
+            spm_followers ) VALUES
+            (?,?,?,?,?,?)`
+
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            payload.totalEpisodes,
+            payload.starts,
+            payload.streams,
+            payload.listeners,
+            payload.followers,
+        ])
     }
 
     // store metadata of multiple episodes

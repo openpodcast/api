@@ -4,6 +4,7 @@ import {
     ConnectorPayload,
     SpotifyDetailedStreamsPayload,
     SpotifyEpisodesMetadataPayload,
+    SpotifyPodcastMetadataPayload,
     SpotifyListenersPayload,
     SpotifyAggregatePayload,
     SpotifyPerformancePayload,
@@ -13,6 +14,7 @@ import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'
 import performanceSchema from '../../schema/spotify/performance.json'
+import podcastMetadataSchema from '../../schema/spotify/podcastMetadata.json'
 import episodesMetadataSchema from '../../schema/spotify/episodesMetadata.json'
 import followerSchema from '../../schema/spotify/followers.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
@@ -29,7 +31,15 @@ class SpotifyConnector implements ConnectorHandler {
         accountId: number,
         payload: ConnectorPayload
     ): Promise<void> | never {
-        if (payload.meta.endpoint === 'detailedStreams') {
+        if (payload.meta.endpoint === 'metadata') {
+            // metadata of podcast
+            validateJsonApiPayload(podcastMetadataSchema, payload.data)
+
+            return await this.repo.storePodcastMetadata(
+                accountId,
+                payload.data as SpotifyPodcastMetadataPayload
+            )
+        } else if (payload.meta.endpoint === 'detailedStreams') {
             // validates the payload and throws an error if it is not valid
             validateJsonApiPayload(detailedStreamsSchema, payload.data)
 
