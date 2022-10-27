@@ -1,0 +1,98 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/podcastmetadata.schema.json",
+    "title": "metadata for podcast",
+    "type": "object",
+    "properties": {
+        "language": {
+            "type": "string"
+        },
+        "categories": {
+            "type": "array",
+            "items": {}
+        },
+        "feedUrl": {
+            "type": "string"
+        },
+        "network": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "doingBusinessAs": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "doingBusinessAs"
+            ]
+        },
+        "name": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "url": {
+            "type": "string"
+        },
+        "artworkUrl": {
+            "type": "string"
+        },
+        "releaseDate": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "explict": {
+            "type": "boolean"
+        },
+        "totalEpisodes": {
+            "type": "number"
+        },
+        "starts": {
+            "type": "number"
+        },
+        "streams": {
+            "type": "number"
+        },
+        "listeners": {
+            "type": "number"
+        },
+        "followers": {
+            "type": "number"
+        },
+        "sparkLine": {
+            "type": "array",
+            "items": {}
+        },
+        "published": {
+            "type": "boolean"
+        },
+        "publisher": {
+            "type": "string"
+        },
+        "consumptionOrder": {
+            "type": "string"
+        },
+        "coverImage": {
+            "type": "string"
+        },
+        "taxi": {
+            "type": "boolean"
+        }
+    },
+    "required": [
+        "totalEpisodes",
+        "starts",
+        "streams",
+        "listeners",
+        "followers"
+    ]
+}

@@ -8,6 +8,8 @@ const spotifyPerformancePayload = require('../../fixtures/spotifyPerformance.jso
 const spotifyEpisodeAggregatePayload = require('../../fixtures/spotifyEpisodeAggregate.json')
 const spotifyEpisodesPayload = require('../../fixtures/spotifyEpisodesMetadata.json')
 const spotifyPodcastFollowersPayload = require('../../fixtures/spotifyPodcastFollowers.json')
+const spotifyPodcastMetadataPayload = require('../../fixtures/spotifyPodcastMetadata.json')
+const spotifyEpisodesMetadataPayload = require('../../fixtures/spotifyEpisodesMetadata.json')
 
 const auth = {
     Authorization: 'Bearer cn389ncoiwuencr',
@@ -74,7 +76,6 @@ describe('check Connector API with spotifyPodcastListenersPayload', () => {
     })
 })
 
-
 describe('check Connector API with spotifyPerformancePayload', () => {
     it('should return status 200 when sending proper spotify payload', async () => {
         const response = await request(baseURL)
@@ -111,6 +112,26 @@ describe('check Connector API with spotifyPodcastFollowersPayload', () => {
             .post('/connector')
             .set(auth)
             .send(spotifyPodcastFollowersPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyPodcastMetadataPayload', () => {
+    it('should return status 200 when sending proper spotify payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyPodcastMetadataPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyEpisodesMetadataPayload', () => {
+    it('should return status 200 when sending proper spotify payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyEpisodesMetadataPayload)
         expect(response.statusCode).toBe(200)
     })
 })
