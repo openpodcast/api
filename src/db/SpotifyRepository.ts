@@ -4,6 +4,7 @@ import {
     SpotifyDetailedStreamsPayload,
     SpotifyEpisodeMetadata,
     SpotifyEpisodesMetadataPayload,
+    SpotifyGenderCounts,
     SpotifyListenersPayload,
     SpotifyPerformancePayload,
     SpotifyPodcastFollowersPayload,
@@ -226,18 +227,36 @@ class SpotifyRepository {
         date: string,
         payload: SpotifyAggregatePayload
     ): Promise<any> {
-        const replaceStmt = `REPLACE INTO spotifyAggregate (account_id, episode_id, spa_date, spa_age, 
-            spa_gender_not_specified, spa_gender_female, spa_gender_male, spa_gender_non_binary) VALUES (?,?,?,?,?,?,?,?)`
+        const replaceStmt = `REPLACE INTO spotifyEpisodeAggregate (account_id, episode_id, spa_date, spa_facet, spa_facet_type, 
+            spa_gender_not_specified, spa_gender_female, spa_gender_male, spa_gender_non_binary) VALUES (?,?,?,?,?,?,?,?,?)`
 
         return await Promise.all([
-            Object.keys(payload.ageFacetedCounts).map(
+            ...Object.keys(payload.ageFacetedCounts).map(
                 async (ageGroup: string): Promise<any> => {
-                    const entry = payload.ageFacetedCounts[ageGroup]
+                    const entry: SpotifyGenderCounts =
+                        payload.ageFacetedCounts[ageGroup]
                     return await this.pool.execute(replaceStmt, [
                         accountId,
                         episodeId,
                         date,
                         ageGroup,
+                        'age',
+                        entry.counts.NOT_SPECIFIED,
+                        entry.counts.FEMALE,
+                        entry.counts.MALE,
+                        entry.counts.NON_BINARY,
+                    ])
+                }
+            ),
+            ...Object.keys(payload.countryFacetedCounts).map(
+                async (country: string): Promise<any> => {
+                    const entry = payload.countryFacetedCounts[country]
+                    return await this.pool.execute(replaceStmt, [
+                        accountId,
+                        episodeId,
+                        date,
+                        entry.countryCode,
+                        'country',
                         entry.counts.NOT_SPECIFIED,
                         entry.counts.FEMALE,
                         entry.counts.MALE,
@@ -250,6 +269,7 @@ class SpotifyRepository {
                 episodeId,
                 date,
                 'ALL',
+                'age_sum',
                 payload.genderedCounts.counts.NOT_SPECIFIED,
                 payload.genderedCounts.counts.FEMALE,
                 payload.genderedCounts.counts.MALE,
