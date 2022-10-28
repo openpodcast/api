@@ -10,7 +10,6 @@ export interface ConnectorPayload {
     data: Object
     provider: string
 }
-
 export interface SpotifyPerformancePayload {
     samples: number[]
     sampleRate: number
@@ -43,20 +42,34 @@ export interface SpotifyListenersPayload {
     }[]
 }
 
+export interface SpotifyGenderCounts {
+    counts: {
+        NOT_SPECIFIED: number
+        FEMALE: number
+        MALE: number
+        NON_BINARY: number
+        [k: string]: unknown
+    }
+    [k: string]: unknown
+}
+
 export interface SpotifyAggregatePayload {
     count: number
     ageFacetedCounts: {
-        [ageGroup: string]: {
+        [ageGroup: string]: SpotifyGenderCounts
+    }
+    countryFacetedCounts: {
+        [country: string]: {
             counts: {
-                [name: string]: number
+                NON_BINARY: number
+                MALE: number
+                FEMALE: number
+                NOT_SPECIFIED: number
             }
+            countryCode: string
         }
     }
-    genderedCounts: {
-        counts: {
-            [name: string]: number
-        }
-    }
+    genderedCounts: SpotifyGenderCounts
 }
 export interface SpotifyPodcastMetadataPayload {
     totalEpisodes: number

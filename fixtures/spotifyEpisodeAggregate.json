@@ -4,7 +4,7 @@
     "retrieved": "2022-10-04T10:09:46.463Z",
     "meta": {
         "show": "0tJRC0UsObPCWLmmzmOkIs",
-        "episode": "08VSwqmWlk8DgknnmwYxK0",
+        "episode": "33PP79EzBWrsQ5aZqqzlTw",
         "endpoint": "aggregate"
     },
     "range": {
@@ -12,79 +12,110 @@
         "end": "2022-10-04"
     },
     "data": {
-        "count": 0,
+        "count": 31,
+        "start": "2022-10-20",
+        "end": "2022-10-26",
         "ageFacetedCounts": {
             "28-34": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
-                    "FEMALE": 0,
-                    "MALE": 0,
-                    "NON_BINARY": 0
+                    "NON_BINARY": 0,
+                    "MALE": 11,
+                    "FEMALE": 1,
+                    "NOT_SPECIFIED": 0
                 }
             },
             "0-17": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
-                    "FEMALE": 0,
+                    "NON_BINARY": 0,
                     "MALE": 0,
-                    "NON_BINARY": 0
+                    "FEMALE": 0,
+                    "NOT_SPECIFIED": 0
                 }
             },
             "45-59": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
-                    "FEMALE": 0,
+                    "NON_BINARY": 0,
                     "MALE": 0,
-                    "NON_BINARY": 0
+                    "FEMALE": 0,
+                    "NOT_SPECIFIED": 0
                 }
             },
             "60-150": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
-                    "FEMALE": 0,
+                    "NON_BINARY": 0,
                     "MALE": 0,
-                    "NON_BINARY": 0
+                    "FEMALE": 0,
+                    "NOT_SPECIFIED": 0
                 }
             },
             "23-27": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
+                    "NON_BINARY": 0,
+                    "MALE": 8,
                     "FEMALE": 0,
-                    "MALE": 0,
-                    "NON_BINARY": 0
+                    "NOT_SPECIFIED": 0
                 }
             },
             "18-22": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
+                    "NON_BINARY": 0,
+                    "MALE": 1,
                     "FEMALE": 0,
-                    "MALE": 0,
-                    "NON_BINARY": 0
+                    "NOT_SPECIFIED": 0
                 }
             },
             "35-44": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
+                    "NON_BINARY": 0,
+                    "MALE": 10,
                     "FEMALE": 0,
-                    "MALE": 0,
-                    "NON_BINARY": 0
+                    "NOT_SPECIFIED": 0
                 }
             },
             "unknown": {
                 "counts": {
-                    "NOT_SPECIFIED": 0,
-                    "FEMALE": 0,
+                    "NON_BINARY": 0,
                     "MALE": 0,
-                    "NON_BINARY": 0
+                    "FEMALE": 0,
+                    "NOT_SPECIFIED": 0
                 }
+            }
+        },
+        "countryFacetedCounts": {
+            "Austria": {
+                "counts": {
+                    "NON_BINARY": 0,
+                    "MALE": 9,
+                    "FEMALE": 0,
+                    "NOT_SPECIFIED": 0
+                },
+                "countryCode": "AT"
+            },
+            "Switzerland": {
+                "counts": {
+                    "NON_BINARY": 0,
+                    "MALE": 3,
+                    "FEMALE": 0,
+                    "NOT_SPECIFIED": 0
+                },
+                "countryCode": "CH"
+            },
+            "Germany": {
+                "counts": {
+                    "NON_BINARY": 0,
+                    "MALE": 18,
+                    "FEMALE": 1,
+                    "NOT_SPECIFIED": 0
+                },
+                "countryCode": "DE"
             }
         },
         "genderedCounts": {
             "counts": {
-                "NOT_SPECIFIED": 0,
-                "FEMALE": 0,
-                "MALE": 0,
-                "NON_BINARY": 0
+                "NON_BINARY": 0,
+                "MALE": 30,
+                "FEMALE": 1,
+                "NOT_SPECIFIED": 0
             }
         }
     }

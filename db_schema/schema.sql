@@ -51,17 +51,31 @@ CREATE TABLE spotifyEpisodeListeners (
   PRIMARY KEY (account_id, episode_id, spl_date)
 );
 
-DROP TABLE IF EXISTS spotifyAggregate;
-CREATE TABLE spotifyAggregate (
+DROP TABLE IF EXISTS spotifyEpisodeAggregate;
+CREATE TABLE spotifyEpisodeAggregate (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   spa_date DATE NOT NULL,
-  spa_age CHAR(8) NOT NULL,
+  spa_facet CHAR(8) NOT NULL,
+  spa_facet_type ENUM ('age','age_sum','country') NOT NULL, 
   spa_gender_not_specified INTEGER NOT NULL,
   spa_gender_female INTEGER NOT NULL,
   spa_gender_male INTEGER NOT NULL,
   spa_gender_non_binary INTEGER NOT NULL,
-  PRIMARY KEY (account_id, episode_id, spa_date, spa_age)
+  PRIMARY KEY (account_id, episode_id, spa_date, spa_facet_type, spa_facet)
+);
+
+DROP TABLE IF EXISTS spotifyPodcastAggregate;
+CREATE TABLE spotifyPodcastAggregate (
+  account_id INTEGER NOT NULL,
+  spa_date DATE NOT NULL,
+  spa_facet CHAR(8) NOT NULL,
+  spa_facet_type ENUM ('age','age_sum','country') NOT NULL, 
+  spa_gender_not_specified INTEGER NOT NULL,
+  spa_gender_female INTEGER NOT NULL,
+  spa_gender_male INTEGER NOT NULL,
+  spa_gender_non_binary INTEGER NOT NULL,
+  PRIMARY KEY (account_id, spa_date, spa_facet_type, spa_facet)
 );
 
 DROP TABLE IF EXISTS spotifyEpisodePerformance;
