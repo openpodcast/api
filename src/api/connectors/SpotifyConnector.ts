@@ -106,17 +106,20 @@ class SpotifyConnector implements ConnectorHandler {
             //validates the payload and throws an error if it is not valid
             validateJsonApiPayload(aggregateSchema, payload.data)
 
-            // check if episode id exists in metadata
-            if (payload.meta.episode === undefined) {
-                throw new PayloadError('missing episode id')
+            if (payload.meta.episode !== undefined) {
+                return await this.repo.storeEpisodeAggregate(
+                    accountId,
+                    payload.meta.episode,
+                    payload.range.start,
+                    payload.data as SpotifyAggregatePayload
+                )
+            } else {
+                return await this.repo.storePodcastAggregate(
+                    accountId,
+                    payload.range.start,
+                    payload.data as SpotifyAggregatePayload
+                )
             }
-
-            return await this.repo.storeEpisodeAggregate(
-                accountId,
-                payload.meta.episode,
-                payload.range.start,
-                payload.data as SpotifyAggregatePayload
-            )
         } else {
             throw new PayloadError(
                 `Unknown endpoint in meta: ${payload.meta.endpoint}`
