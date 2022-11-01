@@ -73,10 +73,6 @@
         }
     },
     "required": [
-        "episodes",
-        "totalPages",
-        "currentPage",
-        "totalEpisodes",
-        "metadata"
+        "episodes"
     ]
 }
