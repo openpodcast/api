@@ -126,7 +126,7 @@ export interface AppleEpisodePayload {
     collectionName: string
     podcastEpisodeGuid: string
     podcastEpisodeITunesTitle: string
-    podcastEpisodeNumber: number
+    podcastEpisodeNumber?: number
     podcastEpisodeType: string
     releaseDateTime: string
     releaseDate: string
