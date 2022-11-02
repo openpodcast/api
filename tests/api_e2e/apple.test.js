@@ -6,7 +6,7 @@ const appleEpisodesPayload = require('../../fixtures/appleEpisodes.json')
 const auth = require("./authheader")
 
 describe('check Connector API with appleEpisodesPayload', () => {
-    it('should return status 200 when sending proper spotify payload', async () => {
+    it('should return status 200 when sending proper Apple payload', async () => {
         const response = await request(baseURL)
             .post('/connector')
             .set(auth)
