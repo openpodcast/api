@@ -6,7 +6,8 @@ import {
     SpotifyEpisodesMetadataPayload,
     SpotifyPodcastMetadataPayload,
     SpotifyListenersPayload,
-    SpotifyAggregatePayload,
+    SpotifyPodcastAggregatePayload,
+    SpotifyEpisodeAggregatePayload,
     SpotifyPerformancePayload,
     SpotifyPodcastFollowersPayload,
 } from '../../types/connector'
@@ -111,13 +112,13 @@ class SpotifyConnector implements ConnectorHandler {
                     accountId,
                     payload.meta.episode,
                     payload.range.start,
-                    payload.data as SpotifyAggregatePayload
+                    payload.data as SpotifyEpisodeAggregatePayload
                 )
             } else {
                 return await this.repo.storePodcastAggregate(
                     accountId,
                     payload.range.start,
-                    payload.data as SpotifyAggregatePayload
+                    payload.data as SpotifyPodcastAggregatePayload
                 )
             }
         } else {

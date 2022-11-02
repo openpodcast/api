@@ -119,7 +119,6 @@
     "required": [
         "count",
         "ageFacetedCounts",
-        "countryFacetedCounts",
         "genderedCounts"
     ]
 }

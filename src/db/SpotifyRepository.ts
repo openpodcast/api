@@ -1,6 +1,6 @@
 import { Pool } from 'mysql2/promise'
 import {
-    SpotifyAggregatePayload,
+    SpotifyPodcastAggregatePayload,
     SpotifyDetailedStreamsPayload,
     SpotifyEpisodeMetadata,
     SpotifyEpisodesMetadataPayload,
@@ -9,6 +9,7 @@ import {
     SpotifyPerformancePayload,
     SpotifyPodcastFollowersPayload,
     SpotifyPodcastMetadataPayload,
+    SpotifyEpisodeAggregatePayload,
 } from '../types/connector'
 
 class SpotifyRepository {
@@ -225,7 +226,7 @@ class SpotifyRepository {
         accountId: number,
         episodeId: string,
         date: string,
-        payload: SpotifyAggregatePayload
+        payload: SpotifyEpisodeAggregatePayload
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO spotifyEpisodeAggregate (account_id, episode_id, spa_date, spa_facet, spa_facet_type, 
             spa_gender_not_specified, spa_gender_female, spa_gender_male, spa_gender_non_binary) VALUES (?,?,?,?,?,?,?,?,?)`
@@ -241,22 +242,6 @@ class SpotifyRepository {
                         date,
                         ageGroup,
                         'age',
-                        entry.counts.NOT_SPECIFIED,
-                        entry.counts.FEMALE,
-                        entry.counts.MALE,
-                        entry.counts.NON_BINARY,
-                    ])
-                }
-            ),
-            ...Object.keys(payload.countryFacetedCounts).map(
-                async (country: string): Promise<any> => {
-                    const entry = payload.countryFacetedCounts[country]
-                    return await this.pool.execute(replaceStmt, [
-                        accountId,
-                        episodeId,
-                        date,
-                        entry.countryCode,
-                        'country',
                         entry.counts.NOT_SPECIFIED,
                         entry.counts.FEMALE,
                         entry.counts.MALE,
@@ -281,7 +266,7 @@ class SpotifyRepository {
     async storePodcastAggregate(
         accountId: number,
         date: string,
-        payload: SpotifyAggregatePayload
+        payload: SpotifyPodcastAggregatePayload
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO spotifyPodcastAggregate (account_id, spa_date, spa_facet, spa_facet_type, 
             spa_gender_not_specified, spa_gender_female, spa_gender_male, spa_gender_non_binary) VALUES (?,?,?,?,?,?,?,?)`
