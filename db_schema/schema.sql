@@ -133,7 +133,7 @@ CREATE TABLE appleEpisodeMetadata (
   episode_id BIGINT NOT NULL,
   ep_name VARCHAR(2048) NOT NULL,
   ep_collection_name VARCHAR(255) NOT NULL,
-  ep_release_datetime TIMESTAMP NOT NULL,
+  ep_release_datetime DATETIME NOT NULL,
   ep_release_date DATE NOT NULL,
   ep_guid VARCHAR(64) NOT NULL,
   ep_number INTEGER,

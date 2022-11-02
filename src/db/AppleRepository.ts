@@ -23,9 +23,9 @@ class AppleRepository {
             ep_release_date,
             ep_guid,
             ep_number,
-            ep_type,         
+            ep_type         
             ) VALUES
-            (?,?,?,?,?,?,?,?,?)`
+            (?,?,?,?,STR_TO_DATE(?, '%Y-%m-%dT%TZ'),?,?,?,?)`
 
         return await Promise.all(
             episodes.map(
