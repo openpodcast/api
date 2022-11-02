@@ -1,0 +1,156 @@
+{
+  "$id": "http://openpodcast.dev/schema/apple/episodes.schema.json",
+  "title": "List of all episodes including basic information per episode",
+  "type": "object",
+  "properties": {
+    "content": {
+      "type": "object",
+      "properties": {
+        "results": {
+          "type": "object",
+          "patternProperties": {
+            "^.*$": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "collectionName": {
+                  "type": "string"
+                },
+                "podcastEpisodeGuid": {
+                  "type": "string"
+                },
+                "podcastEpisodeITunesTitle": {
+                  "type": "string"
+                },
+                "podcastEpisodeNumber": {
+                  "type": "number"
+                },
+                "podcastEpisodeType": {
+                  "type": "string"
+                },
+                "releaseDateTime": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "releaseDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "offers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "assets": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "duration": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "duration"
+                          ]
+                        }
+                      },
+                      "download": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "assets",
+                      "download"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "collectionName",
+                "podcastEpisodeGuid",
+                "podcastEpisodeITunesTitle",
+                "podcastEpisodeNumber",
+                "podcastEpisodeType",
+                "releaseDateTime",
+                "releaseDate",
+                "kind",
+                "offers"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "results"
+      ]
+    },
+    "episodesPlayCount": {
+      "type": "object",
+      "patternProperties": {
+        "^.*$": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "episodeid": {
+                "type": "string"
+              },
+              "followstate": {
+                "type": "string"
+              },
+              "playscount": {
+                "type": "number"
+              },
+              "podcastid": {
+                "type": "string"
+              },
+              "totaltimelistened": {
+                "type": "number"
+              },
+              "uniqueengagedlistenerscount": {
+                "type": "number"
+              },
+              "uniquelistenerscount": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "episodeid",
+              "followstate",
+              "playscount",
+              "podcastid",
+              "totaltimelistened",
+              "uniqueengagedlistenerscount",
+              "uniquelistenerscount"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "content",
+    "episodesPlayCount"
+  ]
+}

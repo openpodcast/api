@@ -125,3 +125,18 @@ CREATE TABLE spotifyEpisodeMetadata (
   ep_has_video BOOLEAN,
   PRIMARY KEY (account_id, episode_id)
 );
+
+
+DROP TABLE IF EXISTS appleEpisodeMetadata;
+CREATE TABLE appleEpisodeMetadata (
+  account_id INTEGER NOT NULL,
+  episode_id BIGINT NOT NULL,
+  ep_name VARCHAR(2048) NOT NULL,
+  ep_collection_name VARCHAR(255) NOT NULL,
+  ep_release_datetime TIMESTAMP NOT NULL,
+  ep_release_date DATE NOT NULL,
+  ep_guid VARCHAR(64) NOT NULL,
+  ep_number INTEGER,
+  ep_type VARCHAR(255) NOT NULL,
+  PRIMARY KEY (account_id, episode_id)
+);
