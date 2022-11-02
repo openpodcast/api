@@ -119,3 +119,45 @@ export interface SpotifyPodcastFollowersPayload {
     }[]
     [k: string]: unknown
 }
+
+export interface AppleEpisodePayload {
+    id: string
+    name: string
+    collectionName: string
+    podcastEpisodeGuid: string
+    podcastEpisodeITunesTitle: string
+    podcastEpisodeNumber?: number
+    podcastEpisodeType: string
+    releaseDateTime: string
+    releaseDate: string
+    kind: string
+    offers: {
+        assets: {
+            duration: number
+        }[]
+        download: {
+            url: string
+        }
+    }[]
+}
+
+export interface AppleEpisodePlayCountPayload {
+    episodeid: string
+    followstate: string
+    playscount: number
+    podcastid: number
+    totaltimelistened: number
+    uniqueengagedlistenerscount: number
+    uniquelistenerscount: number
+}
+
+export interface AppleEpisodesPayload {
+    content: {
+        results: {
+            [episodeId: string]: AppleEpisodePayload
+        }
+    }
+    episodesPlayCount: {
+        [episodeId: string]: AppleEpisodePlayCountPayload[]
+    }
+}

@@ -8,6 +8,8 @@ import { authMiddleware } from './auth'
 import { HttpError, PayloadError } from './types/api'
 import mysql from 'mysql2/promise'
 import { SpotifyConnector } from './api/connectors/SpotifyConnector'
+import { AppleRepository } from './db/AppleRepository'
+import { AppleConnector } from './api/connectors/AppleConnector'
 
 dotenv.config()
 
@@ -24,8 +26,14 @@ const eventsApi = new EventsApi(eventRepo)
 const spotifyRepo = new SpotifyRepository(pool)
 const spotifyConnector = new SpotifyConnector(spotifyRepo)
 
+const appleRepo = new AppleRepository(pool)
+const appleConnector = new AppleConnector(appleRepo)
+
 // parameter map will consist of spotify and apple in the future
-const connectorApi = new ConnectorApi({ spotify: spotifyConnector })
+const connectorApi = new ConnectorApi({
+    spotify: spotifyConnector,
+    apple: appleConnector,
+})
 
 const app: Express = express()
 const port = 8080

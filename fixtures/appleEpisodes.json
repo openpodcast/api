@@ -1,0 +1,1564 @@
+{
+  "provider": "apple",
+  "version": 1,
+  "retrieved": "2022-10-04T10:09:46.463Z",
+  "meta": {
+    "show": "0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "episodes"
+  },
+  "range": {
+    "start": "2022-10-03",
+    "end": "2022-10-04"
+  },
+  "data": {
+    "content": {
+      "results": {
+        "1000584604988": {
+          "id": "1000584604988",
+          "name": "#43 Cloud vs. On-Premise: Die Entscheidungshilfe",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "55a63c33-3839-4daa-ab64-3a5983d7c0ef",
+          "podcastEpisodeITunesTitle": "#43 Cloud vs. On-Premise: Die Entscheidungshilfe",
+          "podcastEpisodeNumber": 43.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-11-01T05:00:00Z",
+          "releaseDate": "2022-11-01",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 4264.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/724221b9-462b-43f2-8f5b-a340e8b287e6/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000583770577": {
+          "id": "1000583770577",
+          "name": "#42 Lexer, Parser und Open Source in Counterstrike",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "540afd4f-de9c-4523-be62-f14d12e2427d",
+          "podcastEpisodeITunesTitle": "#42 Lexer, Parser und Open Source in Counterstrike",
+          "podcastEpisodeNumber": 42.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-10-25T04:00:00Z",
+          "releaseDate": "2022-10-25",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3218.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/e755c20a-94fc-4d0f-baa2-95c5486ec18d/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000582974713": {
+          "id": "1000582974713",
+          "name": "#41 SQL Injections - Ein unterschätztes Risiko",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "c3545a2c-736d-4354-9edb-18d48630ee09",
+          "podcastEpisodeITunesTitle": "#41 SQL Injections - Ein unterschätztes Risiko",
+          "podcastEpisodeNumber": 41.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-10-18T04:00:00Z",
+          "releaseDate": "2022-10-18",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 4117.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/51d3390e-ffce-4ec6-a6d9-350dc0cd163b/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000582229449": {
+          "id": "1000582229449",
+          "name": "#40 Wie wird man und Frau zum Senior Dev?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "0f10cc19-0115-4678-8dbc-9c1bdac39146",
+          "podcastEpisodeITunesTitle": "#40 Wie wird man und Frau zum Senior Dev?",
+          "podcastEpisodeNumber": 40.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-10-11T04:00:00Z",
+          "releaseDate": "2022-10-11",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2983.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/89454aa1-6b3f-4f73-97b0-128c69f11f37/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000581487989": {
+          "id": "1000581487989",
+          "name": "#39 Gemischte Tüte: Software Engineer, Github, OpenSource, Git und HomeOffice",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "054ef750-35db-48bd-8cbf-d5315d00a404",
+          "podcastEpisodeITunesTitle": "#39 Gemischte Tüte: Software Engineer, Github, OpenSource, Git und HomeOffice",
+          "podcastEpisodeNumber": 39.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-10-04T04:00:00Z",
+          "releaseDate": "2022-10-04",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2866.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/11242e21-b242-48d0-b0b6-9e0170d80c49/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000580748597": {
+          "id": "1000580748597",
+          "name": "#38 Monitoring, Metriken, Tracing, Alerting, Observability",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "465cad7c-0284-49b5-a45c-fe88f7965b28",
+          "podcastEpisodeITunesTitle": "#38 Monitoring, Metriken, Tracing, Alerting, Observability",
+          "podcastEpisodeNumber": 38.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-09-27T04:00:00Z",
+          "releaseDate": "2022-09-27",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3350.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/d77dbefc-8553-4a49-81c2-27f9232b88ec/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000580014637": {
+          "id": "1000580014637",
+          "name": "#37 Mit IT-Büchern Geld verdienen? Wer liest überhaupt noch Bücher?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "4d149b24-bc16-43c3-a7a6-ecf5fc98f9e3",
+          "podcastEpisodeITunesTitle": "#37 Mit IT-Büchern Geld verdienen? Wer liest überhaupt noch Bücher?",
+          "podcastEpisodeNumber": 37.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-09-20T04:00:00Z",
+          "releaseDate": "2022-09-20",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3621.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/8efb56e2-5d56-4618-bfd8-91e08efff60b/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000579282766": {
+          "id": "1000579282766",
+          "name": "#36 Sechs-stellige IT-Gehälter? Wie? Was? Wo? Fair?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "824ac266-bb81-44bb-bd6b-dec7b3de4453",
+          "podcastEpisodeITunesTitle": "#36 Sechs-stellige IT-Gehälter? Wie? Was? Wo? Fair?",
+          "podcastEpisodeNumber": 36.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-09-13T04:00:00Z",
+          "releaseDate": "2022-09-13",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3255.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/ebe153fc-4f58-49f5-a141-0e8243192204/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000578487137": {
+          "id": "1000578487137",
+          "name": "#35 Knowledge Sharing oder die Person, die nie \"gehen\" sollte...",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "60a447a1-149a-42f9-b458-702dd9cb1440",
+          "podcastEpisodeITunesTitle": "#35 Knowledge Sharing oder die Person, die nie \"gehen\" sollte...",
+          "podcastEpisodeNumber": 35.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-09-06T04:00:00Z",
+          "releaseDate": "2022-09-06",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3784.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/d1f80691-ab3f-48d5-889d-309d64f399f8/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000577751142": {
+          "id": "1000577751142",
+          "name": "#34 Wie cloudy bist du?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "d31766a5-08d0-4795-82f7-5ea9c6f94764",
+          "podcastEpisodeITunesTitle": "#34 Wie cloudy bist du?",
+          "podcastEpisodeNumber": 34.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-08-30T04:00:00Z",
+          "releaseDate": "2022-08-30",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2772.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/5efc13e1-46b3-41a1-82db-80043e5719f8/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000577040259": {
+          "id": "1000577040259",
+          "name": "#33 Andy im Team Lead Bewerbungsgespräch",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "8767f001-7b93-4b79-9429-84063849513c",
+          "podcastEpisodeITunesTitle": "#33 Andy im Team Lead Bewerbungsgespräch",
+          "podcastEpisodeNumber": 33.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-08-23T04:00:00Z",
+          "releaseDate": "2022-08-23",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3654.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/69b11617-0285-4631-bf15-9121e0a0c30b/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000576207101": {
+          "id": "1000576207101",
+          "name": "#32 Die richtigen Leute anstellen: Die Recruiting Pipeline",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "1ef3101c-1f36-46d5-8594-ef2e3981f5a3",
+          "podcastEpisodeITunesTitle": "#32 Die richtigen Leute anstellen: Die Recruiting Pipeline",
+          "podcastEpisodeNumber": 32.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-08-16T04:00:00Z",
+          "releaseDate": "2022-08-16",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3868.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/acb5234c-92c1-4998-8c83-ddb1b16fff38/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000575453470": {
+          "id": "1000575453470",
+          "name": "#31 Ich automatisiere mir die Welt wie sie mir gefällt (mit GitHub Actions)",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "d659b08e-a837-44b4-b8a6-eb6a06daa103",
+          "podcastEpisodeITunesTitle": "#31 Ich automatisiere mir die Welt wie sie mir gefällt (mit GitHub Actions)",
+          "podcastEpisodeNumber": 31.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-08-09T04:00:00Z",
+          "releaseDate": "2022-08-09",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3675.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/b66c9d23-eee3-438d-9a7c-5ede3ec90491/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000574728229": {
+          "id": "1000574728229",
+          "name": "#30 Ist ein Informatikstudium sinnvoll? Welche Ausbildung für Devs?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "3f9e2c7b-8f0d-4170-a80f-e5dffd20e310",
+          "podcastEpisodeITunesTitle": "#30 Ist ein Informatikstudium sinnvoll? Welche Ausbildung für Devs?",
+          "podcastEpisodeNumber": 30.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-08-02T04:00:00Z",
+          "releaseDate": "2022-08-02",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3936.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/2c663235-5a00-4499-abf0-a205f4ad2b39/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000571178079": {
+          "id": "1000571178079",
+          "name": "#29 Die andere Seite: Meetups \u0026 Konferenzen organisieren",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "3007600f-b3d5-45db-88c2-d501eff32b41",
+          "podcastEpisodeITunesTitle": "#29 Die andere Seite: Meetups \u0026 Konferenzen organisieren",
+          "podcastEpisodeNumber": 29.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-07-26T04:00:00Z",
+          "releaseDate": "2022-07-26",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 4128.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/14299012-06a5-4d0d-a131-3c9b7b35f320/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000570419965": {
+          "id": "1000570419965",
+          "name": "#28 O(1), O(log n), O(n^2) - Ist die Komplexität von Algorithmen im Entwickler-Alltag relevant?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "5f8e8c0e-c16e-4c5e-b12b-13fdf4b24a39",
+          "podcastEpisodeITunesTitle": "#28 O(1), O(log n), O(n^2) - Ist die Komplexität von Algorithmen im Entwickler-Alltag relevant?",
+          "podcastEpisodeNumber": 28.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-07-19T04:00:00Z",
+          "releaseDate": "2022-07-19",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3333.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/0eeb6dea-4262-4b9f-b5c2-880f4465e4c3/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000569619207": {
+          "id": "1000569619207",
+          "name": "#27 Sicherheit in der Dependency Hölle",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "45d90852-fe2b-4192-b897-cee1fc0c1f92",
+          "podcastEpisodeITunesTitle": "#27 Sicherheit in der Dependency Hölle",
+          "podcastEpisodeNumber": 27.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-07-12T04:00:00Z",
+          "releaseDate": "2022-07-12",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3378.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/c7e9056c-7eb5-467d-a127-846879640678/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000568825196": {
+          "id": "1000568825196",
+          "name": "#26 My English is not the yellow from the egg - Arbeiten in internationalen Teams",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "67f47a41-4a68-4df7-bdea-29bd88e86497",
+          "podcastEpisodeITunesTitle": "#26 My English is not the yellow from the egg - Arbeiten in internationalen Teams",
+          "podcastEpisodeNumber": 26.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-07-05T04:00:00Z",
+          "releaseDate": "2022-07-05",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3970.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/1e6423eb-3d80-48c7-a115-1e9deb9bff7c/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000567936094": {
+          "id": "1000567936094",
+          "name": "#25 Tech-Entlassungswellen \u0026 Job-Interview Skills",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "c7a407f4-ac71-4f2d-9e9c-9520e957a260",
+          "podcastEpisodeITunesTitle": "#25 Tech-Entlassungswellen \u0026 Job-Interview Skills",
+          "podcastEpisodeNumber": 25.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-06-28T04:00:00Z",
+          "releaseDate": "2022-06-28",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 4376.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/543a3dd5-93fb-42a7-b61d-514816f9d4bd/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000567206046": {
+          "id": "1000567206046",
+          "name": "#24 Infrastructure as Code oder old man yells at cloud",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "a099ce2e-f683-41e4-b93f-553d2f666ff4",
+          "podcastEpisodeITunesTitle": "#24 Infrastructure as Code oder old man yells at cloud",
+          "podcastEpisodeNumber": 24.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-06-21T04:00:00Z",
+          "releaseDate": "2022-06-21",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3713.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/89075a99-0042-4bf7-b8a3-591f701d02da/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000566323940": {
+          "id": "1000566323940",
+          "name": "#23 Schaltest du noch oder automatisiert du schon: Home Automation",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "47b43f26-3456-4bc1-b0e0-ec28a5ea0fde",
+          "podcastEpisodeITunesTitle": "#23 Schaltest du noch oder automatisiert du schon: Home Automation",
+          "podcastEpisodeNumber": 23.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-06-14T04:00:00Z",
+          "releaseDate": "2022-06-14",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3812.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/64702e08-821e-4361-b271-d98525ec6667/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000565464152": {
+          "id": "1000565464152",
+          "name": "#22 NoSQL: ACID, BASE, Ende einer Ära Teil 2",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "0a7c39f3-bf54-4299-a814-53a26f3f0990",
+          "podcastEpisodeITunesTitle": "#22 NoSQL: ACID, BASE, Ende einer Ära Teil 2",
+          "podcastEpisodeNumber": 22.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-06-07T04:00:00Z",
+          "releaseDate": "2022-06-07",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3636.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/57035bbc-8934-4a78-8416-61fa02778ab4/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000564628540": {
+          "id": "1000564628540",
+          "name": "#21 Static Site Generators \u0026 DIE Webseite",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "7d971182-5a02-4d59-a198-82aed3d1bdc8",
+          "podcastEpisodeITunesTitle": "#21 Static Site Generators \u0026 DIE Webseite",
+          "podcastEpisodeNumber": 21.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-05-31T04:35:00Z",
+          "releaseDate": "2022-05-31",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3214.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/a2744dda-da03-476a-bcc8-f6646e8b0c95/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000563437834": {
+          "id": "1000563437834",
+          "name": "#20 Off-Boarding und On-Boarding: Wie verlasse ich eine Firma richtig?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "547a54b3-53ed-46a1-9680-4a013142797f",
+          "podcastEpisodeITunesTitle": "#20 Off-Boarding und On-Boarding: Wie verlasse ich eine Firma richtig?",
+          "podcastEpisodeNumber": 20.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-05-24T04:30:00Z",
+          "releaseDate": "2022-05-24",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 4402.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/58ab37e0-8483-4a85-ba79-12fc1ee84dc9/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000561721993": {
+          "id": "1000561721993",
+          "name": "#19 Datenbank-Deepdive (oder das Ende einer Ära): von Redis bis ClickHouse",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "8b3eb056-25e3-41e3-94f3-efa40097b6fb",
+          "podcastEpisodeITunesTitle": "#19 Datenbank-Deepdive (oder das Ende einer Ära): von Redis bis ClickHouse",
+          "podcastEpisodeNumber": 19.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-05-17T04:30:00Z",
+          "releaseDate": "2022-05-17",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3842.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/afb215a2-96f7-4293-a9ae-10bebd6c483a/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000560207020": {
+          "id": "1000560207020",
+          "name": "#18 Ziele und Performance-Metriken für Teams und mich selbst",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "b5471a50-c4a1-4f6f-9544-10f052a1cc95",
+          "podcastEpisodeITunesTitle": "#18 Ziele und Performance-Metriken für Teams und mich selbst",
+          "podcastEpisodeNumber": 18.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-05-10T04:30:00Z",
+          "releaseDate": "2022-05-10",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 4248.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/0e0b7c29-15dd-4a06-aeaa-3bd87ebad9aa/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000559421700": {
+          "id": "1000559421700",
+          "name": "#17 Was können wir beim Incident Management von der Feuerwehr lernen?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "b6e002a9-e0d4-4736-9273-d9c9011d38dc",
+          "podcastEpisodeITunesTitle": "#17 Was können wir beim Incident Management von der Feuerwehr lernen?",
+          "podcastEpisodeNumber": 17.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-05-03T04:00:00Z",
+          "releaseDate": "2022-05-03",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 4261.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/3c0581f5-309a-421c-b731-b28b211564c7/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000558699631": {
+          "id": "1000558699631",
+          "name": "#16 Code Reviews: Nützlich oder bremsen nur ein gutes Team?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "cc0af815-48ad-4b4a-8ac8-ada2d5abd779",
+          "podcastEpisodeITunesTitle": "#16 Code Reviews: Nützlich oder bremsen nur ein gutes Team?",
+          "podcastEpisodeNumber": 16.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-04-26T04:30:00Z",
+          "releaseDate": "2022-04-26",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3543.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/7c477eeb-e8a1-43e3-9663-8c6d9118645f/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000557995942": {
+          "id": "1000557995942",
+          "name": "#15  Source Code Kommentare, Git Commits Messages, Merge Commits und Branch-Visualisierungs-Kunst",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "3ca0b89c-7545-403d-885d-e9981a462a9e",
+          "podcastEpisodeITunesTitle": "#15  Source Code Kommentare, Git Commits Messages, Merge Commits und Branch-Visualisierungs-Kunst",
+          "podcastEpisodeNumber": 15.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-04-19T04:30:00Z",
+          "releaseDate": "2022-04-19",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3904.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/af8ca39f-afd0-4a99-b1ff-1cc11ab176ad/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000557196507": {
+          "id": "1000557196507",
+          "name": "#14 async und await: asynchrones Arbeiten im Alltag",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "1c7d66a6-f86a-4f7e-bfb9-93acf2f9dba3",
+          "podcastEpisodeITunesTitle": "#14 async und await: asynchrones Arbeiten im Alltag",
+          "podcastEpisodeNumber": 14.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-04-12T04:30:00Z",
+          "releaseDate": "2022-04-12",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3389.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/3577c74d-2d25-408e-9107-1fae71daf76a/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000556264575": {
+          "id": "1000556264575",
+          "name": "#13 Produktivität",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "332c4de6-6798-48f2-9d49-e3ee7f26c7ba",
+          "podcastEpisodeITunesTitle": "#13 Produktivität",
+          "podcastEpisodeNumber": 13.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-04-05T04:25:00Z",
+          "releaseDate": "2022-04-05",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3529.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/84908405-bd61-4398-bdf3-134fddb59c3e/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000555572597": {
+          "id": "1000555572597",
+          "name": "#12 Make oder Buy",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "1bb98c63-fadc-435a-a1df-a1121937d7db",
+          "podcastEpisodeITunesTitle": "#12 Make oder Buy",
+          "podcastEpisodeNumber": 12.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-03-29T09:40:00Z",
+          "releaseDate": "2022-03-29",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3583.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/1adada84-15c2-4fd0-99b9-e7842f29ecef/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000554856777": {
+          "id": "1000554856777",
+          "name": "#11 Die Suche nach dem IT Traumjob",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "2fc75056-d10d-497b-9613-447827f95786",
+          "podcastEpisodeITunesTitle": "#11 Die Suche nach dem IT Traumjob",
+          "podcastEpisodeNumber": 11.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-03-22T12:45:00Z",
+          "releaseDate": "2022-03-22",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3531.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/ba617374-c9e2-4ccb-9cd5-a90cda8b62a7/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000554051253": {
+          "id": "1000554051253",
+          "name": "#10 Das Karriere Booster Meeting 1:1s",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "c816f760-a60c-4902-807c-880c3eea30cf",
+          "podcastEpisodeITunesTitle": "#10 Das Karriere Booster Meeting 1:1s",
+          "podcastEpisodeNumber": 10.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-03-15T05:30:00Z",
+          "releaseDate": "2022-03-15",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2756.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/c8d31470-3a28-443c-aafd-af96625f4146/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000553287989": {
+          "id": "1000553287989",
+          "name": "#09 Ukraine",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "cd244bb1-87f7-4226-852d-cb6ecd648b4c",
+          "podcastEpisodeITunesTitle": "#09 Ukraine",
+          "podcastEpisodeNumber": 9.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-03-08T10:55:00Z",
+          "releaseDate": "2022-03-08",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2250.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/62eae97a-f058-4352-97a2-d2bc5c48b688/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000552569027": {
+          "id": "1000552569027",
+          "name": "#08 Vergiss doch Datenbanken!",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "70cb17a9-607d-4fae-b8ad-cd1f063cafda",
+          "podcastEpisodeITunesTitle": "#08 Vergiss doch Datenbanken!",
+          "podcastEpisodeNumber": 8.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-03-01T11:30:00Z",
+          "releaseDate": "2022-03-01",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3167.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/ff17f8af-00a3-4594-8886-d1c2a3980c67/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000551841726": {
+          "id": "1000551841726",
+          "name": "#07 Die Freelance Freiheit",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "26b09299-ce01-4ec0-8401-f6d8b23461ed",
+          "podcastEpisodeITunesTitle": "#07 Die Freelance Freiheit",
+          "podcastEpisodeNumber": 7.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-02-22T05:00:00Z",
+          "releaseDate": "2022-02-22",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3841.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/e51b5ba0-f174-4965-8203-8b5673dac440/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000551119949": {
+          "id": "1000551119949",
+          "name": "#06 Hype oder Hope: Job-Titel und Beförderungen",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "ebd40ed8-5a98-4921-a6b2-1bf6a6818b51",
+          "podcastEpisodeITunesTitle": "#06 Hype oder Hope: Job-Titel und Beförderungen",
+          "podcastEpisodeNumber": 6.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-02-15T05:00:00Z",
+          "releaseDate": "2022-02-15",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3133.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/d6840c34-1e98-42b6-82aa-5cb76b200fa6/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000550397428": {
+          "id": "1000550397428",
+          "name": "#00 Developer fangen bei 0 an zu zählen",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "c6fa6032-6318-46f9-9c04-3b9e51a576ac",
+          "podcastEpisodeITunesTitle": "#00 Developer fangen bei 0 an zu zählen",
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-02-08T05:00:00Z",
+          "releaseDate": "2022-02-08",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 1751.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/8d890e77-cc0f-4cf7-b35b-bf5a21553d60/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000549643155": {
+          "id": "1000549643155",
+          "name": "#05 Team Lead - der einzige Ausweg",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "5f7fb175-4381-4dd4-a207-d5ef6c679706",
+          "podcastEpisodeITunesTitle": "#05 Team Lead - der einzige Ausweg",
+          "podcastEpisodeNumber": 5.0,
+          "podcastEpisodeSeason": 1.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-02-01T10:05:00Z",
+          "releaseDate": "2022-02-01",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2412.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/41cfb14d-7091-482a-9d05-eb21219897ab/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000548902548": {
+          "id": "1000548902548",
+          "name": "#04 Lohnt der Einstieg in Open Source?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "1183c26c-fe79-45ee-9883-d55c5ea96934",
+          "podcastEpisodeITunesTitle": "#04 Lohnt der Einstieg in Open Source?",
+          "podcastEpisodeNumber": 4.0,
+          "podcastEpisodeSeason": 1.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-01-25T05:00:00Z",
+          "releaseDate": "2022-01-25",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3044.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/08ff2242-89e4-4533-8498-93d201ed6679/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000548219975": {
+          "id": "1000548219975",
+          "name": "#03 Over-Engineering, das Werkzeug des Teufels?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "c2838084-43e3-4cb6-9013-a480429b8547",
+          "podcastEpisodeITunesTitle": "#03 Over-Engineering, das Werkzeug des Teufels?",
+          "podcastEpisodeNumber": 3.0,
+          "podcastEpisodeSeason": 1.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-01-18T10:50:00Z",
+          "releaseDate": "2022-01-18",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 3079.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/8ab59758-598f-459b-8d7f-f832ced2b87f/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000547431502": {
+          "id": "1000547431502",
+          "name": "#02 Technologienzoo Side Projects",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "561f8e6d-e869-42b1-8536-319e950294da",
+          "podcastEpisodeITunesTitle": "#02 Technologienzoo Side Projects",
+          "podcastEpisodeNumber": 2.0,
+          "podcastEpisodeSeason": 1.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-01-10T15:00:00Z",
+          "releaseDate": "2022-01-10",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2690.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/7cce4a7c-8405-40c3-a9bf-dd902f0a07d8/stream.mp3"
+              }
+            }
+          ]
+        },
+        "1000546793663": {
+          "id": "1000546793663",
+          "name": "#01 Side Projects - Fluch oder Segen für die Karriere?",
+          "collectionName": "Engineering Kiosk",
+          "podcastEpisodeGuid": "5064a513-9ce0-473e-a27b-9f94678904d0",
+          "podcastEpisodeITunesTitle": "#01 Side Projects - Fluch oder Segen für die Karriere?",
+          "podcastEpisodeNumber": 1.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-01-03T12:00:00Z",
+          "releaseDate": "2022-01-03",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 2782.0
+                }
+              ],
+              "download": {
+                "url": "https://stream.redcircle.com/episodes/b421f30e-6b8e-4351-8644-7a89b1343287/stream.mp3"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "episodesPlayCount": {
+      "1000580014637": [
+        {
+          "episodeid": "1000580014637",
+          "followstate": "*",
+          "playscount": 48.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 51337.0,
+          "uniqueengagedlistenerscount": 14.0,
+          "uniquelistenerscount": 17.0
+        }
+      ],
+      "1000563437834": [
+        {
+          "episodeid": "1000563437834",
+          "followstate": "*",
+          "playscount": 147.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 73655.0,
+          "uniqueengagedlistenerscount": 19.0,
+          "uniquelistenerscount": 22.0
+        }
+      ],
+      "1000558699631": [
+        {
+          "episodeid": "1000558699631",
+          "followstate": "*",
+          "playscount": 93.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 49902.0,
+          "uniqueengagedlistenerscount": 13.0,
+          "uniquelistenerscount": 19.0
+        }
+      ],
+      "1000578487137": [
+        {
+          "episodeid": "1000578487137",
+          "followstate": "*",
+          "playscount": 164.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 71545.0,
+          "uniqueengagedlistenerscount": 19.0,
+          "uniquelistenerscount": 27.0
+        }
+      ],
+      "1000567206046": [
+        {
+          "episodeid": "1000567206046",
+          "followstate": "*",
+          "playscount": 138.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 83630.0,
+          "uniqueengagedlistenerscount": 21.0,
+          "uniquelistenerscount": 29.0
+        }
+      ],
+      "1000582229449": [
+        {
+          "episodeid": "1000582229449",
+          "followstate": "*",
+          "playscount": 64.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 44170.0,
+          "uniqueengagedlistenerscount": 14.0,
+          "uniquelistenerscount": 23.0
+        }
+      ],
+      "1000553287989": [
+        {
+          "episodeid": "1000553287989",
+          "followstate": "*",
+          "playscount": 67.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 41016.0,
+          "uniqueengagedlistenerscount": 18.0,
+          "uniquelistenerscount": 24.0
+        }
+      ],
+      "1000557995942": [
+        {
+          "episodeid": "1000557995942",
+          "followstate": "*",
+          "playscount": 77.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 56293.0,
+          "uniqueengagedlistenerscount": 15.0,
+          "uniquelistenerscount": 19.0
+        }
+      ],
+      "1000564628540": [
+        {
+          "episodeid": "1000564628540",
+          "followstate": "*",
+          "playscount": 87.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 69423.0,
+          "uniqueengagedlistenerscount": 21.0,
+          "uniquelistenerscount": 23.0
+        }
+      ],
+      "1000568825196": [
+        {
+          "episodeid": "1000568825196",
+          "followstate": "*",
+          "playscount": 110.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 66135.0,
+          "uniqueengagedlistenerscount": 16.0,
+          "uniquelistenerscount": 23.0
+        }
+      ],
+      "1000566323940": [
+        {
+          "episodeid": "1000566323940",
+          "followstate": "*",
+          "playscount": 134.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 71462.0,
+          "uniqueengagedlistenerscount": 16.0,
+          "uniquelistenerscount": 24.0
+        }
+      ],
+      "1000547431502": [
+        {
+          "episodeid": "1000547431502",
+          "followstate": "*",
+          "playscount": 92.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 53895.0,
+          "uniqueengagedlistenerscount": 18.0,
+          "uniquelistenerscount": 28.0
+        }
+      ],
+      "1000559421700": [
+        {
+          "episodeid": "1000559421700",
+          "followstate": "*",
+          "playscount": 108.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 76403.0,
+          "uniqueengagedlistenerscount": 19.0,
+          "uniquelistenerscount": 28.0
+        }
+      ],
+      "1000555572597": [
+        {
+          "episodeid": "1000555572597",
+          "followstate": "*",
+          "playscount": 110.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 72031.0,
+          "uniqueengagedlistenerscount": 19.0,
+          "uniquelistenerscount": 24.0
+        }
+      ],
+      "1000580748597": [
+        {
+          "episodeid": "1000580748597",
+          "followstate": "*",
+          "playscount": 121.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 71843.0,
+          "uniqueengagedlistenerscount": 20.0,
+          "uniquelistenerscount": 23.0
+        }
+      ],
+      "1000548902548": [
+        {
+          "episodeid": "1000548902548",
+          "followstate": "*",
+          "playscount": 97.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 65078.0,
+          "uniqueengagedlistenerscount": 20.0,
+          "uniquelistenerscount": 28.0
+        }
+      ],
+      "1000550397428": [
+        {
+          "episodeid": "1000550397428",
+          "followstate": "*",
+          "playscount": 56.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 36864.0,
+          "uniqueengagedlistenerscount": 21.0,
+          "uniquelistenerscount": 30.0
+        }
+      ],
+      "1000551119949": [
+        {
+          "episodeid": "1000551119949",
+          "followstate": "*",
+          "playscount": 111.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 57288.0,
+          "uniqueengagedlistenerscount": 15.0,
+          "uniquelistenerscount": 25.0
+        }
+      ],
+      "1000554051253": [
+        {
+          "episodeid": "1000554051253",
+          "followstate": "*",
+          "playscount": 123.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 59384.0,
+          "uniqueengagedlistenerscount": 20.0,
+          "uniquelistenerscount": 30.0
+        }
+      ],
+      "1000576207101": [
+        {
+          "episodeid": "1000576207101",
+          "followstate": "*",
+          "playscount": 89.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 54583.0,
+          "uniqueengagedlistenerscount": 14.0,
+          "uniquelistenerscount": 21.0
+        }
+      ],
+      "1000548219975": [
+        {
+          "episodeid": "1000548219975",
+          "followstate": "*",
+          "playscount": 119.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 75009.0,
+          "uniqueengagedlistenerscount": 26.0,
+          "uniquelistenerscount": 29.0
+        }
+      ],
+      "1000554856777": [
+        {
+          "episodeid": "1000554856777",
+          "followstate": "*",
+          "playscount": 111.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 69680.0,
+          "uniqueengagedlistenerscount": 16.0,
+          "uniquelistenerscount": 24.0
+        }
+      ],
+      "1000551841726": [
+        {
+          "episodeid": "1000551841726",
+          "followstate": "*",
+          "playscount": 93.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 71268.0,
+          "uniqueengagedlistenerscount": 17.0,
+          "uniquelistenerscount": 27.0
+        }
+      ],
+      "1000552569027": [
+        {
+          "episodeid": "1000552569027",
+          "followstate": "*",
+          "playscount": 153.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 90815.0,
+          "uniqueengagedlistenerscount": 26.0,
+          "uniquelistenerscount": 38.0
+        }
+      ],
+      "1000574728229": [
+        {
+          "episodeid": "1000574728229",
+          "followstate": "*",
+          "playscount": 105.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 60364.0,
+          "uniqueengagedlistenerscount": 15.0,
+          "uniquelistenerscount": 23.0
+        }
+      ],
+      "1000582974713": [
+        {
+          "episodeid": "1000582974713",
+          "followstate": "*",
+          "playscount": 74.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 57212.0,
+          "uniqueengagedlistenerscount": 16.0,
+          "uniquelistenerscount": 20.0
+        }
+      ],
+      "1000546793663": [
+        {
+          "episodeid": "1000546793663",
+          "followstate": "*",
+          "playscount": 168.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 97082.0,
+          "uniqueengagedlistenerscount": 34.0,
+          "uniquelistenerscount": 51.0
+        }
+      ],
+      "1000557196507": [
+        {
+          "episodeid": "1000557196507",
+          "followstate": "*",
+          "playscount": 92.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 45970.0,
+          "uniqueengagedlistenerscount": 12.0,
+          "uniquelistenerscount": 19.0
+        }
+      ],
+      "1000570419965": [
+        {
+          "episodeid": "1000570419965",
+          "followstate": "*",
+          "playscount": 134.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 69381.0,
+          "uniqueengagedlistenerscount": 18.0,
+          "uniquelistenerscount": 26.0
+        }
+      ],
+      "1000581487989": [
+        {
+          "episodeid": "1000581487989",
+          "followstate": "*",
+          "playscount": 52.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 42577.0,
+          "uniqueengagedlistenerscount": 15.0,
+          "uniquelistenerscount": 20.0
+        }
+      ],
+      "1000577040259": [
+        {
+          "episodeid": "1000577040259",
+          "followstate": "*",
+          "playscount": 84.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 58059.0,
+          "uniqueengagedlistenerscount": 16.0,
+          "uniquelistenerscount": 21.0
+        }
+      ],
+      "1000560207020": [
+        {
+          "episodeid": "1000560207020",
+          "followstate": "*",
+          "playscount": 123.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 74799.0,
+          "uniqueengagedlistenerscount": 16.0,
+          "uniquelistenerscount": 20.0
+        }
+      ],
+      "1000584604988": [
+        {
+          "episodeid": "1000584604988",
+          "followstate": "*",
+          "playscount": 10.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 8614.0,
+          "uniqueengagedlistenerscount": 0.0,
+          "uniquelistenerscount": 0.0
+        }
+      ],
+      "1000567936094": [
+        {
+          "episodeid": "1000567936094",
+          "followstate": "*",
+          "playscount": 164.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 102253.0,
+          "uniqueengagedlistenerscount": 23.0,
+          "uniquelistenerscount": 33.0
+        }
+      ],
+      "1000575453470": [
+        {
+          "episodeid": "1000575453470",
+          "followstate": "*",
+          "playscount": 114.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 59127.0,
+          "uniqueengagedlistenerscount": 16.0,
+          "uniquelistenerscount": 27.0
+        }
+      ],
+      "1000579282766": [
+        {
+          "episodeid": "1000579282766",
+          "followstate": "*",
+          "playscount": 131.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 63695.0,
+          "uniqueengagedlistenerscount": 19.0,
+          "uniquelistenerscount": 28.0
+        }
+      ],
+      "1000571178079": [
+        {
+          "episodeid": "1000571178079",
+          "followstate": "*",
+          "playscount": 77.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 57594.0,
+          "uniqueengagedlistenerscount": 14.0,
+          "uniquelistenerscount": 18.0
+        }
+      ],
+      "1000561721993": [
+        {
+          "episodeid": "1000561721993",
+          "followstate": "*",
+          "playscount": 130.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 62849.0,
+          "uniqueengagedlistenerscount": 17.0,
+          "uniquelistenerscount": 25.0
+        }
+      ],
+      "1000549643155": [
+        {
+          "episodeid": "1000549643155",
+          "followstate": "*",
+          "playscount": 131.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 64961.0,
+          "uniqueengagedlistenerscount": 26.0,
+          "uniquelistenerscount": 35.0
+        }
+      ],
+      "1000577751142": [
+        {
+          "episodeid": "1000577751142",
+          "followstate": "*",
+          "playscount": 98.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 69653.0,
+          "uniqueengagedlistenerscount": 24.0,
+          "uniquelistenerscount": 30.0
+        }
+      ],
+      "1000583770577": [
+        {
+          "episodeid": "1000583770577",
+          "followstate": "*",
+          "playscount": 57.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 40155.0,
+          "uniqueengagedlistenerscount": 12.0,
+          "uniquelistenerscount": 16.0
+        }
+      ],
+      "1000556264575": [
+        {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 111.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 74214.0,
+          "uniqueengagedlistenerscount": 20.0,
+          "uniquelistenerscount": 27.0
+        }
+      ],
+      "1000565464152": [
+        {
+          "episodeid": "1000565464152",
+          "followstate": "*",
+          "playscount": 132.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 80194.0,
+          "uniqueengagedlistenerscount": 21.0,
+          "uniquelistenerscount": 26.0
+        }
+      ],
+      "1000569619207": [
+        {
+          "episodeid": "1000569619207",
+          "followstate": "*",
+          "playscount": 123.0,
+          "podcastid": "1603082924",
+          "totaltimelistened": 81453.0,
+          "uniqueengagedlistenerscount": 20.0,
+          "uniquelistenerscount": 28.0
+        }
+      ]
+    }
+  }
+}
