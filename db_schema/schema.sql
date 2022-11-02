@@ -140,3 +140,14 @@ CREATE TABLE appleEpisodeMetadata (
   ep_type VARCHAR(255) NOT NULL,
   PRIMARY KEY (account_id, episode_id)
 );
+
+DROP TABLE IF EXISTS appleEpisodePlayCounts;
+CREATE TABLE appleEpisodePlayCounts (
+  account_id INTEGER NOT NULL,
+  episode_id BIGINT NOT NULL,
+  apc_playscount INTEGER NOT NULL,
+  apc_totaltimelistened BIGINT NOT NULL,
+  apc_uniqueengagedlistenerscount INTEGER NOT NULL,
+  apc_uniquelistenerscount INTEGER NOT NULL,
+  PRIMARY KEY (account_id, episode_id)
+);

@@ -4,6 +4,7 @@ import { PayloadError } from '../../types/api'
 import episodesSchema from '../../schema/apple/episodes.json'
 import {
     AppleEpisodePayload,
+    AppleEpisodePlayCountPayload,
     AppleEpisodesPayload,
     ConnectorPayload,
 } from '../../types/connector'
@@ -27,19 +28,19 @@ class AppleConnector implements ConnectorHandler {
             // as this payload contains two completely different data trees
             // we separate metadata and global play counts of episodes
 
-            return await this.repo.storeEpisodesMetadata(
+            await this.repo.storeEpisodesMetadata(
                 accountId,
                 Object.values(
                     (payload.data as AppleEpisodesPayload).content.results
                 ) as AppleEpisodePayload[]
             )
 
-            // return await this.repo.storeEpisodesPlayCount(
-            //     accountId,
-            //     Object.entries(
-            //         (payload.data as AppleEpisodesPayload).episodesPlayCount
-            //     )
-            // )
+            return await this.repo.storeEpisodesPlayCount(
+                accountId,
+                Object.values(
+                    (payload.data as AppleEpisodesPayload).episodesPlayCount
+                ) as AppleEpisodePlayCountPayload[][]
+            )
         }
     }
 }
