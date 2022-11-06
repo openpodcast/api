@@ -5,7 +5,7 @@ import {
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
 } from '../types/connector'
-
+import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
 class AppleRepository {
     pool
 
@@ -54,6 +54,11 @@ class AppleRepository {
         episodeId: string,
         episodeDetails: appleEpisodeDetailsPayload
     ): Promise<any> {
+        const calculataedQauerterMedianValues =
+            calcApplePodcastPerformanceQuarters(
+                episodeDetails.episodePlayHistogram
+            )
+
         const replaceStmt = `REPLACE INTO appleEpisodeDetails (
             account_id,
             episode_id,
@@ -64,9 +69,14 @@ class AppleRepository {
             aed_engagedplayscount,            
             aed_play_histogram,
             aed_play_top_cities,
-            aed_play_top_countries
+            aed_play_top_countries,
+            aed_histogram_max_listeners,
+            aed_quarter1_median_listeners,
+            aed_quarter2_median_listeners,
+            aed_quarter3_median_listeners,
+            aed_quarter4_median_listeners
             ) VALUES
-            (?,?,?,?,?,?,?,?,?,?)`
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
 
         return await this.pool.query(replaceStmt, [
             accountId,
@@ -79,6 +89,11 @@ class AppleRepository {
             JSON.stringify(episodeDetails.episodePlayHistogram),
             JSON.stringify(episodeDetails.showTopCities),
             JSON.stringify(episodeDetails.showTopCountries),
+            calculataedQauerterMedianValues.maxListeners,
+            calculataedQauerterMedianValues.quarterMedianValues[0],
+            calculataedQauerterMedianValues.quarterMedianValues[1],
+            calculataedQauerterMedianValues.quarterMedianValues[2],
+            calculataedQauerterMedianValues.quarterMedianValues[3],
         ])
     }
 }

@@ -152,5 +152,10 @@ CREATE TABLE appleEpisodeDetails (
   aed_play_histogram JSON,
   aed_play_top_cities JSON,
   aed_play_top_countries JSON,
+  aed_histogram_max_listeners INTEGER,
+  aed_quarter1_median_listeners INTEGER,
+  aed_quarter2_median_listeners INTEGER,
+  aed_quarter3_median_listeners INTEGER,
+  aed_quarter4_median_listeners INTEGER,
   PRIMARY KEY (account_id, episode_id)
 );
