@@ -18,7 +18,7 @@ const calcApplePodcastPerformanceQuarters = function (
     const maxListeners = Math.max(...performanceValues)
 
     if (performanceValues.length < 4) {
-        throw Error('to little data to calculate quarters')
+        throw Error('too little data to calculate quarters')
     }
 
     const quarterSize = Math.floor(performanceValues.length / 4)
