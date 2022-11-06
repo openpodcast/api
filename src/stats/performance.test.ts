@@ -37,6 +37,6 @@ describe('calculate quarterly performance data of an episode', () => {
         // to catch an expection we have to wrap it in an anonymous fun
         expect(() => {
             calcApplePodcastPerformanceQuarters({ performance: testdata })
-        }).toThrow('to little data to calculate quarters')
+        }).toThrow('too little data to calculate quarters')
     })
 })
