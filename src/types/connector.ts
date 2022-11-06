@@ -161,3 +161,31 @@ export interface AppleEpisodesPayload {
         [episodeId: string]: AppleEpisodePlayCountPayload[]
     }
 }
+
+export interface appleEpisodePlayCountAllTimePayload {
+    episodeid: string
+    followstate: string
+    playscount: number
+    podcastid: string
+    totaltimelistened: number
+    uniqueengagedlistenerscount: number
+    uniquelistenerscount: number
+    engagedplayscount: number
+}
+
+export interface appleEpisodeDetailsPayload {
+    episodePlayCountAllTime: appleEpisodePlayCountAllTimePayload
+    episodePlayHistogram: {
+        [seconds: string]: number
+    }[]
+    showTopCities: {
+        [cityId: string]: {
+            latestValue: number
+        }
+    }
+    showTopCountries: {
+        [countryId: string]: {
+            latestValue: number
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import e from 'express'
 import { Pool } from 'mysql2/promise'
 import {
+    appleEpisodeDetailsPayload,
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
 } from '../types/connector'
@@ -10,43 +11,6 @@ class AppleRepository {
 
     constructor(pool: Pool) {
         this.pool = pool
-    }
-
-    // store play counts that is send from the episodes api together with  metadata
-    async storeEpisodesPlayCount(
-        accountId: number,
-        episodesPlayCounts: AppleEpisodePlayCountPayload[][]
-    ): Promise<any> {
-        const replaceStmt = `REPLACE INTO appleEpisodePlayCounts (
-            account_id,
-            episode_id,
-            apc_playscount,
-            apc_totaltimelistened,
-            apc_uniqueengagedlistenerscount,
-            apc_uniquelistenerscount
-            ) VALUES
-            (?,?,?,?,?,?)`
-
-        return await Promise.all(
-            episodesPlayCounts.map(
-                async (
-                    entries: AppleEpisodePlayCountPayload[]
-                ): Promise<any> => {
-                    // the apple api allows an array of playcount objects which doesn't make a lot of sense
-                    // as there is always just one entry returned. therefore, we just use the first and only
-                    // element of the given array of playcount objects
-                    const entry = entries[0]
-                    return await this.pool.query(replaceStmt, [
-                        accountId,
-                        entry.episodeid,
-                        entry.playscount,
-                        entry.totaltimelistened,
-                        entry.uniqueengagedlistenerscount,
-                        entry.uniquelistenerscount,
-                    ])
-                }
-            )
-        )
     }
 
     // store metadata of multiple episodes
@@ -83,6 +47,39 @@ class AppleRepository {
                     ])
             )
         )
+    }
+
+    async storeEpisodeDetails(
+        accountId: number,
+        episodeId: string,
+        episodeDetails: appleEpisodeDetailsPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO appleEpisodeDetails (
+            account_id,
+            episode_id,
+            aed_playscount,
+            aed_totaltimelistened,
+            aed_uniqueengagedlistenerscount,
+            aed_uniquelistenerscount,
+            aed_engagedplayscount,            
+            aed_play_histogram,
+            aed_play_top_cities,
+            aed_play_top_countries
+            ) VALUES
+            (?,?,?,?,?,?,?,?,?,?)`
+
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            episodeId,
+            episodeDetails.episodePlayCountAllTime.playscount,
+            episodeDetails.episodePlayCountAllTime.totaltimelistened,
+            episodeDetails.episodePlayCountAllTime.uniqueengagedlistenerscount,
+            episodeDetails.episodePlayCountAllTime.uniquelistenerscount,
+            episodeDetails.episodePlayCountAllTime.engagedplayscount,
+            JSON.stringify(episodeDetails.episodePlayHistogram),
+            JSON.stringify(episodeDetails.showTopCities),
+            JSON.stringify(episodeDetails.showTopCountries),
+        ])
     }
 }
 

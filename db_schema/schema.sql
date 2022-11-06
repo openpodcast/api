@@ -126,7 +126,6 @@ CREATE TABLE spotifyEpisodeMetadata (
   PRIMARY KEY (account_id, episode_id)
 );
 
-
 DROP TABLE IF EXISTS appleEpisodeMetadata;
 CREATE TABLE appleEpisodeMetadata (
   account_id INTEGER NOT NULL,
@@ -141,13 +140,17 @@ CREATE TABLE appleEpisodeMetadata (
   PRIMARY KEY (account_id, episode_id)
 );
 
-DROP TABLE IF EXISTS appleEpisodePlayCounts;
-CREATE TABLE appleEpisodePlayCounts (
+DROP TABLE IF EXISTS appleEpisodeDetails;
+CREATE TABLE appleEpisodeDetails (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
-  apc_playscount INTEGER NOT NULL,
-  apc_totaltimelistened BIGINT NOT NULL,
-  apc_uniqueengagedlistenerscount INTEGER NOT NULL,
-  apc_uniquelistenerscount INTEGER NOT NULL,
+  aed_playscount INTEGER NOT NULL,
+  aed_totaltimelistened BIGINT NOT NULL,
+  aed_uniqueengagedlistenerscount INTEGER NOT NULL,
+  aed_uniquelistenerscount INTEGER NOT NULL,
+  aed_engagedplayscount INTEGER NOT NULL,
+  aed_play_histogram JSON,
+  aed_play_top_cities JSON,
+  aed_play_top_countries JSON,
   PRIMARY KEY (account_id, episode_id)
 );

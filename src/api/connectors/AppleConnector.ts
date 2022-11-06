@@ -2,7 +2,9 @@ import { ConnectorHandler } from '.'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { PayloadError } from '../../types/api'
 import episodesSchema from '../../schema/apple/episodes.json'
+import episodeDetailsSchema from '../../schema/apple/episodeDetails.json'
 import {
+    appleEpisodeDetailsPayload,
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
     AppleEpisodesPayload,
@@ -25,21 +27,27 @@ class AppleConnector implements ConnectorHandler {
             // validates the payload and throws an error if it is not valid
             validateJsonApiPayload(episodesSchema, payload.data)
 
-            // as this payload contains two completely different data trees
-            // we separate metadata and global play counts of episodes
+            // this payload contains two completely different data trees
+            // metadata and global play counts of episodes
+            // as play counts is already covered by the episodeDetails API we can skip it here
 
-            await this.repo.storeEpisodesMetadata(
+            return await this.repo.storeEpisodesMetadata(
                 accountId,
                 Object.values(
                     (payload.data as AppleEpisodesPayload).content.results
                 ) as AppleEpisodePayload[]
             )
+        } else if (payload.meta.endpoint === 'episodeDetails') {
+            validateJsonApiPayload(episodeDetailsSchema, payload.data)
 
-            return await this.repo.storeEpisodesPlayCount(
+            if (payload.meta.episode === undefined) {
+                throw new PayloadError('missing episode id')
+            }
+
+            return await this.repo.storeEpisodeDetails(
                 accountId,
-                Object.values(
-                    (payload.data as AppleEpisodesPayload).episodesPlayCount
-                ) as AppleEpisodePlayCountPayload[][]
+                payload.meta.episode,
+                payload.data as appleEpisodeDetailsPayload
             )
         }
     }
