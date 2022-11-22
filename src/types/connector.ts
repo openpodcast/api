@@ -189,3 +189,26 @@ export interface appleEpisodeDetailsPayload {
         }
     }
 }
+
+export interface AppleEpisodePlayCountTrendsPayload
+    extends AppleEpisodePlayCountPayload {
+    timebucket: number
+}
+export interface AppleShowPlayCountTrendsPayload {
+    followstate: string
+    playscount: number
+    podcastid: string
+    timebucket: number
+    totaltimelistened: number
+    uniqueengagedlistenerscount: number
+    uniquelistenerscount: number
+}
+
+export interface AppleShowTrendsListenersPayload {
+    measure: 'LISTENERS'
+    dimension: 'BY_EPISODES'
+    episodesPlayCountTrends: {
+        [episodeId: string]: AppleEpisodePlayCountTrendsPayload[]
+    }
+    showPlayCountTrends: AppleShowPlayCountTrendsPayload[]
+}
