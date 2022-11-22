@@ -8,6 +8,7 @@ import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
+    AppleEpisodePlayCountTrendsPayload,
     AppleEpisodesPayload,
     AppleShowTrendsListenersPayload,
     ConnectorPayload,
@@ -54,9 +55,29 @@ class AppleConnector implements ConnectorHandler {
         } else if (payload.meta.endpoint === 'showTrends/Listeners') {
             validateJsonApiPayload(showTrendsListenersSchema, payload.data)
 
-            return await this.repo.storeTrendsListeners(
+            const payloadData = payload.data as AppleShowTrendsListenersPayload
+
+            // flatten the nested structure to flat episode entries (multiple entries per episode and day)
+            // as the AppleEpisodePlayCountTrendsPayload structure contains the episode id we can flatten it
+            const episodeEntries: AppleEpisodePlayCountTrendsPayload[] =
+                Object.values(payloadData.episodesPlayCountTrends).reduce(
+                    (
+                        entries: AppleEpisodePlayCountTrendsPayload[],
+                        arr: AppleEpisodePlayCountTrendsPayload[]
+                    ) => arr.concat(...entries),
+                    []
+                )
+
+            //stores data per episode and day
+            await this.repo.storeTrendsEpisodeListeners(
                 accountId,
-                payload.data as AppleShowTrendsListenersPayload
+                episodeEntries
+            )
+
+            //stores data per podcast and day
+            return await this.repo.storeTrendsPodcastListeners(
+                accountId,
+                payloadData.showPlayCountTrends
             )
         }
     }

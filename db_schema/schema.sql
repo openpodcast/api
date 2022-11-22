@@ -160,7 +160,7 @@ CREATE TABLE appleEpisodeDetails (
   PRIMARY KEY (account_id, episode_id)
 );
 
--- listeners values per day and per episode coming from the trends api
+-- listeners values per day and per episode coming from the apple trends api
 DROP TABLE IF EXISTS appleTrendsEpisodeListeners;
 CREATE TABLE appleTrendsEpisodeListeners (
   account_id INTEGER NOT NULL,
@@ -171,4 +171,16 @@ CREATE TABLE appleTrendsEpisodeListeners (
   atl_uniqueengagedlistenerscount INTEGER NOT NULL,
   atl_uniquelistenerscount INTEGER NOT NULL,
   PRIMARY KEY (account_id, episode_id, atl_date)
+);
+
+-- listeners values per day and per podcast coming from the apple trends api
+DROP TABLE IF EXISTS appleTrendsPodcastListeners;
+CREATE TABLE appleTrendsEpisodePodcastListeners (
+  account_id INTEGER NOT NULL,
+  atl_date DATE NOT NULL,
+  atl_playscount INTEGER NOT NULL,
+  atl_totaltimelistened BIGINT NOT NULL,
+  atl_uniqueengagedlistenerscount INTEGER NOT NULL,
+  atl_uniquelistenerscount INTEGER NOT NULL,
+  PRIMARY KEY (account_id, atl_date)
 );
