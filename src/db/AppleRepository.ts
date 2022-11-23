@@ -4,6 +4,9 @@ import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
+    AppleEpisodePlayCountTrendsPayload,
+    AppleShowPlayCountTrendsPayload,
+    AppleShowTrendsFollowersDay,
     AppleShowTrendsListenersPayload,
 } from '../types/connector'
 import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
@@ -98,11 +101,93 @@ class AppleRepository {
         ])
     }
 
-    storeTrendsListeners(
+    async storeTrendsEpisodeListeners(
         accountId: number,
-        data: AppleShowTrendsListenersPayload
-    ): void | PromiseLike<void> {
-        throw new Error('Method not implemented.')
+        data: AppleEpisodePlayCountTrendsPayload[]
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO appleTrendsEpisodeListeners (
+            account_id,
+            episode_id,
+            atl_date,
+            atl_playscount,
+            atl_totaltimelistened,
+            atl_uniqueengagedlistenerscount,
+            atl_uniquelistenerscount
+            ) VALUES
+            (?,?,STR_TO_DATE(?,'%Y%m%d'),?,?,?,?)`
+
+        return await Promise.all(
+            data.map(
+                async (
+                    entry: AppleEpisodePlayCountTrendsPayload
+                ): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        entry.episodeid,
+                        entry.timebucket,
+                        entry.playscount,
+                        entry.totaltimelistened,
+                        entry.uniqueengagedlistenerscount,
+                        entry.uniquelistenerscount,
+                    ])
+            )
+        )
+    }
+
+    async storeTrendsPodcastListeners(
+        accountId: number,
+        data: AppleShowPlayCountTrendsPayload[]
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO appleTrendsEpisodePodcastListeners (
+            account_id,
+            atl_date,
+            atl_playscount,
+            atl_totaltimelistened,
+            atl_uniqueengagedlistenerscount,
+            atl_uniquelistenerscount
+            ) VALUES
+            (?,STR_TO_DATE(?,'%Y%m%d'),?,?,?,?)`
+
+        return await Promise.all(
+            data.map(
+                async (entry: AppleShowPlayCountTrendsPayload): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        entry.timebucket,
+                        entry.playscount,
+                        entry.totaltimelistened,
+                        entry.uniqueengagedlistenerscount,
+                        entry.uniquelistenerscount,
+                    ])
+            )
+        )
+    }
+
+    async storeTrendsPodcastFollowers(
+        accountId: number,
+        data: AppleShowTrendsFollowersDay[]
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO appleTrendsEpisodePodcastFollowers (
+            account_id,
+            atf_date,
+            atf_totalfollowers,
+            atf_gained,
+            atf_lost
+            ) VALUES
+            (?,STR_TO_DATE(?,'%Y%m%d'),?,?,?)`
+
+        return await Promise.all(
+            data.map(
+                async (entry: AppleShowTrendsFollowersDay): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        entry.date,
+                        entry.totalListeners,
+                        entry.gained,
+                        entry.lost,
+                    ])
+            )
+        )
     }
 }
 
