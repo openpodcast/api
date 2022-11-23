@@ -212,3 +212,16 @@ export interface AppleShowTrendsListenersPayload {
     }
     showPlayCountTrends: AppleShowPlayCountTrendsPayload[]
 }
+
+export interface AppleShowTrendsFollowersPayload {
+    measure: 'FOLLOWERS'
+    followerAllTimeTrends: number[][]
+    followerGrowthTrends: number[][]
+}
+
+export interface AppleShowTrendsFollowersDay {
+    date: number
+    totalListeners: number
+    gained: number
+    lost: number
+}

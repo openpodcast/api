@@ -184,3 +184,14 @@ CREATE TABLE appleTrendsEpisodePodcastListeners (
   atl_uniquelistenerscount INTEGER NOT NULL,
   PRIMARY KEY (account_id, atl_date)
 );
+
+-- followers, gained/lost values per day
+DROP TABLE IF EXISTS appleTrendsPodcastFollowers;
+CREATE TABLE appleTrendsEpisodePodcastFollowers (
+  account_id INTEGER NOT NULL,
+  atf_date DATE NOT NULL,
+  atf_totalfollowers INTEGER NOT NULL,
+  atf_gained INTEGER NOT NULL,
+  atf_lost INTEGER NOT NULL,
+  PRIMARY KEY (account_id, atf_date)
+);

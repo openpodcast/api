@@ -4,12 +4,15 @@ import { PayloadError } from '../../types/api'
 import episodesSchema from '../../schema/apple/episodes.json'
 import episodeDetailsSchema from '../../schema/apple/episodeDetails.json'
 import showTrendsListenersSchema from '../../schema/apple/showTrendsListeners.json'
+import showTrendsFollowersSchema from '../../schema/apple/showTrendsFollowers.json'
 import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
     AppleEpisodePlayCountTrendsPayload,
     AppleEpisodesPayload,
+    AppleShowTrendsFollowersDay,
+    AppleShowTrendsFollowersPayload,
     AppleShowTrendsListenersPayload,
     ConnectorPayload,
 } from '../../types/connector'
@@ -62,8 +65,8 @@ class AppleConnector implements ConnectorHandler {
             const episodeEntries: AppleEpisodePlayCountTrendsPayload[] =
                 Object.values(payloadData.episodesPlayCountTrends).reduce(
                     (
-                        entries: AppleEpisodePlayCountTrendsPayload[],
-                        arr: AppleEpisodePlayCountTrendsPayload[]
+                        arr: AppleEpisodePlayCountTrendsPayload[],
+                        entries: AppleEpisodePlayCountTrendsPayload[]
                     ) => arr.concat(...entries),
                     []
                 )
@@ -78,6 +81,42 @@ class AppleConnector implements ConnectorHandler {
             return await this.repo.storeTrendsPodcastListeners(
                 accountId,
                 payloadData.showPlayCountTrends
+            )
+        } else if (payload.meta.endpoint === 'showTrends/Followers') {
+            validateJsonApiPayload(showTrendsFollowersSchema, payload.data)
+
+            const payloadData = payload.data as AppleShowTrendsFollowersPayload
+
+            // map all day values into one structure
+            let days = payloadData.followerAllTimeTrends.reduce(
+                (prev, curr) => {
+                    prev[curr[0]] = {
+                        date: curr[0],
+                        totalListeners: curr[1],
+                        gained: 0,
+                        lost: 0,
+                    } as AppleShowTrendsFollowersDay
+                    return prev
+                },
+                {} as {
+                    [day: number]: AppleShowTrendsFollowersDay
+                }
+            )
+
+            // add gained/lost values
+            days = payloadData.followerGrowthTrends.reduce((prev, curr) => {
+                const dayElem = prev[curr[0]] || null
+                if (dayElem) {
+                    dayElem.gained = curr[1]
+                    dayElem.lost = curr[1]
+                }
+                return prev
+            }, days)
+
+            //stores data per podcast and day
+            return await this.repo.storeTrendsPodcastFollowers(
+                accountId,
+                Object.values(days)
             )
         }
     }

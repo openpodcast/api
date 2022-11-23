@@ -6,6 +6,7 @@ import {
     AppleEpisodePlayCountPayload,
     AppleEpisodePlayCountTrendsPayload,
     AppleShowPlayCountTrendsPayload,
+    AppleShowTrendsFollowersDay,
     AppleShowTrendsListenersPayload,
 } from '../types/connector'
 import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
@@ -157,6 +158,33 @@ class AppleRepository {
                         entry.totaltimelistened,
                         entry.uniqueengagedlistenerscount,
                         entry.uniquelistenerscount,
+                    ])
+            )
+        )
+    }
+
+    async storeTrendsPodcastFollowers(
+        accountId: number,
+        data: AppleShowTrendsFollowersDay[]
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO appleTrendsEpisodePodcastFollowers (
+            account_id,
+            atf_date,
+            atf_totalfollowers,
+            atf_gained,
+            atf_lost
+            ) VALUES
+            (?,STR_TO_DATE(?,'%Y%m%d'),?,?,?)`
+
+        return await Promise.all(
+            data.map(
+                async (entry: AppleShowTrendsFollowersDay): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        entry.date,
+                        entry.totalListeners,
+                        entry.gained,
+                        entry.lost,
                     ])
             )
         )

@@ -1,0 +1,41 @@
+{
+  "$id": "http://openpodcast.dev/schema/apple/showTrendsFollowers.schema.json",
+  "title": "Trends which includes followers growth",
+  "type": "object",
+  "properties": {
+    "measure": {
+      "enum": [
+        "FOLLOWERS"
+      ]
+    },
+    "followerAllTimeTrends": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "minItems": 1
+    },
+    "followerGrowthTrends": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "measure",
+    "followerAllTimeTrends",
+    "followerGrowthTrends"
+  ]
+}
