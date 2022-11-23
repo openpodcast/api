@@ -4,6 +4,7 @@ import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
+    AppleShowTrendsListenersPayload,
 } from '../types/connector'
 import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
 class AppleRepository {
@@ -95,6 +96,13 @@ class AppleRepository {
             calculataedQauerterMedianValues.quarterMedianValues[2],
             calculataedQauerterMedianValues.quarterMedianValues[3],
         ])
+    }
+
+    storeTrendsListeners(
+        accountId: number,
+        data: AppleShowTrendsListenersPayload
+    ): void | PromiseLike<void> {
+        throw new Error('Method not implemented.')
     }
 }
 

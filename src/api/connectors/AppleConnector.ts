@@ -3,11 +3,13 @@ import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { PayloadError } from '../../types/api'
 import episodesSchema from '../../schema/apple/episodes.json'
 import episodeDetailsSchema from '../../schema/apple/episodeDetails.json'
+import showTrendsListenersSchema from '../../schema/apple/showTrendsListeners.json'
 import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
     AppleEpisodePlayCountPayload,
     AppleEpisodesPayload,
+    AppleShowTrendsListenersPayload,
     ConnectorPayload,
 } from '../../types/connector'
 import { AppleRepository } from '../../db/AppleRepository'
@@ -48,6 +50,13 @@ class AppleConnector implements ConnectorHandler {
                 accountId,
                 payload.meta.episode,
                 payload.data as appleEpisodeDetailsPayload
+            )
+        } else if (payload.meta.endpoint === 'showTrends/Listeners') {
+            validateJsonApiPayload(showTrendsListenersSchema, payload.data)
+
+            return await this.repo.storeTrendsListeners(
+                accountId,
+                payload.data as AppleShowTrendsListenersPayload
             )
         }
     }
