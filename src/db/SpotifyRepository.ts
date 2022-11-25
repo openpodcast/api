@@ -42,7 +42,7 @@ class SpotifyRepository {
             payload.followers,
         ])
 
-        const replaceStmtHistory = `REPLACE INTO spotifyPodcastMetadata (
+        const replaceStmtHistory = `REPLACE INTO spotifyPodcastMetadataHistory (
             account_id,
             spm_date,
             spm_total_episodes,
@@ -56,7 +56,7 @@ class SpotifyRepository {
 
         return await this.pool.query(replaceStmtHistory, [
             accountId,
-            `${today.getFullYear()}-${today.getMonth()}-${today.getDay()}`,
+            `${today.toLocaleDateString('en-CA')}`, //format to YYYY-mm-dd
             payload.totalEpisodes,
             payload.starts,
             payload.streams,
