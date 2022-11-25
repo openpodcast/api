@@ -108,6 +108,18 @@ CREATE TABLE spotifyPodcastMetadata (
   PRIMARY KEY (account_id)
 );
 
+DROP TABLE IF EXISTS spotifyPodcastMetadataHistory;
+CREATE TABLE spotifyPodcastMetadataHistory (
+  account_id INTEGER NOT NULL,
+  spm_date DATE NOT NULL,
+  spm_total_episodes INTEGER NOT NULL,
+  spm_starts INTEGER NOT NULL,
+  spm_streams INTEGER NOT NULL,
+  spm_listeners INTEGER NOT NULL,
+  spm_followers INTEGER NOT NULL,
+  PRIMARY KEY (account_id, spm_date)
+);
+
 DROP TABLE IF EXISTS spotifyEpisodeMetadata;
 CREATE TABLE spotifyEpisodeMetadata (
   account_id INTEGER NOT NULL,
