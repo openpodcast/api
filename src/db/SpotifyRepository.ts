@@ -33,8 +33,30 @@ class SpotifyRepository {
             spm_followers ) VALUES
             (?,?,?,?,?,?)`
 
-        return await this.pool.query(replaceStmt, [
+        await this.pool.query(replaceStmt, [
             accountId,
+            payload.totalEpisodes,
+            payload.starts,
+            payload.streams,
+            payload.listeners,
+            payload.followers,
+        ])
+
+        const replaceStmtHistory = `REPLACE INTO spotifyPodcastMetadataHistory (
+            account_id,
+            spm_date,
+            spm_total_episodes,
+            spm_starts,
+            spm_streams,
+            spm_listeners,
+            spm_followers ) VALUES
+            (?,?,?,?,?,?,?)`
+
+        const today = new Date()
+
+        return await this.pool.query(replaceStmtHistory, [
+            accountId,
+            `${today.toLocaleDateString('en-CA')}`, //format to YYYY-mm-dd
             payload.totalEpisodes,
             payload.starts,
             payload.streams,
