@@ -19,30 +19,17 @@ class SpotifyRepository {
         this.pool = pool
     }
 
+    getTodayDBString(): string {
+        const today = new Date()
+        return today.toLocaleDateString('en-CA') //format to YYYY-mm-dd
+    }
+
     // store metadata for the entire podcast
     async storePodcastMetadata(
         accountId: number,
         payload: SpotifyPodcastMetadataPayload
     ): Promise<any> {
-        const replaceStmt = `REPLACE INTO spotifyPodcastMetadata (
-            account_id,
-            spm_total_episodes,
-            spm_starts,
-            spm_streams,
-            spm_listeners,
-            spm_followers ) VALUES
-            (?,?,?,?,?,?)`
-
-        await this.pool.query(replaceStmt, [
-            accountId,
-            payload.totalEpisodes,
-            payload.starts,
-            payload.streams,
-            payload.listeners,
-            payload.followers,
-        ])
-
-        const replaceStmtHistory = `REPLACE INTO spotifyPodcastMetadataHistory (
+        const replaceStmtHistory = `REPLACE INTO spotifyPodcastMetadata (
             account_id,
             spm_date,
             spm_total_episodes,
@@ -52,11 +39,9 @@ class SpotifyRepository {
             spm_followers ) VALUES
             (?,?,?,?,?,?,?)`
 
-        const today = new Date()
-
         return await this.pool.query(replaceStmtHistory, [
             accountId,
-            `${today.toLocaleDateString('en-CA')}`, //format to YYYY-mm-dd
+            this.getTodayDBString(),
             payload.totalEpisodes,
             payload.starts,
             payload.streams,
