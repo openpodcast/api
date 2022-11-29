@@ -55,6 +55,29 @@ class SpotifyRepository {
         accountId: number,
         payload: SpotifyEpisodesMetadataPayload
     ): Promise<any> {
+        const replaceStmtHistory = `REPLACE INTO spotifyEpisodeMetadataHistory (
+            account_id,
+            episode_id,
+            epm_date,
+            epm_starts,
+            epm_streams,
+            epm_listeners) VALUES
+            (?,?,?,?,?,?)`
+
+        await Promise.all(
+            payload.episodes.map(
+                async (entry: SpotifyEpisodeMetadata): Promise<any> =>
+                    await this.pool.query(replaceStmtHistory, [
+                        accountId,
+                        entry.id,
+                        this.getTodayDBString(),
+                        entry.starts,
+                        entry.streams,
+                        entry.listeners,
+                    ])
+            )
+        )
+
         const replaceStmt = `REPLACE INTO spotifyEpisodeMetadata (
             account_id,
             episode_id,

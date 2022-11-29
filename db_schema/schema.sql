@@ -127,6 +127,17 @@ CREATE TABLE spotifyEpisodeMetadata (
   PRIMARY KEY (account_id, episode_id)
 );
 
+DROP TABLE IF EXISTS spotifyEpisodeMetadataHistory;
+CREATE TABLE spotifyEpisodeMetadataHistory (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  epm_date DATE NOT NULL,
+  epm_starts INTEGER NOT NULL,
+  epm_streams INTEGER NOT NULL,
+  epm_listeners INTEGER NOT NULL,
+  PRIMARY KEY (account_id, episode_id, epm_date)
+);
+
 DROP TABLE IF EXISTS appleEpisodeMetadata;
 CREATE TABLE appleEpisodeMetadata (
   account_id INTEGER NOT NULL,
