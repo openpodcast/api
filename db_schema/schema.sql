@@ -100,17 +100,6 @@ CREATE TABLE spotifyEpisodePerformance (
 DROP TABLE IF EXISTS spotifyPodcastMetadata;
 CREATE TABLE spotifyPodcastMetadata (
   account_id INTEGER NOT NULL,
-  spm_total_episodes INTEGER NOT NULL,
-  spm_starts INTEGER NOT NULL,
-  spm_streams INTEGER NOT NULL,
-  spm_listeners INTEGER NOT NULL,
-  spm_followers INTEGER NOT NULL,
-  PRIMARY KEY (account_id)
-);
-
-DROP TABLE IF EXISTS spotifyPodcastMetadataHistory;
-CREATE TABLE spotifyPodcastMetadataHistory (
-  account_id INTEGER NOT NULL,
   spm_date DATE NOT NULL,
   spm_total_episodes INTEGER NOT NULL,
   spm_starts INTEGER NOT NULL,
@@ -136,6 +125,17 @@ CREATE TABLE spotifyEpisodeMetadata (
   ep_spark_line JSON,
   ep_has_video BOOLEAN,
   PRIMARY KEY (account_id, episode_id)
+);
+
+DROP TABLE IF EXISTS spotifyEpisodeMetadataHistory;
+CREATE TABLE spotifyEpisodeMetadataHistory (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  epm_date DATE NOT NULL,
+  epm_starts INTEGER NOT NULL,
+  epm_streams INTEGER NOT NULL,
+  epm_listeners INTEGER NOT NULL,
+  PRIMARY KEY (account_id, episode_id, epm_date)
 );
 
 DROP TABLE IF EXISTS appleEpisodeMetadata;
