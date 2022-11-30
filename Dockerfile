@@ -12,7 +12,7 @@ COPY tsconfig.json ./
 # copy source code to /app/src folder
 COPY src /app/src
 
-RUN yarn install
+RUN yarn install --network-timeout 600000
 RUN yarn build
 
 EXPOSE 7777
