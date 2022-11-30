@@ -16,8 +16,8 @@ dev: ## Starts the development server
 lint: ## run linter
 	yarn lint	
 
-.PHONY: init
-init: ## Installs dependencies
+.PHONY: install init
+install init: ## Installs dependencies
 	yarn install
 
 .PHONY: e2e-tests
