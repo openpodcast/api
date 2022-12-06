@@ -167,7 +167,7 @@ class AppleRepository {
         accountId: number,
         data: AppleShowTrendsFollowersDay[]
     ): Promise<any> {
-        const replaceStmt = `REPLACE INTO appleTrendsEpisodePodcastFollowers (
+        const replaceStmt = `REPLACE INTO appleTrendsPodcastFollowers (
             account_id,
             atf_date,
             atf_totalfollowers,

@@ -199,7 +199,7 @@ CREATE TABLE appleTrendsPodcastListeners (
 
 -- followers, gained/lost values per day
 DROP TABLE IF EXISTS appleTrendsPodcastFollowers;
-CREATE TABLE appleTrendsEpisodePodcastFollowers (
+CREATE TABLE appleTrendsPodcastFollowers (
   account_id INTEGER NOT NULL,
   atf_date DATE NOT NULL,
   atf_totalfollowers INTEGER NOT NULL,
