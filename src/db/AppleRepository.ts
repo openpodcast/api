@@ -138,7 +138,7 @@ class AppleRepository {
         accountId: number,
         data: AppleShowPlayCountTrendsPayload[]
     ): Promise<any> {
-        const replaceStmt = `REPLACE INTO appleTrendsEpisodePodcastListeners (
+        const replaceStmt = `REPLACE INTO appleTrendsPodcastListeners (
             account_id,
             atl_date,
             atl_playscount,

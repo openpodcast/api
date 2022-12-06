@@ -187,7 +187,7 @@ CREATE TABLE appleTrendsEpisodeListeners (
 
 -- listeners values per day and per podcast coming from the apple trends api
 DROP TABLE IF EXISTS appleTrendsPodcastListeners;
-CREATE TABLE appleTrendsEpisodePodcastListeners (
+CREATE TABLE appleTrendsPodcastListeners (
   account_id INTEGER NOT NULL,
   atl_date DATE NOT NULL,
   atl_playscount INTEGER NOT NULL,
