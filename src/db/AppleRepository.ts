@@ -1,19 +1,15 @@
-import e from 'express'
-import { Pool } from 'mysql2/promise'
 import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
-    AppleEpisodePlayCountPayload,
     AppleEpisodePlayCountTrendsPayload,
     AppleShowPlayCountTrendsPayload,
     AppleShowTrendsFollowersDay,
-    AppleShowTrendsListenersPayload,
 } from '../types/connector'
 import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
 class AppleRepository {
     pool
 
-    constructor(pool: Pool) {
+    constructor(pool: any) {
         this.pool = pool
     }
 
