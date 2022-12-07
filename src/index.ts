@@ -9,8 +9,9 @@ import { HttpError, PayloadError } from './types/api'
 import { SpotifyConnector } from './api/connectors/SpotifyConnector'
 import { AppleRepository } from './db/AppleRepository'
 import { AppleConnector } from './api/connectors/AppleConnector'
-import { importHealthRoutes } from './healthcheck'
+import { healthCheck, mysqlHealthy } from './healthcheck'
 import mysql from 'mysql2/promise'
+import { unless } from './expressHelpers'
 
 dotenv.config()
 
@@ -41,17 +42,6 @@ const port = 8080
 
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '1mb' }))
-
-// function to exlude paths from middleware
-const unless = function (path, middleware) {
-    return function (req, res, next) {
-        if (path === req.path) {
-            return next()
-        } else {
-            return middleware(req, res, next)
-        }
-    }
-}
 
 // throw exception if not authorized
 app.use(unless('/health', authMiddleware))
@@ -88,10 +78,12 @@ app.post('/connector', (async (req: Request, res: Response, next: Function) => {
     }
 }) as RequestHandler)
 
-// healthchecks
-importHealthRoutes(app, {
-    appleRepo: appleRepo,
-})
+app.get(
+    '/health',
+    healthCheck({
+        db: mysqlHealthy(pool),
+    })
+)
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: Function) {
