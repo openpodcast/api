@@ -6,10 +6,11 @@ import { EventRepository } from './db/EventRepository'
 import { SpotifyRepository } from './db/SpotifyRepository'
 import { authMiddleware } from './auth'
 import { HttpError, PayloadError } from './types/api'
-import mysql from 'mysql2/promise'
 import { SpotifyConnector } from './api/connectors/SpotifyConnector'
 import { AppleRepository } from './db/AppleRepository'
 import { AppleConnector } from './api/connectors/AppleConnector'
+import { importHealthRoutes } from './healthcheck'
+import mysql from 'mysql2/promise'
 
 dotenv.config()
 
@@ -41,17 +42,30 @@ const port = 8080
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '1mb' }))
 
+// function to exlude paths from middleware
+const unless = function (path, middleware) {
+    return function (req, res, next) {
+        if (path === req.path) {
+            return next()
+        } else {
+            return middleware(req, res, next)
+        }
+    }
+}
+
 // throw exception if not authorized
-app.use(authMiddleware)
+app.use(unless('/health', authMiddleware))
 
 // throw error if no payload submitted
-app.use(function (req: Request, res: Response, next: Function) {
-    if (Object.keys(req.body).length === 0) {
-        const err = new PayloadError('Request format invalid')
-        return next(err)
-    }
-    return next()
-})
+app.use(
+    unless('/health', function (req: Request, res: Response, next: Function) {
+        if (Object.keys(req.body).length === 0) {
+            const err = new PayloadError('Request format invalid')
+            return next(err)
+        }
+        return next()
+    })
+)
 
 // endpoint for events coming from the proxy
 app.post('/events', (async (req: Request, res: Response, next: Function) => {
@@ -74,6 +88,11 @@ app.post('/connector', (async (req: Request, res: Response, next: Function) => {
     }
 }) as RequestHandler)
 
+// healthchecks
+importHealthRoutes(app, {
+    appleRepo: appleRepo,
+})
+
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: Function) {
     const err = new HttpError('File Not Found')
@@ -83,7 +102,7 @@ app.use(function (req: Request, res: Response, next: Function) {
 
 // error handler
 app.use(function (err: Error, req: Request, res: Response, next: Function) {
-    let httpCode: number = 500
+    let httpCode = 500
     if (err instanceof HttpError) {
         console.log(err)
         httpCode = err.status

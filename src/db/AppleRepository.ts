@@ -1,20 +1,28 @@
-import e from 'express'
-import { Pool } from 'mysql2/promise'
 import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
-    AppleEpisodePlayCountPayload,
     AppleEpisodePlayCountTrendsPayload,
     AppleShowPlayCountTrendsPayload,
     AppleShowTrendsFollowersDay,
-    AppleShowTrendsListenersPayload,
 } from '../types/connector'
 import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
-class AppleRepository {
+import { HealthCheckInterface } from './HealthCheckInterface'
+class AppleRepository implements HealthCheckInterface {
     pool
 
-    constructor(pool: Pool) {
+    constructor(pool: any) {
         this.pool = pool
+    }
+
+    async healthy(): Promise<boolean> {
+        const statement = 'SELECT count(*) as c from applePodcastMetadata2'
+        try {
+            const result = await this.pool.query(statement)
+            console.log(result)
+            return result !== undefined
+        } catch (e) {
+            return false
+        }
     }
 
     // store metadata of multiple episodes
