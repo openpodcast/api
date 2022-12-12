@@ -23,7 +23,7 @@ class FeedbackApi {
         if (
             feedbackType !== undefined &&
             episodeId !== undefined &&
-            isNaN(Number(episodeId)) &&
+            !isNaN(Number(episodeId)) &&
             (feedbackType === 'thumbsup' || feedbackType === 'thumbsdown')
         ) {
             return await this.feedbackRepo.addFeedback(

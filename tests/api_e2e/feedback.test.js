@@ -7,4 +7,11 @@ describe('check feedback endpoint', () => {
     const response = await request(baseURL).get('/feedback/123456/thumbsup')
     expect(response.statusCode).toBe(200)
   })
+  //send thumbs down to the feedback endpoint and check if return code is 200
+  it('should return status 200 when sending proper request', async () => {
+    const response = await request(baseURL).get(
+      '/feedback/123456/thumbsdown'
+    )
+    expect(response.statusCode).toBe(200)
+  })
 })

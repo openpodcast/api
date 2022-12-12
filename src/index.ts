@@ -78,7 +78,7 @@ app.use(
 
 app.get(
     '/feedback/:episodeId/:feedbackType',
-    async (req: Request, res: Response) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         //get users ip address
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
         // get users agent
@@ -86,14 +86,17 @@ app.get(
 
         const feedbackType = req.params.feedbackType
         const episodeId = req.params.episodeId
-
-        await feedbackApi.handleApiGet(
-            episodeId,
-            Array.isArray(ip) ? ip[0] : ip,
-            agent,
-            feedbackType
-        )
-        res.send('Feedback stored. Thx')
+        try {
+            await feedbackApi.handleApiGet(
+                episodeId,
+                Array.isArray(ip) ? ip[0] : ip,
+                agent,
+                feedbackType
+            )
+            res.send('Feedback stored. Thx')
+        } catch (err) {
+            next(err)
+        }
     }
 )
 
