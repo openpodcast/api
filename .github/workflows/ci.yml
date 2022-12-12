@@ -1,0 +1,32 @@
+name: CI
+on:
+    repository_dispatch:
+    workflow_dispatch:
+    push:
+        branches:
+            - master
+        tags:
+            - '*.*.*'
+    pull_request:
+        types:
+            - opened
+            - synchronize
+
+env:
+    CARGO_TERM_COLOR: always
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+
+            - name: Run API in background
+              run: make dev
+
+            - name: Run e2e test
+              run: make e2e-tests
