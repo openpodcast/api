@@ -11,14 +11,14 @@ class FeedbackRepository {
         accountId: number,
         episodeId: number,
         userHash: string,
-        thumb: boolean
+        vote: boolean
     ): Promise<any> {
-        const query = `REPLACE INTO feedbackThumbs (account_id, episode_id, user_hash, thumb) VALUES (?, ?, ?, ?)`
+        const query = `REPLACE INTO feedbackVote (account_id, episode_id, user_hash, vote) VALUES (?, ?, ?, ?)`
         return await this.pool.query(query, [
             accountId,
             episodeId,
             userHash,
-            thumb,
+            vote,
         ])
     }
 }

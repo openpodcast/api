@@ -24,13 +24,13 @@ class FeedbackApi {
             feedbackType !== undefined &&
             episodeId !== undefined &&
             !isNaN(Number(episodeId)) &&
-            (feedbackType === 'thumbsup' || feedbackType === 'thumbsdown')
+            (feedbackType === 'upvote' || feedbackType === 'downvote')
         ) {
             return await this.feedbackRepo.addFeedback(
                 1,
                 Number(episodeId),
                 userHash,
-                feedbackType === 'thumbsup'
+                feedbackType === 'upvote'
             )
         } else {
             throw new HttpError('Invalid feedback request')

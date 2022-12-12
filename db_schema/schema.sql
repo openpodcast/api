@@ -208,13 +208,14 @@ CREATE TABLE appleTrendsPodcastFollowers (
   PRIMARY KEY (account_id, atf_date)
 );
 
--- store thumbs up/down per episode and identify user with ip and agent hash
-DROP TABLE IF EXISTS feedbackThumbs;
-CREATE TABLE feedbackThumbs (
+-- store upvote/downvote (thumbs up/down) per episode 
+-- and identify user with ip and agent hash
+DROP TABLE IF EXISTS feedbackVote;
+CREATE TABLE feedbackVote (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   user_hash VARCHAR(64) NOT NULL,
-  thumb TINYINT NOT NULL,
+  vote TINYINT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (account_id, episode_id, user_hash)
 );
