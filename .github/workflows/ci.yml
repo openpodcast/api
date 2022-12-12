@@ -26,7 +26,9 @@ jobs:
                   node-version: 16
 
             - name: Run API in background
-              run: make dev
+              run: |
+                  make install
+                  make dev
 
             - name: Run e2e test
               run: make e2e-tests
