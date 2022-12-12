@@ -31,6 +31,14 @@ This thin API layer is used to store `POST`ed payload to the main storage system
 }
 ```
 
+### Feedback API (thumbs up/down)
+
+The feedback API retrieves thumbs up/down votes from listeners.
+It stores one unique vote for each episode per IP and user-agent pair.
+
+Endpoint `/feedback/:episodeID/[upvote|downvote]`
+e.g. `/feedback/123456/upvote`
+
 ### Tools to create (JSON) schemata
 
 -   https://transform.tools/json-to-json-schema
