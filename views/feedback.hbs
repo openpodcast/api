@@ -6,7 +6,7 @@
         body {
             background-color: #f2f2f2;
         }
-        .container {
+        .wrapper {
             width: 100%;
             height: 100vh;
             display: flex;
@@ -14,9 +14,13 @@
             justify-content: center;
             align-items: center;
         }
-        .feedback {
+
+        .container {
             width: 500px;
             height: 500px;
+        }
+
+        .feedback {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -74,31 +78,44 @@
             cursor: pointer;
         }
 
-        /* Close text in grey. Aligned to the right */
+        .close-wrapper {
+            margin-top: 20px;
+            width: 100%;
+        }
+
         .close {
-            color: #aaa;
+            width: 100%;
+            height: 80px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="feedback">
-            <img src="/images/checkmark.svg" alt="checkmark">
-            <h1>Thank you for your feedback!</h1>
-            <p>Thank you for helping us improve our podcast.</p>
-            <p>Feel free to send us additional feedback using the form below.</p>
-            {{#if numberOfComments}}
-                <p>So far we received {{numberOfComments}} comment(s) for this episode.</p>
-            {{/if}}
-            <form action="/comments/{{episodeId}}" method="post">
-                <input type="email" name="email" placeholder="Your email (optional)">
-                <textarea name="comment" placeholder="Speak your mind!"></textarea>
-                <input type="submit" value="Send">
-            </form>
-        </div>
-        <div class="close">
-            <p>Alternatively you can close this window now.</p>
+    <div class="wrapper">
+        <div class="container">
+            <div class="feedback">
+                <img src="/images/checkmark.svg" alt="checkmark">
+                <h1>Thank you for your feedback!</h1>
+                <p>Thank you for helping us improve our podcast.</p>
+                <p>Feel free to send us additional feedback using the form below.</p>
+                {{#if numberOfComments}}
+                    <p>So far we received {{numberOfComments}} comment(s) for this episode.</p>
+                {{/if}}
+                <form action="/comments/{{episodeId}}" method="post">
+                    <input type="email" name="email" placeholder="Your email (optional)">
+                    <textarea name="comment" placeholder="Speak your mind!"></textarea>
+                    <input type="submit" value="Send">
+                </form>
+            </div>
+            <div class="close-wrapper">
+                <button class="close" onclick="window.history.back()">Close</button>
+            </div>
         </div>
     </div>
 </html>

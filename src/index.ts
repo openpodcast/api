@@ -95,7 +95,7 @@ const userHashMiddleware = (
     let agent = req.headers['user-agent']
     agent = agent || ''
 
-    req.userHash = crypto
+    req.headers.userHash = crypto
         .createHash('sha256')
         .update(ip + agent)
         .digest('hex')
@@ -112,7 +112,7 @@ app.get(
         try {
             await feedbackApi.handleApiGet(
                 episodeId,
-                req.userHash,
+                req.headers.userHash as string,
                 feedbackType
             )
             const numberOfComments = await feedbackApi.getNumberOfComments(
@@ -140,7 +140,7 @@ app.post(
         try {
             await feedbackApi.handleCommentPost(
                 episodeId,
-                req.userHash,
+                req.headers.userHash as string,
                 req.body.comment
             )
 
