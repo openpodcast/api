@@ -1,6 +1,5 @@
 import { FeedbackRepository } from '../db/FeedbackRepository'
 import { HttpError } from '../types/api'
-import crypto from 'crypto'
 
 class FeedbackApi {
     feedbackRepo: FeedbackRepository
@@ -11,15 +10,9 @@ class FeedbackApi {
 
     async handleApiGet(
         episodeId: string | undefined,
-        ip = '',
-        agent = '',
+        userHash: string,
         feedbackType: string | undefined
     ) {
-        // calc sha hash based on ip and agent
-        const userHash = crypto
-            .createHash('sha256')
-            .update(ip + agent)
-            .digest('hex')
         if (
             feedbackType !== undefined &&
             episodeId !== undefined &&
@@ -35,6 +28,15 @@ class FeedbackApi {
         } else {
             throw new HttpError('Invalid feedback request')
         }
+    }
+
+    // Warning! This expects the comment to be already sanitized
+    handleCommentPost(episodeId: string, hash: string, comment: string) {
+        return this.feedbackRepo.addComment(1, Number(episodeId), hash, comment)
+    }
+
+    getNumberOfComments(episodeId: string) {
+        return this.feedbackRepo.getNumberOfComments(Number(episodeId))
     }
 }
 

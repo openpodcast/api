@@ -219,3 +219,15 @@ CREATE TABLE feedbackVote (
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (account_id, episode_id, user_hash)
 );
+
+-- store comments per episode
+-- and identify user with ip and agent hash
+DROP TABLE IF EXISTS feedbackComment;
+CREATE TABLE feedbackComment (
+  account_id INTEGER NOT NULL,
+  episode_id BIGINT NOT NULL,
+  user_hash VARCHAR(64) NOT NULL,
+  comment TEXT NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (account_id, episode_id)
+);
