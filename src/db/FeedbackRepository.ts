@@ -41,9 +41,7 @@ class FeedbackRepository {
         const query = `SELECT COUNT(*) AS count FROM feedbackComment WHERE episode_id = ?`
         const [rows] = await this.pool.query(query, [episodeId])
         if (Array.isArray(rows)) {
-            // TODO: There's probably a better way to do this
-            // @ts-ignore
-            return rows[0].count
+            return (rows[0] as { count: number }).count
         } else {
             return 0
         }
