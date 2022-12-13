@@ -95,6 +95,8 @@ const userHashMiddleware = (
     let agent = req.headers['user-agent']
     agent = agent || ''
 
+    // TODO: fix this with a proper type
+    // @ts-ignore
     req.userHash = crypto
         .createHash('sha256')
         .update(ip + agent)
@@ -112,6 +114,8 @@ app.get(
         try {
             await feedbackApi.handleApiGet(
                 episodeId,
+                // TODO: fix this with a proper type
+                // @ts-ignore
                 req.userHash,
                 feedbackType
             )
@@ -140,6 +144,8 @@ app.post(
         try {
             await feedbackApi.handleCommentPost(
                 episodeId,
+                // TODO: fix this with a proper type
+                // @ts-ignore
                 req.userHash,
                 req.body.comment
             )
