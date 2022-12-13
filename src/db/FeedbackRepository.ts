@@ -7,7 +7,7 @@ class FeedbackRepository {
         hash: string,
         comment: string
     ) {
-        const query = `REPLACE INTO feedbackComment (account_id, episode_id, user_hash, comment) VALUES (?, ?, ?, ?)`
+        const query = `INSERT INTO feedbackComment (account_id, episode_id, user_hash, comment) VALUES (?, ?, ?, ?)`
         return await this.pool.query(query, [
             accountId,
             episodeId,
