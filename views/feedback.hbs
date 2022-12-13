@@ -88,6 +88,9 @@
             <h1>Thank you for your feedback!</h1>
             <p>Thank you for helping us improve our podcast.</p>
             <p>Feel free to send us additional feedback using the form below.</p>
+            {{#if numberOfComments}}
+                <p>So far we received {{numberOfComments}} comment(s) for this episode.</p>
+            {{/if}}
             <form action="/comments/{{episodeId}}" method="post">
                 <input type="email" name="email" placeholder="Your email (optional)">
                 <textarea name="comment" placeholder="Speak your mind!"></textarea>
@@ -95,7 +98,7 @@
             </form>
         </div>
         <div class="close">
-            <p>You can close this window now.</p>
+            <p>Alternatively you can close this window now.</p>
         </div>
     </div>
 </html>

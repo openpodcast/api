@@ -229,5 +229,5 @@ CREATE TABLE feedbackComment (
   user_hash VARCHAR(64) NOT NULL,
   comment TEXT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (account_id, episode_id, user_hash)
+  PRIMARY KEY (account_id, episode_id)
 );

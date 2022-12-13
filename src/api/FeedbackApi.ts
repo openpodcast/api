@@ -34,6 +34,10 @@ class FeedbackApi {
     handleCommentPost(episodeId: string, hash: string, comment: string) {
         return this.feedbackRepo.addComment(1, Number(episodeId), hash, comment)
     }
+
+    getNumberOfComments(episodeId: string) {
+        return this.feedbackRepo.getNumberOfComments(Number(episodeId))
+    }
 }
 
 export { FeedbackApi }

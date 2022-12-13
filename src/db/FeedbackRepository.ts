@@ -35,6 +35,13 @@ class FeedbackRepository {
             vote,
         ])
     }
+
+    // Get the number of comments for an episode
+    async getNumberOfComments(episodeId: number): Promise<number> {
+        const query = `SELECT COUNT(*) AS count FROM feedbackComment WHERE episode_id = ?`
+        const [rows] = await this.pool.query(query, [episodeId])
+        return rows[0].count
+    }
 }
 
 export { FeedbackRepository }

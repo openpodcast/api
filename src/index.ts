@@ -83,8 +83,11 @@ app.use(
     )
 )
 
-// calc sha hash based on ip and agent
-const userHash = (req: Request) => {
+const userHashMiddleware = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
     let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
     ip = Array.isArray(ip) ? ip[0] : ip
     ip = ip || ''
@@ -92,21 +95,30 @@ const userHash = (req: Request) => {
     let agent = req.headers['user-agent']
     agent = agent || ''
 
-    return crypto
+    req.userHash = crypto
         .createHash('sha256')
         .update(ip + agent)
         .digest('hex')
+
+    next()
 }
 
 app.get(
     '/feedback/:episodeId/:feedbackType',
+    userHashMiddleware,
     async (req: Request, res: Response, next: NextFunction) => {
         const feedbackType = req.params.feedbackType
-        const hash = userHash(req)
         const episodeId = req.params.episodeId
         try {
-            await feedbackApi.handleApiGet(episodeId, hash, feedbackType)
-            res.render('feedback.hbs', { episodeId })
+            await feedbackApi.handleApiGet(
+                episodeId,
+                req.userHash,
+                feedbackType
+            )
+            const numberOfComments = await feedbackApi.getNumberOfComments(
+                episodeId
+            )
+            res.render('feedback.hbs', { episodeId, numberOfComments })
         } catch (err) {
             next(err)
         }
@@ -115,6 +127,7 @@ app.get(
 
 app.post(
     '/comments/:episodeId',
+    userHashMiddleware,
     body('email').isEmail(),
     body('comment')
         .not()
@@ -128,15 +141,14 @@ app.post(
             return res.status(400).json({ errors: errors.array() })
         }
 
-        const hash = userHash(req)
-
         const episodeId = req.params.episodeId
         try {
             await feedbackApi.handleCommentPost(
                 episodeId,
-                hash,
+                req.userHash,
                 req.body.comment
             )
+
             res.render('comment.hbs')
         } catch (err) {
             next(err)
