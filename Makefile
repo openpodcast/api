@@ -8,6 +8,10 @@ help: ## help message, list all command
 up docker-run: ## docker-compose up
 	docker-compose up -d
 
+.PHONY: docker-build
+docker-build: ## docker-compose build
+	docker-compose build
+
 .PHONY: dev
 dev: ## Starts the development server
 	yarn dev
