@@ -7,28 +7,36 @@
       "type": "object",
       "properties": {
         "episodeid": {
-          "type": "string"
+          "type": "string",
+          "default": "unknown"
         },
         "followstate": {
-          "type": "string"
+          "type": "string",
+          "default": "unknown"
         },
         "playscount": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "podcastid": {
-          "type": "string"
+          "type": "string",
+          "default": "unknown"
         },
         "totaltimelistened": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "uniqueengagedlistenerscount": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "uniquelistenerscount": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         },
         "engagedplayscount": {
-          "type": "number"
+          "type": "number",
+          "default": 0
         }
       },
       "required": [
