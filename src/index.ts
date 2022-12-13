@@ -20,6 +20,7 @@ import mysql from 'mysql2/promise'
 import { unless } from './expressHelpers'
 import { FeedbackRepository } from './db/FeedbackRepository'
 import { FeedbackApi } from './api/FeedbackApi'
+import crypto from 'crypto'
 
 dotenv.config()
 
@@ -49,7 +50,7 @@ const connectorApi = new ConnectorApi({
 })
 
 // defines all endpoints where auth is not required
-const publicEndpoints = ['/health', '/feedback/*']
+const publicEndpoints = ['/health', '/feedback/*', '/comments/*']
 
 const authController = new AuthController()
 
@@ -58,6 +59,11 @@ const port = 8080
 
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '1mb' }))
+
+app.use(express.static('public'))
+app.set('view engine', 'handlebars')
+
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // throw exception if not authorized
 app.use(unless(publicEndpoints, authController.getMiddleware()))
@@ -76,24 +82,51 @@ app.use(
     )
 )
 
+// calc sha hash based on ip and agent
+const userHash = (req: Request) => {
+    let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
+    ip = Array.isArray(ip) ? ip[0] : ip
+    ip = ip || ''
+
+    let agent = req.headers['user-agent']
+    agent = agent || ''
+
+    return crypto
+        .createHash('sha256')
+        .update(ip + agent)
+        .digest('hex')
+}
+
 app.get(
     '/feedback/:episodeId/:feedbackType',
     async (req: Request, res: Response, next: NextFunction) => {
-        //get users ip address
-        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
-        // get users agent
-        const agent = req.headers['user-agent']
-
         const feedbackType = req.params.feedbackType
+        const hash = userHash(req)
         const episodeId = req.params.episodeId
         try {
-            await feedbackApi.handleApiGet(
-                episodeId,
-                Array.isArray(ip) ? ip[0] : ip,
-                agent,
-                feedbackType
-            )
-            res.send('Feedback stored. Thx')
+            await feedbackApi.handleApiGet(episodeId, hash, feedbackType)
+            res.render('feedback.hbs', { episodeId })
+        } catch (err) {
+            next(err)
+        }
+    }
+)
+
+app.post(
+    '/comments/:episodeId',
+    async (req: Request, res: Response, next: NextFunction) => {
+        const hash = userHash(req)
+
+        const episodeId = req.params.episodeId
+        try {
+            const email = req.body.email
+            const comment = req.body.comment
+
+            console.log(email)
+            console.log(comment)
+
+            await feedbackApi.handleCommentPost(episodeId, hash, comment)
+            res.render('comment.hbs')
         } catch (err) {
             next(err)
         }
