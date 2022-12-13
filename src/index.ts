@@ -129,12 +129,7 @@ app.post(
     '/comments/:episodeId',
     userHashMiddleware,
     body('email').isEmail(),
-    body('comment')
-        .not()
-        .isEmpty()
-        .trim()
-        .isLength({ min: 3, max: 1000 })
-        .escape(),
+    body('comment').not().isEmpty().trim().isLength({ min: 3, max: 1000 }),
     async (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
