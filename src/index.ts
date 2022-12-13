@@ -21,6 +21,7 @@ import { unless } from './expressHelpers'
 import { FeedbackRepository } from './db/FeedbackRepository'
 import { FeedbackApi } from './api/FeedbackApi'
 import crypto from 'crypto'
+import { body, validationResult } from 'express-validator'
 
 dotenv.config()
 
@@ -114,18 +115,28 @@ app.get(
 
 app.post(
     '/comments/:episodeId',
+    body('email').isEmail(),
+    body('comment')
+        .not()
+        .isEmpty()
+        .trim()
+        .isLength({ min: 3, max: 1000 })
+        .escape(),
     async (req: Request, res: Response, next: NextFunction) => {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() })
+        }
+
         const hash = userHash(req)
 
         const episodeId = req.params.episodeId
         try {
-            const email = req.body.email
-            const comment = req.body.comment
-
-            console.log(email)
-            console.log(comment)
-
-            await feedbackApi.handleCommentPost(episodeId, hash, comment)
+            await feedbackApi.handleCommentPost(
+                episodeId,
+                hash,
+                req.body.comment
+            )
             res.render('comment.hbs')
         } catch (err) {
             next(err)
