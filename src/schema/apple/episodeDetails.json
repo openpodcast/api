@@ -38,17 +38,7 @@
           "type": "number",
           "default": 0
         }
-      },
-      "required": [
-        "episodeid",
-        "followstate",
-        "playscount",
-        "podcastid",
-        "totaltimelistened",
-        "uniqueengagedlistenerscount",
-        "uniquelistenerscount",
-        "engagedplayscount"
-      ]
+      }
     },
     "episodePlayHistogram": {
       "type": "array",
