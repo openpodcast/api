@@ -6,7 +6,7 @@ help: ## help message, list all command
 
 .PHONY: up docker-run
 up docker-run: ## docker-compose up
-	docker-compose up -d
+	docker-compose up
 
 .PHONY: docker-build
 docker-build: ## docker-compose build
