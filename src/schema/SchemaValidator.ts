@@ -1,7 +1,7 @@
 import Ajv from 'ajv/dist/2020' //support the new 2020 draft
 import addFormats from 'ajv-formats'
 
-const ajv = new Ajv()
+const ajv = new Ajv({ useDefaults: true })
 addFormats(ajv)
 
 const validateJson = function (schema: any, json: any) {

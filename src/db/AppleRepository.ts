@@ -54,7 +54,7 @@ class AppleRepository {
         episodeId: string,
         episodeDetails: appleEpisodeDetailsPayload
     ): Promise<any> {
-        const calculataedQauerterMedianValues =
+        const calculatedQuarterMedianValues =
             calcApplePodcastPerformanceQuarters(
                 episodeDetails.episodePlayHistogram
             )
@@ -89,11 +89,11 @@ class AppleRepository {
             JSON.stringify(episodeDetails.episodePlayHistogram),
             JSON.stringify(episodeDetails.showTopCities),
             JSON.stringify(episodeDetails.showTopCountries),
-            calculataedQauerterMedianValues.maxListeners,
-            calculataedQauerterMedianValues.quarterMedianValues[0],
-            calculataedQauerterMedianValues.quarterMedianValues[1],
-            calculataedQauerterMedianValues.quarterMedianValues[2],
-            calculataedQauerterMedianValues.quarterMedianValues[3],
+            calculatedQuarterMedianValues.maxListeners,
+            calculatedQuarterMedianValues.quarterMedianValues[0],
+            calculatedQuarterMedianValues.quarterMedianValues[1],
+            calculatedQuarterMedianValues.quarterMedianValues[2],
+            calculatedQuarterMedianValues.quarterMedianValues[3],
         ])
     }
 

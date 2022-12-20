@@ -3,6 +3,16 @@ import { median } from 'mathjs'
 const calcApplePodcastPerformanceQuarters = function (
     performance: { [seconds: string]: number }[]
 ): { maxListeners: number; quarterMedianValues: number[] } {
+    // `episodePlayHistogram` could be an empty array (or at least contain less than 4
+    // values) if the episode is too new in this case we just set all values to
+    // 0
+    if (performance.length < 4) {
+        return {
+            maxListeners: 0,
+            quarterMedianValues: [0, 0, 0, 0],
+        }
+    }
+
     // sort the data first by seconds of the performance data
     // should be already sorted but just to be on the safe side
     const sortedData = performance.sort((a, b) => {

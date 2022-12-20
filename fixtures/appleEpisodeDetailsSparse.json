@@ -1,0 +1,62 @@
+{
+  "provider": "apple",
+  "version": 1,
+  "retrieved": "2022-12-20T14:03:45.054605",
+  "meta": {
+    "episode": "1000580647037",
+    "show": "1642486726",
+    "endpoint": "episodeDetails"
+  },
+  "range": {
+    "start": "2022-12-13",
+    "end": "2022-12-20"
+  },
+  "data": {
+    "content": {
+      "results": {
+        "1000580647037": {
+          "id": "1000580647037",
+          "name": "#04 The Open Podcast API",
+          "collectionName": "TOPP - The Open Podcast Podcast",
+          "podcastEpisodeGuid": "5ec0313f-cbb8-4940-8ea6-9ed1248eadd6",
+          "podcastEpisodeITunesTitle": "#04 The Open Podcast API",
+          "podcastEpisodeNumber": 4.0,
+          "podcastEpisodeSeason": 1.0,
+          "podcastEpisodeType": "full",
+          "releaseDateTime": "2022-09-20T04:00:00Z",
+          "releaseDate": "2022-09-20",
+          "kind": "podcastEpisode",
+          "offers": [
+            {
+              "assets": [
+                {
+                  "duration": 655.0
+                }
+              ],
+              "download": {
+                "url": "https://redcircle.mre.workers.dev/r/episodes/326760fe-852e-4d3d-8116-00b15d5acef2/stream.mp3?ref=https%3A%2F%2Fstream.redcircle.com%2Fepisodes%2F326760fe-852e-4d3d-8116-00b15d5acef2%2Fstream.mp3"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "episodePlayCountAllTime": {
+      "episodeid": "1000581487989",
+      "followstate": "*",
+      "playscount": 53.0,
+      "podcastid": "1603082924",
+      "totaltimelistened": 42716.0,
+      "uniqueengagedlistenerscount": 15.0,
+      "uniquelistenerscount": 20.0,
+      "engagedplayscount": 16.0
+    },
+    "episodePlayHistogram": [
+      {
+        "2865": 11.0
+      }
+    ],
+    "showTopCities": {},
+    "showTopCountries": {}
+  }
+}
