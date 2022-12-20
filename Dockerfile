@@ -12,7 +12,7 @@ COPY tsconfig.json ./
 COPY src /app/src
 COPY views /app/views
 
-RUN yarn install --network-timeout 600000
+RUN yarn install --verbose
 RUN yarn build
 
 EXPOSE 7777
