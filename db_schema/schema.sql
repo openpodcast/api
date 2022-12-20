@@ -228,6 +228,6 @@ CREATE TABLE feedbackComment (
   episode_id BIGINT NOT NULL,
   user_hash VARCHAR(64) NOT NULL,
   comment TEXT NOT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (account_id, episode_id)
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (account_id, episode_id, created)
 );
