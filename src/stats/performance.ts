@@ -3,9 +3,10 @@ import { median } from 'mathjs'
 const calcApplePodcastPerformanceQuarters = function (
     performance: { [seconds: string]: number }[]
 ): { maxListeners: number; quarterMedianValues: number[] } {
-    // `episodePlayHistogram` could be an empty array if the episode is too new
-    // in this case we just set all values to 0
-    if (performance.length === 0) {
+    // `episodePlayHistogram` could be an empty array (or at least contain less than 4
+    // values) if the episode is too new in this case we just set all values to
+    // 0
+    if (performance.length < 4) {
         return {
             maxListeners: 0,
             quarterMedianValues: [0, 0, 0, 0],
