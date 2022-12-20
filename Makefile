@@ -14,19 +14,19 @@ docker-build: ## docker-compose build
 
 .PHONY: dev
 dev: ## Starts the development server
-	yarn dev
+	npm run dev
 
 .PHONY: lint
 lint: ## run linter
-	yarn lint	
+	npm run lint	
 
 .PHONY: install init
 install init: ## Installs dependencies
-	yarn install
+	npm install
 
 .PHONY: e2e-tests
 e2e-tests: ## Start end2end tests (local running server is required)
-	yarn jest ./tests/api_e2e --verbose true
+	npx jest ./tests/api_e2e --verbose true
 
 .PHONY: send-api-req-local
 send-api-req-local: ## Send a request to the local running server

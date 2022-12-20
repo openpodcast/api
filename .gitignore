@@ -1,6 +1,4 @@
 **/node_modules
 dist
-.yarn
 .env
-yarn-error.log
 .env.prod

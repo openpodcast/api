@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
-    "lint": "yarn eslint --config .eslintrc.js  ./src"
+    "lint": "npx eslint --config .eslintrc.js  ./src"
   },
   "license": "MIT",
   "private": true,
