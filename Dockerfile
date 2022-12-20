@@ -19,11 +19,9 @@ COPY views /app/views
 
 RUN yarn build
 
-# Cleanup unused dependencies
-# Production flag defines which dependencies are needed for production
-# Cache clean removes no longer needed dev-dependencies from cache
-# It's need as the whole node_modules folder is copied to the next stage
-RUN yarn install --frozen-lockfile --production --verbose && yarn cache clean
+# Cleanup unused dev dependencies
+# This is need as the whole node_modules folder is copied to the next stage
+RUN yarn install --frozen-lockfile --production --verbose
 
 FROM node:16-slim
 
