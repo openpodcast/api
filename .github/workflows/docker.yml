@@ -70,7 +70,7 @@ jobs:
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
                   pull: true
-                  cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:cache
+                  cache-from: type=registry,ref=${{ env.IMAGE_NAME }}
 
             - name: Update DockerHub description
               uses: peter-evans/dockerhub-description@v3
