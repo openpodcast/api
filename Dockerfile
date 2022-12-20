@@ -1,4 +1,8 @@
-FROM node:16
+FROM node:16-slim
+
+RUN apt-get update && apt-get install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install nodemon
 RUN npm install -g nodemon
@@ -12,7 +16,7 @@ COPY tsconfig.json ./
 COPY src /app/src
 COPY views /app/views
 
-RUN yarn install --verbose
+RUN yarn install --verbose && yarn cache clean
 RUN yarn build
 
 EXPOSE 7777
