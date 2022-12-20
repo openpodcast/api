@@ -69,6 +69,8 @@ jobs:
                   push: ${{ github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' }}
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
+                  pull: true
+                  cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:cache
 
             - name: Update DockerHub description
               uses: peter-evans/dockerhub-description@v3
