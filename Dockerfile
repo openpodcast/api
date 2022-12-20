@@ -29,6 +29,7 @@ WORKDIR /app
 
 # copy configs to /app folder
 COPY views /app/views
+COPY public /app/public
 
 # copy builded files from builder
 COPY --from=builder /app/dist /app/dist
