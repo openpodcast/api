@@ -9,11 +9,12 @@ WORKDIR /app
 
 # copy configs to /app folder
 COPY package*.json ./
+RUN yarn install --frozen-lockfile --verbose --timeout 600000 && yarn cache clean
+
 COPY tsconfig.json ./
 COPY src /app/src
 COPY views /app/views
 
-RUN yarn install --verbose && yarn cache clean
 RUN yarn build
 
 # Remove dev dependencies
