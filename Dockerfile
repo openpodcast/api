@@ -11,7 +11,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies including dev dependencies (for build)
-RUN yarn install --frozen-lockfile --verbose --timeout 600000
+RUN yarn install --frozen-lockfile --verbose --network-timeout 600000
 
 COPY tsconfig.json ./
 COPY src /app/src
@@ -21,7 +21,7 @@ RUN yarn build
 
 # Cleanup unused dev dependencies
 # This is need as the whole node_modules folder is copied to the next stage
-RUN yarn install --frozen-lockfile --production --verbose
+RUN yarn install --frozen-lockfile --production --verbose --network-timeout 600000
 
 FROM node:16-slim
 
