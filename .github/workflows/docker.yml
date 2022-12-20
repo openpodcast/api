@@ -47,6 +47,8 @@ jobs:
                       type=semver,pattern={{major}}.{{minor}}
                       type=semver,pattern={{major}}
                       type=sha
+                      # set latest tag for default branch
+                      type=raw,value=latest,enable={{is_default_branch}}
 
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v2
@@ -69,11 +71,13 @@ jobs:
                   push: ${{ github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' }}
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
+                  pull: true
+                  cache-from: type=registry,ref=${{ env.IMAGE_NAME }}
 
             - name: Update DockerHub description
               uses: peter-evans/dockerhub-description@v3
               with:
                   username: ${{ secrets.DOCKER_USERNAME }}
                   password: ${{ secrets.DOCKER_PASSWORD }}
-                  repository: openpodcast/api
+                  repository: ${{ env.IMAGE_NAME }}
                   readme-filepath: README.md

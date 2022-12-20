@@ -51,7 +51,7 @@ const connectorApi = new ConnectorApi({
 })
 
 // defines all endpoints where auth is not required
-const publicEndpoints = ['/health', '/feedback/*', '/comments/*']
+const publicEndpoints = ['/images/*', '/health', '/feedback/*', '/comments/*']
 
 const authController = new AuthController()
 
@@ -209,5 +209,5 @@ app.use(function (err: Error, req: Request, res: Response) {
 })
 
 app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at https://localhost:${port}`)
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
 })

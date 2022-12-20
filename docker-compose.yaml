@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   api:
-    image: openpodcast-api
+    image: openpodcast/api
     build: ./
     env_file:
       - .env

@@ -5,12 +5,11 @@
   "scripts": {
     "build": "tsc",
     "dev": "concurrently \"tsc --watch\" \"nodemon -q dist/index.js\"",
-    "lint": "yarn eslint --config .eslintrc.js  ./src"
+    "lint": "npx eslint --config .eslintrc.js  ./src"
   },
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@typescript-eslint/parser": "^5.45.0",
     "ajv": "^8.11.0",
     "ajv-formats": "^2.1.1",
     "body-parser": "^1.20.1",
@@ -22,6 +21,7 @@
     "mysql2": "^2.3.3"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^5.45.0",
     "@types/body-parser": "^1.19.2",
     "@types/express": "^4.17.14",
     "@types/mysql2": "types/mysql2",
