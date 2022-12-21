@@ -20,8 +20,8 @@ dev: ## Starts the development server
 lint: ## run linter
 	npm run lint	
 
-.PHONY: install init
-install init: ## Installs dependencies
+.PHONY: install-init
+install-init: ## Installs dependencies
 	npm install
 
 .PHONY: e2e-tests
