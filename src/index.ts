@@ -1,4 +1,3 @@
-import dotenv from 'dotenv'
 import express, {
     Express,
     Request,
@@ -22,11 +21,12 @@ import { FeedbackRepository } from './db/FeedbackRepository'
 import { FeedbackApi } from './api/FeedbackApi'
 import crypto from 'crypto'
 import { body, validationResult } from 'express-validator'
+import { Config } from './config'
 
-dotenv.config()
+const config = new Config()
 
 const pool = mysql.createPool({
-    uri: process.env.DB_CONNECTION_STRING,
+    uri: config.getMySQLConnectionString(),
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
