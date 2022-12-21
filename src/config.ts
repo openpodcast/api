@@ -30,7 +30,7 @@ class Config {
             //let's build the connection string from the individual env vars
             const host = this.readStringFromEnvOrFile('MYSQL_HOST', 'localhost')
             const port = this.readStringFromEnvOrFile('MYSQL_PORT', '3306')
-            const user = this.readStringFromEnvOrFile('MYSQL', undefined)
+            const user = this.readStringFromEnvOrFile('MYSQL_USER', undefined)
             const password = this.readStringFromEnvOrFile(
                 'MYSQL_PASSWORD',
                 undefined
@@ -42,8 +42,9 @@ class Config {
             const options = this.readStringFromEnvOrFile('MYSQL_OPTIONS', '')
 
             if (host && user && password && database && port) {
-                connectionString = `mysql://${user}:${password}@${host}:${port}/${database}${options}}`
+                connectionString = `mysql://${user}:${password}@${host}:${port}/${database}${options}`
             } else {
+                console.log(options)
                 throw new Error(
                     'MySQL connection string not defined or could not be built from environment variables'
                 )
