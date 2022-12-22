@@ -24,6 +24,11 @@ class Config {
         return value
     }
 
+    getExpressPort(): number {
+        const portString = this.readStringFromEnvOrFile('PORT', '8080')
+        return parseInt(portString || '8080', 10)
+    }
+
     getMySQLConnectionString(): string | undefined {
         let connectionString = process.env.DB_CONNECTION_STRING
         if (connectionString === undefined) {

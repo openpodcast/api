@@ -56,7 +56,7 @@ const publicEndpoints = ['/images/*', '/health', '/feedback/*', '/comments/*']
 const authController = new AuthController()
 
 const app: Express = express()
-const port = 8080
+const port = config.getExpressPort()
 
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '1mb' }))
