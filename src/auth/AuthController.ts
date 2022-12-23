@@ -2,13 +2,27 @@ import { AuthError } from '../types/api'
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 
 class AuthController {
-    getAccountId = function (authToken: string): number {
-        // dirty hack to integrate new podcast engineering kiosk
-        // should be kind of a database later
-        if (authToken === 'Bearer engkiosk-81ztQL36e') {
-            return 2
+    accountsMap: { [key: string]: number }
+
+    constructor(accountsMap: { [key: string]: number }) {
+        this.accountsMap = accountsMap
+    }
+
+    /**
+     * Returns the account id for the specified auth token
+     * @param authToken The auth token to get the account id for (incl. 'Bearer ')
+     * @returns The account id
+     * @throws AuthError if the token is not valid
+     * */
+    getAccountId = (authToken: string): number => {
+        // remove 'Bearer ' from token to get the actual token
+        const token = authToken.substring(7)
+
+        if (this.accountsMap[token] !== undefined) {
+            return this.accountsMap[token]
+        } else {
+            throw new AuthError('Specified token is not valid')
         }
-        return 1
     }
 
     getMiddleware = (): RequestHandler => {
@@ -26,7 +40,6 @@ class AuthController {
             ? req.headers.authorization[0]
             : req.headers.authorization
 
-        // TODO: for now just check if there is a Bearer consisting of a few chars
         if (
             authToken === undefined ||
             authToken.length < 7 ||
@@ -36,10 +49,15 @@ class AuthController {
             return next(err)
         }
 
-        // store the user data in the response object (locals is officialy made for this)
-        // so we can access this data in the backend when it is stored to the database
-        res.locals.user = {
-            accountId: this.getAccountId(authToken),
+        try {
+            const accountId = await this.getAccountId(authToken)
+            res.locals.user = {
+                accountId,
+            }
+        } catch (err) {
+            return next(
+                new AuthError('Not authorized: Specified token is not valid')
+            )
         }
 
         return next()

@@ -1,7 +1,7 @@
 const request = require('supertest')
 const baseURL = 'http://localhost:8080'
 
-const auth = require("./authheader")
+const auth = require('./authheader')
 const someRandomContent = { 'some data': 'anything' }
 
 describe('check auth pn api', () => {
@@ -10,7 +10,14 @@ describe('check auth pn api', () => {
         expect(response.statusCode).toBe(401)
         expect(response.text).toContain('Not authorized')
     })
-    it('should return status 200 with specified bearer', async () => {
+    it('should return not authenticated with random token', async () => {
+        const wrongToken = { ...auth }
+        wrongToken.Authorization = 'Bearer 123'
+        const response = await request(baseURL).post('/events').set(wrongToken)
+        expect(response.statusCode).toBe(401)
+        expect(response.text).toContain('Not authorized')
+    })
+    it('should return status 200 with correct auth token', async () => {
         const response = await request(baseURL)
             .post('/events')
             .set(auth)
