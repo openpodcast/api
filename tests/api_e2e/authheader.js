@@ -1,4 +1,4 @@
 module.exports = {
-  'Authorization': 'Bearer cn389ncoiwuencr',
-  'Accept': 'application/json'
+  Authorization: 'Bearer dummy-cn389ncoiwuencr',
+  Accept: 'application/json',
 }

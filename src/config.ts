@@ -6,6 +6,25 @@ class Config {
         dotenv.config()
     }
 
+    /*
+     * Reads the ACCOUNTS environment variable or the ACCOUNTS_FILE file
+     * and returns a map of accounts
+     * {
+     *  "token": number_of_account
+     * }
+     * */
+    getAccountsMap(): { [key: string]: number } {
+        const accounts = this.readStringFromEnvOrFile('ACCOUNTS', '{}')
+        if (accounts) {
+            const accountMap = JSON.parse(accounts)
+            return accountMap
+        } else {
+            throw new Error(
+                `ACCOUNTS not defined or invald in environment variables: ${accounts}`
+            )
+        }
+    }
+
     // reads a value from an environment variable or a file in the format <envVar>_FILE
     readStringFromEnvOrFile(
         envVar: string,
