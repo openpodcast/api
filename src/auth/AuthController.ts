@@ -15,6 +15,10 @@ class AuthController {
      * @throws AuthError if the token is not valid
      * */
     getAccountId = (authToken: string): number => {
+        if (authToken.startsWith('Bearer ') === false) {
+            throw new AuthError('Specified token is not valid')
+        }
+
         // remove 'Bearer ' from token to get the actual token
         const token = authToken.substring(7)
 
