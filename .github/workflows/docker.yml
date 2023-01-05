@@ -13,7 +13,7 @@ on:
             - 'v*.*.*'
     pull_request:
         branches:
-            - 'master'
+            - 'main'
 
 env:
     IMAGE_NAME: openpodcast/api
