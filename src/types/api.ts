@@ -7,10 +7,10 @@ export interface JsonPayload {
     provider?: string
 }
 
-export interface Event extends JsonPayload {}
+export type Event = JsonPayload
 
 export class HttpError extends Error {
-    status: number = 0
+    status = 0
 }
 export class PayloadError extends HttpError {
     status = 400 // invalid request
@@ -18,4 +18,9 @@ export class PayloadError extends HttpError {
 
 export class AuthError extends HttpError {
     status = 401 // not authorized
+}
+
+export interface StatusPayload {
+    endpoint: string
+    data: Object
 }

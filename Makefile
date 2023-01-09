@@ -31,6 +31,10 @@ install: ## Installs dependencies
 e2e-tests: ## Start end2end tests (local running server is required)
 	npx jest ./tests/api_e2e --verbose true
 
+.PHONY: status
+status: ## Send status request
+	curl http://localhost:8080/status  -H 'Content-Type: application/json' -H 'Authorization: Bearer cn389ncoiwuencr' 
+
 .PHONY: send-api-req-local
 send-api-req-local: ## Send a request to the local running server
 	curl -X POST http://localhost:8080/events -H 'Content-Type: application/json' -H 'Authorization: Bearer cn389ncoiwuencr' --data-binary "@./fixtures/forwarder.json" 

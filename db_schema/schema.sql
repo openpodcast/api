@@ -231,3 +231,20 @@ CREATE TABLE feedbackComment (
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (account_id, episode_id, created)
 );
+
+-- store latest update events
+-- timestamp is used to identify the update
+-- contains JSON with the update data
+DROP TABLE IF EXISTS updates;
+CREATE TABLE updates (
+  account_id INTEGER NOT NULL,
+  endpoint VARCHAR(64) NOT NULL,
+  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  update_data JSON NOT NULL,
+  PRIMARY KEY (timestamp, account_id, endpoint)
+);
+
+-- automatically delete all updates older than 7 days
+CREATE EVENT IF NOT EXISTS updates_cleanup
+ON SCHEDULE EVERY 1 DAY
+DO DELETE FROM updates WHERE timestamp < (CURRENT_TIMESTAMP - INTERVAL 7 DAY);
