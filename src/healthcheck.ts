@@ -4,10 +4,11 @@ import { Request, Response } from 'express'
 const mysqlHealthy = (pool: any) =>
     async function (): Promise<boolean> {
         const statement = 'SELECT 1'
-        const result = await pool.query(statement)
         try {
+            const result = await pool.query(statement)
             return result !== undefined
         } catch (e) {
+            console.error(e)
             return false
         }
     }
