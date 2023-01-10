@@ -54,6 +54,8 @@ class AuthController {
         }
 
         try {
+            // store the user data in the response object (locals is officially made for this)
+            // so we can access this data in the backend when it is stored to the database
             const accountId = await this.getAccountId(authToken)
             res.locals.user = {
                 accountId,

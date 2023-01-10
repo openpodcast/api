@@ -15,10 +15,13 @@ class ConnectorApi {
         return this.connectorHandlerMap[provider] ?? null
     }
 
+    // Handle connector post requests
+    // Returns the connector payload for further processing (status update /
+    // event sourcing)
     async handleApiPost(
         accountId: number,
         payload: any
-    ): Promise<void> | never {
+    ): Promise<ConnectorPayload> | never {
         // validate the wrapper json around the endpoint payload
         // the endpoint payload is checked by the respective connector handler
         validateJsonApiPayload(connectorSchema, payload)
@@ -33,7 +36,8 @@ class ConnectorApi {
         if (connectorHandler === null) {
             throw new PayloadError('No valid provider specified')
         }
-        return await connectorHandler.handleRequest(accountId, connectorPayload)
+        await connectorHandler.handleRequest(accountId, connectorPayload)
+        return connectorPayload
     }
 }
 

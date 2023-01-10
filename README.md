@@ -39,6 +39,31 @@ It stores one unique vote for each episode per IP and user-agent pair.
 Endpoint `/feedback/:episodeID/[upvote|downvote]`
 e.g. `/feedback/123456/upvote`
 
+### Status API
+
+The status API returns the last imports by endpoint:
+
+```json
+{
+    "account_id": 1,
+    "latestUpdates": [
+        "aggregate": "2021-01-01 00:00:00"
+        "detailedStreams": "2021-01-01 00:00:00"
+    ]
+}
+```
+
+To query it, use the following endpoint:
+
+`/status/:accountID`
+
+You need to provide your bearer token in the header.
+Example:
+
+```
+curl -H "Authorization Bearer <token>" https://api.openpodcast.de/status/1
+```
+
 ### Tools to create (JSON) schemata
 
 -   https://transform.tools/json-to-json-schema
