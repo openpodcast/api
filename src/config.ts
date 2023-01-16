@@ -15,7 +15,7 @@ class Config {
      * */
     getAccountsMap(): { [key: string]: number } {
         const accounts = this.readStringFromEnvOrFile('ACCOUNTS', '{}')
-        if (accounts) {
+        if (accounts !== undefined && accounts !== '{}') {
             const accountMap = JSON.parse(accounts)
             return accountMap
         } else {
