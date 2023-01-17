@@ -8,12 +8,12 @@ on:
             - completed
     push:
         branches:
-            - '**'
+            - main
         tags:
             - 'v*.*.*'
     pull_request:
         branches:
-            - 'main'
+            - main
 
 env:
     IMAGE_NAME: openpodcast/api

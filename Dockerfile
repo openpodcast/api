@@ -11,7 +11,8 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies including dev dependencies (for build)
-RUN npm install --no-audit --frozen-lockfile --verbose
+RUN npm config set registry https://registry.npmjs.org/
+RUN npm install --no-audit --frozen-lockfile
 
 COPY tsconfig.json ./
 COPY src /app/src
@@ -21,7 +22,8 @@ RUN npm run build
 
 # Cleanup unused dev dependencies
 # This is need as the whole node_modules folder is copied to the next stage
-RUN npm install --no-audit --frozen-lockfile --production --verbose
+RUN npm config set registry https://registry.npmjs.org/
+RUN npm install --no-audit --frozen-lockfile --production
 
 FROM node:16-slim
 
