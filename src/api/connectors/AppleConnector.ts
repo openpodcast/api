@@ -118,6 +118,10 @@ class AppleConnector implements ConnectorHandler {
                 accountId,
                 Object.values(days)
             )
+        } else {
+            throw new PayloadError(
+                `Unknown endpoint in meta: ${payload.meta.endpoint}`
+            )
         }
     }
 }

@@ -1,0 +1,49 @@
+{
+  "provider": "apple",
+  "version": 1,
+  "retrieved": "2022-10-04T10:09:46.463Z",
+  "meta": {
+    "show": "1603082924",
+    "endpoint": "showTrends/Followers"
+  },
+  "range": {
+    "start": "2022-10-31",
+    "end": "2022-11-06"
+  },
+  "data": {
+    "measure": "FOLLOWERS",
+    "allTimeFollowers": {
+      "all": {
+        "current": 0.0,
+        "previous": 0.0
+      },
+      "base": {
+        "current": 0.0,
+        "previous": 0.0
+      }
+    },
+    "changeInFollowers": {
+      "gained": {
+        "current": null,
+        "previous": null
+      },
+      "lost": {
+        "current": null,
+        "previous": null
+      }
+    },
+    "followerAllTimeTrends": [
+      [
+        2.0230115E7,
+        0.0,
+        0.0
+      ],
+      [
+        2.0230116E7,
+        0.0,
+        0.0
+      ]
+    ],
+    "followerGrowthTrends": []
+  }
+}

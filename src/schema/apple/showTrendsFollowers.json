@@ -17,8 +17,7 @@
         },
         "minItems": 3,
         "maxItems": 3
-      },
-      "minItems": 1
+      }
     },
     "followerGrowthTrends": {
       "type": "array",
@@ -29,8 +28,7 @@
         },
         "minItems": 3,
         "maxItems": 3
-      },
-      "minItems": 1
+      }
     }
   },
   "required": [
