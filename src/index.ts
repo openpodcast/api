@@ -22,6 +22,7 @@ import { FeedbackApi } from './api/FeedbackApi'
 import crypto from 'crypto'
 import { body, validationResult } from 'express-validator'
 import { Config } from './config'
+import { DBInitializer } from './db/DBInitializer'
 
 const config = new Config()
 
@@ -31,6 +32,14 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
 })
+
+// checks if tables are there or runs the whole schema.sql script
+const dbInit = new DBInitializer(
+    pool,
+    ['events', 'appleTrendsPodcastFollowers'],
+    config.getSchemaData()
+)
+dbInit.init()
 
 const eventRepo = new EventRepository(pool)
 const eventsApi = new EventsApi(eventRepo)
