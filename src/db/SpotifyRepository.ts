@@ -21,7 +21,17 @@ class SpotifyRepository {
 
     getTodayDBString(): string {
         const today = new Date()
-        return today.toLocaleDateString('en-CA') //format to YYYY-mm-dd
+
+        // format to YYYY-mm-dd
+        // Note that today.toLocaleDateString('en-CA') returned `DD/MM/YYYY` on
+        // some systems
+        return (
+            today.getFullYear() +
+            '-' +
+            (today.getMonth() + 1) +
+            '-' +
+            today.getDate()
+        )
     }
 
     // store metadata for the entire podcast
