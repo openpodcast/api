@@ -8,12 +8,12 @@ on:
             - completed
     push:
         branches:
-            - '**'
+            - main
         tags:
             - 'v*.*.*'
     pull_request:
         branches:
-            - 'main'
+            - main
 
 env:
     IMAGE_NAME: openpodcast/api
@@ -30,6 +30,17 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
+
+            - name: Use Node.js 16.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16.x
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build
+              run: npm run build
 
             - name: Docker meta
               id: meta
