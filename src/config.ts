@@ -25,6 +25,15 @@ class Config {
         }
     }
 
+    // reads schema from schema.sql
+    getSchemaData(): string {
+        const path = './db_schema/schema.sql'
+        if (!fs.existsSync(path)) {
+            throw new Error(`Schema file not found: ${path}`)
+        }
+        return fs.readFileSync(path, 'utf8')
+    }
+
     // reads a value from an environment variable or a file in the format <envVar>_FILE
     readStringFromEnvOrFile(
         envVar: string,

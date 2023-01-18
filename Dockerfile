@@ -34,6 +34,7 @@ WORKDIR /app
 # copy configs to /app folder
 COPY views /app/views
 COPY public /app/public
+COPY db_schema/schema.sql /app/db_schema/schema.sql
 
 # copy builded files from builder
 COPY --from=builder /app/dist /app/dist
