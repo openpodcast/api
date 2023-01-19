@@ -16,6 +16,10 @@ docker-build: ## docker-compose build
 dev: ## Starts the development server
 	npm run dev
 
+.PHONY: clean
+clean: ## Clean build files
+	rm -rf dist
+
 .PHONY: lint
 lint: ## run linter
 	npm run lint	
