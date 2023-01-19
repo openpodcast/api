@@ -42,9 +42,9 @@ class DBInitializer {
     }
 
     // Function which waits for the database to be ready
-    // Retry up to 3 times with exponential backoff
+    // Retry up to N times with exponential backoff
     private async waitForDatabase(): Promise<void> {
-        let retries = 3
+        let retries = 10
         let waitTime = 3000
 
         while (retries > 0) {
@@ -53,7 +53,7 @@ class DBInitializer {
                 return
             } catch (err) {
                 console.log(
-                    `Database not ready, retrying in {waitTime} seconds...`
+                    `Database not ready, retrying in ${waitTime} seconds...`
                 )
                 await new Promise((resolve) => setTimeout(resolve, waitTime))
                 waitTime *= 2
