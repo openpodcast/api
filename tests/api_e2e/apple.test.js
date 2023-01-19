@@ -7,6 +7,7 @@ const appleEpisodeDetailsPayloadSparse = require('../../fixtures/appleEpisodeDet
 const appleEpisodeDetailsPayloadEmpty = require('../../fixtures/appleEpisodeDetailsEmpty.json')
 const appleShowTrendsListenersPayload = require('../../fixtures/appleTrendsListenersByEpisode.json')
 const appleShowTrendsFollowersPayload = require('../../fixtures/appleTrendsFollowers.json')
+const appleShowTrendsFollowersPayloadEmpty = require('../../fixtures/appleTrendsFollowersEmpty.json')
 
 const auth = require('./authheader')
 
@@ -66,6 +67,16 @@ describe('check Connector API with Followers of ShowTrends API', () => {
             .post('/connector')
             .set(auth)
             .send(appleShowTrendsFollowersPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with empty Followers of ShowTrends API', () => {
+    it('should return status 200 when sending proper Apple payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(appleShowTrendsFollowersPayloadEmpty)
         expect(response.statusCode).toBe(200)
     })
 })
