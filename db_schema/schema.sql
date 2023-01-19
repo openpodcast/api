@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS events;
-CREATE TABLE events (
+CREATE TABLE IF NOT EXISTS events (
   account_id INTEGER NOT NULL,
   ev_userhash CHAR(64) AS (SHA2(CONCAT_WS("",JSON_UNQUOTE(ev_raw->"$.ip"),JSON_UNQUOTE(ev_raw->'$."user-agent"')), 256)) STORED,
   ev_timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -7,8 +6,7 @@ CREATE TABLE events (
   PRIMARY KEY (account_id, ev_timestamp)
 );
 
-DROP TABLE IF EXISTS spotifyPodcastDetailedStreams;
-CREATE TABLE spotifyPodcastDetailedStreams (
+CREATE TABLE IF NOT EXISTS spotifyPodcastDetailedStreams (
   account_id INTEGER NOT NULL,
   sps_date DATE NOT NULL,
   sps_starts INTEGER NOT NULL,
@@ -16,8 +14,7 @@ CREATE TABLE spotifyPodcastDetailedStreams (
   PRIMARY KEY (account_id, sps_date)
 );
 
-DROP TABLE IF EXISTS spotifyEpisodeDetailedStreams;
-CREATE TABLE spotifyEpisodeDetailedStreams (
+CREATE TABLE IF NOT EXISTS spotifyEpisodeDetailedStreams (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   sps_date DATE NOT NULL,
@@ -26,24 +23,22 @@ CREATE TABLE spotifyEpisodeDetailedStreams (
   PRIMARY KEY (account_id, episode_id, sps_date)
 );
 
-DROP TABLE IF EXISTS spotifyPodcastListeners;
-CREATE TABLE spotifyPodcastListeners (
+
+CREATE TABLE IF NOT EXISTS spotifyPodcastListeners (
   account_id INTEGER NOT NULL,
   spl_date DATE NOT NULL,
   spl_count INTEGER NOT NULL,
   PRIMARY KEY (account_id, spl_date)
 );
 
-DROP TABLE IF EXISTS spotifyPodcastFollowers;
-CREATE TABLE spotifyPodcastFollowers (
+CREATE TABLE IF NOT EXISTS spotifyPodcastFollowers (
   account_id INTEGER NOT NULL,
   spf_date DATE NOT NULL,
   spf_count INTEGER NOT NULL,
   PRIMARY KEY (account_id, spf_date)
 );
 
-DROP TABLE IF EXISTS spotifyEpisodeListeners;
-CREATE TABLE spotifyEpisodeListeners (
+CREATE TABLE IF NOT EXISTS spotifyEpisodeListeners (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   spl_date DATE NOT NULL,
@@ -51,8 +46,7 @@ CREATE TABLE spotifyEpisodeListeners (
   PRIMARY KEY (account_id, episode_id, spl_date)
 );
 
-DROP TABLE IF EXISTS spotifyEpisodeAggregate;
-CREATE TABLE spotifyEpisodeAggregate (
+CREATE TABLE IF NOT EXISTS spotifyEpisodeAggregate (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   spa_date DATE NOT NULL,
@@ -65,8 +59,7 @@ CREATE TABLE spotifyEpisodeAggregate (
   PRIMARY KEY (account_id, episode_id, spa_date, spa_facet_type, spa_facet)
 );
 
-DROP TABLE IF EXISTS spotifyPodcastAggregate;
-CREATE TABLE spotifyPodcastAggregate (
+CREATE TABLE IF NOT EXISTS spotifyPodcastAggregate (
   account_id INTEGER NOT NULL,
   spa_date DATE NOT NULL,
   spa_facet CHAR(8) NOT NULL,
@@ -78,8 +71,7 @@ CREATE TABLE spotifyPodcastAggregate (
   PRIMARY KEY (account_id, spa_date, spa_facet_type, spa_facet)
 );
 
-DROP TABLE IF EXISTS spotifyEpisodePerformance;
-CREATE TABLE spotifyEpisodePerformance (
+CREATE TABLE IF NOT EXISTS spotifyEpisodePerformance (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   spp_median_percentage TINYINT unsigned NOT NULL DEFAULT '0',
@@ -97,8 +89,7 @@ CREATE TABLE spotifyEpisodePerformance (
   PRIMARY KEY (account_id, episode_id)
 );
 
-DROP TABLE IF EXISTS spotifyPodcastMetadata;
-CREATE TABLE spotifyPodcastMetadata (
+CREATE TABLE IF NOT EXISTS spotifyPodcastMetadata (
   account_id INTEGER NOT NULL,
   spm_date DATE NOT NULL,
   spm_total_episodes INTEGER NOT NULL,
@@ -109,8 +100,7 @@ CREATE TABLE spotifyPodcastMetadata (
   PRIMARY KEY (account_id, spm_date)
 );
 
-DROP TABLE IF EXISTS spotifyEpisodeMetadata;
-CREATE TABLE spotifyEpisodeMetadata (
+CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   ep_name VARCHAR(2048) NOT NULL,
@@ -127,8 +117,7 @@ CREATE TABLE spotifyEpisodeMetadata (
   PRIMARY KEY (account_id, episode_id)
 );
 
-DROP TABLE IF EXISTS spotifyEpisodeMetadataHistory;
-CREATE TABLE spotifyEpisodeMetadataHistory (
+CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadataHistory (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   epm_date DATE NOT NULL,
@@ -138,8 +127,7 @@ CREATE TABLE spotifyEpisodeMetadataHistory (
   PRIMARY KEY (account_id, episode_id, epm_date)
 );
 
-DROP TABLE IF EXISTS appleEpisodeMetadata;
-CREATE TABLE appleEpisodeMetadata (
+CREATE TABLE IF NOT EXISTS appleEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   ep_name VARCHAR(2048) NOT NULL,
@@ -152,8 +140,7 @@ CREATE TABLE appleEpisodeMetadata (
   PRIMARY KEY (account_id, episode_id)
 );
 
-DROP TABLE IF EXISTS appleEpisodeDetails;
-CREATE TABLE appleEpisodeDetails (
+CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   aed_playscount INTEGER NOT NULL,
@@ -173,8 +160,7 @@ CREATE TABLE appleEpisodeDetails (
 );
 
 -- listeners values per day and per episode coming from the apple trends api
-DROP TABLE IF EXISTS appleTrendsEpisodeListeners;
-CREATE TABLE appleTrendsEpisodeListeners (
+CREATE TABLE IF NOT EXISTS appleTrendsEpisodeListeners (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   atl_date DATE NOT NULL,
@@ -186,8 +172,7 @@ CREATE TABLE appleTrendsEpisodeListeners (
 );
 
 -- listeners values per day and per podcast coming from the apple trends api
-DROP TABLE IF EXISTS appleTrendsPodcastListeners;
-CREATE TABLE appleTrendsPodcastListeners (
+CREATE TABLE IF NOT EXISTS appleTrendsPodcastListeners (
   account_id INTEGER NOT NULL,
   atl_date DATE NOT NULL,
   atl_playscount INTEGER NOT NULL,
@@ -198,8 +183,7 @@ CREATE TABLE appleTrendsPodcastListeners (
 );
 
 -- followers, gained/lost values per day
-DROP TABLE IF EXISTS appleTrendsPodcastFollowers;
-CREATE TABLE appleTrendsPodcastFollowers (
+CREATE TABLE IF NOT EXISTS appleTrendsPodcastFollowers (
   account_id INTEGER NOT NULL,
   atf_date DATE NOT NULL,
   atf_totalfollowers INTEGER NOT NULL,
@@ -210,8 +194,7 @@ CREATE TABLE appleTrendsPodcastFollowers (
 
 -- store upvote/downvote (thumbs up/down) per episode 
 -- and identify user with ip and agent hash
-DROP TABLE IF EXISTS feedbackVote;
-CREATE TABLE feedbackVote (
+CREATE TABLE IF NOT EXISTS feedbackVote (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   user_hash VARCHAR(64) NOT NULL,
@@ -222,8 +205,7 @@ CREATE TABLE feedbackVote (
 
 -- store comments per episode
 -- and identify user with ip and agent hash
-DROP TABLE IF EXISTS feedbackComment;
-CREATE TABLE feedbackComment (
+CREATE TABLE IF NOT EXISTS feedbackComment (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   user_hash VARCHAR(64) NOT NULL,
