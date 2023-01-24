@@ -18,24 +18,25 @@ class StatusRepository {
     // Reads from the `updates` table and returns the latest status
     // updates for the given accountId and endpoint.
     // (Updates are stored in JSON format)
+    //
+    // Returns all rows as a single object like this:
+    // {
+    //     account_id: 1,
+    //     latestUpdates: [
+    //         'aggregate': '2021-01-01 00:00:00'
+    //         'detailedStreams': '2021-01-01 00:00:00'
+    //     ]
+    // }
     async getStatus(accountId: number): Promise<Status> {
         const query = `SELECT u.endpoint, u.timestamp FROM updates u WHERE u.timestamp = (SELECT MAX(u2.timestamp) FROM updates u2 WHERE u2.endpoint = u.endpoint AND u2.account_id = ?) AND u.account_id = ? ORDER BY u.endpoint ASC;`
         const rows = await this.pool.query(query, accountId)
-        // Return all rows as a single object like this:
-        // {
-        //     account_id: 1,
-        //     latestUpdates: [
-        //         'aggregate': '2021-01-01 00:00:00'
-        //         'detailedStreams': '2021-01-01 00:00:00'
-        //     ]
-        // }
         return {
             accountId: accountId,
             latestUpdates: rows.map((row: any) => {
                 return {
-                    [row.endpoint]: row.timestamp
+                    [row.endpoint]: row.timestamp,
                 }
-            }
+            }),
         }
     }
 
