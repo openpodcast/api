@@ -41,7 +41,30 @@ class DBInitializer {
         return Promise.all(queries.map((query) => this.pool.query(query)))
     }
 
+    // Function which waits for the database to be ready
+    // Retry up to N times with exponential backoff
+    private async waitForDatabase(): Promise<void> {
+        let retries = 10
+        let waitTime = 3000
+
+        while (retries > 0) {
+            try {
+                await this.pool.query('SELECT 1')
+                return
+            } catch (err) {
+                console.log(
+                    `Database not ready, retrying in ${waitTime} seconds...`
+                )
+                await new Promise((resolve) => setTimeout(resolve, waitTime))
+                waitTime *= 2
+                retries--
+            }
+        }
+        throw new Error('Database not ready after 3 retries')
+    }
+
     public async init(): Promise<void> {
+        await this.waitForDatabase()
         const tablesExist = await this.checkTablesExist()
         if (!tablesExist) {
             console.log(
