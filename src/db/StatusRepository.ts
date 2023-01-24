@@ -29,7 +29,7 @@ class StatusRepository {
     // }
     async getStatus(accountId: number): Promise<Status> {
         const query = `SELECT u.endpoint, u.timestamp FROM updates u WHERE u.timestamp = (SELECT MAX(u2.timestamp) FROM updates u2 WHERE u2.endpoint = u.endpoint AND u2.account_id = ?) AND u.account_id = ? ORDER BY u.endpoint ASC;`
-        const rows = await this.pool.query(query, accountId)
+        const rows = await this.pool.query(query, [accountId, accountId])
         return {
             accountId: accountId,
             latestUpdates: rows.map((row: any) => {
