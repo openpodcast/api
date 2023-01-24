@@ -88,7 +88,8 @@ app.use(
     unless(
         publicEndpoints,
         function (req: Request, res: Response, next: NextFunction) {
-            if (Object.keys(req.body).length === 0) {
+            // exclude status endpoint from this middleware
+            if (Object.keys(req.body).length === 0 && req.path !== '/status') {
                 const err = new PayloadError('Request format invalid')
                 return next(err)
             }
@@ -246,7 +247,7 @@ app.get(
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
-    const err = new HttpError('File Not Found')
+    const err = new HttpError('Not Found')
     err.status = 404
     next(err)
 })
