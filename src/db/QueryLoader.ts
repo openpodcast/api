@@ -60,6 +60,12 @@ class QueryLoader {
                 const endpoint = `${version}/${queryName}`
                 const queryText = fs.readFileSync(queryPath, 'utf8')
 
+                if (!queryText) {
+                    throw new Error(
+                        `Query text is empty for ${endpoint}. This is probably a mistake.`
+                    )
+                }
+
                 // Store the query text
                 queries.set(endpoint, queryText)
             })

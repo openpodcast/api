@@ -17,6 +17,7 @@ class AnalyticsRepository {
     async execute(endpoint: string): Promise<any> {
         // Look up the query text for the endpoint
         const query = this.queries.get(endpoint)
+
         if (!query) {
             throw new Error(`Query not found for endpoint ${endpoint}`)
         }

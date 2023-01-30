@@ -173,6 +173,9 @@ app.get(
                 res.json(response)
             }
         } catch (err) {
+            // Always return a 404 if the query is not found
+            // (instead of the default 500)
+            res.status(404)
             next(err)
         }
     }
