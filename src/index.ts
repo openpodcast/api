@@ -65,7 +65,13 @@ const connectorApi = new ConnectorApi({
 })
 
 // defines all endpoints where auth is not required
-const publicEndpoints = ['/images/*', '/health', '/feedback/*', '/comments/*']
+const publicEndpoints = [
+    '/images/*',
+    '/health',
+    '/status',
+    '/feedback/*',
+    '/comments/*',
+]
 
 const authController = new AuthController(config.getAccountsMap())
 
@@ -89,7 +95,7 @@ app.use(
         publicEndpoints,
         function (req: Request, res: Response, next: NextFunction) {
             // exclude status endpoint from this middleware
-            if (Object.keys(req.body).length === 0 && req.path !== '/status') {
+            if (Object.keys(req.body).length === 0) {
                 const err = new PayloadError('Request format invalid')
                 return next(err)
             }
@@ -166,7 +172,7 @@ app.get(
 // This uses our internal event sourcing to determine the last imports.
 app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const status = await statusApi.getStatus(res.locals.user.accountId)
+        const status = await statusApi.getStatus()
         res.json(status)
     } catch (err) {
         next(err)

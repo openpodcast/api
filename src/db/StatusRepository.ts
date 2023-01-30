@@ -1,11 +1,15 @@
-import { Pool } from 'mysql2/promise'
+import { Pool, RowDataPacket } from 'mysql2/promise'
 import { StatusPayload } from '../types/api'
 
+// This is the type of the object that is returned by the `getStatus` method.
+// It is a map where the key is the account ID and the value is an object
+// containing the latest update time for each endpoint.
 type Status = {
-    accountId: number
-    latestUpdates: {
-        [key: string]: Date
-    }[]
+    [key: number]: {
+        latestUpdates: {
+            [key: string]: Date
+        }
+    }
 }
 
 class StatusRepository {
@@ -16,28 +20,50 @@ class StatusRepository {
     }
 
     // Reads from the `updates` table and returns the latest status
-    // updates for the given accountId and endpoint.
+    // updates for all endpoints of an account.
     // (Updates are stored in JSON format)
     //
-    // Returns all rows as a single object like this:
+    // Returns all rows as a single object like this where the key is the
+    // account ID and the value is an array of objects with the endpoint name as
+    // the key and the update time as the value:
     // {
-    //     account_id: 1,
-    //     latestUpdates: [
-    //         'aggregate': '2021-01-01 00:00:00'
-    //         'detailedStreams': '2021-01-01 00:00:00'
-    //     ]
+    //     1: {
+    //       latestUpdates: [
+    //           'aggregate': '2021-01-01 00:00:00'
+    //           'detailedStreams': '2021-01-01 00:00:00'
+    //       ]
+    //     },
+    //     2: {
+    //       latestUpdates: [
+    //           ...
+    //       ]
+    //     }
     // }
-    async getStatus(accountId: number): Promise<Status> {
-        const query = `SELECT u.endpoint, u.timestamp FROM updates u WHERE u.timestamp = (SELECT MAX(u2.timestamp) FROM updates u2 WHERE u2.endpoint = u.endpoint AND u2.account_id = ?) AND u.account_id = ? ORDER BY u.endpoint ASC;`
-        const rows = await this.pool.query(query, [accountId, accountId])
-        return {
-            accountId: accountId,
-            latestUpdates: rows.map((row: any) => {
-                return {
-                    [row.endpoint]: row.timestamp,
-                }
-            }),
+    async getStatus(): Promise<Status> {
+        const query = `SELECT account_id, endpoint, MAX(created) AS latest_update FROM updates GROUP BY account_id, endpoint`
+        const response = (await this.pool.query(query)) as RowDataPacket[]
+
+        // Response should have at least one row.
+        // If not, return an empty object.
+        if (response.length === 0) {
+            return {}
         }
+
+        const status: Status = {}
+        response[0].forEach((row) => {
+            // Create the account object if it doesn't exist yet
+            if (!status[row.account_id]) {
+                status[row.account_id] = {
+                    latestUpdates: {},
+                }
+            }
+
+            status[row.account_id].latestUpdates[row.endpoint] = new Date(
+                row.latest_update
+            )
+        })
+
+        return status
     }
 
     // Write the raw JSON status data into the `updates` table

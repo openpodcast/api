@@ -215,18 +215,18 @@ CREATE TABLE IF NOT EXISTS feedbackComment (
 );
 
 -- store latest update events
--- timestamp is used to identify the update
+-- current timestamp is used to identify the update
 -- contains JSON with the update data
 DROP TABLE IF EXISTS updates;
 CREATE TABLE updates (
   account_id INTEGER NOT NULL,
   endpoint VARCHAR(64) NOT NULL,
-  timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_data JSON NOT NULL,
-  PRIMARY KEY (timestamp, account_id, endpoint)
+  PRIMARY KEY (created, account_id, endpoint)
 );
 
 -- automatically delete all updates older than 7 days
 CREATE EVENT IF NOT EXISTS updates_cleanup
 ON SCHEDULE EVERY 1 DAY
-DO DELETE FROM updates WHERE timestamp < (CURRENT_TIMESTAMP - INTERVAL 7 DAY);
+DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 7 DAY);
