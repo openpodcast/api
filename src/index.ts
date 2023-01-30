@@ -95,7 +95,9 @@ app.use(unless(publicEndpoints, authController.getMiddleware()))
 // throw error if no payload submitted
 app.use(
     unless(
-        publicEndpoints,
+        // allow analytics endpoint and public endpoints
+        // to be called without payload
+        publicEndpoints.concat(['^/analytics/*']),
         function (req: Request, res: Response, next: NextFunction) {
             if (Object.keys(req.body).length === 0) {
                 const err = new PayloadError('Request format invalid')
