@@ -23,6 +23,9 @@ import crypto from 'crypto'
 import { body, validationResult } from 'express-validator'
 import { Config } from './config'
 import { DBInitializer } from './db/DBInitializer'
+import { QueryLoader } from './db/QueryLoader'
+import { AnalyticsRepository } from './db/AnalyticsRepository'
+import { AnalyticsApi } from './api/AnalyticsApi'
 
 const config = new Config()
 
@@ -52,6 +55,12 @@ const appleConnector = new AppleConnector(appleRepo)
 
 const feedbackRepo = new FeedbackRepository(pool)
 const feedbackApi = new FeedbackApi(feedbackRepo)
+
+const queryLoader = new QueryLoader(config.getQueryPath())
+const queries = queryLoader.loadQueries()
+
+const analyticsRepo = new AnalyticsRepository(pool, queries)
+const analyticsApi = new AnalyticsApi(analyticsRepo)
 
 // parameter map will consist of spotify and apple in the future
 const connectorApi = new ConnectorApi({
@@ -128,6 +137,34 @@ app.get(
                 episodeId
             )
             res.render('feedback.hbs', { episodeId, numberOfComments })
+        } catch (err) {
+            next(err)
+        }
+    }
+)
+
+// Analytics endpoint, which returns a JSON of the query results.
+// Check that the user is allowed to access the endpoint
+// and then run the query
+// The endpoint must contain a version number and a query name
+// e.g. /analytics/v1/someQuery
+app.get(
+    '/analytics/:version/:query',
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const version = req.params.version
+            const query = req.params.query
+
+            // TODO: use accountId from user
+            // const accountId = res.locals.user.accountId
+
+            const response = await analyticsApi.getAnalytics(
+                `${version}/${query}`
+            )
+
+            if (response) {
+                res.json(response)
+            }
         } catch (err) {
             next(err)
         }

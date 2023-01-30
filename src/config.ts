@@ -34,6 +34,16 @@ class Config {
         return fs.readFileSync(path, 'utf8')
     }
 
+    // gets the path to the analytics queries
+    // which the query loader will use to load from
+    getQueryPath(): string {
+        const queryPath = this.readStringFromEnvOrFile(
+            'QUERY_PATH',
+            './db_schema/queries'
+        )
+        return queryPath as string
+    }
+
     // reads a value from an environment variable or a file in the format <envVar>_FILE
     readStringFromEnvOrFile(
         envVar: string,
