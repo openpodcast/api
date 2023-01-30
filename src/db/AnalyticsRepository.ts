@@ -14,7 +14,7 @@ class AnalyticsRepository {
     }
 
     // Execute a query for an endpoint.
-    execute(endpoint: string): Promise<any> {
+    async execute(endpoint: string): Promise<any> {
         // Look up the query text for the endpoint
         const query = this.queries.get(endpoint)
         if (!query) {
@@ -22,7 +22,9 @@ class AnalyticsRepository {
         }
 
         // Execute the query and return the result
-        return this.pool.execute(query)
+        const response = await this.pool.execute(query)
+        // First element of the response is the result
+        return response[0]
     }
 }
 
