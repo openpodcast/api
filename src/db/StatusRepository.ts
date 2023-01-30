@@ -50,7 +50,7 @@ class StatusRepository {
         }
 
         const status: Status = {}
-        response[0].forEach((row) => {
+        response[0].forEach((row: RowDataPacket) => {
             // Create the account object if it doesn't exist yet
             if (!status[row.account_id]) {
                 status[row.account_id] = {
