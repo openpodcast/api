@@ -69,7 +69,12 @@ const connectorApi = new ConnectorApi({
 })
 
 // defines all endpoints where auth is not required
-const publicEndpoints = ['/images/*', '/health', '/feedback/*', '/comments/*']
+const publicEndpoints = [
+    '^/images/*',
+    '^/health',
+    '^/feedback/*',
+    '^/comments/*',
+]
 
 const authController = new AuthController(config.getAccountsMap())
 
