@@ -53,17 +53,8 @@ The status API returns the last imports by endpoint:
 }
 ```
 
-To query it, use the following endpoint:
-
-`/status`
-
-You need to provide your bearer token in the header.
-Example:
-
-```
-curl -H "Authorization Bearer <token>" https://api.openpodcast.de/status/1
-```
+To query it, use the following endpoint: `/status`
 
 ### Tools to create (JSON) schemata
 
--   https://transform.tools/json-to-json-schema
+- <https://transform.tools/json-to-json-schema>

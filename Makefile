@@ -31,13 +31,17 @@ init: install
 install: ## Installs dependencies
 	npm install	
 
+.PHONY: shell-%
+shell-%: ## Run a shell in a container
+	docker-compose exec $* sh
+
 .PHONY: e2e-tests
 e2e-tests: ## Start end2end tests (local running server is required)
 	npx jest ./tests/api_e2e --verbose true
 
 .PHONY: status
 status: ## Send status request
-	curl http://localhost:8080/status  -H 'Content-Type: application/json' -H 'Authorization: Bearer cn389ncoiwuencr' 
+	curl http://localhost:8080/status  -H 'Content-Type: application/json' 
 
 .PHONY: send-api-req-local
 send-api-req-local: ## Send a request to the local running server
