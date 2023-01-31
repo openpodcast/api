@@ -1,0 +1,1 @@
+SELECT 'Pong' AS result;

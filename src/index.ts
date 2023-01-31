@@ -25,6 +25,9 @@ import crypto from 'crypto'
 import { body, validationResult } from 'express-validator'
 import { Config } from './config'
 import { DBInitializer } from './db/DBInitializer'
+import { QueryLoader } from './db/QueryLoader'
+import { AnalyticsRepository } from './db/AnalyticsRepository'
+import { AnalyticsApi } from './api/AnalyticsApi'
 
 const config = new Config()
 
@@ -55,6 +58,12 @@ const appleConnector = new AppleConnector(appleRepo)
 const feedbackRepo = new FeedbackRepository(pool)
 const feedbackApi = new FeedbackApi(feedbackRepo)
 
+const queryLoader = new QueryLoader(config.getQueryPath())
+const queries = queryLoader.loadQueries()
+
+const analyticsRepo = new AnalyticsRepository(pool, queries)
+const analyticsApi = new AnalyticsApi(analyticsRepo)
+
 const statusRepo = new StatusRepository(pool)
 const statusApi = new StatusApi(statusRepo)
 
@@ -66,11 +75,11 @@ const connectorApi = new ConnectorApi({
 
 // defines all endpoints where auth is not required
 const publicEndpoints = [
-    '/images/*',
-    '/health',
-    '/status',
-    '/feedback/*',
-    '/comments/*',
+    '^/images/*',
+    '^/health',
+    '^/status',
+    '^/feedback/*',
+    '^/comments/*',
 ]
 
 const authController = new AuthController(config.getAccountsMap())
@@ -92,7 +101,9 @@ app.use(unless(publicEndpoints, authController.getMiddleware()))
 // throw error if no payload submitted
 app.use(
     unless(
-        publicEndpoints,
+        // allow analytics endpoint and public endpoints
+        // to be called without payload
+        publicEndpoints.concat(['^/analytics/*']),
         function (req: Request, res: Response, next: NextFunction) {
             // exclude status endpoint from this middleware
             if (Object.keys(req.body).length === 0) {
@@ -163,6 +174,37 @@ app.get(
             )
             res.render('feedback.hbs', { episodeId, numberOfComments })
         } catch (err) {
+            next(err)
+        }
+    }
+)
+
+// Analytics endpoint, which returns a JSON of the query results.
+// Check that the user is allowed to access the endpoint
+// and then run the query
+// The endpoint must contain a version number and a query name
+// e.g. /analytics/v1/someQuery
+app.get(
+    '/analytics/:version/:query',
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const version = req.params.version
+            const query = req.params.query
+
+            // TODO: use accountId from user
+            // const accountId = res.locals.user.accountId
+
+            const response = await analyticsApi.getAnalytics(
+                `${version}/${query}`
+            )
+
+            if (response) {
+                res.json(response)
+            }
+        } catch (err) {
+            // Always return a 404 if the query is not found
+            // (instead of the default 500)
+            res.status(404)
             next(err)
         }
     }
