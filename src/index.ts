@@ -19,6 +19,8 @@ import mysql from 'mysql2/promise'
 import { unless } from './expressHelpers'
 import { FeedbackRepository } from './db/FeedbackRepository'
 import { FeedbackApi } from './api/FeedbackApi'
+import { StatusRepository } from './db/StatusRepository'
+import { StatusApi } from './api/StatusApi'
 import crypto from 'crypto'
 import { body, validationResult } from 'express-validator'
 import { Config } from './config'
@@ -62,6 +64,9 @@ const queries = queryLoader.loadQueries()
 const analyticsRepo = new AnalyticsRepository(pool, queries)
 const analyticsApi = new AnalyticsApi(analyticsRepo)
 
+const statusRepo = new StatusRepository(pool)
+const statusApi = new StatusApi(statusRepo)
+
 // parameter map will consist of spotify and apple in the future
 const connectorApi = new ConnectorApi({
     spotify: spotifyConnector,
@@ -72,6 +77,7 @@ const connectorApi = new ConnectorApi({
 const publicEndpoints = [
     '^/images/*',
     '^/health',
+    '^/status',
     '^/feedback/*',
     '^/comments/*',
 ]
@@ -99,6 +105,7 @@ app.use(
         // to be called without payload
         publicEndpoints.concat(['^/analytics/*']),
         function (req: Request, res: Response, next: NextFunction) {
+            // exclude status endpoint from this middleware
             if (Object.keys(req.body).length === 0) {
                 const err = new PayloadError('Request format invalid')
                 return next(err)
@@ -107,6 +114,28 @@ app.use(
         }
     )
 )
+
+// request handler which runs after all other request handlers
+// and handles storing events in the database (event sourcing)
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+    const afterResponse = async () => {
+        try {
+            // See if we received an update from the previous request handlers
+            // If not, we don't need to store anything
+            // (Not all endpoints return an update)
+            const update = res.locals.update
+            if (!update) {
+                // All good, nothing to do. Call next() to continue
+                return
+            }
+            await statusApi.updateStatus(res.locals.user.accountId, update)
+        } catch (err) {
+            console.error(err)
+        }
+    }
+    res.on('close', afterResponse)
+    next()
+})
 
 const userHashMiddleware = (
     req: Request,
@@ -181,6 +210,17 @@ app.get(
     }
 )
 
+// Status endpoint, which returns a JSON of the last import time per endpoint.
+// This uses our internal event sourcing to determine the last imports.
+app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const status = await statusApi.getStatus()
+        res.json(status)
+    } catch (err) {
+        next(err)
+    }
+})
+
 app.post(
     '/comments/:episodeId',
     userHashMiddleware,
@@ -229,8 +269,18 @@ app.post('/connector', (async (
     next: NextFunction
 ) => {
     try {
-        await connectorApi.handleApiPost(res.locals.user.accountId, req.body)
+        const connectorPayload = await connectorApi.handleApiPost(
+            res.locals.user.accountId,
+            req.body
+        )
         res.send('Data stored. Thx')
+
+        // Construct a payload for event sourcing
+        res.locals.update = {
+            endpoint: connectorPayload.meta.endpoint,
+            // TODO: Which data should be stored?
+            data: connectorPayload.data,
+        }
     } catch (err) {
         next(err)
     }
@@ -245,7 +295,7 @@ app.get(
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
-    const err = new HttpError('File Not Found')
+    const err = new HttpError('Not Found')
     err.status = 404
     next(err)
 })
