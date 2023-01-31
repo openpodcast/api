@@ -46,3 +46,13 @@ describe('check basic analytics query', () => {
         expect(response.statusCode).toBe(404)
     })
 })
+
+describe('check basic analytics query', () => {
+    it('should return status 404 when sending to non-existent version', async () => {
+        const response = await request(baseURL)
+            .get('/analytics/v9999/foo')
+            .set(auth)
+            .send()
+        expect(response.statusCode).toBe(404)
+    })
+})
