@@ -1,1 +1,0 @@
-SELECT * from feedbackVote limit 1;
