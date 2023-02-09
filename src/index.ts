@@ -205,6 +205,7 @@ app.get(
             // Always return a 404 if the query is not found
             // (instead of the default 500)
             res.status(404)
+            console.log(err)
             next(err)
         }
     }
