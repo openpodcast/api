@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY views /app/views
 COPY public /app/public
-COPY db_schema/schema.sql /app/db_schema/schema.sql
+COPY db_schema /app/db_schema
 COPY /dist /app/dist
 COPY /node_modules /app/node_modules 
 
