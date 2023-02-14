@@ -8,4 +8,4 @@ WITH data as
 SELECT ep_guid as guid, "female" as gender, spa_gender_female as listeners, spa_facet as age_group FROM data 
 UNION SELECT ep_guid as guid, "male" as gender, spa_gender_male as listeners, spa_facet as age_group FROM data
 UNION SELECT ep_guid as guid, "non-binary" as gender, spa_gender_non_binary as listeners, spa_facet as age_group FROM data
-UNION SELECT ep_guid as guid, "not-specified" as gender, spa_gender_non_binary as listeners, spa_facet as age_group FROM data
+UNION SELECT ep_guid as guid, "not-specified" as gender, spa_gender_not_specified as listeners, spa_facet as age_group FROM data
