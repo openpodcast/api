@@ -1,0 +1,1 @@
+  SELECT * FROM spotifyPodcastAggregate LIMIT 10;
