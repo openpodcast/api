@@ -87,6 +87,10 @@ const authController = new AuthController(config.getAccountsMap())
 const app: Express = express()
 const port = config.getExpressPort()
 
+// to unify date format and strings
+// returns the current time as an ISO 8601 string
+const now = () => new Date().toISOString()
+
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '1mb' }))
 
@@ -191,15 +195,30 @@ app.get(
             const version = req.params.version
             const query = req.params.query
 
-            // TODO: use accountId from user
-            // const accountId = res.locals.user.accountId
+            // TODO: pass accountId from user
+            const accountId = res.locals.user.accountId
+            const data = await analyticsApi.getAnalytics(`${version}/${query}`)
 
-            const response = await analyticsApi.getAnalytics(
-                `${version}/${query}`
-            )
-
-            if (response) {
-                res.json(response)
+            if (data) {
+                res.json({
+                    meta: {
+                        query,
+                        accountId,
+                        date: now(),
+                        result: 'success',
+                    },
+                    data,
+                })
+            } else {
+                res.json({
+                    meta: {
+                        query,
+                        accountId,
+                        date: now(),
+                        result: 'error',
+                    },
+                    data: null,
+                })
             }
         } catch (err) {
             // Always return a 404 if the query is not found
