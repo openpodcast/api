@@ -87,7 +87,7 @@ const authController = new AuthController(config.getAccountsMap())
 const app: Express = express()
 const port = config.getExpressPort()
 
-// to undify date format and strings
+// to unify date format and strings
 // returns the current time as an ISO 8601 string
 const now = () => new Date().toISOString()
 
