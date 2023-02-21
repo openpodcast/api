@@ -191,15 +191,30 @@ app.get(
             const version = req.params.version
             const query = req.params.query
 
-            // TODO: use accountId from user
-            // const accountId = res.locals.user.accountId
+            // TODO: pass accountId from user
+            const accountId = res.locals.user.accountId
+            const data = await analyticsApi.getAnalytics(`${version}/${query}`)
 
-            const response = await analyticsApi.getAnalytics(
-                `${version}/${query}`
-            )
-
-            if (response) {
-                res.json(response)
+            if (data) {
+                res.json({
+                    meta: {
+                        query,
+                        accountId,
+                        date: new Date(),
+                        result: 'success',
+                    },
+                    data,
+                })
+            } else {
+                res.json({
+                    meta: {
+                        query,
+                        accountId,
+                        date: new Date(),
+                        result: 'error',
+                    },
+                    data: null,
+                })
             }
         } catch (err) {
             // Always return a 404 if the query is not found
