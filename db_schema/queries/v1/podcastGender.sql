@@ -1,5 +1,5 @@
 WITH data as (
-  SELECT * FROM spotifyPodcastAggregate WHERE spa_facet_type="age" AND spa_date = (SELECT max(spa_date) FROM spotifyPodcastAggregate)
+  SELECT * FROM spotifyPodcastAggregate WHERE spa_facet_type="age" AND spa_date = @start
 )
 
 SELECT "female" as gender, spa_gender_female as listeners, spa_facet as age_group FROM data 
