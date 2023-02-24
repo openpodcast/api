@@ -1,1 +1,1 @@
-SELECT @start,@end; 
+SELECT DATEDIFF(@end,@start) AS time; 

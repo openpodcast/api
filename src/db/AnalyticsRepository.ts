@@ -14,7 +14,7 @@ class AnalyticsRepository {
     }
 
     // Execute a query for an endpoint.
-    async execute(endpoint: string): Promise<any> {
+    async execute(endpoint: string, sqlVars = {}): Promise<any> {
         // Look up the query text for the endpoint
         const query = this.queries.get(endpoint)
 
@@ -22,9 +22,16 @@ class AnalyticsRepository {
             throw new Error(`Query not found for endpoint ${endpoint}`)
         }
 
+        // Iterate over the  and escape them
+        const setStatements = []
+        for (const [key, value] of Object.entries(sqlVars)) {
+            const escapedValue: string = this.pool.escape(value)
+            setStatements.push(`SET @${key}=${escapedValue};`)
+        }
+
         // Execute the query and return the result
         const response = await this.pool.query(
-            `SET @start="mre"; SET @end="mre2"; ${query}`
+            `${setStatements.join(' ')} ${query}`
         )
         // First element of the response is the result
         return response[0]

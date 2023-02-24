@@ -196,9 +196,41 @@ app.get(
             const version = req.params.version
             const query = req.params.query
 
+            // Get date from query parameters
+            // If no date is provided, use the current date
+            // If it's an array, use throw an error
+            const startDateString = req.query.start
+            const endDateString = req.query.end
+
+            if (Array.isArray(startDateString)) {
+                throw new Error('Start date must not be an array')
+            }
+
+            if (Array.isArray(endDateString)) {
+                throw new Error('End date must not be an array')
+            }
+
+            const startDate = startDateString
+                ? new Date(startDateString)
+                : new Date()
+
+            if (startDate.toString() === 'Invalid Date') {
+                throw new Error('Start date is invalid')
+            }
+
+            const endDate = endDateString ? new Date(endDateString) : new Date()
+
+            if (endDate.toString() === 'Invalid Date') {
+                throw new Error('End date is invalid')
+            }
+
             // TODO: pass accountId from user
             const accountId = res.locals.user.accountId
-            const data = await analyticsApi.getAnalytics(`${version}/${query}`)
+            const data = await analyticsApi.getAnalytics(
+                `${version}/${query}`,
+                startDate,
+                endDate
+            )
 
             if (data) {
                 res.json({
