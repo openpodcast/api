@@ -23,7 +23,9 @@ class AnalyticsRepository {
         }
 
         // Execute the query and return the result
-        const response = await this.pool.execute(query)
+        const response = await this.pool.query(
+            `SET @start="mre"; SET @end="mre2"; ${query}`
+        )
         // First element of the response is the result
         return response[0]
     }

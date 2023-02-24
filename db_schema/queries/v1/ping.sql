@@ -1,1 +1,1 @@
-SELECT 'Pong' AS result;
+SELECT @start,@end; 

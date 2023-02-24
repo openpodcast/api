@@ -36,6 +36,7 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
+    multipleStatements: true,
 })
 
 // checks if tables are there or runs the whole schema.sql script
