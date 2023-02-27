@@ -1,5 +1,4 @@
-import { isArray } from 'mathjs'
-import { Pool } from 'mysql2/promise'
+import { Connection, Pool } from 'mysql2/promise'
 
 // A generic query handler for analytics endpoints.
 // The queries are loaded from the filesystem and stored in a map.
@@ -26,7 +25,9 @@ class AnalyticsRepository {
         // Iterate over the  and escape them
         const setStatements = []
         for (const [key, value] of Object.entries(sqlVars)) {
-            const escapedValue: string = this.pool.escape(value)
+            const escapedValue: string =
+                // bit weird, but this is the only way to get the escape function without a type error
+                (this.pool as unknown as Connection).escape(value)
             setStatements.push(`SET @${key}=${escapedValue};`)
         }
 
@@ -37,7 +38,7 @@ class AnalyticsRepository {
 
         // as we send multiple queries, we need to return only the last one
         // which contains the actual result
-        if (setStatements.length > 0 && isArray(rows)) {
+        if (setStatements.length > 0 && Array.isArray(rows)) {
             return rows[rows.length - 1]
         } else {
             return rows

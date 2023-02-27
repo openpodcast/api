@@ -211,14 +211,16 @@ app.get(
             }
 
             const startDate = startDateString
-                ? new Date(startDateString)
+                ? new Date(startDateString as string)
                 : new Date()
 
             if (startDate.toString() === 'Invalid Date') {
                 throw new Error('Start date is invalid')
             }
 
-            const endDate = endDateString ? new Date(endDateString) : new Date()
+            const endDate = endDateString
+                ? new Date(endDateString as string)
+                : new Date()
 
             if (endDate.toString() === 'Invalid Date') {
                 throw new Error('End date is invalid')
