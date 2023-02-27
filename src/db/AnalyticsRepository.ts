@@ -1,3 +1,4 @@
+import { isArray } from 'mathjs'
 import { Pool } from 'mysql2/promise'
 
 // A generic query handler for analytics endpoints.
@@ -30,11 +31,17 @@ class AnalyticsRepository {
         }
 
         // Execute the query and return the result
-        const response = await this.pool.query(
+        const [rows, _] = await this.pool.query(
             `${setStatements.join(' ')} ${query}`
         )
-        // First element of the response is the result
-        return response[0]
+
+        // as we send multiple queries, we need to return only the last one
+        // which contains the actual result
+        if (setStatements.length > 0 && isArray(rows)) {
+            return rows[rows.length - 1]
+        } else {
+            return rows
+        }
     }
 }
 
