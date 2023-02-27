@@ -22,7 +22,7 @@ class AnalyticsRepository {
             throw new Error(`Query not found for endpoint ${endpoint}`)
         }
 
-        // Iterate over the values  and escape them
+        // Iterate over the values and escape them
         const setStatements = []
         for (const [key, value] of Object.entries(sqlVars)) {
             const escapedValue: string =
