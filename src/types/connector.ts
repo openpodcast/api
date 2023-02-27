@@ -58,7 +58,7 @@ export interface SpotifyPodcastAggregatePayload {
     ageFacetedCounts: {
         [ageGroup: string]: SpotifyGenderCounts
     }
-    countryFacetedCounts: {
+    countryFacetedCounts?: {
         [country: string]: {
             counts: {
                 NON_BINARY: number
