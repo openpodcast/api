@@ -36,6 +36,7 @@ const pool = mysql.createPool({
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,
+    multipleStatements: true,
 })
 
 // checks if tables are there or runs the whole schema.sql script
@@ -195,31 +196,70 @@ app.get(
             const version = req.params.version
             const query = req.params.query
 
+            // Get date from query parameters
+            // If no date is provided, use date of yesterday
+            // If it's an array, use throw an error
+            const startDateString = req.query.start
+            const endDateString = req.query.end
+
+            // use yesterday for default dates
+            const yesterday = new Date()
+            yesterday.setDate(yesterday.getDate() - 1)
+
+            if (Array.isArray(startDateString)) {
+                throw new Error('Start date must not be an array')
+            }
+
+            if (Array.isArray(endDateString)) {
+                throw new Error('End date must not be an array')
+            }
+
+            const startDate = startDateString
+                ? new Date(startDateString as string)
+                : yesterday
+
+            if (startDate.toString() === 'Invalid Date') {
+                throw new Error('Start date is invalid')
+            }
+
+            // if no end date is provided, use the start date
+            const endDate = endDateString
+                ? new Date(endDateString as string)
+                : startDate
+
+            if (endDate.toString() === 'Invalid Date') {
+                throw new Error('End date is invalid')
+            }
+
+            // throw an error if end date is before start date
+            if (endDate < startDate) {
+                throw new Error('End date must be after start date')
+            }
+
             // TODO: pass accountId from user
             const accountId = res.locals.user.accountId
-            const data = await analyticsApi.getAnalytics(`${version}/${query}`)
 
-            if (data) {
-                res.json({
-                    meta: {
-                        query,
-                        accountId,
-                        date: now(),
-                        result: 'success',
-                    },
-                    data,
-                })
-            } else {
-                res.json({
-                    meta: {
-                        query,
-                        accountId,
-                        date: now(),
-                        result: 'error',
-                    },
-                    data: null,
-                })
+            let data = null
+
+            try {
+                data = await analyticsApi.getAnalytics(
+                    `${version}/${query}`,
+                    startDate,
+                    endDate
+                )
+            } catch (err) {
+                console.log(err)
             }
+
+            res.json({
+                meta: {
+                    query,
+                    accountId,
+                    date: now(),
+                    result: data ? 'success' : 'error',
+                },
+                data,
+            })
         } catch (err) {
             // Always return a 404 if the query is not found
             // (instead of the default 500)
