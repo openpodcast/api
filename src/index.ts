@@ -226,33 +226,28 @@ app.get(
 
             // TODO: pass accountId from user
             const accountId = res.locals.user.accountId
-            const data = await analyticsApi.getAnalytics(
-                `${version}/${query}`,
-                startDate,
-                endDate
-            )
 
-            if (data) {
-                res.json({
-                    meta: {
-                        query,
-                        accountId,
-                        date: now(),
-                        result: 'success',
-                    },
-                    data,
-                })
-            } else {
-                res.json({
-                    meta: {
-                        query,
-                        accountId,
-                        date: now(),
-                        result: 'error',
-                    },
-                    data: null,
-                })
+            let data = null
+
+            try {
+                data = await analyticsApi.getAnalytics(
+                    `${version}/${query}`,
+                    startDate,
+                    endDate
+                )
+            } catch (err) {
+                console.log(err)
             }
+
+            res.json({
+                meta: {
+                    query,
+                    accountId,
+                    date: now(),
+                    result: data ? 'success' : 'error',
+                },
+                data,
+            })
         } catch (err) {
             // Always return a 404 if the query is not found
             // (instead of the default 500)
