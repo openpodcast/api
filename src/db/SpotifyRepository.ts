@@ -311,6 +311,11 @@ class SpotifyRepository {
         const replaceStmt = `REPLACE INTO spotifyPodcastAggregate (account_id, spa_date, spa_facet, spa_facet_type, 
             spa_gender_not_specified, spa_gender_female, spa_gender_male, spa_gender_non_binary) VALUES (?,?,?,?,?,?,?,?)`
 
+        // We cannot be sure that the payload will contain country faceted counts
+        // so we need to check for them before we try to iterate over them.
+        // Note that age faceted counts are always present as per the schema.
+        const countryFacetedCounts = payload.countryFacetedCounts || {}
+
         return await Promise.all([
             ...Object.keys(payload.ageFacetedCounts).map(
                 async (ageGroup: string): Promise<any> => {
@@ -328,9 +333,9 @@ class SpotifyRepository {
                     ])
                 }
             ),
-            ...Object.keys(payload.countryFacetedCounts).map(
+            ...Object.keys(countryFacetedCounts).map(
                 async (country: string): Promise<any> => {
-                    const entry = payload.countryFacetedCounts[country]
+                    const entry = countryFacetedCounts[country]
                     return await this.pool.execute(replaceStmt, [
                         accountId,
                         date,
