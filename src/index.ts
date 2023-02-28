@@ -37,6 +37,9 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0,
     multipleStatements: true,
+    // do not touch dates and return native string representation
+    // see https://github.com/mysqljs/mysql#connection-options
+    dateStrings: true,
 })
 
 // checks if tables are there or runs the whole schema.sql script
