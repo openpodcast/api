@@ -28,6 +28,7 @@ import { DBInitializer } from './db/DBInitializer'
 import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
+import { formatDate, nowString } from './dateHelpers'
 
 const config = new Config()
 
@@ -90,10 +91,6 @@ const authController = new AuthController(config.getAccountsMap())
 
 const app: Express = express()
 const port = config.getExpressPort()
-
-// to unify date format and strings
-// returns the current time as an ISO 8601 string
-const now = () => new Date().toISOString()
 
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '1mb' }))
@@ -258,7 +255,9 @@ app.get(
                 meta: {
                     query,
                     accountId,
-                    date: now(),
+                    date: nowString(),
+                    startDate: formatDate(startDate),
+                    endDate: formatDate(endDate),
                     result: data ? 'success' : 'error',
                 },
                 data,

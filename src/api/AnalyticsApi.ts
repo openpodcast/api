@@ -1,20 +1,11 @@
 import { AnalyticsRepository } from '../db/AnalyticsRepository'
+import { formatDate } from '../dateHelpers'
 
 class AnalyticsApi {
     AnalyticsRepo: AnalyticsRepository
 
     constructor(AnalyticsRepo: AnalyticsRepository) {
         this.AnalyticsRepo = AnalyticsRepo
-    }
-
-    // Get the specified date and time in SQL format.
-    // Use date format YYYY-MM-DD.
-    formatDate(date: Date) {
-        const year = date.getFullYear()
-        const month = date.getMonth() + 1
-        const day = date.getDate()
-
-        return `${year}-${month}-${day}`
     }
 
     // Returns the latest Analytics for the given accountId and endpoint
@@ -36,8 +27,8 @@ class AnalyticsApi {
         }
 
         const sqlVars = {
-            start: this.formatDate(startDate),
-            end: this.formatDate(endDate),
+            start: formatDate(startDate),
+            end: formatDate(endDate),
         }
 
         return await this.AnalyticsRepo.execute(endpoint, sqlVars)
