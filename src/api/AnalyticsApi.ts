@@ -1,5 +1,5 @@
 import { AnalyticsRepository } from '../db/AnalyticsRepository'
-import { formatDate } from '../dateHelpers'
+import { formatDate } from '../utils/dateHelpers'
 
 class AnalyticsApi {
     AnalyticsRepo: AnalyticsRepository

@@ -16,7 +16,7 @@ import { AppleRepository } from './db/AppleRepository'
 import { AppleConnector } from './api/connectors/AppleConnector'
 import { healthCheck, mysqlHealthy } from './healthcheck'
 import mysql from 'mysql2/promise'
-import { unless } from './expressHelpers'
+import { unless } from './utils/expressHelpers'
 import { FeedbackRepository } from './db/FeedbackRepository'
 import { FeedbackApi } from './api/FeedbackApi'
 import { StatusRepository } from './db/StatusRepository'
@@ -28,7 +28,7 @@ import { DBInitializer } from './db/DBInitializer'
 import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
-import { formatDate, nowString } from './dateHelpers'
+import { formatDate, nowString } from './utils/dateHelpers'
 
 const config = new Config()
 
