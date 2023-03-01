@@ -1,18 +1,20 @@
 WITH
 spotify as (
   SELECT 
+  spp_date,
   ep_name as raw_name,
   `spotifyEpisodePerformance`.`spp_percentile_25` as quarter1, 
   `spotifyEpisodePerformance`.`spp_percentile_50` as quarter2, 
   `spotifyEpisodePerformance`.`spp_percentile_75` as quarter3, 
   `spotifyEpisodePerformance`.`spp_percentile_100` as quarter4,
   spp_sample_max as listeners
-  FROM `spotifyEpisodePerformance`
-  LEFT JOIN `SpotifyEpisodeMetadata` USING (episode_id)
+  FROM spotifyEpisodePerformance
+  LEFT JOIN spotifyEpisodeMetadata USING (episode_id)
   WHERE spp_date >= @start AND spp_date <= @end
 ),
 apple as (
   SELECT 
+  aed_date,
   ep_name as raw_name,
   aed_quarter1_median_listeners/aed_histogram_max_listeners*100 as quarter1,
   aed_quarter2_median_listeners/aed_histogram_max_listeners*100 as quarter2,
