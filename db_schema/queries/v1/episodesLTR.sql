@@ -28,6 +28,7 @@ apple as (
 SELECT 
 apple.raw_name as name,
 guid,
+aed_date as `date`,
 ((spotify.quarter1*spotify.listeners)+(apple.quarter1*apple.listeners))/(spotify.listeners+apple.listeners) as quarter1_combined,
 ((spotify.quarter2*spotify.listeners)+(apple.quarter2*apple.listeners))/(spotify.listeners+apple.listeners) as quarter2_combined,
 ((spotify.quarter3*spotify.listeners)+(apple.quarter3*apple.listeners))/(spotify.listeners+apple.listeners) as quarter3_combined,
