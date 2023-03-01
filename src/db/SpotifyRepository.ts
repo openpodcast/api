@@ -133,6 +133,7 @@ class SpotifyRepository {
         const replaceStmt = `REPLACE INTO spotifyEpisodePerformance (
                 account_id,
                 episode_id,
+                spp_date,
                 spp_median_percentage,
                 spp_median_seconds,
                 spp_percentile_25,
@@ -143,11 +144,12 @@ class SpotifyRepository {
                 spp_sample_max,
                 spp_sample_seconds,
                 spp_samples) VALUES
-                (?,?,?,?,?,?,?,?,?,?,?,?)
+                (?,?,?,?,?,?,?,?,?,?,?,?,?)
             `
         return await this.pool.query(replaceStmt, [
             accountId,
             episodeId,
+            this.getTodayDBString(),
             data.medianCompletion.percentage,
             data.medianCompletion.seconds,
             data.percentiles['25'],

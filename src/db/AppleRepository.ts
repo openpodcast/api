@@ -13,6 +13,21 @@ class AppleRepository {
         this.pool = pool
     }
 
+    getTodayDBString(): string {
+        const today = new Date()
+
+        // format to YYYY-mm-dd
+        // Note that today.toLocaleDateString('en-CA') returned `DD/MM/YYYY` on
+        // some systems
+        return (
+            today.getFullYear() +
+            '-' +
+            (today.getMonth() + 1) +
+            '-' +
+            today.getDate()
+        )
+    }
+
     // store metadata of multiple episodes
     async storeEpisodesMetadata(
         accountId: number,
@@ -62,6 +77,7 @@ class AppleRepository {
         const replaceStmt = `REPLACE INTO appleEpisodeDetails (
             account_id,
             episode_id,
+            aed_date,
             aed_playscount,
             aed_totaltimelistened,
             aed_uniqueengagedlistenerscount,
@@ -76,11 +92,12 @@ class AppleRepository {
             aed_quarter3_median_listeners,
             aed_quarter4_median_listeners
             ) VALUES
-            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
 
         return await this.pool.query(replaceStmt, [
             accountId,
             episodeId,
+            this.getTodayDBString(),
             episodeDetails.episodePlayCountAllTime.playscount,
             episodeDetails.episodePlayCountAllTime.totaltimelistened,
             episodeDetails.episodePlayCountAllTime.uniqueengagedlistenerscount,

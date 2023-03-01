@@ -8,7 +8,8 @@ spotify as (
   `spotifyEpisodePerformance`.`spp_percentile_100` as quarter4,
   spp_sample_max as listeners
   FROM `spotifyEpisodePerformance`
-  LEFT JOIN `spotifyEpisodeMetadata` `SpotifyEpisodeMetadata` ON `spotifyEpisodePerformance`.`episode_id` = `SpotifyEpisodeMetadata`.`episode_id`
+  LEFT JOIN `SpotifyEpisodeMetadata` USING (episode_id)
+  WHERE spp_date >= @start AND spp_date <= @end
 ),
 apple as (
   SELECT 
@@ -21,11 +22,13 @@ apple as (
   ep_guid as guid
   FROM appleEpisodeDetails
   LEFT JOIN appleEpisodeMetadata USING (episode_id)
+  WHERE aed_date >= @start AND aed_date <= @end
 )
 
 SELECT 
 apple.raw_name as name,
 guid,
+aed_date as `date`,
 ((spotify.quarter1*spotify.listeners)+(apple.quarter1*apple.listeners))/(spotify.listeners+apple.listeners) as quarter1_combined,
 ((spotify.quarter2*spotify.listeners)+(apple.quarter2*apple.listeners))/(spotify.listeners+apple.listeners) as quarter2_combined,
 ((spotify.quarter3*spotify.listeners)+(apple.quarter3*apple.listeners))/(spotify.listeners+apple.listeners) as quarter3_combined,
@@ -41,5 +44,6 @@ apple.quarter4 as apple_quarter4,
 spotify.listeners+apple.listeners as listeners_combined,
 apple.listeners as apple_listeners,
 spotify.listeners as spotify_listeners
-FROM spotify JOIN apple ON spotify.raw_name = apple.raw_name
+FROM spotify JOIN apple ON (spotify.raw_name = apple.raw_name AND aed_date=spp_date)
+-- make sure we have data from spotify and apple
 WHERE apple.quarter1 IS NOT NULL AND spotify.quarter1 IS NOT NULL
