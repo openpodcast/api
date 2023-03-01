@@ -145,6 +145,8 @@ CREATE TABLE IF NOT EXISTS appleEpisodeMetadata (
 CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
+  -- CURRENT_DATE not supported in MySQL < 8 and planetscale
+  aed_date DATE NOT NULL DEFAULT CURRENT_DATE,
   aed_playscount INTEGER NOT NULL,
   aed_totaltimelistened BIGINT NOT NULL,
   aed_uniqueengagedlistenerscount INTEGER NOT NULL,
