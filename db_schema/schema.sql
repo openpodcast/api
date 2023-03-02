@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodePerformance (
   -- detailed samples stored as json to reduce rows in DB
   -- otherwise we would add e.g. 3000 rows for just one episode  
   spp_samples JSON NOT NULL,
-  PRIMARY KEY (account_id, episode_id)
+  PRIMARY KEY (account_id, episode_id, spp_date)
 );
 
 CREATE TABLE IF NOT EXISTS spotifyPodcastMetadata (
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   aed_quarter2_median_listeners INTEGER,
   aed_quarter3_median_listeners INTEGER,
   aed_quarter4_median_listeners INTEGER,
-  PRIMARY KEY (account_id, episode_id)
+  PRIMARY KEY (account_id, episode_id,aed_date)
 );
 
 -- listeners values per day and per episode coming from the apple trends api
