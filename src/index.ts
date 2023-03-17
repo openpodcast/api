@@ -341,7 +341,7 @@ app.post('/connector', (async (
         res.locals.update = {
             endpoint: connectorPayload.meta.endpoint,
             // TODO: Which data should be stored?
-            data: connectorPayload.data,
+            data: connectorPayload,
         }
     } catch (err) {
         next(err)
