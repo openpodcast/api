@@ -183,11 +183,16 @@ CREATE TABLE IF NOT EXISTS appleTrendsPodcastListeners (
   atl_totaltimelistened BIGINT NOT NULL,
   atl_uniqueengagedlistenerscount INTEGER NOT NULL,
   atl_uniquelistenerscount INTEGER NOT NULL,
-  -- define default values for totaltimelistend for followers and non followers
-  -- as they are not set in the same insert query
-  atl_totaltimelistened_followers BIGINT NOT NULL DEFAULT '0',
-  atl_totaltimelistened_nonfollowers BIGINT NOT NULL DEFAULT '0',
   PRIMARY KEY (account_id, atl_date)
+);
+
+-- store totallistened time for followers and nonfollowers
+CREATE TABLE IF NOT EXISTS appleTrendsPodcastListeningTimeFollowerState (
+  account_id INTEGER NOT NULL,
+  atf_date DATE NOT NULL,
+  atf_totaltimelistened_followers BIGINT NOT NULL,
+  atf_totaltimelistened_nonfollowers BIGINT NOT NULL,
+  PRIMARY KEY (account_id, atf_date)
 );
 
 -- followers, gained/lost values per day
