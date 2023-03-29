@@ -221,8 +221,7 @@ CREATE TABLE IF NOT EXISTS feedbackComment (
 -- store latest update events
 -- current timestamp is used to identify the update
 -- contains JSON with the update data
-DROP TABLE IF EXISTS updates;
-CREATE TABLE updates (
+CREATE TABLE IF NOT EXISTS updates (
   account_id INTEGER NOT NULL,
   endpoint VARCHAR(64) NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
