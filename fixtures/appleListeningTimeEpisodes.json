@@ -1,0 +1,2107 @@
+{
+  "provider": "apple",
+  "version": 1,
+  "retrieved": "2022-10-04T10:09:46.463Z",
+  "meta": {
+    "show": "1603082924",
+    "endpoint": "showTrends/ListeningTimeEpisodes"
+  },
+  "range": {
+    "start": "2023-03-20",
+    "end": "2023-03-26"
+  },
+  "data": {
+    "content": [
+      [
+        "1000605102917",
+        "#63 Spaß mit Zahlen: Under- und Overflows, Rückwärtslaufende Zeit, Negative Modulos und Währungsbeträge",
+        "2023-03-21T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000604053727",
+        "#62 Technologien konsolidieren, oder wie Startups sammeln?",
+        "2023-03-14T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000603089742",
+        "#61 Schwierige 1-on-1 Situationen und Lösungsvorschläge",
+        "2023-03-07T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000601991673",
+        "#60 On-Call: Warum auch Software-Engineers auf Rufbereitschaft sein sollten",
+        "2023-02-28T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000600724657",
+        "#59:  Kann man mit Open Source Geld verdienen?",
+        "2023-02-21T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000599470372",
+        "#58 Software-Updates, alte Software, Long Term Support und End of Life-Dates",
+        "2023-02-14T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000598385014",
+        "#57 Servant Leadership: Führungsstil der neuen Generation?",
+        "2023-02-07T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000597357438",
+        "#56 Applikations-Skalierung: Wann, wieso, was kostet es? Stateless und Stateful, Horizontal vs. Vertikal",
+        "2023-01-31T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000596198729",
+        "#55 Weiterbildung: Zertifizierung, Newsletter, Konferenzen, ... Wie? Warum? Und wer zahlt das Ganze?",
+        "2023-01-24T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000594826183",
+        "#54 Key Value Store Redis: Einsatzmöglichkeiten, Fallstricke, Datenstrukturen, HyperLogLog und (flüchtige) Persistenz",
+        "2023-01-17T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000593364238",
+        "#53 Cloud / NoCode/ AI / ChatGPT ersetzen unsere Jobs?",
+        "2023-01-10T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000592553537",
+        "#-1: Wrap Up 2022 und 1. Geburtstag: Learnings, Statistiken und was 2023 geplant ist",
+        "2023-01-05T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000591978596",
+        "#52 Asynchrone Verarbeitung durch Message Queues - Vor- und Nachteile",
+        "2023-01-03T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000591357705",
+        "#51 Was ist das Staff (Engineer) Level?",
+        "2022-12-27T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000590704508",
+        "#50 DEI erhöht Innovation und den finanziellen Erfolg",
+        "2022-12-20T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000589982392",
+        "#49 Die Zukunft: Software Repository Mining",
+        "2022-12-13T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000589004404",
+        "#48 Der Layer unter Docker: containerd, Kubernetes, Container Runtime Interface, CRI-O und Open Container Initiative (OCI)",
+        "2022-12-06T09:21:47Z",
+        -1,
+        null
+      ],
+      [
+        "1000587849029",
+        "#47 Wer Visionen hat, soll zum Arzt!?",
+        "2022-11-29T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000587061264",
+        "#46 Welches Problem löst Docker?",
+        "2022-11-22T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000586210699",
+        "#45 Datengetriebene Entscheidungen und der perfekte Dashboard Stack",
+        "2022-11-15T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000585433960",
+        "#44 Der Weg zum hochperformanten Team",
+        "2022-11-08T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000584604988",
+        "#43 Cloud vs. On-Premise: Die Entscheidungshilfe",
+        "2022-11-01T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000583770577",
+        "#42 Lexer, Parser und Open Source in Counterstrike",
+        "2022-10-25T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000582974713",
+        "#41 SQL Injections - Ein unterschätztes Risiko",
+        "2022-10-18T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000582229449",
+        "#40 Wie wird man und Frau zum Senior Dev?",
+        "2022-10-11T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000581487989",
+        "#39 Gemischte Tüte: Software Engineer, Github, OpenSource, Git und HomeOffice",
+        "2022-10-04T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000580748597",
+        "#38 Monitoring, Metriken, Tracing, Alerting, Observability",
+        "2022-09-27T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000580014637",
+        "#37 Mit IT-Büchern Geld verdienen? Wer liest überhaupt noch Bücher?",
+        "2022-09-20T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000579282766",
+        "#36 Sechs-stellige IT-Gehälter? Wie? Was? Wo? Fair?",
+        "2022-09-13T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000578487137",
+        "#35 Knowledge Sharing oder die Person, die nie \"gehen\" sollte...",
+        "2022-09-06T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000577751142",
+        "#34 Wie cloudy bist du?",
+        "2022-08-30T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000577040259",
+        "#33 Andy im Team Lead Bewerbungsgespräch",
+        "2022-08-23T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000576207101",
+        "#32 Die richtigen Leute anstellen: Die Recruiting Pipeline",
+        "2022-08-16T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000575453470",
+        "#31 Ich automatisiere mir die Welt wie sie mir gefällt (mit GitHub Actions)",
+        "2022-08-09T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000574728229",
+        "#30 Ist ein Informatikstudium sinnvoll? Welche Ausbildung für Devs?",
+        "2022-08-02T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000571178079",
+        "#29 Die andere Seite: Meetups & Konferenzen organisieren",
+        "2022-07-26T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000570419965",
+        "#28 O(1), O(log n), O(n^2) - Ist die Komplexität von Algorithmen im Entwickler-Alltag relevant?",
+        "2022-07-19T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000569619207",
+        "#27 Sicherheit in der Dependency Hölle",
+        "2022-07-12T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000568825196",
+        "#26 My English is not the yellow from the egg - Arbeiten in internationalen Teams",
+        "2022-07-05T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000567936094",
+        "#25 Tech-Entlassungswellen & Job-Interview Skills",
+        "2022-06-28T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000567206046",
+        "#24 Infrastructure as Code oder old man yells at cloud",
+        "2022-06-21T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000566323940",
+        "#23 Schaltest du noch oder automatisiert du schon: Home Automation",
+        "2022-06-14T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000565464152",
+        "#22 NoSQL: ACID, BASE, Ende einer Ära Teil 2",
+        "2022-06-07T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000564628540",
+        "#21 Static Site Generators & DIE Webseite",
+        "2022-05-31T04:35:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000563437834",
+        "#20 Off-Boarding und On-Boarding: Wie verlasse ich eine Firma richtig?",
+        "2022-05-24T04:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000561721993",
+        "#19 Datenbank-Deepdive (oder das Ende einer Ära): von Redis bis ClickHouse",
+        "2022-05-17T04:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000560207020",
+        "#18 Ziele und Performance-Metriken für Teams und mich selbst",
+        "2022-05-10T04:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000559421700",
+        "#17 Was können wir beim Incident Management von der Feuerwehr lernen?",
+        "2022-05-03T04:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000558699631",
+        "#16 Code Reviews: Nützlich oder bremsen nur ein gutes Team?",
+        "2022-04-26T04:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000557995942",
+        "#15  Source Code Kommentare, Git Commits Messages, Merge Commits und Branch-Visualisierungs-Kunst",
+        "2022-04-19T04:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000557196507",
+        "#14 async und await: asynchrones Arbeiten im Alltag",
+        "2022-04-12T04:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000556264575",
+        "#13 Produktivität",
+        "2022-04-05T04:25:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000555572597",
+        "#12 Make oder Buy",
+        "2022-03-29T09:40:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000554856777",
+        "#11 Die Suche nach dem IT Traumjob",
+        "2022-03-22T12:45:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000554051253",
+        "#10 Das Karriere Booster Meeting 1:1s",
+        "2022-03-15T05:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000553287989",
+        "#09 Ukraine",
+        "2022-03-08T10:55:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000552569027",
+        "#08 Vergiss doch Datenbanken!",
+        "2022-03-01T11:30:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000551841726",
+        "#07 Die Freelance Freiheit",
+        "2022-02-22T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000551119949",
+        "#06 Hype oder Hope: Job-Titel und Beförderungen",
+        "2022-02-15T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000550397428",
+        "#00 Developer fangen bei 0 an zu zählen",
+        "2022-02-08T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000549643155",
+        "#05 Team Lead - der einzige Ausweg",
+        "2022-02-01T10:05:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000548902548",
+        "#04 Lohnt der Einstieg in Open Source?",
+        "2022-01-25T05:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000548219975",
+        "#03 Over-Engineering, das Werkzeug des Teufels?",
+        "2022-01-18T10:50:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000547431502",
+        "#02 Technologienzoo Side Projects",
+        "2022-01-10T15:00:00Z",
+        -1,
+        null
+      ],
+      [
+        "1000546793663",
+        "#01 Side Projects - Fluch oder Segen für die Karriere?",
+        "2022-01-03T12:00:00Z",
+        -1,
+        null
+      ]
+    ],
+    "dimension": "BY_EPISODES",
+    "episodesPlayCount": {
+      "1000546793663": {
+        "previousValue": {
+          "episodeid": "1000546793663",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 5563,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000547431502": {
+        "previousValue": {
+          "episodeid": "1000547431502",
+          "followstate": "*",
+          "playscount": 11,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 2730,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000548219975": {
+        "previousValue": {
+          "episodeid": "1000548219975",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3077,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000548902548": {
+        "previousValue": {
+          "episodeid": "1000548902548",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3043,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000549643155": {
+        "latestValue": {
+          "episodeid": "1000549643155",
+          "followstate": "*",
+          "playscount": 11,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 2329,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000549643155",
+          "followstate": "*",
+          "playscount": 10,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 2574,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000550397428": {
+        "latestValue": {
+          "episodeid": "1000550397428",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 1679,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000550397428",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 1750,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000551119949": {
+        "previousValue": {
+          "episodeid": "1000551119949",
+          "followstate": "*",
+          "playscount": 9,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3130,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000551841726": {
+        "latestValue": {
+          "episodeid": "1000551841726",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 0,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000551841726",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 7564,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000552569027": {
+        "latestValue": {
+          "episodeid": "1000552569027",
+          "followstate": "*",
+          "playscount": 10,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 1981,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000552569027",
+          "followstate": "*",
+          "playscount": 14,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 7109,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000553287989": {
+        "latestValue": {
+          "episodeid": "1000553287989",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 35,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000553287989",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3494,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000554051253": {
+        "latestValue": {
+          "episodeid": "1000554051253",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3228,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000554051253",
+          "followstate": "*",
+          "playscount": 9,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 7182,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000554856777": {
+        "latestValue": {
+          "episodeid": "1000554856777",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3529,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000554856777",
+          "followstate": "*",
+          "playscount": 13,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 6690,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000555572597": {
+        "latestValue": {
+          "episodeid": "1000555572597",
+          "followstate": "*",
+          "playscount": 7,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3580,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000555572597",
+          "followstate": "*",
+          "playscount": 15,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 7311,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000556264575": {
+        "latestValue": {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 23,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 7414,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 5081,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000557196507": {
+        "latestValue": {
+          "episodeid": "1000557196507",
+          "followstate": "*",
+          "playscount": 14,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 4471,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000557196507",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3389,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000557995942": {
+        "latestValue": {
+          "episodeid": "1000557995942",
+          "followstate": "*",
+          "playscount": 12,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 4455,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000557995942",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3904,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000558699631": {
+        "latestValue": {
+          "episodeid": "1000558699631",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3726,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000558699631",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 1730,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000559421700": {
+        "latestValue": {
+          "episodeid": "1000559421700",
+          "followstate": "*",
+          "playscount": 15,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 4378,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000560207020": {
+        "latestValue": {
+          "episodeid": "1000560207020",
+          "followstate": "*",
+          "playscount": 12,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 5165,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000561721993": {
+        "latestValue": {
+          "episodeid": "1000561721993",
+          "followstate": "*",
+          "playscount": 13,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 7903,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000563437834": {
+        "latestValue": {
+          "episodeid": "1000563437834",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 5812,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000563437834",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 11,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000564628540": {
+        "latestValue": {
+          "episodeid": "1000564628540",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 6906,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000565464152": {
+        "latestValue": {
+          "episodeid": "1000565464152",
+          "followstate": "*",
+          "playscount": 20,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3660,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000566323940": {
+        "latestValue": {
+          "episodeid": "1000566323940",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 1748,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000567206046": {
+        "latestValue": {
+          "episodeid": "1000567206046",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3709,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000567936094": {
+        "latestValue": {
+          "episodeid": "1000567936094",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 22,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000577751142": {
+        "latestValue": {
+          "episodeid": "1000577751142",
+          "followstate": "*",
+          "playscount": 9,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 2793,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000578487137": {
+        "latestValue": {
+          "episodeid": "1000578487137",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3782,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000579282766": {
+        "latestValue": {
+          "episodeid": "1000579282766",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 1562,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000580014637": {
+        "previousValue": {
+          "episodeid": "1000580014637",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 1018,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000580748597": {
+        "previousValue": {
+          "episodeid": "1000580748597",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3498,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000581487989": {
+        "previousValue": {
+          "episodeid": "1000581487989",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 1939,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000582229449": {
+        "previousValue": {
+          "episodeid": "1000582229449",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3070,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000587061264": {
+        "latestValue": {
+          "episodeid": "1000587061264",
+          "followstate": "*",
+          "playscount": 32,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 2790,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000589004404": {
+        "latestValue": {
+          "episodeid": "1000589004404",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 2264,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000589982392": {
+        "latestValue": {
+          "episodeid": "1000589982392",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3295,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000590704508": {
+        "latestValue": {
+          "episodeid": "1000590704508",
+          "followstate": "*",
+          "playscount": 0,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 1519,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000590704508",
+          "followstate": "*",
+          "playscount": 7,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 3437,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000591357705": {
+        "previousValue": {
+          "episodeid": "1000591357705",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 1684,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000597357438": {
+        "latestValue": {
+          "episodeid": "1000597357438",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 5937,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000598385014": {
+        "latestValue": {
+          "episodeid": "1000598385014",
+          "followstate": "*",
+          "playscount": 16,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3422,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000598385014",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 1176,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000599470372": {
+        "latestValue": {
+          "episodeid": "1000599470372",
+          "followstate": "*",
+          "playscount": 15,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3332,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000599470372",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 422,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000600724657": {
+        "latestValue": {
+          "episodeid": "1000600724657",
+          "followstate": "*",
+          "playscount": 15,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 6463,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000600724657",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 28,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000601991673": {
+        "latestValue": {
+          "episodeid": "1000601991673",
+          "followstate": "*",
+          "playscount": 9,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3619,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000601991673",
+          "followstate": "*",
+          "playscount": 11,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 7140,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000603089742": {
+        "latestValue": {
+          "episodeid": "1000603089742",
+          "followstate": "*",
+          "playscount": 11,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 5362,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        },
+        "previousValue": {
+          "episodeid": "1000603089742",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 4586,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 0
+        }
+      },
+      "1000604053727": {
+        "latestValue": {
+          "episodeid": "1000604053727",
+          "followstate": "*",
+          "playscount": 22,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 15186,
+          "uniqueengagedlistenerscount": 5,
+          "uniquelistenerscount": 7
+        },
+        "previousValue": {
+          "episodeid": "1000604053727",
+          "followstate": "*",
+          "playscount": 169,
+          "podcastid": "1603082924",
+          "timebucket": 20230313,
+          "totaltimelistened": 88947,
+          "uniqueengagedlistenerscount": 22,
+          "uniquelistenerscount": 29
+        }
+      },
+      "1000605102917": {
+        "latestValue": {
+          "episodeid": "1000605102917",
+          "followstate": "*",
+          "playscount": 102,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 63567,
+          "uniqueengagedlistenerscount": 17,
+          "uniquelistenerscount": 22
+        }
+      }
+    },
+    "episodesPlayCountTrends": {
+      "1000549643155": [
+        {
+          "episodeid": "1000549643155",
+          "followstate": "*",
+          "playscount": 11,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 2329,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000550397428": [
+        {
+          "episodeid": "1000550397428",
+          "followstate": "*",
+          "playscount": 4,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 1507,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000550397428",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 172,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000551841726": [
+        {
+          "episodeid": "1000551841726",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 4,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000552569027": [
+        {
+          "episodeid": "1000552569027",
+          "followstate": "*",
+          "playscount": 10,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 1981,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000553287989": [
+        {
+          "episodeid": "1000553287989",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 35,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000554051253": [
+        {
+          "episodeid": "1000554051253",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3228,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 2
+        }
+      ],
+      "1000554856777": [
+        {
+          "episodeid": "1000554856777",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 3529,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000555572597": [
+        {
+          "episodeid": "1000555572597",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 3270,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000555572597",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 310,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000556264575": [
+        {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 12,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3724,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 1811,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 94,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 1131,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000556264575",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 654,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000557196507": [
+        {
+          "episodeid": "1000557196507",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 749,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000557196507",
+          "followstate": "*",
+          "playscount": 9,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 2890,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000557196507",
+          "followstate": "*",
+          "playscount": 3,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 832,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000557995942": [
+        {
+          "episodeid": "1000557995942",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 1050,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000557995942",
+          "followstate": "*",
+          "playscount": 11,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 3405,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000558699631": [
+        {
+          "episodeid": "1000558699631",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 3726,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000559421700": [
+        {
+          "episodeid": "1000559421700",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 14,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000559421700",
+          "followstate": "*",
+          "playscount": 14,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 4364,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000560207020": [
+        {
+          "episodeid": "1000560207020",
+          "followstate": "*",
+          "playscount": 10,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 3803,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000560207020",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 1362,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000561721993": [
+        {
+          "episodeid": "1000561721993",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 3842,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000561721993",
+          "followstate": "*",
+          "playscount": 12,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 4061,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000563437834": [
+        {
+          "episodeid": "1000563437834",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 1397,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000563437834",
+          "followstate": "*",
+          "playscount": 7,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 4415,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000564628540": [
+        {
+          "episodeid": "1000564628540",
+          "followstate": "*",
+          "playscount": 4,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 2869,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000564628540",
+          "followstate": "*",
+          "playscount": 4,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 4037,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000565464152": [
+        {
+          "episodeid": "1000565464152",
+          "followstate": "*",
+          "playscount": 20,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 3660,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000566323940": [
+        {
+          "episodeid": "1000566323940",
+          "followstate": "*",
+          "playscount": 3,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 152,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000566323940",
+          "followstate": "*",
+          "playscount": 3,
+          "podcastid": "1603082924",
+          "timebucket": 20230326,
+          "totaltimelistened": 1596,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000567206046": [
+        {
+          "episodeid": "1000567206046",
+          "followstate": "*",
+          "playscount": 4,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 1682,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000567206046",
+          "followstate": "*",
+          "playscount": 4,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 2027,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000567936094": [
+        {
+          "episodeid": "1000567936094",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 22,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000577751142": [
+        {
+          "episodeid": "1000577751142",
+          "followstate": "*",
+          "playscount": 4,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 1658,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000577751142",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 1135,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000578487137": [
+        {
+          "episodeid": "1000578487137",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3782,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000579282766": [
+        {
+          "episodeid": "1000579282766",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 1562,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000587061264": [
+        {
+          "episodeid": "1000587061264",
+          "followstate": "*",
+          "playscount": 32,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 2790,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000589004404": [
+        {
+          "episodeid": "1000589004404",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 2264,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000589982392": [
+        {
+          "episodeid": "1000589982392",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 3295,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000590704508": [
+        {
+          "episodeid": "1000590704508",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 1519,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000597357438": [
+        {
+          "episodeid": "1000597357438",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 3026,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000597357438",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 1493,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000597357438",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 1418,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000598385014": [
+        {
+          "episodeid": "1000598385014",
+          "followstate": "*",
+          "playscount": 16,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 3422,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000599470372": [
+        {
+          "episodeid": "1000599470372",
+          "followstate": "*",
+          "playscount": 7,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 1380,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000599470372",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 1621,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000599470372",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 331,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000600724657": [
+        {
+          "episodeid": "1000600724657",
+          "followstate": "*",
+          "playscount": 13,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 6456,
+          "uniqueengagedlistenerscount": 2,
+          "uniquelistenerscount": 3
+        },
+        {
+          "episodeid": "1000600724657",
+          "followstate": "*",
+          "playscount": 2,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 7,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000601991673": [
+        {
+          "episodeid": "1000601991673",
+          "followstate": "*",
+          "playscount": 8,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 3566,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        },
+        {
+          "episodeid": "1000601991673",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 53,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000603089742": [
+        {
+          "episodeid": "1000603089742",
+          "followstate": "*",
+          "playscount": 5,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 2546,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 3
+        },
+        {
+          "episodeid": "1000603089742",
+          "followstate": "*",
+          "playscount": 6,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 2816,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 3
+        }
+      ],
+      "1000604053727": [
+        {
+          "episodeid": "1000604053727",
+          "followstate": "*",
+          "playscount": 17,
+          "podcastid": "1603082924",
+          "timebucket": 20230320,
+          "totaltimelistened": 10902,
+          "uniqueengagedlistenerscount": 4,
+          "uniquelistenerscount": 5
+        },
+        {
+          "episodeid": "1000604053727",
+          "followstate": "*",
+          "playscount": 4,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 660,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 2
+        },
+        {
+          "episodeid": "1000604053727",
+          "followstate": "*",
+          "playscount": 1,
+          "podcastid": "1603082924",
+          "timebucket": 20230326,
+          "totaltimelistened": 3624,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 1
+        }
+      ],
+      "1000605102917": [
+        {
+          "episodeid": "1000605102917",
+          "followstate": "*",
+          "playscount": 37,
+          "podcastid": "1603082924",
+          "timebucket": 20230321,
+          "totaltimelistened": 29942,
+          "uniqueengagedlistenerscount": 8,
+          "uniquelistenerscount": 12
+        },
+        {
+          "episodeid": "1000605102917",
+          "followstate": "*",
+          "playscount": 18,
+          "podcastid": "1603082924",
+          "timebucket": 20230322,
+          "totaltimelistened": 14806,
+          "uniqueengagedlistenerscount": 6,
+          "uniquelistenerscount": 7
+        },
+        {
+          "episodeid": "1000605102917",
+          "followstate": "*",
+          "playscount": 21,
+          "podcastid": "1603082924",
+          "timebucket": 20230323,
+          "totaltimelistened": 7576,
+          "uniqueengagedlistenerscount": 2,
+          "uniquelistenerscount": 4
+        },
+        {
+          "episodeid": "1000605102917",
+          "followstate": "*",
+          "playscount": 7,
+          "podcastid": "1603082924",
+          "timebucket": 20230324,
+          "totaltimelistened": 6414,
+          "uniqueengagedlistenerscount": 3,
+          "uniquelistenerscount": 3
+        },
+        {
+          "episodeid": "1000605102917",
+          "followstate": "*",
+          "playscount": 10,
+          "podcastid": "1603082924",
+          "timebucket": 20230325,
+          "totaltimelistened": 3961,
+          "uniqueengagedlistenerscount": 1,
+          "uniquelistenerscount": 4
+        },
+        {
+          "episodeid": "1000605102917",
+          "followstate": "*",
+          "playscount": 9,
+          "podcastid": "1603082924",
+          "timebucket": 20230326,
+          "totaltimelistened": 868,
+          "uniqueengagedlistenerscount": 0,
+          "uniquelistenerscount": 3
+        }
+      ]
+    },
+    "measure": "TIME_LISTENED",
+    "showPlayCount": {
+      "latestValue": {
+        "followstate": "*",
+        "playscount": 442,
+        "podcastid": "1603082924",
+        "timebucket": 20230320,
+        "totaltimelistened": 200627,
+        "uniqueengagedlistenerscount": 29,
+        "uniquelistenerscount": 32
+      },
+      "previousValue": {
+        "followstate": "*",
+        "playscount": 360,
+        "podcastid": "1603082924",
+        "timebucket": 20230313,
+        "totaltimelistened": 192277,
+        "uniqueengagedlistenerscount": 28,
+        "uniquelistenerscount": 36
+      }
+    },
+    "showPlayCountTrends": [
+      {
+        "followstate": "*",
+        "playscount": 57,
+        "podcastid": "1603082924",
+        "timebucket": 20230320,
+        "totaltimelistened": 30094,
+        "uniqueengagedlistenerscount": 9,
+        "uniquelistenerscount": 10
+      },
+      {
+        "followstate": "*",
+        "playscount": 91,
+        "podcastid": "1603082924",
+        "timebucket": 20230321,
+        "totaltimelistened": 55072,
+        "uniqueengagedlistenerscount": 13,
+        "uniquelistenerscount": 19
+      },
+      {
+        "followstate": "*",
+        "playscount": 54,
+        "podcastid": "1603082924",
+        "timebucket": 20230322,
+        "totaltimelistened": 27358,
+        "uniqueengagedlistenerscount": 10,
+        "uniquelistenerscount": 12
+      },
+      {
+        "followstate": "*",
+        "playscount": 81,
+        "podcastid": "1603082924",
+        "timebucket": 20230323,
+        "totaltimelistened": 29139,
+        "uniqueengagedlistenerscount": 5,
+        "uniquelistenerscount": 8
+      },
+      {
+        "followstate": "*",
+        "playscount": 94,
+        "podcastid": "1603082924",
+        "timebucket": 20230324,
+        "totaltimelistened": 37575,
+        "uniqueengagedlistenerscount": 8,
+        "uniquelistenerscount": 9
+      },
+      {
+        "followstate": "*",
+        "playscount": 52,
+        "podcastid": "1603082924",
+        "timebucket": 20230325,
+        "totaltimelistened": 15301,
+        "uniqueengagedlistenerscount": 3,
+        "uniquelistenerscount": 6
+      },
+      {
+        "followstate": "*",
+        "playscount": 13,
+        "podcastid": "1603082924",
+        "timebucket": 20230326,
+        "totaltimelistened": 6088,
+        "uniqueengagedlistenerscount": 2,
+        "uniquelistenerscount": 5
+      }
+    ],
+    "showTopCities": [
+      "2867714",
+      "2946447",
+      "2935517",
+      "2911298",
+      "2925034",
+      "2934246",
+      "2761369",
+      "2879139",
+      "2910831",
+      "2950159",
+      "2759661",
+      "2775220",
+      "2809346",
+      "2831088",
+      "2832495",
+      "2842647",
+      "2847645",
+      "2853574",
+      "2857458",
+      "2867543",
+      "2873759",
+      "2886242",
+      "2892794",
+      "2917138",
+      "2925533",
+      "2928810",
+      "2939797",
+      "2951881",
+      "2959927",
+      "3064454",
+      "3247449",
+      "361291",
+      "5350734",
+      "2813040",
+      "2835482",
+      "2861650",
+      "2907669",
+      "2911665",
+      "2949186",
+      "5133279"
+    ],
+    "showTopCountries": [
+      "276",
+      "40",
+      "203",
+      "528",
+      "818",
+      "840"
+    ]
+  }
+}
