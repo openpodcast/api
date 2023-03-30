@@ -204,7 +204,7 @@ export interface AppleShowPlayCountTrendsPayload {
     uniquelistenerscount: number
 }
 
-export interface AppleShowTrendsTotalListeningTimeFollowerStatePayload {
+export interface AppleShowTrendsListeningTimeFollowerStatePayload {
     measure: 'TIME_LISTENED'
     dimension: 'BY_FOLLOW_STATE'
     timeListenedByFollowStateFollowedTrends: [number, number][]
@@ -212,7 +212,7 @@ export interface AppleShowTrendsTotalListeningTimeFollowerStatePayload {
     timeListenedByFollowStateStarTrends: [number, number][]
     [k: string]: unknown
 }
-export interface AppleShowTrendsTotalListeningTimeFollowerStateDay {
+export interface AppleShowTrendsListeningTimeFollowerStateDay {
     date: number
     totalListeningTimeFollowed: number
     totalListeningTimeNotFollowed: number
@@ -226,7 +226,7 @@ export interface AppleShowTrendsListenersPayload {
     showPlayCountTrends: AppleShowPlayCountTrendsPayload[]
 }
 
-export interface AppleShowTrendsListeningTimeFollowerStatePayload {
+export interface AppleShowTrendsFollowersPayload {
     measure: 'FOLLOWERS'
     followerAllTimeTrends: number[][]
     followerGrowthTrends: number[][]
