@@ -186,6 +186,15 @@ CREATE TABLE IF NOT EXISTS appleTrendsPodcastListeners (
   PRIMARY KEY (account_id, atl_date)
 );
 
+-- store totallistened time for followers and nonfollowers
+CREATE TABLE IF NOT EXISTS appleTrendsPodcastListeningTimeFollowerState (
+  account_id INTEGER NOT NULL,
+  atf_date DATE NOT NULL,
+  atf_totaltimelistened_followers BIGINT NOT NULL,
+  atf_totaltimelistened_nonfollowers BIGINT NOT NULL,
+  PRIMARY KEY (account_id, atf_date)
+);
+
 -- followers, gained/lost values per day
 CREATE TABLE IF NOT EXISTS appleTrendsPodcastFollowers (
   account_id INTEGER NOT NULL,
@@ -221,8 +230,7 @@ CREATE TABLE IF NOT EXISTS feedbackComment (
 -- store latest update events
 -- current timestamp is used to identify the update
 -- contains JSON with the update data
-DROP TABLE IF EXISTS updates;
-CREATE TABLE updates (
+CREATE TABLE IF NOT EXISTS updates (
   account_id INTEGER NOT NULL,
   endpoint VARCHAR(64) NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

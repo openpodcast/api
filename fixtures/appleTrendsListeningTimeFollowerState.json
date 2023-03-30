@@ -1,0 +1,622 @@
+{
+   "provider": "apple",
+   "version": 1,
+   "retrieved": "2022-10-04T10:09:46.463Z",
+   "meta": {
+      "show": "1603082924",
+      "endpoint": "showTrends/ListeningTimeFollowerState"
+   },
+   "range": {
+      "start": "2023-03-20",
+      "end": "2023-03-26"
+   },
+   "data": {
+      "content": [
+         [
+            "1000605102917",
+            "#63 Spaß mit Zahlen: Under- und Overflows, Rückwärtslaufende Zeit, Negative Modulos und Währungsbeträge",
+            "2023-03-21T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000604053727",
+            "#62 Technologien konsolidieren, oder wie Startups sammeln?",
+            "2023-03-14T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000603089742",
+            "#61 Schwierige 1-on-1 Situationen und Lösungsvorschläge",
+            "2023-03-07T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000601991673",
+            "#60 On-Call: Warum auch Software-Engineers auf Rufbereitschaft sein sollten",
+            "2023-02-28T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000600724657",
+            "#59:  Kann man mit Open Source Geld verdienen?",
+            "2023-02-21T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000599470372",
+            "#58 Software-Updates, alte Software, Long Term Support und End of Life-Dates",
+            "2023-02-14T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000598385014",
+            "#57 Servant Leadership: Führungsstil der neuen Generation?",
+            "2023-02-07T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000597357438",
+            "#56 Applikations-Skalierung: Wann, wieso, was kostet es? Stateless und Stateful, Horizontal vs. Vertikal",
+            "2023-01-31T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000596198729",
+            "#55 Weiterbildung: Zertifizierung, Newsletter, Konferenzen, ... Wie? Warum? Und wer zahlt das Ganze?",
+            "2023-01-24T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000594826183",
+            "#54 Key Value Store Redis: Einsatzmöglichkeiten, Fallstricke, Datenstrukturen, HyperLogLog und (flüchtige) Persistenz",
+            "2023-01-17T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000593364238",
+            "#53 Cloud / NoCode/ AI / ChatGPT ersetzen unsere Jobs?",
+            "2023-01-10T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000592553537",
+            "#-1: Wrap Up 2022 und 1. Geburtstag: Learnings, Statistiken und was 2023 geplant ist",
+            "2023-01-05T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000591978596",
+            "#52 Asynchrone Verarbeitung durch Message Queues - Vor- und Nachteile",
+            "2023-01-03T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000591357705",
+            "#51 Was ist das Staff (Engineer) Level?",
+            "2022-12-27T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000590704508",
+            "#50 DEI erhöht Innovation und den finanziellen Erfolg",
+            "2022-12-20T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000589982392",
+            "#49 Die Zukunft: Software Repository Mining",
+            "2022-12-13T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000589004404",
+            "#48 Der Layer unter Docker: containerd, Kubernetes, Container Runtime Interface, CRI-O und Open Container Initiative (OCI)",
+            "2022-12-06T09:21:47Z",
+            -1,
+            null
+         ],
+         [
+            "1000587849029",
+            "#47 Wer Visionen hat, soll zum Arzt!?",
+            "2022-11-29T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000587061264",
+            "#46 Welches Problem löst Docker?",
+            "2022-11-22T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000586210699",
+            "#45 Datengetriebene Entscheidungen und der perfekte Dashboard Stack",
+            "2022-11-15T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000585433960",
+            "#44 Der Weg zum hochperformanten Team",
+            "2022-11-08T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000584604988",
+            "#43 Cloud vs. On-Premise: Die Entscheidungshilfe",
+            "2022-11-01T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000583770577",
+            "#42 Lexer, Parser und Open Source in Counterstrike",
+            "2022-10-25T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000582974713",
+            "#41 SQL Injections - Ein unterschätztes Risiko",
+            "2022-10-18T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000582229449",
+            "#40 Wie wird man und Frau zum Senior Dev?",
+            "2022-10-11T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000581487989",
+            "#39 Gemischte Tüte: Software Engineer, Github, OpenSource, Git und HomeOffice",
+            "2022-10-04T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000580748597",
+            "#38 Monitoring, Metriken, Tracing, Alerting, Observability",
+            "2022-09-27T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000580014637",
+            "#37 Mit IT-Büchern Geld verdienen? Wer liest überhaupt noch Bücher?",
+            "2022-09-20T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000579282766",
+            "#36 Sechs-stellige IT-Gehälter? Wie? Was? Wo? Fair?",
+            "2022-09-13T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000578487137",
+            "#35 Knowledge Sharing oder die Person, die nie \"gehen\" sollte...",
+            "2022-09-06T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000577751142",
+            "#34 Wie cloudy bist du?",
+            "2022-08-30T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000577040259",
+            "#33 Andy im Team Lead Bewerbungsgespräch",
+            "2022-08-23T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000576207101",
+            "#32 Die richtigen Leute anstellen: Die Recruiting Pipeline",
+            "2022-08-16T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000575453470",
+            "#31 Ich automatisiere mir die Welt wie sie mir gefällt (mit GitHub Actions)",
+            "2022-08-09T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000574728229",
+            "#30 Ist ein Informatikstudium sinnvoll? Welche Ausbildung für Devs?",
+            "2022-08-02T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000571178079",
+            "#29 Die andere Seite: Meetups & Konferenzen organisieren",
+            "2022-07-26T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000570419965",
+            "#28 O(1), O(log n), O(n^2) - Ist die Komplexität von Algorithmen im Entwickler-Alltag relevant?",
+            "2022-07-19T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000569619207",
+            "#27 Sicherheit in der Dependency Hölle",
+            "2022-07-12T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000568825196",
+            "#26 My English is not the yellow from the egg - Arbeiten in internationalen Teams",
+            "2022-07-05T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000567936094",
+            "#25 Tech-Entlassungswellen & Job-Interview Skills",
+            "2022-06-28T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000567206046",
+            "#24 Infrastructure as Code oder old man yells at cloud",
+            "2022-06-21T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000566323940",
+            "#23 Schaltest du noch oder automatisiert du schon: Home Automation",
+            "2022-06-14T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000565464152",
+            "#22 NoSQL: ACID, BASE, Ende einer Ära Teil 2",
+            "2022-06-07T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000564628540",
+            "#21 Static Site Generators & DIE Webseite",
+            "2022-05-31T04:35:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000563437834",
+            "#20 Off-Boarding und On-Boarding: Wie verlasse ich eine Firma richtig?",
+            "2022-05-24T04:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000561721993",
+            "#19 Datenbank-Deepdive (oder das Ende einer Ära): von Redis bis ClickHouse",
+            "2022-05-17T04:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000560207020",
+            "#18 Ziele und Performance-Metriken für Teams und mich selbst",
+            "2022-05-10T04:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000559421700",
+            "#17 Was können wir beim Incident Management von der Feuerwehr lernen?",
+            "2022-05-03T04:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000558699631",
+            "#16 Code Reviews: Nützlich oder bremsen nur ein gutes Team?",
+            "2022-04-26T04:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000557995942",
+            "#15  Source Code Kommentare, Git Commits Messages, Merge Commits und Branch-Visualisierungs-Kunst",
+            "2022-04-19T04:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000557196507",
+            "#14 async und await: asynchrones Arbeiten im Alltag",
+            "2022-04-12T04:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000556264575",
+            "#13 Produktivität",
+            "2022-04-05T04:25:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000555572597",
+            "#12 Make oder Buy",
+            "2022-03-29T09:40:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000554856777",
+            "#11 Die Suche nach dem IT Traumjob",
+            "2022-03-22T12:45:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000554051253",
+            "#10 Das Karriere Booster Meeting 1:1s",
+            "2022-03-15T05:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000553287989",
+            "#09 Ukraine",
+            "2022-03-08T10:55:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000552569027",
+            "#08 Vergiss doch Datenbanken!",
+            "2022-03-01T11:30:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000551841726",
+            "#07 Die Freelance Freiheit",
+            "2022-02-22T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000551119949",
+            "#06 Hype oder Hope: Job-Titel und Beförderungen",
+            "2022-02-15T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000550397428",
+            "#00 Developer fangen bei 0 an zu zählen",
+            "2022-02-08T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000549643155",
+            "#05 Team Lead - der einzige Ausweg",
+            "2022-02-01T10:05:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000548902548",
+            "#04 Lohnt der Einstieg in Open Source?",
+            "2022-01-25T05:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000548219975",
+            "#03 Over-Engineering, das Werkzeug des Teufels?",
+            "2022-01-18T10:50:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000547431502",
+            "#02 Technologienzoo Side Projects",
+            "2022-01-10T15:00:00Z",
+            -1,
+            null
+         ],
+         [
+            "1000546793663",
+            "#01 Side Projects - Fluch oder Segen für die Karriere?",
+            "2022-01-03T12:00:00Z",
+            -1,
+            null
+         ]
+      ],
+      "dimension": "BY_FOLLOW_STATE",
+      "measure": "TIME_LISTENED",
+      "showTopCities": [
+         "2867714",
+         "2946447",
+         "2935517",
+         "2911298",
+         "2925034",
+         "2934246",
+         "2761369",
+         "2879139",
+         "2910831",
+         "2950159",
+         "2759661",
+         "2775220",
+         "2809346",
+         "2831088",
+         "2832495",
+         "2842647",
+         "2847645",
+         "2853574",
+         "2857458",
+         "2867543",
+         "2873759",
+         "2886242",
+         "2892794",
+         "2917138",
+         "2925533",
+         "2928810",
+         "2939797",
+         "2951881",
+         "2959927",
+         "3064454",
+         "3247449",
+         "361291",
+         "5350734",
+         "2813040",
+         "2835482",
+         "2861650",
+         "2907669",
+         "2911665",
+         "2949186",
+         "5133279"
+      ],
+      "showTopCountries": [
+         "276",
+         "40",
+         "203",
+         "528",
+         "818",
+         "840"
+      ],
+      "timeListenedByFollowState": {
+         "current": [
+            200627,
+            149593,
+            51034
+         ],
+         "previous": [
+            192277,
+            147670,
+            44607
+         ]
+      },
+      "timeListenedByFollowStateFollowedTrends": [
+         [
+            20230320,
+            23955
+         ],
+         [
+            20230321,
+            51132
+         ],
+         [
+            20230322,
+            20213
+         ],
+         [
+            20230323,
+            15733
+         ],
+         [
+            20230324,
+            24868
+         ],
+         [
+            20230325,
+            7604
+         ],
+         [
+            20230326,
+            6088
+         ]
+      ],
+      "timeListenedByFollowStateNotFollowedTrends": [
+         [
+            20230320,
+            6139
+         ],
+         [
+            20230321,
+            3940
+         ],
+         [
+            20230322,
+            7145
+         ],
+         [
+            20230323,
+            13406
+         ],
+         [
+            20230324,
+            12707
+         ],
+         [
+            20230325,
+            7697
+         ]
+      ],
+      "timeListenedByFollowStateStarTrends": [
+         [
+            20230320,
+            30094
+         ],
+         [
+            20230321,
+            55072
+         ],
+         [
+            20230322,
+            27358
+         ],
+         [
+            20230323,
+            29139
+         ],
+         [
+            20230324,
+            37575
+         ],
+         [
+            20230325,
+            15301
+         ],
+         [
+            20230326,
+            6088
+         ]
+      ]
+   }
+}

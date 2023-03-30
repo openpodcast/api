@@ -1,0 +1,201 @@
+{
+  "provider": "apple",
+  "version": 1,
+  "retrieved": "2022-10-04T10:09:46.463Z",
+  "meta": {
+    "show": "1642486726",
+    "endpoint": "showTrends/ListeningTimeFollowerState"
+  },
+  "range": {
+    "start": "2023-03-20",
+    "end": "2023-03-26"
+  },
+  "data": {
+    "measure": "TIME_LISTENED",
+    "dimension": "BY_FOLLOW_STATE",
+    "content": [
+      [
+        "1000599471054",
+        "#23: Season Finale",
+        "2023-02-14T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000598384058",
+        "#22: Podcasting 2.0",
+        "2023-02-07T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000597356912",
+        "#21: Awesome Developer Documentation for your OSS Project",
+        "2023-01-31T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000596200255",
+        "#20: Open Source Software Funding",
+        "2023-01-24T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000594826350",
+        "#19: Our Complete Installation Guide",
+        "2023-01-17T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000593364378",
+        "#18: Beyond Feedback",
+        "2023-01-10T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000590705733",
+        "#17: Onboarding With Our Self-Hosted Solution",
+        "2022-12-20T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000589981856",
+        "#16: Feedback Channels",
+        "2022-12-13T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000589023527",
+        "#15: The Perfect Pitch",
+        "2022-12-06T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000587854556",
+        "#14: The Holy Grail of Product Development",
+        "2022-11-29T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000587062591",
+        "#13: Open Source Business Models",
+        "2022-11-22T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000586333915",
+        "#12: Leaving PlanetScale",
+        "2022-11-15T22:23:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000585432175",
+        "#11: What Podcasters can learn from Spotify’s data",
+        "2022-11-08T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000584606852",
+        "#10: Reverse Engineering the Spotify API",
+        "2022-11-01T05:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000583769529",
+        "#09: The Future of Radio \u0026 Podcasts",
+        "2022-10-25T04:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000582975113",
+        "#08 - Tech stack: Metabase, Superset, Redash, Grafana",
+        "2022-10-18T04:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000582228206",
+        "#07 - Tech stack: Rust, TypeScript, Edge Worker, and Cloudflare",
+        "2022-10-11T04:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000581490950",
+        "#06 - Tech stack of Open Podcast: Which database is best?",
+        "2022-10-04T04:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000580749313",
+        "#05 - Why there is no Google Analytics for podcasts?",
+        "2022-09-27T04:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000580647037",
+        "#04 The Open Podcast API",
+        "2022-09-20T04:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000580646976",
+        "#03 Vendor Lock-in of Big Podcast Hosters",
+        "2022-09-13T04:00:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000580647118",
+        "#02 Our Plan - Does Spotify cache podcasts?",
+        "2022-09-06T07:15:00Z",
+        -1.0,
+        1.0
+      ],
+      [
+        "1000577783551",
+        "#01 The Open Podcast Project",
+        "2022-08-30T07:15:00Z",
+        -1.0,
+        1.0
+      ]
+    ],
+    "showTopCities": [
+      "2946447"
+    ],
+    "showTopCountries": [
+      "276"
+    ],
+    "timeListenedByFollowState": {
+      "current": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "previous": [
+        160.0,
+        0.0,
+        160.0
+      ]
+    },
+    "timeListenedByFollowStateFollowedTrends": [],
+    "timeListenedByFollowStateNotFollowedTrends": [],
+    "timeListenedByFollowStateStarTrends": []
+  }
+}

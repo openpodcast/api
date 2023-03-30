@@ -1,0 +1,57 @@
+{
+  "$id": "http://openpodcast.dev/schema/apple/showTrendsListeningTimeFollowerState.schema.json",
+  "title": "Trends which includes total listening time grouped by follower state",
+  "type": "object",
+  "properties": {
+    "measure": {
+      "enum": [
+        "TIME_LISTENED"
+      ]
+    },
+    "dimension": {
+      "enum": [
+        "BY_FOLLOW_STATE"
+      ]
+    },
+    "timeListenedByFollowStateFollowedTrends": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "timeListenedByFollowStateNotFollowedTrends": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "timeListenedByFollowStateStarTrends": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    }
+  },
+  "required": [
+    "dimension",
+    "measure",
+    "timeListenedByFollowStateFollowedTrends",
+    "timeListenedByFollowStateNotFollowedTrends",
+    "timeListenedByFollowStateStarTrends"
+  ]
+}

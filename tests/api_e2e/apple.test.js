@@ -8,6 +8,8 @@ const appleEpisodeDetailsPayloadEmpty = require('../../fixtures/appleEpisodeDeta
 const appleShowTrendsListenersPayload = require('../../fixtures/appleTrendsListenersByEpisode.json')
 const appleShowTrendsFollowersPayload = require('../../fixtures/appleTrendsFollowers.json')
 const appleShowTrendsFollowersPayloadEmpty = require('../../fixtures/appleTrendsFollowersEmpty.json')
+const appleShowTrendsListeningTimeFollowerStatePayload = require('../../fixtures/appleTrendsListeningTimeFollowerState.json')
+const appleShowTrendsListeningTimeFollowerStatePayloadSparse = require('../../fixtures/appleTrendsListeningTimeFollowerStateSparse.json')
 
 const auth = require('./authheader')
 
@@ -77,6 +79,23 @@ describe('check Connector API with empty Followers of ShowTrends API', () => {
             .post('/connector')
             .set(auth)
             .send(appleShowTrendsFollowersPayloadEmpty)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with ListeningTimeFollowerState of ShowTrends API', () => {
+    it('should return status 200 when sending proper Apple payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(appleShowTrendsListeningTimeFollowerStatePayload)
+        expect(response.statusCode).toBe(200)
+    })
+    it('should return status 200 when sending proper but sparse Apple payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(appleShowTrendsListeningTimeFollowerStatePayloadSparse)
         expect(response.statusCode).toBe(200)
     })
 })

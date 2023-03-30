@@ -1,3 +1,4 @@
+const e = require('express')
 const request = require('supertest')
 const baseURL = 'http://localhost:8080'
 
@@ -10,7 +11,11 @@ describe('check basic analytics query', () => {
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
-        expect(response.body).toEqual([{ result: 'Pong' }])
+        expect(response.body).toHaveProperty('data')
+        expect(response.body).toHaveProperty('meta')
+        expect(response.body.meta.query).toBe('ping')
+        expect(response.body.meta.result).toBe('success')
+        expect(response.body.data[0].result).toBe('pong')
     })
 
     it('should return status 401 when sending query without auth', async () => {
@@ -35,7 +40,12 @@ describe('check basic analytics query', () => {
             .get('/analytics/v1/shurelydoesnotexist')
             .set(auth)
             .send()
-        expect(response.statusCode).toBe(404)
+        expect(response.statusCode).toBe(200)
+        expect(response.body).toHaveProperty('data')
+        expect(response.body).toHaveProperty('meta')
+        expect(response.body.meta.query).toBe('shurelydoesnotexist')
+        expect(response.body.meta.result).toBe('error')
+        expect(response.body.data).toBeNull()
     })
 })
 
@@ -45,6 +55,11 @@ describe('check basic analytics query', () => {
             .get('/analytics/v9999/foo')
             .set(auth)
             .send()
-        expect(response.statusCode).toBe(404)
+        expect(response.statusCode).toBe(200)
+        expect(response.body).toHaveProperty('data')
+        expect(response.body).toHaveProperty('meta')
+        expect(response.body.meta.query).toBe('foo')
+        expect(response.body.meta.result).toBe('error')
+        expect(response.body.data).toBeNull()
     })
 })
