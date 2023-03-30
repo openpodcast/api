@@ -5,16 +5,18 @@ import episodesSchema from '../../schema/apple/episodes.json'
 import episodeDetailsSchema from '../../schema/apple/episodeDetails.json'
 import showTrendsListenersSchema from '../../schema/apple/showTrendsListeners.json'
 import showTrendsFollowersSchema from '../../schema/apple/showTrendsFollowers.json'
+import showTrendsListeningTimeFollowerState from '../../schema/apple/showTrendsListeningTimeFollowerState.json'
 import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
-    AppleEpisodePlayCountPayload,
     AppleEpisodePlayCountTrendsPayload,
     AppleEpisodesPayload,
     AppleShowTrendsFollowersDay,
-    AppleShowTrendsFollowersPayload,
     AppleShowTrendsListenersPayload,
+    AppleShowTrendsTotalListeningTimeFollowerStatePayload,
+    AppleShowTrendsTotalListeningTimeFollowerStateDay,
     ConnectorPayload,
+    AppleShowTrendsListeningTimeFollowerStatePayload,
 } from '../../types/connector'
 import { AppleRepository } from '../../db/AppleRepository'
 
@@ -115,6 +117,49 @@ class AppleConnector implements ConnectorHandler {
 
             //stores data per podcast and day
             return await this.repo.storeTrendsPodcastFollowers(
+                accountId,
+                Object.values(days)
+            )
+        } else if (
+            payload.meta.endpoint === 'showTrends/ListeningTimeFollowerState'
+        ) {
+            validateJsonApiPayload(
+                showTrendsListeningTimeFollowerState,
+                payload.data
+            )
+
+            const payloadData =
+                payload.data as AppleShowTrendsListeningTimeFollowerStatePayload
+
+            // map all followers to days
+            let days = payloadData.totalListeningTimeFollowerState.reduce(
+                (prev, curr) => {
+                    prev[curr[0]] = {
+                        date: curr[0],
+                        totalListeningTimeFollowed: curr[1],
+                    }
+                    return prev
+                },
+                {} as {
+                    [
+                        day: number
+                    ]: AppleShowTrendsTotalListeningTimeFollowerStateDay
+                }
+            )
+
+            //map non followers
+            days = payloadData.totalListeningTimeNonFollowerState.reduce(
+                (prev, curr) => {
+                    const dayElem = prev[curr[0]] || null
+                    if (dayElem) {
+                        dayElem.totalListeningTimeNonFollowed = curr[1]
+                    }
+                    return prev
+                },
+                days
+            )
+            //store listening time of podcast grouped by follower state
+            return await this.repo.storeTrendsPodcastListeningTimeFollowerState(
                 accountId,
                 Object.values(days)
             )

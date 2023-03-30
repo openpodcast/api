@@ -4,6 +4,8 @@ import {
     AppleEpisodePlayCountTrendsPayload,
     AppleShowPlayCountTrendsPayload,
     AppleShowTrendsFollowersDay,
+    AppleShowTrendsListeningTimeFollowerStatePayload,
+    AppleShowTrendsTotalListeningTimeFollowerStateDay,
 } from '../types/connector'
 import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
 class AppleRepository {
@@ -112,6 +114,33 @@ class AppleRepository {
             calculatedQuarterMedianValues.quarterMedianValues[2],
             calculatedQuarterMedianValues.quarterMedianValues[3],
         ])
+    }
+
+    storeTrendsPodcastListeningTimeFollowerState(
+        accountId: number,
+        days: AppleShowTrendsTotalListeningTimeFollowerStateDay[]
+    ): void | Promise<any> {
+        const replaceStmt = `REPLACE INTO appleTrendsPodcastListeningTimeFollowerState (
+            account_id,
+            atf_date,
+            atf_totaltimelistened_followers,
+            atf_totaltimelistened_nonfollowers
+            ) VALUES
+            (?,STR_TO_DATE(?,'%Y%m%d'),?,?)`
+
+        return Promise.all(
+            days.map(
+                async (
+                    day: AppleShowTrendsTotalListeningTimeFollowerStateDay
+                ): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        day.date,
+                        day.totaltimelistened_followers,
+                        day.totaltimelistened_nonfollowers,
+                    ])
+            )
+        )
     }
 
     async storeTrendsEpisodeListeners(
