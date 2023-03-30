@@ -138,6 +138,7 @@ class AppleConnector implements ConnectorHandler {
                         prev[curr[0]] = {
                             date: curr[0],
                             totalListeningTimeFollowed: curr[1],
+                            totalListeningTimeNotFollowed: 0,
                         } as AppleShowTrendsListeningTimeFollowerStateDay
                         return prev
                     },
@@ -152,18 +153,32 @@ class AppleConnector implements ConnectorHandler {
             days =
                 payloadData.timeListenedByFollowStateNotFollowedTrends.reduce(
                     (prev, curr) => {
-                        const dayElem = prev[curr[0]] || null
-                        if (dayElem) {
-                            dayElem.totalListeningTimeNotFollowed = curr[1]
+                        //if the value is zero, the entry is not provided by apple
+                        //so let's create zero values in case the day wasn't created yet
+                        if (!prev[curr[0]]) {
+                            prev[curr[0]] = {
+                                date: curr[0],
+                                totalListeningTimeFollowed: 0,
+                                totalListeningTimeNotFollowed: 0,
+                            } as AppleShowTrendsListeningTimeFollowerStateDay
                         }
+                        prev[curr[0]].totalListeningTimeNotFollowed = curr[1]
                         return prev
                     },
                     days
                 )
+
+            const daysList = Object.values(days)
+
+            //in case no data is available we just skip it
+            if (daysList.length === 0) {
+                return
+            }
+
             //store listening time of podcast grouped by follower state
             return await this.repo.storeTrendsPodcastListeningTimeFollowerState(
                 accountId,
-                Object.values(days)
+                daysList
             )
         } else {
             throw new PayloadError(

@@ -97,5 +97,5 @@ describe('check Connector API with ListeningTimeFollowerState of ShowTrends API'
             .set(auth)
             .send(appleShowTrendsListeningTimeFollowerStatePayloadSparse)
         expect(response.statusCode).toBe(200)
-    }
+    })
 })
