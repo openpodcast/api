@@ -4,13 +4,13 @@ const baseURL = 'http://localhost:8080'
 const auth = require('./authheader')
 const someRandomContent = { 'some data': 'anything' }
 
-describe('check auth pn api', () => {
+describe('check authentication', () => {
     it('should return not authenticated without bearer', async () => {
         const response = await request(baseURL).post('/events')
         expect(response.statusCode).toBe(401)
         expect(response.text).toContain('Not authorized')
     })
-    it('should return not authenticated with random token', async () => {
+    it('should return not be authenticated with random token', async () => {
         const wrongToken = { ...auth }
         wrongToken.Authorization = 'Bearer 123'
         const response = await request(baseURL).post('/events').set(wrongToken)
@@ -24,7 +24,7 @@ describe('check auth pn api', () => {
             .send(someRandomContent)
         expect(response.statusCode).toBe(200)
     })
-    it('should return status 400 as no payload specified', async () => {
+    it('should return status 400 if no payload specified', async () => {
         const response = await request(baseURL).post('/events').set(auth)
         expect(response.statusCode).toBe(400)
     })
