@@ -1,3 +1,4 @@
+SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 .PHONY: help
@@ -6,14 +7,18 @@ help: ## help message, list all command
 
 .PHONY: up docker-run
 up docker-run: ## docker-compose up
-	docker-compose up
+	docker compose up
 
 .PHONY: docker-build
-docker-build: ## docker-compose build
-	docker-compose build
+docker-build: build ## docker-compose build
+	docker compose build
+
+.PHONY: build
+build: ## Build the js code
+	npm run build
 
 .PHONY: dev
-dev: ## Starts the development server
+dev: ## Starts the api development server
 	npm run dev
 
 .PHONY: clean
@@ -33,7 +38,7 @@ install: ## Installs dependencies
 
 .PHONY: shell-%
 shell-%: ## Run a shell in a container
-	docker-compose exec $* sh
+	docker compose exec $* sh
 
 .PHONY: e2e-tests test
 e2e-tests test: ## Start end2end tests (local running server is required)

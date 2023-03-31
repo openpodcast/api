@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodePerformance (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   -- CURRENT_DATE not supported in MySQL < 8 and planetscale
-  spp_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  spp_date DATE NOT NULL DEFAULT (CURRENT_DATE),
   spp_median_percentage TINYINT unsigned NOT NULL DEFAULT '0',
   spp_median_seconds MEDIUMINT unsigned NOT NULL DEFAULT '0',
   spp_percentile_25 TINYINT unsigned NOT NULL DEFAULT '0',
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   -- CURRENT_DATE not supported in MySQL < 8 and planetscale
-  aed_date DATE NOT NULL DEFAULT CURRENT_DATE,
+  aed_date DATE NOT NULL DEFAULT (CURRENT_DATE),
   aed_playscount INTEGER NOT NULL,
   aed_totaltimelistened BIGINT NOT NULL,
   aed_uniqueengagedlistenerscount INTEGER NOT NULL,
