@@ -10,7 +10,10 @@ spotify as (
   spp_sample_max as listeners
   FROM spotifyEpisodePerformance
   LEFT JOIN spotifyEpisodeMetadata USING (episode_id)
-  WHERE spp_date >= @start AND spp_date <= @end
+  WHERE
+  spp_date >= @start
+  AND spp_date <= @end
+  AND spotifyEpisodePerformance.account_id = 1
 ),
 apple as (
   SELECT 
@@ -24,7 +27,10 @@ apple as (
   ep_guid as guid
   FROM appleEpisodeDetails
   LEFT JOIN appleEpisodeMetadata USING (episode_id)
-  WHERE aed_date >= @start AND aed_date <= @end
+  WHERE
+  aed_date >= @start
+  AND aed_date <= @end
+  AND appleEpisodeDetails.account_id = 1
 )
 
 SELECT 

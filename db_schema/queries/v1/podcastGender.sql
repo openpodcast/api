@@ -4,6 +4,7 @@ WITH data as (
   WHERE spa_facet_type="age"
   AND spa_date >= @start
   AND spa_date <= @end  
+  AND account_id = 1
 )
 
 SELECT spa_date as `date`, "female" as gender, spa_gender_female as listeners, spa_facet as age_group FROM data 

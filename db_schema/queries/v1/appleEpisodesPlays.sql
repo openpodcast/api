@@ -10,7 +10,10 @@ apple as (
   atl_uniquelistenerscount as unique_listeners
   FROM appleTrendsEpisodeListeners
   LEFT JOIN appleEpisodeMetadata USING (episode_id)
-  WHERE atl_date >= @start AND atl_date <= @end
+  WHERE
+  atl_date >= @start
+  AND atl_date <= @end
+  AND appleTrendsEpisodeListeners.account_id = 1
 )
 
 SELECT 

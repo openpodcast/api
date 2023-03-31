@@ -1,14 +1,15 @@
 WITH data as
 (
-SELECT
+  SELECT
   spa_facet,
   spa_gender_female+spa_gender_male+spa_gender_non_binary+spa_gender_not_specified as listeners,
   spa_date
-FROM spotifyPodcastAggregate
-WHERE
+  FROM spotifyPodcastAggregate
+  WHERE
   spa_facet_type="age"
   AND spa_date >= @start
   AND spa_date <= @end
+  AND account_id = 1
 )
 
 SELECT
