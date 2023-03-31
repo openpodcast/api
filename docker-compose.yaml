@@ -1,9 +1,23 @@
-version: "3.7"
+version: '3.7'
 services:
-  api:
-    image: openpodcast/api
-    build: ./
-    env_file:
-      - .env
-    ports:
-      - "8080:8080"      
+    api:
+        image: openpodcast/api
+        build: ./
+        env_file:
+            - env.local.test
+        ports:
+            - '8080:8080'
+
+    db:
+        image: mysql:8.0
+        volumes:
+            - mysqldata:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: openpodcast
+            MYSQL_USER: openpodcast
+            MYSQL_ROOT_PASSWORD: openpodcast
+            MYSQL_PASSWORD: openpodcast
+        command: --innodb-buffer-pool-size=128M --innodb-buffer-pool-chunk-size=64M --key-buffer-size=5M --event-scheduler=ON
+
+volumes:
+    mysqldata:
