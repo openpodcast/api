@@ -7,7 +7,8 @@ services:
             - env.local.test
         ports:
             - '8080:8080'
-
+        links:
+            - db
     db:
         image: mysql:8.0
         volumes:
