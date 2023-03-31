@@ -3,6 +3,8 @@ services:
     api:
         image: openpodcast/api
         build: ./
+        volumes:
+            - ./dist:/app/dist
         env_file:
             - env.local.test
         ports:
