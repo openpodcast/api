@@ -6,9 +6,10 @@ WITH data as
     JOIN appleEpisodeMetadata ON (spotifyEpisodeMetadata.ep_name=appleEpisodeMetadata.ep_name)
     WHERE
     spa_facet_type="age"
-    AND account_id = @podcast_id
     AND spa_date >= @start
-    AND spa_date <= @end  
+    AND spa_date <= @end 
+    --  selection on metadata due to join order (see explain)
+    AND appleEpisodeMetadata.account_id = @podcast_id
 )
 
 SELECT spa_date as `date`, ep_guid as guid, "female" as gender, spa_gender_female as listeners, spa_facet as age_group FROM data 

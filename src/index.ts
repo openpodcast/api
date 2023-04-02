@@ -196,14 +196,23 @@ app.get(
         try {
             const accountId = res.locals.user.accountId
 
+            // Throw error if accountId is not set
+            if (!accountId || accountId === '') {
+                res.status(401).send('Not authorized')
+            }
+
             const podcastId = req.params.podcastId
+            if (podcastId === '') {
+                res.status(401).send('Not authorized')
+            }
+
             const version = req.params.version
             const query = req.params.query
 
             // Backwards compatibility:
             // For v1, the podcast id is the account id
             if (version === 'v1' && accountId != podcastId) {
-                throw new Error('Not authorized')
+                res.status(401).send('Not authorized')
             }
 
             // Get date from query parameters

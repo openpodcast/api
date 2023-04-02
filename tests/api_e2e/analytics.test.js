@@ -25,6 +25,17 @@ describe('check basic analytics query', () => {
         expect(response.statusCode).toBe(401)
     })
 
+    it('should return status 401 when sending query with empty auth', async () => {
+        const response = await request(baseURL)
+            .get('/analytics/v1/0/ping')
+            .set({
+                Authorization: 'Bearer ',
+                Accept: 'application/json',
+            })
+            .send()
+        expect(response.statusCode).toBe(401)
+    })
+
     it('should return status 401 when sending query without version', async () => {
         const response = await request(baseURL).get('/analytics/ping').send()
         expect(response.statusCode).toBe(401)
@@ -42,7 +53,22 @@ describe('check basic analytics query', () => {
         expect(response.statusCode).toBe(401)
     })
 
-    it('should return status 404 when sending to non-existent endpoint', async () => {
+    it('should return status 401 when podcast id != account id', async () => {
+        const response = await request(baseURL)
+            .get('/analytics/v1/10/ping')
+            .set(auth)
+            .send()
+        expect(response.statusCode).toBe(401)
+    })
+
+    it('should return status 401 when sending query without proper version (e.g. v1)', async () => {
+        const response = await request(baseURL)
+            .get('/analytics/xxx/0/ping')
+            .send()
+        expect(response.statusCode).toBe(401)
+    })
+
+    it('should throw error when sending to non-existent endpoint', async () => {
         const response = await request(baseURL)
             .get('/analytics/v1/1/shurelydoesnotexist')
             .set(auth)
@@ -55,7 +81,7 @@ describe('check basic analytics query', () => {
         expect(response.body.data).toBeNull()
     })
 
-    it('should return status 404 when sending to non-existent version', async () => {
+    it('should throw error when sending to non-existent version', async () => {
         const response = await request(baseURL)
             .get('/analytics/v9999/0/foo')
             .set(auth)
@@ -66,5 +92,13 @@ describe('check basic analytics query', () => {
         expect(response.body.meta.query).toBe('foo')
         expect(response.body.meta.result).toBe('error')
         expect(response.body.data).toBeNull()
+    })
+
+    it('should return status 404 when sending to empty podcast id', async () => {
+        const response = await request(baseURL)
+            .get('/analytics/v1//foo')
+            .set(auth)
+            .send()
+        expect(response.statusCode).toBe(404)
     })
 })

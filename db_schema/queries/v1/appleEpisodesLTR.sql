@@ -11,7 +11,10 @@ apple as (
   ep_guid as guid
   FROM appleEpisodeDetails
   LEFT JOIN appleEpisodeMetadata USING (episode_id)
-  WHERE aed_date >= @start AND aed_date <= @end
+  WHERE
+  aed_date >= @start
+  AND aed_date <= @end
+  AND appleEpisodeDetails.account_id = @podcast_id 
 )
 
 SELECT 
