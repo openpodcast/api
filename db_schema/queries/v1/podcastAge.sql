@@ -7,6 +7,7 @@ SELECT
 FROM spotifyPodcastAggregate
 WHERE
   spa_facet_type="age"
+  AND account_id = @podcast_id
   AND spa_date >= @start
   AND spa_date <= @end
 )

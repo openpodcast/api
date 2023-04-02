@@ -10,6 +10,7 @@ class AnalyticsApi {
 
     // Returns the latest Analytics for the given accountId and endpoint
     async getAnalytics(
+        podcastId: string,
         endpoint: string,
         startDate: Date = new Date(),
         endDate: Date = new Date()
@@ -27,6 +28,7 @@ class AnalyticsApi {
         }
 
         const sqlVars = {
+            podcast_id: podcastId,
             start: formatDate(startDate),
             end: formatDate(endDate),
         }

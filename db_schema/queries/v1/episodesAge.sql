@@ -4,6 +4,7 @@ WITH data as
   FROM spotifyEpisodeAggregate
   WHERE
   spa_facet_type="age"
+  AND account_id = @podcast_id 
   AND spa_date >= @start
   AND spa_date <= @end
 
@@ -13,6 +14,7 @@ age_sum as (
   FROM spotifyEpisodeAggregate
   WHERE
   spa_facet_type="age_sum"
+  AND account_id = @podcast_id
   AND spa_date >= @start
   AND spa_date <= @end
 )

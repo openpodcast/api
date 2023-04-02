@@ -7,7 +7,7 @@ const auth = require('./authheader')
 describe('check basic analytics query', () => {
     it('should return status 200 when sending proper analytics query without payload', async () => {
         const response = await request(baseURL)
-            .get('/analytics/v1/ping')
+            .get('/analytics/v1/1/ping')
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
@@ -19,7 +19,9 @@ describe('check basic analytics query', () => {
     })
 
     it('should return status 401 when sending query without auth', async () => {
-        const response = await request(baseURL).get('/analytics/v1/ping').send()
+        const response = await request(baseURL)
+            .get('/analytics/v1/0/ping')
+            .send()
         expect(response.statusCode).toBe(401)
     })
 
@@ -28,16 +30,21 @@ describe('check basic analytics query', () => {
         expect(response.statusCode).toBe(401)
     })
 
+    it('should return status 401 when sending query without podcast id', async () => {
+        const response = await request(baseURL).get('/analytics/v1/ping').send()
+        expect(response.statusCode).toBe(401)
+    })
+
     it('should return status 401 when sending query without proper version (e.g. v1)', async () => {
         const response = await request(baseURL)
-            .get('/analytics/xxx/ping')
+            .get('/analytics/xxx/0/ping')
             .send()
         expect(response.statusCode).toBe(401)
     })
 
     it('should return status 404 when sending to non-existent endpoint', async () => {
         const response = await request(baseURL)
-            .get('/analytics/v1/shurelydoesnotexist')
+            .get('/analytics/v1/1/shurelydoesnotexist')
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
@@ -47,12 +54,10 @@ describe('check basic analytics query', () => {
         expect(response.body.meta.result).toBe('error')
         expect(response.body.data).toBeNull()
     })
-})
 
-describe('check basic analytics query', () => {
     it('should return status 404 when sending to non-existent version', async () => {
         const response = await request(baseURL)
-            .get('/analytics/v9999/foo')
+            .get('/analytics/v9999/0/foo')
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
