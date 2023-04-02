@@ -6,7 +6,7 @@ WITH data as
   spa_facet_type="age"
   AND spa_date >= @start
   AND spa_date <= @end
-
+  AND account_id = 1
 ),
 age_sum as (
   SELECT spa_date,episode_id,spa_facet,spa_gender_female+spa_gender_male+spa_gender_non_binary+spa_gender_not_specified as listeners
@@ -15,6 +15,7 @@ age_sum as (
   spa_facet_type="age_sum"
   AND spa_date >= @start
   AND spa_date <= @end
+  AND account_id = 1
 )
 
 SELECT
