@@ -13,7 +13,7 @@ spotify as (
   WHERE
   spp_date >= @start
   AND spp_date <= @end
-  AND spotifyEpisodePerformance.account_id = 1
+  AND spotifyEpisodePerformance.account_id = @podcast_id
 ),
 apple as (
   SELECT 
@@ -30,7 +30,7 @@ apple as (
   WHERE
   aed_date >= @start
   AND aed_date <= @end
-  AND appleEpisodeDetails.account_id = 1
+  AND appleEpisodeDetails.account_id = @podcast_id 
 )
 
 SELECT 

@@ -14,7 +14,7 @@ apple as (
   WHERE
   aed_date >= @start
   AND aed_date <= @end
-  AND appleEpisodeDetails.account_id = 1
+  AND appleEpisodeDetails.account_id = @podcast_id 
 )
 
 SELECT 

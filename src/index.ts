@@ -188,31 +188,49 @@ app.get(
 // Check that the user is allowed to access the endpoint
 // and then run the query
 // The endpoint must contain a version number and a query name
-// e.g. /analytics/v1/someQuery
+// e.g. /analytics/v1/1234/someQuery
+// where 1234 is the podcast id and someQuery is the name of the query
 app.get(
-    '/analytics/:version/:query',
+    '/analytics/:version/:podcastId/:query',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
+            const accountId = res.locals.user.accountId
+
+            // Throw error if accountId is not set
+            if (!accountId || accountId === '') {
+                res.status(401).send('Not authorized')
+            }
+
+            const podcastId = req.params.podcastId
+            if (podcastId === '') {
+                res.status(401).send('Not authorized')
+            }
+
             const version = req.params.version
             const query = req.params.query
+
+            // Backwards compatibility:
+            // For v1, the podcast id is the account id
+            if (version === 'v1' && accountId != podcastId) {
+                res.status(401).send('Not authorized')
+            }
 
             // Get date from query parameters
             // If no date is provided, use date of yesterday
             // If it's an array, use throw an error
             const startDateString = req.query.start
-            const endDateString = req.query.end
-
-            // use yesterday for default dates
-            const yesterday = new Date()
-            yesterday.setDate(yesterday.getDate() - 1)
-
             if (Array.isArray(startDateString)) {
                 throw new Error('Start date must not be an array')
             }
 
+            const endDateString = req.query.end
             if (Array.isArray(endDateString)) {
                 throw new Error('End date must not be an array')
             }
+
+            // use yesterday for default dates
+            const yesterday = new Date()
+            yesterday.setDate(yesterday.getDate() - 1)
 
             const startDate = startDateString
                 ? new Date(startDateString as string)
@@ -236,13 +254,11 @@ app.get(
                 throw new Error('End date must be after start date')
             }
 
-            // TODO: pass accountId from user
-            const accountId = res.locals.user.accountId
-
             let data = null
 
             try {
                 data = await analyticsApi.getAnalytics(
+                    podcastId,
                     `${version}/${query}`,
                     startDate,
                     endDate
@@ -255,6 +271,7 @@ app.get(
                 meta: {
                     query,
                     accountId,
+                    podcastId,
                     date: nowString(),
                     startDate: formatDate(startDate),
                     endDate: formatDate(endDate),

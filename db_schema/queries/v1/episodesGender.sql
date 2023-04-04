@@ -9,7 +9,7 @@ WITH data as
     AND spa_date >= @start
     AND spa_date <= @end 
     --  selection on metadata due to join order (see explain)
-    AND appleEpisodeMetadata.account_id = 1
+    AND appleEpisodeMetadata.account_id = @podcast_id
 )
 
 SELECT spa_date as `date`, ep_guid as guid, "female" as gender, spa_gender_female as listeners, spa_facet as age_group FROM data 

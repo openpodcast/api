@@ -13,7 +13,7 @@ apple as (
   WHERE
   atl_date >= @start
   AND atl_date <= @end
-  AND appleTrendsEpisodeListeners.account_id = 1
+  AND appleTrendsEpisodeListeners.account_id = @podcast_id 
 )
 
 SELECT 
