@@ -10,11 +10,18 @@ class DBInitializer {
     private pool: Pool
     private tablesToCheck: string[]
     private schemaData: string
+    private sqlToRun: string
 
-    constructor(pool: Pool, tablesToCheck: string[], schemaData: string) {
+    constructor(
+        pool: Pool,
+        tablesToCheck: string[],
+        schemaData: string,
+        sqlToRun: string
+    ) {
         this.pool = pool
         this.tablesToCheck = tablesToCheck
         this.schemaData = schemaData
+        this.sqlToRun = sqlToRun
     }
 
     private async checkTableExist(tableName: string): Promise<boolean> {
@@ -32,8 +39,8 @@ class DBInitializer {
         return tablesExist.every((tableExists) => tableExists)
     }
 
-    private async createTables(): Promise<any> {
-        const queries = this.schemaData
+    private async runQueries(queriesData: string): Promise<any> {
+        const queries = queriesData
             // split by semicolon to get individual queries
             .split(';')
             // remove empty queries
@@ -72,8 +79,13 @@ class DBInitializer {
             console.log(
                 "MySQL tables don't exist in the specified db, creating them..."
             )
-            await this.createTables()
+            await this.runQueries(this.schemaData)
             console.log('tables created')
+        }
+        if (this.sqlToRun) {
+            console.log('Running sql statements ...')
+            await this.runQueries(this.sqlToRun)
+            console.log('sql statements executed')
         }
     }
 }
