@@ -243,6 +243,16 @@ CREATE EVENT IF NOT EXISTS updates_cleanup
 ON SCHEDULE EVERY 1 DAY
 DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 3 DAY);
 
+-- defines the different podcasts identified
+-- by a podcast_id which currently named account_id (historical reasons)
+-- should be renamed soon
+CREATE TABLE IF NOT EXISTS podcasts (
+  account_id INTEGER NOT NULL AUTO_INCREMENT,
+  pod_name VARCHAR(2048) NOT NULL
+);
+
+
+-- apple countries: id to country mapping
 CREATE TABLE IF NOT EXISTS appleCountries (
   id INTEGER PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
