@@ -2,7 +2,8 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/openpodcast/api?color=%23099cec&logo=Docker)](https://hub.docker.com/r/openpodcast/api)
 
-This thin API layer is used to store `POST`ed payloads to the main storage system of Open Podcast.
+This thin API layer is used to store `POST`ed payloads to the main storage
+system of Open Podcast.
 
 ## Getting Started
 
@@ -57,4 +58,4 @@ To query it, use the following endpoint: `/status`
 
 ### Tools to create (JSON) schemata
 
-- <https://transform.tools/json-to-json-schema>
+-   <https://transform.tools/json-to-json-schema>
