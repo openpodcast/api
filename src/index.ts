@@ -47,8 +47,7 @@ const pool = mysql.createPool({
 const dbInit = new DBInitializer(
     pool,
     ['events', 'appleTrendsPodcastFollowers'],
-    config.getSchemaData(),
-    config.getViewsData()
+    config.getSchemaData()
 )
 dbInit.init()
 

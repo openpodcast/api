@@ -34,15 +34,6 @@ class Config {
         return fs.readFileSync(path, 'utf8')
     }
 
-    // reads view statements from views.sql
-    getViewsData(): string {
-        const path = './db_schema/views.sql'
-        if (!fs.existsSync(path)) {
-            throw new Error(`Views file not found: ${path}`)
-        }
-        return fs.readFileSync(path, 'utf8')
-    }
-
     // gets the path to the analytics queries
     // which the query loader will use to load from
     getQueryPath(): string {
