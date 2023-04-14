@@ -84,7 +84,11 @@ class DBInitializer {
         }
         if (this.sqlToRun) {
             console.log('Running sql statements ...')
-            await this.runQueries(this.sqlToRun)
+            // as planetscale doesn't support some more advanced sql statements
+            // allow errors and just continue
+            await this.runQueries(this.sqlToRun).catch((err) => {
+                console.log(err)
+            })
             console.log('sql statements executed')
         }
     }
