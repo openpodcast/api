@@ -243,14 +243,14 @@ CREATE EVENT IF NOT EXISTS updates_cleanup
 ON SCHEDULE EVERY 1 DAY
 DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 7 DAY);
 
-CREATE TABLE IF NOT EXISTS apple_countries (
+CREATE TABLE IF NOT EXISTS appleCountries (
   id INTEGER PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   code CHAR(2) NOT NULL,
   ccc CHAR(3) NOT NULL
 );
 
-INSERT INTO countries (id, name, code, ccc) VALUES (4, "Afghanistan", "AF", "afg"),
+INSERT INTO appleCountries (id, name, code, ccc) VALUES (4, "Afghanistan", "AF", "afg"),
 (248, "Åland Islands", "AX", "ala"),
 (8, "Albania", "AL", "alb"),
 (12, "Algeria", "DZ", "dza"),
