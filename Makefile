@@ -7,7 +7,11 @@ help: ## help message, list all command
 
 .PHONY: up docker-run
 up docker-run: ## docker-compose up
-	docker compose up
+	docker compose up --build
+
+.PHONY: down docker-down
+down docker-down: ## docker-compose down
+	docker compose down -v
 
 .PHONY: docker-build
 docker-build: build ## docker-compose build
@@ -36,8 +40,8 @@ init: install
 install: ## Installs dependencies
 	npm install	
 
-.PHONY: shell-%
-shell-%: ## Run a shell in a container
+.PHONY: shell-% sh-%
+shell-% sh-%: ## Run a shell in a container
 	docker compose exec $* sh
 
 .PHONY: e2e-tests test

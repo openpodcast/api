@@ -2,7 +2,9 @@ version: '3.7'
 services:
     api:
         image: openpodcast/api
-        build: ./
+        build:
+            context: .
+            dockerfile: Dockerfile
         volumes:
             - ./dist:/app/dist
         env_file:
