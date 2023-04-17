@@ -7,4 +7,4 @@ ON (atf_date = spf_date AND apple.account_id = spotify.account_id)
 WHERE
   atf_date >= @start
   AND atf_date <= @end
-  AND apple.account_id = @podcast_id;
+  AND account_id = @podcast_id;
