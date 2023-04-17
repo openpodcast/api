@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS updates (
 -- automatically delete all updates older than 7 days
 CREATE EVENT IF NOT EXISTS updates_cleanup
 ON SCHEDULE EVERY 1 DAY
-DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 7 DAY);
+DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 3 DAY);
 
 CREATE TABLE IF NOT EXISTS appleCountries (
   id INTEGER PRIMARY KEY,
