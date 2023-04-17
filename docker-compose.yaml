@@ -17,6 +17,7 @@ services:
         image: mysql:8.0
         volumes:
             - mysqldata:/var/lib/mysql
+            - dbinit.sql:/docker-entrypoint-initdb.d/init.sql
         environment:
             MYSQL_DATABASE: openpodcast
             MYSQL_USER: openpodcast
