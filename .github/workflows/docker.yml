@@ -79,7 +79,7 @@ jobs:
                   context: .
                   file: ${{ env.DOCKERFILE }}
                   platforms: ${{ env.DOCKER_PLATFORMS }}
-                  push: ${{ github.actor != 'dependabot[bot]' }}
+                  push: ${{ github.event_name != 'pull_request' && github.actor != 'dependabot[bot]' }}
                   tags: ${{ steps.meta.outputs.tags }}
                   labels: ${{ steps.meta.outputs.labels }}
 

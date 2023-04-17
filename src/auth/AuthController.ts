@@ -49,7 +49,7 @@ class AuthController {
             authToken.length < 7 ||
             !authToken.startsWith('Bearer ')
         ) {
-            const err = new AuthError('Not authorized')
+            const err = new AuthError('Not authorized: Token format is invalid')
             return next(err)
         }
 

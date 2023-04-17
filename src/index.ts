@@ -199,12 +199,12 @@ app.get(
 
             // Throw error if accountId is not set
             if (!accountId || accountId === '') {
-                res.status(401).send('Not authorized')
+                res.status(401).send('Not authorized: accountId not set')
             }
 
             const podcastId = req.params.podcastId
             if (podcastId === '') {
-                res.status(401).send('Not authorized')
+                res.status(401).send('Not authorized: podcastId not set')
             }
 
             const version = req.params.version
@@ -213,7 +213,9 @@ app.get(
             // Backwards compatibility:
             // For v1, the podcast id is the account id
             if (version === 'v1' && accountId != podcastId) {
-                res.status(401).send('Not authorized')
+                res.status(401).send(
+                    'Not authorized: accountId must be podcastId in v1'
+                )
             }
 
             // Get date from query parameters
