@@ -45,4 +45,4 @@ SELECT
   spotify.listeners as spotify_listeners
 FROM spotify JOIN apple ON (spotify.raw_name = apple.raw_name AND apple.date=spp_date)
 -- make sure we have data from spotify and apple
-WHERE apple.quarter1 IS NOT NULL AND spotify.quarter1 IS NOT NULL
+WHERE apple.quarter1 IS NOT NULL AND spotify.quarter1 IS NOT NULL AND apple.date = (SELECT MAX(date) FROM apple)

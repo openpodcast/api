@@ -76,3 +76,57 @@ SELECT
   ep_guid as guid
 FROM 
   spotifyEpisodeMetadata spotify JOIN appleEpisodeMetadata apple USING (account_id, ep_name);
+
+CREATE OR REPLACE VIEW appleEpisodesRetention AS
+  SELECT 
+    subquery.account_id as account_id, 
+    subquery.episode_id as episode_id, 
+    subquery.aed_date as `date`,
+    aem.ep_name as episode_name,
+    MAX(subquery.aed_quarter1_median_listeners) AS aed_quarter1_median_listeners,
+    MAX(subquery.aed_quarter2_median_listeners) AS aed_quarter2_median_listeners,
+    MAX(subquery.aed_quarter3_median_listeners) AS aed_quarter3_median_listeners,
+    MAX(subquery.aed_quarter4_median_listeners) AS aed_quarter4_median_listeners,
+    MAX(subquery.aed_histogram_max_listeners) AS aed_histogram_max_listeners,
+    subquery.aed_quarter1_median_listeners/subquery.aed_histogram_max_listeners*100 as aed_quarter1_median_listeners_percent,
+    subquery.aed_quarter2_median_listeners/subquery.aed_histogram_max_listeners*100 as aed_quarter2_median_listeners_percent,
+    subquery.aed_quarter3_median_listeners/subquery.aed_histogram_max_listeners*100 as aed_quarter3_median_listeners_percent,
+    subquery.aed_quarter4_median_listeners/subquery.aed_histogram_max_listeners*100 as aed_quarter4_median_listeners_percent
+  FROM (
+    SELECT 
+      account_id,
+      episode_id,
+      aed_date,
+      aed_quarter1_median_listeners,
+      aed_quarter2_median_listeners,
+      aed_quarter3_median_listeners,
+      aed_quarter4_median_listeners,
+      aed_histogram_max_listeners
+    FROM appleEpisodeDetails 
+  ) AS subquery
+  JOIN appleEpisodeMetadata aem ON subquery.account_id = aem.account_id AND subquery.episode_id = aem.episode_id
+  GROUP BY subquery.account_id,
+           subquery.aed_date,
+           subquery.episode_id,
+           aem.ep_name, 
+           subquery.aed_quarter1_median_listeners, 
+           subquery.aed_quarter2_median_listeners, 
+           subquery.aed_quarter3_median_listeners, 
+           subquery.aed_quarter4_median_listeners, 
+           subquery.aed_histogram_max_listeners;
+
+-- Listen-through-rate (LTR) for Apple Podcasts
+CREATE OR REPLACE VIEW appleEpisodesLTR AS  SELECT 
+  aed_date as `date`,
+  appleEpisodeDetails.account_id,
+  ep_name as raw_name,
+  aed_quarter1_median_listeners/aed_histogram_max_listeners*100 as quarter1,
+  aed_quarter2_median_listeners/aed_histogram_max_listeners*100 as quarter2,
+  aed_quarter3_median_listeners/aed_histogram_max_listeners*100 as quarter3,
+  aed_quarter4_median_listeners/aed_histogram_max_listeners*100 as quarter4,
+  aed_histogram_max_listeners as listeners,
+  ep_guid as guid
+  FROM appleEpisodeDetails
+  LEFT JOIN appleEpisodeMetadata USING (account_id, episode_id);
+
+
