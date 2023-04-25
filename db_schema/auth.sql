@@ -3,7 +3,7 @@
 -- define access keys for podcast sources
 CREATE TABLE IF NOT EXISTS podcastSources (
   account_id INTEGER NOT NULL,
-  source_name ENUM('spotify','apple')
+  source_name ENUM('spotify','apple'),
   source_podcast_id VARCHAR(64) NOT NULL,
   -- keys are stored in json format and are encrypted by the client
   source_access_keys_encrypted TEXT NOT NULL,
@@ -20,8 +20,9 @@ CREATE TABLE IF NOT EXISTS apiKeys (
   -- SHA256 hash of the key, no salting as we are storing long random keys
   -- and the hash is used to lookup the key which would be more complicated using salting
   -- and wouldn't increase security a lot
-  key_hash VARCHAR(64) NOT NULL,
-  PRIMARY KEY (key_id)
+  key_hash CHAR(64) NOT NULL,
+  PRIMARY KEY (key_hash),
+  INDEX id_hash_idx (key_id, key_hash)
 );
 
 -- define permissions for the different api keys
