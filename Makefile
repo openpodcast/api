@@ -66,5 +66,5 @@ send-api-req-prod: ## Send request to production
 	curl -X POST https://api.openpodcast.dev/connector  -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/spotifyListeners.json" 
 
 .PHONY: db-shell
-db-shell: ## Open a shell in the database container
+db-shell: ## Opens the mysql shell inside the db container
 	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast'
