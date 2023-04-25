@@ -248,7 +248,8 @@ DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 3 DAY);
 -- should be renamed soon
 CREATE TABLE IF NOT EXISTS podcasts (
   account_id INTEGER NOT NULL AUTO_INCREMENT,
-  pod_name VARCHAR(2048) NOT NULL
+  pod_name VARCHAR(2048) NOT NULL,
+  PRIMARY KEY (account_id)
 );
 
 
