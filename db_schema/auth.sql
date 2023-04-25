@@ -1,5 +1,9 @@
 -- tables will be created in separated auth database
 
+-- TODO: this is just the schema which is also not autodeployed
+-- as it should live in a separated database to be more flexible
+-- with access permissions.
+
 -- define access keys for podcast sources
 CREATE TABLE IF NOT EXISTS podcastSources (
   account_id INTEGER NOT NULL,
