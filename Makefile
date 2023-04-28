@@ -3,10 +3,10 @@ SHELL := /bin/bash
 
 .PHONY: help
 help: ## help message, list all command
-	@echo -e "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
+	@echo -e "$$(grep -hE '^\S+.*:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)"
 
 .PHONY: up docker-run
-up docker-run: ## docker-compose up
+up docker-run: docker-build ## docker-compose up
 	touch dbinit.sql
 	docker compose up --build
 
