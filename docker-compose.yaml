@@ -7,6 +7,7 @@ services:
             dockerfile: Dockerfile
         volumes:
             - ./dist:/app/dist
+            - ./db_schema:/app/db_schema
         env_file:
             - env.local.test
         ports:
