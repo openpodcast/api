@@ -34,6 +34,15 @@ class Config {
         return fs.readFileSync(path, 'utf8')
     }
 
+    // location where migration files are stored, e.g. 5.sql, 6.sql, etc.
+    getMigrationsPath(): string {
+        const path = './db_schema/migrations'
+        if (!fs.existsSync(path)) {
+            throw new Error(`Migrations directory not found: ${path}`)
+        }
+        return path
+    }
+
     // reads view statements from views.sql
     getViewsData(): string {
         const path = './db_schema/views.sql'

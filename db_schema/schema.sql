@@ -1,3 +1,19 @@
+-- Open Podcast Analytics database schema
+
+-- migration table to track applied migrations
+CREATE TABLE IF NOT EXISTS migrations (
+  migration_id INTEGER NOT NULL,
+  migration_name VARCHAR(64) NOT NULL,
+  migration_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (migration_id)
+);
+
+-- -----------------------------------------
+-- IMPORTANT: this is the schema version
+-- ID has to be incremented for each change
+INSERT INTO migrations (migration_id, migration_name) VALUES (1, 'init schema version');
+-- -----------------------------------------
+
 CREATE TABLE IF NOT EXISTS events (
   account_id INTEGER NOT NULL,
   ev_userhash CHAR(64) AS (SHA2(CONCAT_WS("",JSON_UNQUOTE(ev_raw->"$.ip"),JSON_UNQUOTE(ev_raw->'$."user-agent"')), 256)) STORED,
@@ -251,7 +267,6 @@ CREATE TABLE IF NOT EXISTS podcasts (
   pod_name VARCHAR(2048) NOT NULL,
   PRIMARY KEY (account_id)
 );
-
 
 -- apple countries: id to country mapping
 CREATE TABLE IF NOT EXISTS appleCountries (
