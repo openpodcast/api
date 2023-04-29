@@ -1,5 +1,11 @@
 -- Open Podcast Analytics database schema
 
+-- This schema contains the most current version of the database schema.
+-- Therefore, the migration_id has to be incremented (see below) for each change.
+-- On a fresh installation, no migrations are applied and this schema is created
+-- Every change of the schema has to be applied here and in a corresponding migration file
+-- to be able to update the database schema of an existing installation.
+
 -- migration table to track applied migrations
 CREATE TABLE IF NOT EXISTS migrations (
   migration_id INTEGER NOT NULL,

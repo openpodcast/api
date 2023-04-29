@@ -85,7 +85,7 @@ class DBInitializer {
         const files = fs.readdirSync(this.migrationsPath)
         const migrationIds = files
             .map((file): number | null => {
-                const match = file.match(/^(\d+)\.sql$/)
+                const match = file.match(/^(\d+).*\.sql$/)
                 if (match) {
                     return parseInt(match[1], 10)
                 }
