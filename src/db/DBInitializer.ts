@@ -96,9 +96,26 @@ class DBInitializer {
     }
 
     private runMigration(migrationId: number): void {
-        const migrationFile = `${this.migrationsPath}/${migrationId}.sql`
-        const migrationData = fs.readFileSync(migrationFile, 'utf8')
-        this.runQueries(migrationData)
+        // find migration file of form <migrationId>OtherText.sql and run it
+        const migrationFile = fs
+            .readdirSync(this.migrationsPath)
+            .map((file) =>
+                // regex to start with whole number and continue with anything but a number
+                file.match(new RegExp(`^${migrationId}[^0-9]*\\.sql$`))
+            )
+            .filter((match) => match !== null)[0]
+        if (migrationFile?.length === 1) {
+            console.log(`Migration file ${migrationFile} will be applied`)
+            const migrationData = fs.readFileSync(
+                `${this.migrationsPath}/${migrationFile[0]}`,
+                'utf8'
+            )
+            this.runQueries(migrationData)
+        } else {
+            throw new Error(
+                `Migration file for migration number ${migrationId} not found.`
+            )
+        }
     }
 
     private async runMigrations(): Promise<void> {
