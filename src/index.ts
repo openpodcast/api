@@ -295,10 +295,24 @@ app.get(
 
 // Status endpoint, which returns a JSON of the last import time per endpoint.
 // This uses our internal event sourcing to determine the last imports.
+// Additionally, it returns a list of alerts if any of the imports are too old.
 app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const yellowAgeHours = 26
+        const redAgeHours = 30
         const status = await statusApi.getStatus()
-        res.json(status)
+        const alerts = statusApi.getAgeAlerts(
+            status,
+            yellowAgeHours,
+            redAgeHours
+        )
+        if (alerts.yellow || alerts.red) {
+            res.status(500)
+            res.json({ ...status, alerts })
+        } else {
+            res.status(200)
+            res.json(status)
+        }
     } catch (err) {
         next(err)
     }
