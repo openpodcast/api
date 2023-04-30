@@ -48,7 +48,8 @@ const dbInit = new DBInitializer(
     pool,
     ['events', 'appleTrendsPodcastFollowers'],
     config.getSchemaData(),
-    config.getViewsData()
+    config.getViewsData(),
+    config.getMigrationsPath()
 )
 dbInit.init()
 
