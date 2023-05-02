@@ -1,6 +1,8 @@
 WITH spotify as (
   SELECT account_id,episode_id,
+  -- calc sec bucket in 15 sec buckets
   FLOOR(sample_id/15)*15 as sec,
+  -- calc avg listeners per bucket
   AVG(listeners/spp_sample_max) as percent FROM
   spotifyEpisodePerformance CROSS JOIN
   JSON_TABLE(
@@ -16,10 +18,14 @@ WITH spotify as (
 apple as (
   SELECT account_id,
   episode_id,
+  -- extract from json data row like {"0": 5}
+  -- apple is already in 15 sec buckets
   CAST(JSON_EXTRACT(JSON_KEYS(val),"$[0]") as UNSIGNED) as sec,
+  -- extract value from json data row like {"0": 5} and divide by max listeners
   JSON_EXTRACT(JSON_EXTRACT(val,"$.*"),"$[0]")/aed_histogram_max_listeners as percent
   FROM
     appleEpisodeDetails CROSS JOIN
+    -- extract the elements in form of {"0": 5} per row
     JSON_TABLE(
         aed_play_histogram,
         "$[*]"
