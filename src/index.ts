@@ -299,7 +299,7 @@ app.get(
 app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const yellowAgeHours = 26
-        const redAgeHours = 30
+        const redAgeHours = 50
         const status = await statusApi.getStatus()
         const alerts = statusApi.getAgeAlerts(
             status,

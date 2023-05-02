@@ -58,6 +58,10 @@ class StatusApi {
             )
         })
         const alerts: { yellow?: AlertData[]; red?: AlertData[] } = {}
+        // only add alerts if there are any
+        // this allows the client to look for the presence of the key yellow or red
+        // to determine if there are any alerts. this is easier for monitors as
+        // they don't have to parse json
         if (yellowAlerts.length > 0) {
             alerts.yellow = yellowAlerts
         }
