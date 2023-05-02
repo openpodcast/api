@@ -306,6 +306,9 @@ app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
             yellowAgeHours,
             redAgeHours
         )
+        // the key yellow or red is is only set if there is an alert
+        // this allows the client to check for the existence of the keys yellow and red
+        // without parsing the json response. this simplifies the monitoring.
         if (alerts.yellow || alerts.red) {
             res.status(500)
             res.json({ ...status, alerts })
