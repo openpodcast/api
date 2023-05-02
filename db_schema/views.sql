@@ -66,3 +66,13 @@ FROM
 WHERE
   spotify.total_followers IS NOT NULL
   AND apple.total_followers IS NOT NULL;
+
+-- Mapping View between Apple and Spotify episode ids
+CREATE OR REPLACE VIEW episodeMapping AS
+SELECT
+  account_id,
+  spotify.episode_id as spotify_episode_id,
+  apple.episode_id as apple_episode_id,
+  ep_guid as guid
+FROM 
+  spotifyEpisodeMetadata spotify JOIN appleEpisodeMetadata apple USING (account_id, ep_name);
