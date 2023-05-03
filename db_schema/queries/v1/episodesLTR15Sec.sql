@@ -10,7 +10,8 @@ WITH spotify as (
       "$[*]"
       COLUMNS (
         sample_id FOR ORDINALITY,
-        listeners INT PATH "$")
+        listeners INT PATH "$"
+      )
   ) samples
   WHERE spp_date = @end AND account_id = @podcast_id
   GROUP BY account_id,episode_id, FLOOR(sample_id/15)*15
@@ -34,17 +35,22 @@ apple as (
         )
     ) samples
   WHERE aed_date = @end AND account_id = @podcast_id
+),
+episodeMappingFiltered as (
+  SELECT * from episodeMapping WHERE account_id = @podcast_id
 )
 
 SELECT
-guid,
-apple.sec as sec,
-spotify.percent as spotify_percent,
-apple.percent as apple_percent
-FROM spotify
-JOIN episodeMapping ON (spotify.episode_id = episodeMapping.spotify_episode_id AND spotify.account_id = episodeMapping.account_id)
-JOIN apple ON (apple.episode_id = episodeMapping.apple_episode_id AND apple.account_id = episodeMapping.account_id)
-WHERE spotify.sec = apple.sec AND apple.account_id = @podcast_id
-
-
-  
+  -- do not merge CTEs but materialize them first
+  /*+ NO_MERGE(episodeMapping) NO_MERGE(spotify) NO_MERGE(apple) */
+  guid,
+  apple.sec as sec,
+  spotify.percent as spotify_percent,
+  apple.percent as apple_percent
+FROM
+  episodeMappingFiltered as episodeMapping
+  JOIN spotify
+  JOIN apple
+WHERE
+  spotify.episode_id = episodeMapping.spotify_episode_id
+  AND apple.episode_id = episodeMapping.apple_episode_id AND spotify.sec = apple.sec;
