@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    },
+    "retrieved": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "show": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "show",
+        "endpoint"
+      ]
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "stationId": {
+          "type": "number"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "timeRange": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          "required": [
+            "timeRange"
+          ]
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "additionalItems": false
+              }
+            },
+            "translationMapping": {
+              "type": "object",
+              "properties": {
+                "Female": {
+                  "type": "string"
+                },
+                "Male": {
+                  "type": "string"
+                },
+                "Non-binary": {
+                  "type": "string"
+                },
+                "Not specified": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Female",
+                "Male",
+                "Non-binary",
+                "Not specified"
+              ]
+            },
+            "columnHeaders": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "type"
+                ]
+              }
+            },
+            "colors": {
+              "type": "object",
+              "properties": {
+                "Male": {
+                  "type": "string"
+                },
+                "Female": {
+                  "type": "string"
+                },
+                "Not specified": {
+                  "type": "string"
+                },
+                "Non-binary": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Male",
+                "Female",
+                "Not specified",
+                "Non-binary"
+              ]
+            }
+          },
+          "required": [
+            "rows",
+            "translationMapping",
+            "columnHeaders",
+            "colors"
+          ]
+        }
+      },
+      "required": [
+        "stationId",
+        "kind",
+        "parameters",
+        "data"
+      ]
+    }
+  },
+  "required": [
+    "provider",
+    "version",
+    "retrieved",
+    "meta",
+    "range",
+    "data"
+  ]
+}

@@ -238,3 +238,96 @@ export interface AppleShowTrendsFollowersDay {
     gained: number
     lost: number
 }
+
+export interface AnchorColumnHeader {
+    name: string
+    type: 'integer' | 'string' | 'number'
+    isDateTime?: boolean
+}
+
+export interface AnchorAggregatedPerformanceData {
+    rows: [string, number][]
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+}
+
+export interface AnchorAudienceSizeData {
+    rows: number[]
+    columnHeaders: [AnchorColumnHeader]
+}
+
+export interface AnchorPlaysData {
+    rows: [number, number][]
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+}
+
+export interface AnchorPlaysByAgeRangeData {
+    rows: [string, number][]
+    translationMapping: Record<string, string>
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+    colors: Record<string, string>
+}
+
+export interface AnchorPlaysByAppData {
+    rows: [string, number][]
+    translationMapping: Record<string, string>
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+    colors: Record<string, string>
+}
+
+export interface AnchorPlaysByGeoData {
+    rows: [string, number][]
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+    assets: {
+        flagUrlByGeo: Record<string, string>
+    }
+}
+
+export interface AnchorPlaysByDeviceData {
+    rows: [string, number][]
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+}
+
+export interface AnchorEpisodePlaysData {
+    rows: [string, number][]
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+}
+
+export interface AnchorPlaysByGenderData {
+    rows: [string, number][]
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+}
+
+export interface AnchorTotalPlaysData {
+    rows: [number][]
+    columnHeaders: [AnchorColumnHeader]
+}
+
+export interface AnchorTotalPlaysByEpisodeData {
+    rows: [string, number, number, number, number][]
+    columnHeaders: [
+        AnchorColumnHeader,
+        AnchorColumnHeader,
+        AnchorColumnHeader,
+        AnchorColumnHeader,
+        AnchorColumnHeader
+    ]
+}
+
+export interface AnchorUniqueListenersData {
+    rows: [number][]
+    columnHeaders: [AnchorColumnHeader]
+}
+
+export type AnchorDataPayload =
+    | { kind: 'aggregatedPerformance'; data: AnchorAggregatedPerformanceData }
+    | { kind: 'audienceSize'; data: AnchorAudienceSizeData }
+    | { kind: 'plays'; data: AnchorPlaysData }
+    | { kind: 'playsByAgeRange'; data: AnchorPlaysByAgeRangeData }
+    | { kind: 'playsByApp'; data: AnchorPlaysByAppData }
+    | { kind: 'playsByDevice'; data: AnchorPlaysByDeviceData }
+    | { kind: 'playsByEpisode'; data: AnchorEpisodePlaysData }
+    | { kind: 'playsByGender'; data: AnchorPlaysByGenderData }
+    | { kind: 'playsByGeo'; data: AnchorPlaysByGeoData }
+    | { kind: 'totalPlays'; data: AnchorTotalPlaysData }
+    | { kind: 'totalPlaysByEpisode'; data: AnchorTotalPlaysByEpisodeData }
+    | { kind: 'uniqueListeners'; data: AnchorUniqueListenersData }

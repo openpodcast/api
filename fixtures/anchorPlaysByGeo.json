@@ -1,0 +1,46 @@
+{
+  "provider": "anchor",
+  "version": 1,
+  "retrieved": "2023-05-05T16:20:57.008583",
+  "meta": {
+    "show": "123abcde",
+    "endpoint": "playsByGeo"
+  },
+  "range": {
+    "start": "2023-05-01",
+    "end": "2023-05-04"
+  },
+  "data": {
+    "stationId": 98765432,
+    "kind": "playsByGeo",
+    "parameters": {
+      "geos": [
+        null,
+        null,
+        null
+      ],
+      "resultGeo": "geo_4",
+      "timeRange": [
+        1645747200,
+        1683244800
+      ],
+      "timeInterval": 3600
+    },
+    "data": {
+      "rows": [],
+      "columnHeaders": [
+        {
+          "name": "Geo",
+          "type": "string"
+        },
+        {
+          "name": "Percent of Plays",
+          "type": "number"
+        }
+      ],
+      "assets": {
+        "flagUrlByGeo": {}
+      }
+    }
+  }
+}

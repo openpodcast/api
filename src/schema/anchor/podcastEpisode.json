@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string"
+    },
+    "version": {
+      "type": "number"
+    },
+    "retrieved": {
+      "type": "string"
+    },
+    "meta": {
+      "type": "object",
+      "properties": {
+        "show": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "show",
+        "endpoint"
+      ]
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "string"
+        },
+        "end": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "allEpisodeWebIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "podcastId": {
+          "type": "string"
+        },
+        "podcastEpisodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "adCount": {
+                "type": "number"
+              },
+              "created": {
+                "type": "string"
+              },
+              "createdUnixTimestamp": {
+                "type": "number"
+              },
+              "description": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "number"
+              },
+              "hourOffset": {
+                "type": "number"
+              },
+              "isDeleted": {
+                "type": "boolean"
+              },
+              "isPublished": {
+                "type": "boolean"
+              },
+              "podcastEpisodeId": {
+                "type": "string"
+              },
+              "publishOn": {
+                "type": "string"
+              },
+              "publishOnUnixTimestamp": {
+                "type": "number"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "trackedUrl": {
+                "type": "string"
+              },
+              "episodeImage": {
+                "type": "string"
+              },
+              "shareLinkPath": {
+                "type": "string"
+              },
+              "shareLinkEmbedPath": {
+                "type": "string"
+              },
+              "isMT": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "adCount",
+              "created",
+              "createdUnixTimestamp",
+              "description",
+              "duration",
+              "hourOffset",
+              "isDeleted",
+              "isPublished",
+              "podcastEpisodeId",
+              "publishOn",
+              "publishOnUnixTimestamp",
+              "title",
+              "url",
+              "trackedUrl",
+              "shareLinkPath",
+              "shareLinkEmbedPath"
+            ]
+          }
+        },
+        "totalPodcastEpisodes": {
+          "type": "number"
+        },
+        "vanitySlug": {
+          "type": "string"
+        },
+        "stationCreatedDate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "allEpisodeWebIds",
+        "podcastId",
+        "podcastEpisodes",
+        "totalPodcastEpisodes",
+        "vanitySlug",
+        "stationCreatedDate"
+      ]
+    }
+  },
+  "required": [
+    "provider",
+    "version",
+    "retrieved",
+    "meta",
+    "range",
+    "data"
+  ]
+}
