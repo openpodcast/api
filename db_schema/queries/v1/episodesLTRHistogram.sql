@@ -1,3 +1,4 @@
+
 WITH spotify as (
   SELECT JSON_ARRAYAGG(JSON_OBJECT(sample_id,listeners)) as histogram,episode_id,account_id,spp_date,spp_sample_max FROM 
     spotifyEpisodePerformance CROSS JOIN
@@ -9,7 +10,11 @@ WITH spotify as (
           listeners INT PATH "$"
         )
     ) samples
-  WHERE account_id = @podcast_id AND spp_date = @end
+  WHERE
+    account_id = @podcast_id
+    AND spp_date = @end
+    -- just show numbers every 15 seconds and the first one
+    AND (MOD(sample_id,15) = 0 OR sample_id = 1)
   GROUP BY account_id,episode_id,spp_sample_max,spp_date
 )
 
