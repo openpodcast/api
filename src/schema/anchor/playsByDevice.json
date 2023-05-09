@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://openpodcast.dev/schema/anchor/playsByDevice.schema.json",
   "title": "Generated schema for Root",
   "type": "object",
   "properties": {
