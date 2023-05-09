@@ -21,14 +21,14 @@
         "endpoint": {
           "type": "string"
         },
-        "web_episode_id": {
+        "episodeId": {
           "type": "string"
         }
       },
       "required": [
         "show",
         "endpoint",
-        "web_episode_id"
+        "episodeId"
       ]
     },
     "range": {

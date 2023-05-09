@@ -5,7 +5,7 @@
   "meta": {
     "show": "123abcde",
     "endpoint": "episodePerformance",
-    "web_episode_id": "foo1234"
+    "episodeId": "foo1234"
   },
   "range": {
     "start": "2023-05-01",
