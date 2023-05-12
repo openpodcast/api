@@ -346,21 +346,34 @@ export function convertToAnchorEpisodePlaysData(
     rawData: RawAnchorEpisodePlaysData
 ): AnchorEpisodePlaysData {
     const data: Map<Date, number> = new Map()
-
     for (const row of rawData.rows) {
         const timestamp = row[0] * 1000
         const date = new Date(timestamp)
-        console.log(date)
         const value = row[1]
         data.set(date, value)
     }
-
-    if (data.size !== rawData.rows.length) {
-        throw new Error('Incomplete data.')
-    }
-
     return {
         episodeId: rawData.columnHeaders[0].name,
+        data: data,
+    }
+}
+
+export interface AnchorPlaysData {
+    data: Map<Date, number>
+}
+
+// TODO: Merge with `convertToAnchorEpisodePlaysData`
+export function convertToAnchorPlaysData(
+    rawData: RawAnchorPlaysData
+): AnchorPlaysData {
+    const data: Map<Date, number> = new Map()
+    for (const row of rawData.rows) {
+        const timestamp = row[0] * 1000
+        const date = new Date(timestamp)
+        const value = row[1]
+        data.set(date, value)
+    }
+    return {
         data: data,
     }
 }

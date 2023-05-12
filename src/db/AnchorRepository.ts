@@ -5,6 +5,8 @@ import {
     RawAnchorEpisodePerformanceData,
     RawAnchorEpisodePlaysData,
     convertToAnchorEpisodePlaysData,
+    RawAnchorPlaysData,
+    convertToAnchorPlaysData,
 } from '../types/connector'
 
 class AnchorRepository {
@@ -138,6 +140,32 @@ class AnchorRepository {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
                 episodeId,
+                this.getDateDBString(date),
+                plays,
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
+    async storePlays(
+        accountId: number,
+        data: RawAnchorPlaysData
+    ): Promise<any> {
+        const anchorPlaysData = convertToAnchorPlaysData(data)
+
+        const replaceStmt = `REPLACE INTO anchorPlays (
+          account_id,
+          aep_date,
+          aep_plays
+        ) VALUES (?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        anchorPlaysData.data.forEach((plays, date) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
                 this.getDateDBString(date),
                 plays,
             ])

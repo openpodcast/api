@@ -5,6 +5,7 @@ import audienceSizeSchema from '../../schema/anchor/audienceSize.json'
 import aggregatedPerformanceSchema from '../../schema/anchor/aggregatedPerformance.json'
 import episodePerformanceSchema from '../../schema/anchor/episodePerformance.json'
 import episodePlaysSchema from '../../schema/anchor/episodePlays.json'
+import playsSchema from '../../schema/anchor/plays.json'
 
 import {
     RawAnchorAudienceSizeData,
@@ -13,6 +14,7 @@ import {
     RawAnchorAggregatedPerformanceData,
     RawAnchorEpisodePerformanceData,
     RawAnchorEpisodePlaysData,
+    RawAnchorPlaysData,
 } from '../../types/connector'
 import { AnchorRepository } from '../../db/AnchorRepository'
 
@@ -73,6 +75,14 @@ class AnchorConnector implements ConnectorHandler {
                     accountId,
                     payload.meta.episode,
                     payload.data.data as RawAnchorEpisodePlaysData
+                )
+                break
+
+            case 'plays':
+                validateJsonApiPayload(playsSchema, rawPayload)
+                await this.repo.storePlays(
+                    accountId,
+                    payload.data.data as RawAnchorPlaysData
                 )
                 break
 
