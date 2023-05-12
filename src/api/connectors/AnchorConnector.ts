@@ -6,6 +6,11 @@ import aggregatedPerformanceSchema from '../../schema/anchor/aggregatedPerforman
 import episodePerformanceSchema from '../../schema/anchor/episodePerformance.json'
 import episodePlaysSchema from '../../schema/anchor/episodePlays.json'
 import playsSchema from '../../schema/anchor/plays.json'
+import playsByAgeRangeSchema from '../../schema/anchor/playsByAgeRange.json'
+import playsByAppSchema from '../../schema/anchor/playsByApp.json'
+import playsByDeviceSchema from '../../schema/anchor/playsByDevice.json'
+import playsByEpisodeSchema from '../../schema/anchor/playsByEpisode.json'
+import playsByGenderSchema from '../../schema/anchor/playsByGender.json'
 
 import {
     RawAnchorAudienceSizeData,
@@ -15,6 +20,10 @@ import {
     RawAnchorEpisodePerformanceData,
     RawAnchorEpisodePlaysData,
     RawAnchorPlaysData,
+    RawAnchorPlaysByAgeRangeData,
+    RawAnchorPlaysByAppData,
+    RawAnchorPlaysByDeviceData,
+    RawAnchorPlaysByGenderData,
 } from '../../types/connector'
 import { AnchorRepository } from '../../db/AnchorRepository'
 
@@ -86,16 +95,13 @@ class AnchorConnector implements ConnectorHandler {
                 )
                 break
 
-            // case 'playsByAgeRange':
-            //     validateJsonApiPayload(
-            //         playsByAgeRangeSchema,
-            //         anchorPayload.data
-            //     )
-            //     await this.repo.storePlaysByAgeRangeData(
-            //         accountId,
-            //         anchorPayload.data
-            //     )
-            //     break
+            case 'playsByAgeRange':
+                validateJsonApiPayload(playsByAgeRangeSchema, rawPayload)
+                await this.repo.storePlaysByAgeRange(
+                    accountId,
+                    payload.data.data as RawAnchorPlaysByAgeRangeData
+                )
+                break
 
             // case 'playsByApp':
             //     validateJsonApiPayload(playsByAppSchema, anchorPayload.data)

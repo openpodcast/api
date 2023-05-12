@@ -312,6 +312,22 @@ export interface RawAnchorPlaysByAgeRangeData {
     colors: Record<string, string>
 }
 
+export interface AnchorPlaysByAgeRangeData {
+    data: Map<string, number>
+}
+
+export function convertToAnchorPlaysByAgeRangeData(
+    rawData: RawAnchorPlaysByAgeRangeData
+): AnchorPlaysByAgeRangeData {
+    const data = new Map<string, number>()
+
+    for (const row of rawData.rows) {
+        data.set(row[0], row[1])
+    }
+
+    return { data }
+}
+
 export interface RawAnchorPlaysByAppData {
     rows: [string, number][]
     translationMapping: Record<string, string>
