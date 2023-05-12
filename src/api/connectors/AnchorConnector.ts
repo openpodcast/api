@@ -111,6 +111,14 @@ class AnchorConnector implements ConnectorHandler {
                 )
                 break
 
+            case 'playsByDevice':
+                validateJsonApiPayload(playsByDeviceSchema, rawPayload)
+                await this.repo.storePlaysByDevice(
+                    accountId,
+                    payload.data.data as RawAnchorPlaysByDeviceData
+                )
+                break
+
             default:
                 throw new PayloadError(
                     `Unknown endpoint in meta: ${rawPayload.meta.endpoint}`

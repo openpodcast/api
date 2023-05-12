@@ -1,3 +1,4 @@
+import { i } from 'mathjs'
 import {
     RawAnchorAudienceSizeData,
     RawAnchorAggregatedPerformanceData,
@@ -10,6 +11,7 @@ import {
     RawAnchorPlaysByAgeRangeData,
     convertToAnchorPlaysByAgeRangeData,
     RawAnchorPlaysByAppData,
+    RawAnchorPlaysByDeviceData,
 } from '../types/connector'
 
 class AnchorRepository {
@@ -216,6 +218,32 @@ class AnchorRepository {
             apba_date,
             apba_app,
             apba_plays_percent
+        ) VALUES (?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        data.rows.forEach((entry) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                this.getTodayDBString(),
+                entry[0],
+                entry[1],
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
+    async storePlaysByDevice(
+        accountId: number,
+        data: RawAnchorPlaysByDeviceData
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO anchorPlaysByDevice (
+            account_id,
+            apbd_date,
+            apbd_device,
+            apbd_plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []

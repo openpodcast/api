@@ -80,7 +80,7 @@
               "type": "array",
               "items": {
                 "type": "array",
-                "items": [
+                "prefixItems": [
                   {
                     "type": "number"
                   },
@@ -90,8 +90,7 @@
                   {
                     "type": "number"
                   }
-                ],
-                "additionalItems": false
+                ]
               }
             },
             "columnHeaders": {

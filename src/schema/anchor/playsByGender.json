@@ -72,15 +72,14 @@
               "type": "array",
               "items": {
                 "type": "array",
-                "items": [
+                "prefixItems": [
                   {
                     "type": "string"
                   },
                   {
                     "type": "number"
                   }
-                ],
-                "additionalItems": false
+                ]
               }
             },
             "translationMapping": {
