@@ -577,6 +577,14 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByAgeRange (
   PRIMARY KEY (account_id, apbar_date, apbar_age_range)
 );
 
+CREATE TABLE IF NOT EXISTS anchorPlaysByApp (
+  account_id INTEGER NOT NULL,
+  apba_date DATE NOT NULL,
+  apba_app VARCHAR(128) NOT NULL,
+  apba_plays_percent INTEGER NOT NULL,
+  PRIMARY KEY (account_id, apba_date, apba_app)
+);
+
 CREATE TABLE IF NOT EXISTS anchorEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
