@@ -4,6 +4,7 @@ import { PayloadError } from '../../types/api'
 import audienceSizeSchema from '../../schema/anchor/audienceSize.json'
 import aggregatedPerformanceSchema from '../../schema/anchor/aggregatedPerformance.json'
 import episodePerformanceSchema from '../../schema/anchor/episodePerformance.json'
+import episodePlaysSchema from '../../schema/anchor/episodePlays.json'
 
 import {
     RawAnchorAudienceSizeData,
@@ -11,6 +12,7 @@ import {
     ConnectorPayload,
     RawAnchorAggregatedPerformanceData,
     RawAnchorEpisodePerformanceData,
+    RawAnchorEpisodePlaysData,
 } from '../../types/connector'
 import { AnchorRepository } from '../../db/AnchorRepository'
 
@@ -35,7 +37,7 @@ class AnchorConnector implements ConnectorHandler {
                 // The schema ensures that we only have one row
                 validateJsonApiPayload(audienceSizeSchema, rawPayload)
 
-                await this.repo.storeAudienceSizeData(
+                await this.repo.storeAudienceSize(
                     accountId,
                     payload.data.data as RawAnchorAudienceSizeData
                 )
@@ -43,7 +45,7 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'aggregatedPerformance':
                 validateJsonApiPayload(aggregatedPerformanceSchema, rawPayload)
-                await this.repo.storeAggregatedPerformanceData(
+                await this.repo.storeAggregatedPerformance(
                     accountId,
                     payload.data.data as RawAnchorAggregatedPerformanceData
                 )
@@ -54,17 +56,24 @@ class AnchorConnector implements ConnectorHandler {
                 if (payload.meta.episode === undefined) {
                     throw new PayloadError('missing episode id')
                 }
-                await this.repo.storeEpisodePerformanceData(
+                await this.repo.storeEpisodePerformance(
                     accountId,
                     payload.meta.episode,
                     payload.data.data as RawAnchorEpisodePerformanceData
                 )
                 break
 
-            // case 'plays':
-            //     validateJsonApiPayload(playsSchema, anchorPayload.data)
-            //     await this.repo.storePlaysData(accountId, anchorPayload.data)
-            //     break
+            case 'episodePlays':
+                validateJsonApiPayload(episodePlaysSchema, rawPayload)
+                if (payload.meta.episode === undefined) {
+                    throw new PayloadError('missing episode id')
+                }
+                await this.repo.storeEpisodePlays(
+                    accountId,
+                    payload.meta.episode,
+                    payload.data.data as RawAnchorEpisodePlaysData
+                )
+                break
 
             // case 'playsByAgeRange':
             //     validateJsonApiPayload(

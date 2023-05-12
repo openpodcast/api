@@ -38,7 +38,7 @@ class AnchorRepository {
         )
     }
 
-    async storeAudienceSizeData(
+    async storeAudienceSize(
         accountId: number,
         data: RawAnchorAudienceSizeData
     ): Promise<any> {
@@ -59,7 +59,7 @@ class AnchorRepository {
         ])
     }
 
-    async storeAggregatedPerformanceData(
+    async storeAggregatedPerformance(
         accountId: number,
         data: RawAnchorAggregatedPerformanceData
     ): Promise<any> {
@@ -88,7 +88,7 @@ class AnchorRepository {
         ])
     }
 
-    async storeEpisodePerformanceData(
+    async storeEpisodePerformance(
         accountId: number,
         episodeId: string,
         data: RawAnchorEpisodePerformanceData
@@ -114,6 +114,32 @@ class AnchorRepository {
                         episodeId,
                         this.getTodayDBString(),
                         entry[0] as number,
+                        entry[1] as number,
+                    ])
+            )
+        )
+    }
+
+    async storeEpisodePlays(
+        accountId: number,
+        episodeId: string,
+        data: AnchorEpisodePlaysData
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO anchorEpisodePlays (
+            account_id,
+            aep_episode_id,
+            aep_date,
+            aep_plays
+            ) VALUES
+            (?,?,?,?)`
+
+        return await Promise.all(
+            data.rows.map(
+                async (entry: any): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        episodeId,
+                        this.getTodayDBString(),
                         entry[1] as number,
                     ])
             )
