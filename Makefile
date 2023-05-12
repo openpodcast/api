@@ -10,6 +10,11 @@ up docker-run: docker-build ## docker-compose up
 	touch dbinit.sql
 	docker compose up --build
 
+.PHONY: up-db
+up-db: ## docker-compose up db
+	touch dbinit.sql
+	docker compose up db
+
 .PHONY: down docker-down
 down docker-down: ## docker-compose down
 	docker compose down -v

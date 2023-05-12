@@ -331,3 +331,18 @@ export type AnchorDataPayload =
     | { kind: 'totalPlays'; data: AnchorTotalPlaysData }
     | { kind: 'totalPlaysByEpisode'; data: AnchorTotalPlaysByEpisodeData }
     | { kind: 'uniqueListeners'; data: AnchorUniqueListenersData }
+
+export interface AnchorConnectorPayload {
+    meta: {
+        endpoint: string
+        episode?: string
+    }
+    range: {
+        start: string
+        end: string
+    }
+    // Make use of `AnchorDataPayload` union type
+    // stationId needs to be set in the `data` object as well
+    data: AnchorDataPayload & { stationId: string }
+    provider: string
+}

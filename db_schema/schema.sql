@@ -525,6 +525,13 @@ INSERT INTO appleCountries (id, name, code, ccc) VALUES (4, "Afghanistan", "AF",
 (894, "Zambia", "ZM", "zmb"),
 (716, "Zimbabwe", "ZW", "zwe");
 
+CREATE TABLE IF NOT EXISTS anchorAudienceSize (
+  account_id INTEGER NOT NULL,
+  aas_date DATE NOT NULL,
+  aas_audience_size INTEGER NOT NULL,
+  PRIMARY KEY (account_id, aas_date)
+);
+
 CREATE TABLE IF NOT EXISTS anchorEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,

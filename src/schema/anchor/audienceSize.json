@@ -56,11 +56,10 @@
                     "properties": {
                         "rows": {
                             "type": "array",
-                            "items": [
-                                {
-                                    "type": "number"
-                                }
-                            ],
+                            "items": {
+                                "type": "number"
+                            },
+                            "minItems": 1,
                             "maxItems": 1
                         },
                         "columnHeaders": {
