@@ -544,6 +544,15 @@ CREATE TABLE IF NOT EXISTS anchorAggregatedPerformance (
   PRIMARY KEY (account_id, aap_date)
 );
 
+CREATE TABLE IF NOT EXISTS anchorEpisodePerformance (
+  account_id INTEGER NOT NULL,
+  aep_episode_id VARCHAR(128) NOT NULL,
+  aep_date DATE NOT NULL,
+  aep_sample INTEGER NOT NULL,
+  aep_listeners INTEGER NOT NULL,
+  PRIMARY KEY (account_id, aep_date)
+);
+
 
 CREATE TABLE IF NOT EXISTS anchorEpisodeMetadata (
   account_id INTEGER NOT NULL,

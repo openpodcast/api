@@ -15,6 +15,7 @@ import {
     AnchorUniqueListenersData,
     RawAnchorAggregatedPerformanceData,
     convertToAnchorAggregatedPerformanceData,
+    RawAnchorEpisodePerformanceData,
 } from '../types/connector'
 // import { calcAnchorPodcastPerformanceQuarters } from '../stats/performance'
 
@@ -62,7 +63,8 @@ class AnchorRepository {
         accountId: number,
         data: RawAnchorAggregatedPerformanceData
     ): Promise<any> {
-        const anchorData = convertToAnchorAggregatedPerformanceData(data)
+        const anchorAggregatedPerformanceData =
+            convertToAnchorAggregatedPerformanceData(data)
 
         const replaceStmt = `REPLACE INTO anchorAggregatedPerformance (
             account_id,
@@ -78,12 +80,44 @@ class AnchorRepository {
         return await this.pool.query(replaceStmt, [
             accountId,
             this.getTodayDBString(),
-            anchorData.percentile25,
-            anchorData.percentile50,
-            anchorData.percentile75,
-            anchorData.percentile100,
-            anchorData.averageListenSeconds,
+            anchorAggregatedPerformanceData.percentile25,
+            anchorAggregatedPerformanceData.percentile50,
+            anchorAggregatedPerformanceData.percentile75,
+            anchorAggregatedPerformanceData.percentile100,
+            anchorAggregatedPerformanceData.averageListenSeconds,
         ])
+    }
+
+    async storeEpisodePerformanceData(
+        accountId: number,
+        episodeId: string,
+        data: RawAnchorEpisodePerformanceData
+    ): Promise<any> {
+        // Iterate over rows, convert to number, and store in the database
+        // Data format: "rows": [[0,"13"],...]
+        const replaceStmt = `REPLACE INTO anchorEpisodePerformance (   
+            account_id,
+            aep_episode_id,
+            aep_date,
+            aep_sample,
+            aep_listeners
+            ) VALUES
+            (?,?,?,?,?)`
+
+        // This is probably not the most efficient way to do this.
+        // We could probably do a single query with multiple rows?
+        return await Promise.all(
+            data.rows.map(
+                async (entry: any): Promise<any> =>
+                    await this.pool.query(replaceStmt, [
+                        accountId,
+                        episodeId,
+                        this.getTodayDBString(),
+                        entry[0] as number,
+                        entry[1] as number,
+                    ])
+            )
+        )
     }
 
     // async storeEpisodesMetadata(

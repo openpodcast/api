@@ -5,14 +5,14 @@
   "meta": {
     "show": "123abcde",
     "endpoint": "episodePerformance",
-    "episodeId": "foo1234"
+    "episode": "foo1234"
   },
   "range": {
     "start": "2023-05-01",
     "end": "2023-05-04"
   },
   "data": {
-    "episodeId": 123456789,
+    "episode": 123456789,
     "kind": "performance",
     "data": {
       "rows": [

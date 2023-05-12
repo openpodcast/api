@@ -21,14 +21,14 @@
         "endpoint": {
           "type": "string"
         },
-        "episodeId": {
+        "episode": {
           "type": "string"
         }
       },
       "required": [
         "show",
         "endpoint",
-        "episodeId"
+        "episode"
       ]
     },
     "range": {
@@ -49,7 +49,7 @@
     "data": {
       "type": "object",
       "properties": {
-        "episodeId": {
+        "episode": {
           "type": "number"
         },
         "kind": {
@@ -103,7 +103,7 @@
         }
       },
       "required": [
-        "episodeId",
+        "episode",
         "kind",
         "data"
       ]

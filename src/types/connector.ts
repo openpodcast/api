@@ -295,26 +295,31 @@ export interface RawAnchorAudienceSizeData {
     columnHeaders: [AnchorColumnHeader]
 }
 
-export interface AnchorPlaysData {
+export interface RawAnchorEpisodePerformanceData {
+    rows: [number, string][]
+    columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+}
+
+export interface RawAnchorPlaysData {
     rows: [number, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
 
-export interface AnchorPlaysByAgeRangeData {
+export interface RawAnchorPlaysByAgeRangeData {
     rows: [string, number][]
     translationMapping: Record<string, string>
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
     colors: Record<string, string>
 }
 
-export interface AnchorPlaysByAppData {
+export interface RawAnchorPlaysByAppData {
     rows: [string, number][]
     translationMapping: Record<string, string>
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
     colors: Record<string, string>
 }
 
-export interface AnchorPlaysByGeoData {
+export interface RawAnchorPlaysByGeoData {
     rows: [string, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
     assets: {
@@ -322,27 +327,27 @@ export interface AnchorPlaysByGeoData {
     }
 }
 
-export interface AnchorPlaysByDeviceData {
+export interface RawAnchorPlaysByDeviceData {
     rows: [string, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
 
-export interface AnchorEpisodePlaysData {
+export interface RawAnchorEpisodePlaysData {
     rows: [string, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
 
-export interface AnchorPlaysByGenderData {
+export interface RawAnchorPlaysByGenderData {
     rows: [string, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
 
-export interface AnchorTotalPlaysData {
+export interface RawAnchorTotalPlaysData {
     rows: [number][]
     columnHeaders: [AnchorColumnHeader]
 }
 
-export interface AnchorTotalPlaysByEpisodeData {
+export interface RawAnchorTotalPlaysByEpisodeData {
     rows: [string, number, number, number, number][]
     columnHeaders: [
         AnchorColumnHeader,
@@ -353,7 +358,7 @@ export interface AnchorTotalPlaysByEpisodeData {
     ]
 }
 
-export interface AnchorUniqueListenersData {
+export interface RawAnchorUniqueListenersData {
     rows: [number][]
     columnHeaders: [AnchorColumnHeader]
 }
@@ -361,16 +366,17 @@ export interface AnchorUniqueListenersData {
 export type AnchorDataPayload =
     | { kind: 'aggregatedPerformance'; data: AnchorAggregatedPerformanceData }
     | { kind: 'audienceSize'; data: RawAnchorAudienceSizeData }
-    | { kind: 'plays'; data: AnchorPlaysData }
-    | { kind: 'playsByAgeRange'; data: AnchorPlaysByAgeRangeData }
-    | { kind: 'playsByApp'; data: AnchorPlaysByAppData }
-    | { kind: 'playsByDevice'; data: AnchorPlaysByDeviceData }
-    | { kind: 'playsByEpisode'; data: AnchorEpisodePlaysData }
-    | { kind: 'playsByGender'; data: AnchorPlaysByGenderData }
-    | { kind: 'playsByGeo'; data: AnchorPlaysByGeoData }
-    | { kind: 'totalPlays'; data: AnchorTotalPlaysData }
-    | { kind: 'totalPlaysByEpisode'; data: AnchorTotalPlaysByEpisodeData }
-    | { kind: 'uniqueListeners'; data: AnchorUniqueListenersData }
+    | { kind: 'performance'; data: RawAnchorEpisodePerformanceData }
+    | { kind: 'plays'; data: RawAnchorPlaysData }
+    | { kind: 'playsByAgeRange'; data: RawAnchorPlaysByAgeRangeData }
+    | { kind: 'playsByApp'; data: RawAnchorPlaysByAppData }
+    | { kind: 'playsByDevice'; data: RawAnchorPlaysByDeviceData }
+    | { kind: 'playsByEpisode'; data: RawAnchorEpisodePlaysData }
+    | { kind: 'playsByGender'; data: RawAnchorPlaysByGenderData }
+    | { kind: 'playsByGeo'; data: RawAnchorPlaysByGeoData }
+    | { kind: 'totalPlays'; data: RawAnchorTotalPlaysData }
+    | { kind: 'totalPlaysByEpisode'; data: RawAnchorTotalPlaysByEpisodeData }
+    | { kind: 'uniqueListeners'; data: RawAnchorUniqueListenersData }
 
 export interface AnchorConnectorPayload {
     meta: {
