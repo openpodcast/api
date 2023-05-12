@@ -333,8 +333,36 @@ export interface RawAnchorPlaysByDeviceData {
 }
 
 export interface RawAnchorEpisodePlaysData {
-    rows: [string, number][]
+    rows: [number, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
+}
+
+export interface AnchorEpisodePlaysData {
+    episodeId: string
+    data: Map<Date, number>
+}
+
+export function convertToAnchorEpisodePlaysData(
+    rawData: RawAnchorEpisodePlaysData
+): AnchorEpisodePlaysData {
+    const data: Map<Date, number> = new Map()
+
+    for (const row of rawData.rows) {
+        const timestamp = row[0] * 1000
+        const date = new Date(timestamp)
+        console.log(date)
+        const value = row[1]
+        data.set(date, value)
+    }
+
+    if (data.size !== rawData.rows.length) {
+        throw new Error('Incomplete data.')
+    }
+
+    return {
+        episodeId: rawData.columnHeaders[0].name,
+        data: data,
+    }
 }
 
 export interface RawAnchorPlaysByGenderData {

@@ -45,6 +45,7 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'aggregatedPerformance':
                 validateJsonApiPayload(aggregatedPerformanceSchema, rawPayload)
+
                 await this.repo.storeAggregatedPerformance(
                     accountId,
                     payload.data.data as RawAnchorAggregatedPerformanceData

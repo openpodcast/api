@@ -1,23 +1,11 @@
 import {
-    AnchorDataPayload,
-    ConnectorPayload,
-    AnchorEpisodePlaysData,
-    AnchorPlaysData,
-    AnchorAggregatedPerformanceData,
     RawAnchorAudienceSizeData,
-    AnchorPlaysByAgeRangeData,
-    AnchorPlaysByAppData,
-    AnchorPlaysByDeviceData,
-    AnchorPlaysByGenderData,
-    AnchorPlaysByGeoData,
-    AnchorTotalPlaysData,
-    AnchorTotalPlaysByEpisodeData,
-    AnchorUniqueListenersData,
     RawAnchorAggregatedPerformanceData,
     convertToAnchorAggregatedPerformanceData,
     RawAnchorEpisodePerformanceData,
+    RawAnchorEpisodePlaysData,
+    convertToAnchorEpisodePlaysData,
 } from '../types/connector'
-// import { calcAnchorPodcastPerformanceQuarters } from '../stats/performance'
 
 class AnchorRepository {
     pool
@@ -36,6 +24,14 @@ class AnchorRepository {
             '-' +
             today.getDate()
         )
+    }
+
+    getDateDBString(date: Date): string {
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+
+        return `${year}-${month}-${day}`
     }
 
     async storeAudienceSize(
@@ -63,6 +59,8 @@ class AnchorRepository {
         accountId: number,
         data: RawAnchorAggregatedPerformanceData
     ): Promise<any> {
+        // This conversion is done here instead of in the connector because of
+        // https://eslint.org/docs/latest/rules/no-case-declarations
         const anchorAggregatedPerformanceData =
             convertToAnchorAggregatedPerformanceData(data)
 
@@ -123,27 +121,30 @@ class AnchorRepository {
     async storeEpisodePlays(
         accountId: number,
         episodeId: string,
-        data: AnchorEpisodePlaysData
+        data: RawAnchorEpisodePlaysData
     ): Promise<any> {
-        const replaceStmt = `REPLACE INTO anchorEpisodePlays (
-            account_id,
-            aep_episode_id,
-            aep_date,
-            aep_plays
-            ) VALUES
-            (?,?,?,?)`
+        const anchorEpisodePlaysData = convertToAnchorEpisodePlaysData(data)
 
-        return await Promise.all(
-            data.rows.map(
-                async (entry: any): Promise<any> =>
-                    await this.pool.query(replaceStmt, [
-                        accountId,
-                        episodeId,
-                        this.getTodayDBString(),
-                        entry[1] as number,
-                    ])
-            )
-        )
+        const replaceStmt = `REPLACE INTO anchorEpisodePlays (
+          account_id,
+          aep_episode_id,
+          aep_date,
+          aep_plays
+        ) VALUES (?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        anchorEpisodePlaysData.data.forEach((plays, date) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                episodeId,
+                this.getDateDBString(date),
+                plays,
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
     }
 
     // async storeEpisodesMetadata(
