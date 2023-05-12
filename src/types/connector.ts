@@ -245,12 +245,52 @@ export interface AnchorColumnHeader {
     isDateTime?: boolean
 }
 
-export interface AnchorAggregatedPerformanceData {
+export interface RawAnchorAggregatedPerformanceData {
     rows: [string, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
 
-export interface AnchorAudienceSizeData {
+export function convertToAnchorAggregatedPerformanceData(
+    rawData: RawAnchorAggregatedPerformanceData
+): AnchorAggregatedPerformanceData {
+    const data: Partial<AnchorAggregatedPerformanceData> = {}
+
+    for (const row of rawData.rows) {
+        if (row[0] === 'percentile25') {
+            data.percentile25 = row[1]
+        } else if (row[0] === 'percentile50') {
+            data.percentile50 = row[1]
+        } else if (row[0] === 'percentile75') {
+            data.percentile75 = row[1]
+        } else if (row[0] === 'percentile100') {
+            data.percentile100 = row[1]
+        } else if (row[0] === 'averageListenSeconds') {
+            data.averageListenSeconds = row[1]
+        }
+    }
+
+    if (
+        !data.percentile25 ||
+        !data.percentile50 ||
+        !data.percentile75 ||
+        !data.percentile100 ||
+        !data.averageListenSeconds
+    ) {
+        throw new Error('Incomplete data.')
+    }
+
+    return data as AnchorAggregatedPerformanceData
+}
+
+export interface AnchorAggregatedPerformanceData {
+    percentile25: number
+    percentile50: number
+    percentile75: number
+    percentile100: number
+    averageListenSeconds: number
+}
+
+export interface RawAnchorAudienceSizeData {
     rows: number[]
     columnHeaders: [AnchorColumnHeader]
 }
@@ -320,7 +360,7 @@ export interface AnchorUniqueListenersData {
 
 export type AnchorDataPayload =
     | { kind: 'aggregatedPerformance'; data: AnchorAggregatedPerformanceData }
-    | { kind: 'audienceSize'; data: AnchorAudienceSizeData }
+    | { kind: 'audienceSize'; data: RawAnchorAudienceSizeData }
     | { kind: 'plays'; data: AnchorPlaysData }
     | { kind: 'playsByAgeRange'; data: AnchorPlaysByAgeRangeData }
     | { kind: 'playsByApp'; data: AnchorPlaysByAppData }

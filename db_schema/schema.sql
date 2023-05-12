@@ -532,6 +532,19 @@ CREATE TABLE IF NOT EXISTS anchorAudienceSize (
   PRIMARY KEY (account_id, aas_date)
 );
 
+
+CREATE TABLE IF NOT EXISTS anchorAggregatedPerformance (
+  account_id INTEGER NOT NULL,
+  aap_date DATE NOT NULL,
+  aap_percentile25 INTEGER NOT NULL,
+  aap_percentile50 INTEGER NOT NULL,
+  aap_percentile75 INTEGER NOT NULL,
+  aap_percentile100 INTEGER NOT NULL,
+  aap_average_listen_seconds INTEGER NOT NULL,
+  PRIMARY KEY (account_id, aap_date)
+);
+
+
 CREATE TABLE IF NOT EXISTS anchorEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,

@@ -4,7 +4,7 @@ import {
     AnchorEpisodePlaysData,
     AnchorPlaysData,
     AnchorAggregatedPerformanceData,
-    AnchorAudienceSizeData,
+    RawAnchorAudienceSizeData,
     AnchorPlaysByAgeRangeData,
     AnchorPlaysByAppData,
     AnchorPlaysByDeviceData,
@@ -13,6 +13,8 @@ import {
     AnchorTotalPlaysData,
     AnchorTotalPlaysByEpisodeData,
     AnchorUniqueListenersData,
+    RawAnchorAggregatedPerformanceData,
+    convertToAnchorAggregatedPerformanceData,
 } from '../types/connector'
 // import { calcAnchorPodcastPerformanceQuarters } from '../stats/performance'
 
@@ -37,7 +39,7 @@ class AnchorRepository {
 
     async storeAudienceSizeData(
         accountId: number,
-        data: AnchorAudienceSizeData
+        data: RawAnchorAudienceSizeData
     ): Promise<any> {
         // audienceSize.rows is an array with a single element
         const audienceSize = data.rows[0]
@@ -53,6 +55,34 @@ class AnchorRepository {
             accountId,
             this.getTodayDBString(),
             audienceSize,
+        ])
+    }
+
+    async storeAggregatedPerformanceData(
+        accountId: number,
+        data: RawAnchorAggregatedPerformanceData
+    ): Promise<any> {
+        const anchorData = convertToAnchorAggregatedPerformanceData(data)
+
+        const replaceStmt = `REPLACE INTO anchorAggregatedPerformance (
+            account_id,
+            aap_date,
+            aap_percentile25,
+            aap_percentile50,
+            aap_percentile75,
+            aap_percentile100,
+            aap_average_listen_seconds
+            ) VALUES
+            (?,?,?,?,?,?,?)`
+
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            this.getTodayDBString(),
+            anchorData.percentile25,
+            anchorData.percentile50,
+            anchorData.percentile75,
+            anchorData.percentile100,
+            anchorData.averageListenSeconds,
         ])
     }
 

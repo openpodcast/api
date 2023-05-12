@@ -15,9 +15,11 @@ import uniqueListenersSchema from '../../schema/anchor/uniqueListeners.json'
 import aggregatedPerformanceSchema from '../../schema/anchor/aggregatedPerformance.json'
 
 import {
-    AnchorAudienceSizeData,
+    AnchorAggregatedPerformanceData,
+    RawAnchorAudienceSizeData,
     AnchorConnectorPayload,
     ConnectorPayload,
+    RawAnchorAggregatedPerformanceData,
 } from '../../types/connector'
 import { AnchorRepository } from '../../db/AnchorRepository'
 
@@ -44,22 +46,22 @@ class AnchorConnector implements ConnectorHandler {
 
                 await this.repo.storeAudienceSizeData(
                     accountId,
-                    anchorPayload.data.data as AnchorAudienceSizeData
+                    anchorPayload.data.data as RawAnchorAudienceSizeData
                 )
                 break
 
-            // case 'aggregatedPerformance':
-            //     // Validate the payload and store data
-            //     // Replace 'aggregatedPerformanceSchema' with the actual schema
-            //     validateJsonApiPayload(
-            //         aggregatedPerformanceSchema,
-            //         anchorPayload.data
-            //     )
-            //     await this.repo.storeAggregatedPerformanceData(
-            //         accountId,
-            //         anchorPayload.data
-            //     )
-            //     break
+            case 'aggregatedPerformance':
+                console.log('aggregatedPerformance')
+                validateJsonApiPayload(
+                    aggregatedPerformanceSchema,
+                    anchorPayload
+                )
+                await this.repo.storeAggregatedPerformanceData(
+                    accountId,
+                    anchorPayload.data
+                        .data as RawAnchorAggregatedPerformanceData
+                )
+                break
 
             // case 'plays':
             //     validateJsonApiPayload(playsSchema, anchorPayload.data)

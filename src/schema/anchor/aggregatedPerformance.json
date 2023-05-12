@@ -60,15 +60,21 @@
           "properties": {
             "rows": {
               "type": "array",
+              "minItems": 5,
+              "maxItems": 5,
               "items": {
                 "type": "array",
-                "items": [
+                "prefixItems": [
                   {
                     "type": "string"
                   },
-                  {}
-                ],
-                "additionalItems": false
+                  {
+                    "type": [
+                      "number",
+                      "string"
+                    ]
+                  }
+                ]
               }
             },
             "columnHeaders": {
