@@ -51,7 +51,6 @@ class AnchorConnector implements ConnectorHandler {
                 break
 
             case 'aggregatedPerformance':
-                console.log('aggregatedPerformance')
                 validateJsonApiPayload(
                     aggregatedPerformanceSchema,
                     anchorPayload
