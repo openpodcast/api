@@ -192,7 +192,7 @@ class AnchorRepository {
             account_id,
             apbar_date,
             apbar_age_range,
-            apbar_plays
+            apbar_plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []

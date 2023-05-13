@@ -573,7 +573,7 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByAgeRange (
   account_id INTEGER NOT NULL,
   apbar_date DATE NOT NULL,
   apbar_age_range VARCHAR(128) NOT NULL,
-  apbar_plays INTEGER NOT NULL,
+  apbar_plays_percent INTEGER NOT NULL,
   PRIMARY KEY (account_id, apbar_date, apbar_age_range)
 );
 
