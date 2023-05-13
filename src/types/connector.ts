@@ -348,7 +348,7 @@ export interface RawAnchorPlaysByDeviceData {
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
 
-export interface RawAnchorEpisodePlaysData {
+export interface RawAnchorPlaysByEpisodeData {
     rows: [number, number][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
@@ -359,7 +359,7 @@ export interface AnchorEpisodePlaysData {
 }
 
 export function convertToAnchorEpisodePlaysData(
-    rawData: RawAnchorEpisodePlaysData
+    rawData: RawAnchorPlaysByEpisodeData
 ): AnchorEpisodePlaysData {
     const data: Map<Date, number> = new Map()
     for (const row of rawData.rows) {
@@ -428,7 +428,7 @@ export type AnchorDataPayload =
     | { kind: 'playsByAgeRange'; data: RawAnchorPlaysByAgeRangeData }
     | { kind: 'playsByApp'; data: RawAnchorPlaysByAppData }
     | { kind: 'playsByDevice'; data: RawAnchorPlaysByDeviceData }
-    | { kind: 'playsByEpisode'; data: RawAnchorEpisodePlaysData }
+    | { kind: 'playsByEpisode'; data: RawAnchorPlaysByEpisodeData }
     | { kind: 'playsByGender'; data: RawAnchorPlaysByGenderData }
     | { kind: 'playsByGeo'; data: RawAnchorPlaysByGeoData }
     | { kind: 'totalPlays'; data: RawAnchorTotalPlaysData }

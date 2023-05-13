@@ -593,6 +593,14 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByDevice(
   PRIMARY KEY (account_id, apbd_date, apbd_device)
 );
 
+CREATE TABLE IF NOT EXISTS anchorPlaysByEpisode (
+  account_id INTEGER NOT NULL,
+  apbe_date DATE NOT NULL,
+  apbe_episode_id VARCHAR(128) NOT NULL,
+  apbe_plays INTEGER NOT NULL,
+  PRIMARY KEY (account_id, apbe_date, apbe_episode_id)
+);
+
 CREATE TABLE IF NOT EXISTS anchorEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,

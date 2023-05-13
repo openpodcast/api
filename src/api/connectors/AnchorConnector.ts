@@ -18,7 +18,7 @@ import {
     ConnectorPayload,
     RawAnchorAggregatedPerformanceData,
     RawAnchorEpisodePerformanceData,
-    RawAnchorEpisodePlaysData,
+    RawAnchorPlaysByEpisodeData,
     RawAnchorPlaysData,
     RawAnchorPlaysByAgeRangeData,
     RawAnchorPlaysByAppData,
@@ -83,7 +83,7 @@ class AnchorConnector implements ConnectorHandler {
                 await this.repo.storeEpisodePlays(
                     accountId,
                     payload.meta.episode,
-                    payload.data.data as RawAnchorEpisodePlaysData
+                    payload.data.data as RawAnchorPlaysByEpisodeData
                 )
                 break
 
@@ -116,6 +116,14 @@ class AnchorConnector implements ConnectorHandler {
                 await this.repo.storePlaysByDevice(
                     accountId,
                     payload.data.data as RawAnchorPlaysByDeviceData
+                )
+                break
+
+            case 'playsByEpisode':
+                validateJsonApiPayload(playsByEpisodeSchema, rawPayload)
+                await this.repo.storePlaysByEpisode(
+                    accountId,
+                    payload.data.data as RawAnchorPlaysByEpisodeData
                 )
                 break
 

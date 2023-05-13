@@ -4,7 +4,7 @@ import {
     RawAnchorAggregatedPerformanceData,
     convertToAnchorAggregatedPerformanceData,
     RawAnchorEpisodePerformanceData,
-    RawAnchorEpisodePlaysData,
+    RawAnchorPlaysByEpisodeData,
     convertToAnchorEpisodePlaysData,
     RawAnchorPlaysData,
     convertToAnchorPlaysData,
@@ -128,7 +128,7 @@ class AnchorRepository {
     async storeEpisodePlays(
         accountId: number,
         episodeId: string,
-        data: RawAnchorEpisodePlaysData
+        data: RawAnchorPlaysByEpisodeData
     ): Promise<any> {
         const anchorEpisodePlaysData = convertToAnchorEpisodePlaysData(data)
 
@@ -244,6 +244,32 @@ class AnchorRepository {
             apbd_date,
             apbd_device,
             apbd_plays_percent
+        ) VALUES (?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        data.rows.forEach((entry) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                this.getTodayDBString(),
+                entry[0],
+                entry[1],
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
+    async storePlaysByEpisode(
+        accountId: number,
+        data: RawAnchorPlaysByEpisodeData
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO anchorPlaysByEpisode (
+            account_id,
+            apbe_date,
+            apbe_episode_id,
+            apbe_plays
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
