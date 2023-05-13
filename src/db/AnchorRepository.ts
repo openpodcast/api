@@ -13,6 +13,7 @@ import {
     RawAnchorPlaysByAppData,
     RawAnchorPlaysByDeviceData,
     RawAnchorPlaysByGenderData,
+    RawAnchorPlaysByGeoData,
 } from '../types/connector'
 
 class AnchorRepository {
@@ -296,6 +297,32 @@ class AnchorRepository {
             account_id,
             apbg_date,
             apbg_gender,
+            apbg_plays_percent
+        ) VALUES (?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        data.rows.forEach((entry) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                this.getTodayDBString(),
+                entry[0],
+                entry[1],
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
+    async storePlaysByGeo(
+        accountId: number,
+        data: RawAnchorPlaysByGeoData
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO anchorPlaysByGeo (
+            account_id,
+            apbg_date,
+            apbg_geo,
             apbg_plays_percent
         ) VALUES (?,?,?,?)`
 
