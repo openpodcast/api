@@ -127,6 +127,14 @@ class AnchorConnector implements ConnectorHandler {
                 )
                 break
 
+            case 'playsByGender':
+                validateJsonApiPayload(playsByGenderSchema, rawPayload)
+                await this.repo.storePlaysByGender(
+                    accountId,
+                    payload.data.data as RawAnchorPlaysByGenderData
+                )
+                break
+
             default:
                 throw new PayloadError(
                     `Unknown endpoint in meta: ${rawPayload.meta.endpoint}`

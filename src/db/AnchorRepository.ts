@@ -12,6 +12,7 @@ import {
     convertToAnchorPlaysByAgeRangeData,
     RawAnchorPlaysByAppData,
     RawAnchorPlaysByDeviceData,
+    RawAnchorPlaysByGenderData,
 } from '../types/connector'
 
 class AnchorRepository {
@@ -270,6 +271,32 @@ class AnchorRepository {
             apbe_date,
             apbe_episode_id,
             apbe_plays
+        ) VALUES (?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        data.rows.forEach((entry) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                this.getTodayDBString(),
+                entry[0],
+                entry[1],
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
+    storePlaysByGender = async (
+        accountId: number,
+        data: RawAnchorPlaysByGenderData
+    ): Promise<any> => {
+        const replaceStmt = `REPLACE INTO anchorPlaysByGender (
+            account_id,
+            apbg_date,
+            apbg_gender,
+            apbg_plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
