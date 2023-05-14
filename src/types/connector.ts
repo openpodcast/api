@@ -469,7 +469,7 @@ export interface RawAnchorEpisodeData {
     title: string
     url: string
     trackedUrl: string
-    episodeImage: null | string // If there can be a string value as well, adjust this accordingly.
+    episodeImage: null | string
     shareLinkPath: string
     shareLinkEmbedPath: string
 }
