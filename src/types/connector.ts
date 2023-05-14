@@ -431,7 +431,6 @@ export type AnchorDataPayload =
     | { kind: 'playsByEpisode'; data: RawAnchorPlaysByEpisodeData }
     | { kind: 'playsByGender'; data: RawAnchorPlaysByGenderData }
     | { kind: 'playsByGeo'; data: RawAnchorPlaysByGeoData }
-    | { kind: 'podcastEpisode'; data: RawAnchorPodcastData }
     | { kind: 'totalPlays'; data: RawAnchorTotalPlaysData }
     | { kind: 'totalPlaysByEpisode'; data: RawAnchorTotalPlaysByEpisodeData }
     | { kind: 'uniqueListeners'; data: RawAnchorUniqueListenersData }
@@ -447,9 +446,13 @@ export interface AnchorConnectorPayload {
     }
     // Make use of `AnchorDataPayload` union type
     // stationId needs to be set in the `data` object as well
-    data: AnchorDataPayload & { stationId: string }
+    data: AnchorConnectorPayloadData
     provider: string
 }
+
+type AnchorConnectorPayloadData =
+    | (AnchorDataPayload & { stationId: string })
+    | RawAnchorPodcastData
 
 export interface RawAnchorEpisodeData {
     adCount: number

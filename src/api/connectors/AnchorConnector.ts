@@ -28,8 +28,26 @@ import {
     RawAnchorPlaysByGenderData,
     RawAnchorPlaysByGeoData,
     RawAnchorPodcastData,
+    AnchorDataPayload,
 } from '../../types/connector'
 import { AnchorRepository } from '../../db/AnchorRepository'
+
+// Most Anchor endpoints have a "data" property, which
+// is an array of rows and headers.
+function isDataPayload(
+    data: AnchorConnectorPayload['data']
+): data is AnchorDataPayload & { stationId: string } {
+    return 'data' in data
+}
+
+// The podcast endpoint has a different structure, with a single
+// "podcast" property, which is an object.
+// It contains the podcastId, and data for each episode.
+function isRawAnchorPodcastData(
+    data: AnchorConnectorPayload['data']
+): data is RawAnchorPodcastData {
+    return 'podcastId' in data
+}
 
 class AnchorConnector implements ConnectorHandler {
     repo: AnchorRepository
@@ -52,6 +70,10 @@ class AnchorConnector implements ConnectorHandler {
                 // The schema ensures that we only have one row
                 validateJsonApiPayload(audienceSizeSchema, rawPayload)
 
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
+
                 await this.repo.storeAudienceSize(
                     accountId,
                     payload.data.data as RawAnchorAudienceSizeData
@@ -60,6 +82,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'aggregatedPerformance':
                 validateJsonApiPayload(aggregatedPerformanceSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
 
                 await this.repo.storeAggregatedPerformance(
                     accountId,
@@ -71,6 +96,9 @@ class AnchorConnector implements ConnectorHandler {
                 validateJsonApiPayload(episodePerformanceSchema, rawPayload)
                 if (payload.meta.episode === undefined) {
                     throw new PayloadError('missing episode id')
+                }
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
                 }
                 await this.repo.storeEpisodePerformance(
                     accountId,
@@ -84,6 +112,9 @@ class AnchorConnector implements ConnectorHandler {
                 if (payload.meta.episode === undefined) {
                     throw new PayloadError('missing episode id')
                 }
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storeEpisodePlays(
                     accountId,
                     payload.meta.episode,
@@ -93,6 +124,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'plays':
                 validateJsonApiPayload(playsSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePlays(
                     accountId,
                     payload.data.data as RawAnchorPlaysData
@@ -101,6 +135,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'playsByAgeRange':
                 validateJsonApiPayload(playsByAgeRangeSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePlaysByAgeRange(
                     accountId,
                     payload.data.data as RawAnchorPlaysByAgeRangeData
@@ -109,6 +146,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'playsByApp':
                 validateJsonApiPayload(playsByAppSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePlaysByApp(
                     accountId,
                     payload.data.data as RawAnchorPlaysByAppData
@@ -117,6 +157,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'playsByDevice':
                 validateJsonApiPayload(playsByDeviceSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePlaysByDevice(
                     accountId,
                     payload.data.data as RawAnchorPlaysByDeviceData
@@ -125,6 +168,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'playsByEpisode':
                 validateJsonApiPayload(playsByEpisodeSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePlaysByEpisode(
                     accountId,
                     payload.data.data as RawAnchorPlaysByEpisodeData
@@ -133,6 +179,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'playsByGender':
                 validateJsonApiPayload(playsByGenderSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePlaysByGender(
                     accountId,
                     payload.data.data as RawAnchorPlaysByGenderData
@@ -141,6 +190,9 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'playsByGeo':
                 validateJsonApiPayload(playsByGeoSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePlaysByGeo(
                     accountId,
                     payload.data.data as RawAnchorPlaysByGeoData
@@ -149,7 +201,10 @@ class AnchorConnector implements ConnectorHandler {
 
             case 'podcastEpisode':
                 validateJsonApiPayload(podcastEpisodeSchema, rawPayload)
-                console.log('podcastEpisode', payload.data)
+
+                if (!isRawAnchorPodcastData(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
                 await this.repo.storePodcastEpisodes(
                     accountId,
                     payload.data.podcastId,

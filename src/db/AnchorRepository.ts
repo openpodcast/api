@@ -356,12 +356,9 @@ class AnchorRepository {
 
     async storePodcastEpisodes(
         accountId: number,
-        podcastId: number,
+        podcastId: string,
         data: RawAnchorPodcastData
     ): Promise<any> {
-        console.log('storePodcastEpisodes')
-        console.log(podcastId)
-        console.log(data)
         const replaceStmt = `REPLACE INTO anchorPodcastEpisodes (
             account_id,
             ape_podcast_id,
