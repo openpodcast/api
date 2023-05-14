@@ -13,6 +13,7 @@ import playsByEpisodeSchema from '../../schema/anchor/playsByEpisode.json'
 import playsByGenderSchema from '../../schema/anchor/playsByGender.json'
 import playsByGeoSchema from '../../schema/anchor/playsByGeo.json'
 import podcastEpisodeSchema from '../../schema/anchor/podcastEpisode.json'
+import totalPlaysSchema from '../../schema/anchor/totalPlays.json'
 
 import {
     RawAnchorAudienceSizeData,
@@ -29,6 +30,7 @@ import {
     RawAnchorPlaysByGeoData,
     RawAnchorPodcastData,
     AnchorDataPayload,
+    RawAnchorTotalPlaysData,
 } from '../../types/connector'
 import { AnchorRepository } from '../../db/AnchorRepository'
 
@@ -209,6 +211,17 @@ class AnchorConnector implements ConnectorHandler {
                     accountId,
                     payload.data.podcastId,
                     payload.data as RawAnchorPodcastData
+                )
+                break
+
+            case 'totalPlays':
+                validateJsonApiPayload(totalPlaysSchema, rawPayload)
+                if (!isDataPayload(payload.data)) {
+                    throw new PayloadError('Incorrect payload data type')
+                }
+                await this.repo.storeTotalPlays(
+                    accountId,
+                    payload.data.data as RawAnchorTotalPlaysData
                 )
                 break
 

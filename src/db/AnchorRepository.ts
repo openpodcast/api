@@ -14,6 +14,7 @@ import {
     RawAnchorPlaysByGenderData,
     RawAnchorPlaysByGeoData,
     RawAnchorPodcastData,
+    RawAnchorTotalPlaysData,
 } from '../types/connector'
 
 class AnchorRepository {
@@ -405,6 +406,28 @@ class AnchorRepository {
         })
 
         return Promise.all(queryPromises)
+    }
+
+    async storeTotalPlays(
+        accountId: number,
+        data: RawAnchorTotalPlaysData
+    ): Promise<any> {
+        // totalPlays.rows is an array with a single element
+        const totalPlays = data.rows[0]
+
+        const replaceStmt = `REPLACE INTO anchorTotalPlays (
+            account_id,
+            atp_date,
+            atp_plays
+        ) VALUES (?,?,?)`
+
+        const queryPromise = this.pool.query(replaceStmt, [
+            accountId,
+            this.getTodayDBString(),
+            totalPlays,
+        ])
+
+        return queryPromise
     }
 }
 
