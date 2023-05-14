@@ -101,17 +101,12 @@
               "trackedUrl": {
                 "type": "string"
               },
-              "episodeImage": {
-                "type": "string"
-              },
+              "episodeImage": {},
               "shareLinkPath": {
                 "type": "string"
               },
               "shareLinkEmbedPath": {
                 "type": "string"
-              },
-              "isMT": {
-                "type": "boolean"
               }
             },
             "required": [
@@ -129,6 +124,7 @@
               "title",
               "url",
               "trackedUrl",
+              "episodeImage",
               "shareLinkPath",
               "shareLinkEmbedPath"
             ]

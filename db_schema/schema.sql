@@ -617,6 +617,27 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByGeo (
   PRIMARY KEY (account_id, apbg_date, apbg_geo)
 );
 
+CREATE TABLE IF NOT EXISTS anchorPodcastEpisodes (
+    account_id INTEGER NOT NULL,
+    ape_podcast_id VARCHAR(128) NOT NULL,
+    ape_episode_id VARCHAR(128) NOT NULL,
+    ape_date DATETIME NOT NULL,
+    ape_title VARCHAR(255) NOT NULL,
+    ape_description TEXT,
+    ape_url VARCHAR(512) NOT NULL,
+    ape_tracked_url VARCHAR(512),
+    ape_episode_image VARCHAR(512),
+    ape_share_link_path VARCHAR(512) NOT NULL,
+    ape_share_link_embed_path VARCHAR(512) NOT NULL,
+    ape_ad_count INTEGER NOT NULL,
+    ape_created DATETIME NOT NULL,
+    ape_duration BIGINT NOT NULL,
+    ape_hour_offset INTEGER NOT NULL,
+    ape_is_deleted BOOLEAN NOT NULL,
+    ape_is_published BOOLEAN NOT NULL,
+    PRIMARY KEY (account_id, ape_episode_id)
+);
+
 CREATE TABLE IF NOT EXISTS anchorEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,

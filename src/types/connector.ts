@@ -431,6 +431,7 @@ export type AnchorDataPayload =
     | { kind: 'playsByEpisode'; data: RawAnchorPlaysByEpisodeData }
     | { kind: 'playsByGender'; data: RawAnchorPlaysByGenderData }
     | { kind: 'playsByGeo'; data: RawAnchorPlaysByGeoData }
+    | { kind: 'podcastEpisode'; data: RawAnchorPodcastData }
     | { kind: 'totalPlays'; data: RawAnchorTotalPlaysData }
     | { kind: 'totalPlaysByEpisode'; data: RawAnchorTotalPlaysByEpisodeData }
     | { kind: 'uniqueListeners'; data: RawAnchorUniqueListenersData }
@@ -448,4 +449,33 @@ export interface AnchorConnectorPayload {
     // stationId needs to be set in the `data` object as well
     data: AnchorDataPayload & { stationId: string }
     provider: string
+}
+
+export interface RawAnchorEpisodeData {
+    adCount: number
+    created: string
+    createdUnixTimestamp: number
+    description: string
+    duration: number
+    hourOffset: number
+    isDeleted: boolean
+    isPublished: boolean
+    podcastEpisodeId: string
+    publishOn: string
+    publishOnUnixTimestamp: number
+    title: string
+    url: string
+    trackedUrl: string
+    episodeImage: null | string // If there can be a string value as well, adjust this accordingly.
+    shareLinkPath: string
+    shareLinkEmbedPath: string
+}
+
+export interface RawAnchorPodcastData {
+    allEpisodeWebIds: string[]
+    podcastId: string
+    podcastEpisodes: RawAnchorEpisodeData[]
+    totalPodcastEpisodes: number
+    vanitySlug: string
+    stationCreatedDate: string
 }

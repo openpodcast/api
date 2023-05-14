@@ -12,6 +12,7 @@ import playsByDeviceSchema from '../../schema/anchor/playsByDevice.json'
 import playsByEpisodeSchema from '../../schema/anchor/playsByEpisode.json'
 import playsByGenderSchema from '../../schema/anchor/playsByGender.json'
 import playsByGeoSchema from '../../schema/anchor/playsByGeo.json'
+import podcastEpisodeSchema from '../../schema/anchor/podcastEpisode.json'
 
 import {
     RawAnchorAudienceSizeData,
@@ -26,6 +27,7 @@ import {
     RawAnchorPlaysByDeviceData,
     RawAnchorPlaysByGenderData,
     RawAnchorPlaysByGeoData,
+    RawAnchorPodcastData,
 } from '../../types/connector'
 import { AnchorRepository } from '../../db/AnchorRepository'
 
@@ -142,6 +144,16 @@ class AnchorConnector implements ConnectorHandler {
                 await this.repo.storePlaysByGeo(
                     accountId,
                     payload.data.data as RawAnchorPlaysByGeoData
+                )
+                break
+
+            case 'podcastEpisode':
+                validateJsonApiPayload(podcastEpisodeSchema, rawPayload)
+                console.log('podcastEpisode', payload.data)
+                await this.repo.storePodcastEpisodes(
+                    accountId,
+                    payload.data.podcastId,
+                    payload.data as RawAnchorPodcastData
                 )
                 break
 

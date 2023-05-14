@@ -1,4 +1,3 @@
-import { i } from 'mathjs'
 import {
     RawAnchorAudienceSizeData,
     RawAnchorAggregatedPerformanceData,
@@ -14,6 +13,7 @@ import {
     RawAnchorPlaysByDeviceData,
     RawAnchorPlaysByGenderData,
     RawAnchorPlaysByGeoData,
+    RawAnchorPodcastData,
 } from '../types/connector'
 
 class AnchorRepository {
@@ -41,6 +41,19 @@ class AnchorRepository {
         const day = String(date.getDate()).padStart(2, '0')
 
         return `${year}-${month}-${day}`
+    }
+
+    unixTimestampToDate(unixTimestamp: number) {
+        const date = new Date(unixTimestamp * 1000) // Convert to milliseconds by multiplying by 1000
+        const yearString = date.getFullYear()
+        const month = date.getMonth() + 1 // JavaScript months are 0-11
+        const day = date.getDate()
+
+        // Pad the month and day with leading zeros if below 10
+        const monthString = month < 10 ? '0' + month : month
+        const dayString = day < 10 ? '0' + day : day
+
+        return `${yearString}-${monthString}-${dayString}`
     }
 
     async storeAudienceSize(
@@ -334,6 +347,62 @@ class AnchorRepository {
                 this.getTodayDBString(),
                 entry[0],
                 entry[1],
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
+    async storePodcastEpisodes(
+        accountId: number,
+        podcastId: number,
+        data: RawAnchorPodcastData
+    ): Promise<any> {
+        console.log('storePodcastEpisodes')
+        console.log(podcastId)
+        console.log(data)
+        const replaceStmt = `REPLACE INTO anchorPodcastEpisodes (
+            account_id,
+            ape_podcast_id,
+            ape_episode_id,
+            ape_date,
+            ape_title,
+            ape_description,
+            ape_url,
+            ape_tracked_url,
+            ape_episode_image,
+            ape_share_link_path,
+            ape_share_link_embed_path,
+            ape_ad_count,
+            ape_created,
+            ape_duration,
+            ape_hour_offset,
+            ape_is_deleted,
+            ape_is_published
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        data.podcastEpisodes.forEach((episode) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                podcastId,
+                episode.podcastEpisodeId,
+                this.getTodayDBString(),
+                episode.title,
+                episode.description,
+                episode.url,
+                episode.trackedUrl,
+                episode.episodeImage,
+                episode.shareLinkPath,
+                episode.shareLinkEmbedPath,
+                episode.adCount,
+                this.unixTimestampToDate(episode.createdUnixTimestamp),
+                episode.duration,
+                episode.hourOffset,
+                episode.isDeleted,
+                episode.isPublished,
             ])
             queryPromises.push(queryPromise)
         })
