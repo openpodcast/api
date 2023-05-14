@@ -645,6 +645,15 @@ CREATE TABLE IF NOT EXISTS anchorTotalPlays (
   PRIMARY KEY (account_id, atp_date)
 );
 
+CREATE TABLE IF NOT EXISTS anchorTotalPlaysByEpisode (
+    account_id INTEGER NOT NULL,
+    atpbe_date DATE NOT NULL,
+    atpbe_episode_id VARCHAR(255) NOT NULL,
+    atpbe_plays INTEGER NOT NULL,
+    PRIMARY KEY (account_id, atpbe_date, atpbe_episode_id)
+);
+
+
 CREATE TABLE IF NOT EXISTS anchorEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
