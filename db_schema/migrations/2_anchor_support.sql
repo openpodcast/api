@@ -23,8 +23,7 @@ CREATE TABLE IF NOT EXISTS anchorEpisodePerformance (
   aep_sample INTEGER NOT NULL,
   aep_listeners INTEGER NOT NULL,
   PRIMARY KEY (account_id, aep_episode_id, aep_date)
-
-)
+);
 
 CREATE TABLE IF NOT EXISTS anchorPlays (
   account_id INTEGER NOT NULL,
