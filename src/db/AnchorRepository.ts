@@ -16,6 +16,7 @@ import {
     RawAnchorPodcastData,
     RawAnchorTotalPlaysData,
     RawAnchorTotalPlaysByEpisodeData,
+    RawAnchorUniqueListenersData,
 } from '../types/connector'
 
 class AnchorRepository {
@@ -455,6 +456,25 @@ class AnchorRepository {
         })
 
         return Promise.all(queryPromises)
+    }
+
+    async storeUniqueListeners(
+        accountId: number,
+        data: RawAnchorUniqueListenersData
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO anchorUniqueListeners (
+            account_id,
+            aul_date,
+            aul_unique_listeners
+        ) VALUES (?,?,?)`
+
+        const queryPromise = this.pool.query(replaceStmt, [
+            accountId,
+            this.getTodayDBString(),
+            data.rows[0],
+        ])
+
+        return queryPromise
     }
 }
 
