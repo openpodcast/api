@@ -29,7 +29,7 @@ build: ## Build the js code
 
 .PHONY: dev
 dev: ## Starts the api development server
-	npm run dev
+	set -a && source env.local.test && set +a && npm run dev
 
 .PHONY: clean
 clean: ## Clean build files

@@ -8,8 +8,13 @@ services:
         volumes:
             - ./dist:/app/dist
             - ./db_schema:/app/db_schema
-        env_file:
-            - env.local.test
+        environment:
+            - MYSQL_HOST=db
+            - MYSQL_USER=openpodcast
+            - MYSQL_PASSWORD=openpodcast
+            - MYSQL_DATABASE=openpodcast
+            - MYSQL_PORT=3306
+            - ACCOUNTS='{"dummy-cn389ncoiwuencr":1}'
         ports:
             - '8080:8080'
         links:
