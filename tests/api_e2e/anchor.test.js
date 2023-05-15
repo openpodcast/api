@@ -19,6 +19,57 @@ const anchorUniqueListenersPayload = require('../../fixtures/anchorUniqueListene
 
 const auth = require('./authheader')
 
+describe('check Connector API with unknown Anchor endpoint', () => {
+    it('should return status 404 when sending unknown Anchor endpoint', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send({ endpoint: 'unknown' })
+        expect(response.statusCode).toBe(400)
+    })
+})
+
+describe('check Connector API with wrong schema', () => {
+    it('should return status 400 when sending wrong schema', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send({ endpoint: 'audience_size', wrong: 'schema', data: 'test' })
+        expect(response.statusCode).toBe(400)
+    })
+})
+
+describe('check Connector API with invalid anchorTotalPlaysPayload (missing columnHeaders)', () => {
+    it('should return status 400 when sending invalid Anchor payload', async () => {
+        // Load the payload and remove the columnHeaders
+        // "Clone" the object to avoid changing the original
+        // Note that the spread operator does not work here as it creates a shallow copy
+        // https://stackoverflow.com/a/38874807
+        const payload = JSON.parse(JSON.stringify(anchorTotalPlaysPayload))
+        delete payload.data.data.columnHeaders
+
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(payload)
+        expect(response.statusCode).toBe(400)
+    })
+})
+
+describe('check Connector API with invalid anchorTotalPlaysPayload (missing rows)', () => {
+    it('should return status 400 when sending invalid Anchor payload', async () => {
+        // Load the payload and remove the rows
+        const payload = JSON.parse(JSON.stringify(anchorTotalPlaysPayload))
+        delete payload.data.data.rows
+
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(payload)
+        expect(response.statusCode).toBe(400)
+    })
+})
+
 describe('check Connector API with anchorAudienceSizePayload', () => {
     it('should return status 200 when sending proper Anchor payload', async () => {
         const response = await request(baseURL)
