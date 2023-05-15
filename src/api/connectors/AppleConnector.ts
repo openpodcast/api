@@ -6,6 +6,7 @@ import episodeDetailsSchema from '../../schema/apple/episodeDetails.json'
 import showTrendsListenersSchema from '../../schema/apple/showTrendsListeners.json'
 import showTrendsFollowersSchema from '../../schema/apple/showTrendsFollowers.json'
 import showTrendsListeningTimeFollowerState from '../../schema/apple/showTrendsListeningTimeFollowerState.json'
+import { ConnectorPayload } from '../../types/connector'
 import {
     appleEpisodeDetailsPayload,
     AppleEpisodePayload,
@@ -16,8 +17,7 @@ import {
     AppleShowTrendsListenersPayload,
     AppleShowTrendsListeningTimeFollowerStatePayload,
     AppleShowTrendsListeningTimeFollowerStateDay,
-    ConnectorPayload,
-} from '../../types/connector'
+} from '../../types/provider/apple'
 import { AppleRepository } from '../../db/AppleRepository'
 
 class AppleConnector implements ConnectorHandler {

@@ -5,7 +5,7 @@ import {
     AppleShowPlayCountTrendsPayload,
     AppleShowTrendsFollowersDay,
     AppleShowTrendsListeningTimeFollowerStateDay,
-} from '../types/connector'
+} from '../types/provider/apple'
 import { calcApplePodcastPerformanceQuarters } from '../stats/performance'
 class AppleRepository {
     pool
