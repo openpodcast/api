@@ -551,8 +551,7 @@ CREATE TABLE IF NOT EXISTS anchorEpisodePerformance (
   sample INTEGER NOT NULL,
   listeners INTEGER NOT NULL,
   PRIMARY KEY (account_id, episode_id, date)
-
-)
+);
 
 CREATE TABLE IF NOT EXISTS anchorPlays (
   account_id INTEGER NOT NULL,
