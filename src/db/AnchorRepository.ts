@@ -17,7 +17,7 @@ import {
     RawAnchorTotalPlaysData,
     RawAnchorTotalPlaysByEpisodeData,
     RawAnchorUniqueListenersData,
-} from '../types/connector'
+} from '../types/provider/anchor'
 
 class AnchorRepository {
     pool

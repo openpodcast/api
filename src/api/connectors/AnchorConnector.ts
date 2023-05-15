@@ -17,10 +17,10 @@ import totalPlaysSchema from '../../schema/anchor/totalPlays.json'
 import totalPlaysByEpisodeSchema from '../../schema/anchor/totalPlaysByEpisode.json'
 import uniqueListenersSchema from '../../schema/anchor/uniqueListeners.json'
 
+import { ConnectorPayload } from '../../types/connector'
 import {
     RawAnchorAudienceSizeData,
     AnchorConnectorPayload,
-    ConnectorPayload,
     RawAnchorAggregatedPerformanceData,
     RawAnchorEpisodePerformanceData,
     RawAnchorPlaysByEpisodeData,
@@ -35,7 +35,7 @@ import {
     RawAnchorTotalPlaysData,
     RawAnchorTotalPlaysByEpisodeData,
     RawAnchorUniqueListenersData,
-} from '../../types/connector'
+} from '../../types/provider/anchor'
 import { AnchorRepository } from '../../db/AnchorRepository'
 
 // Most Anchor endpoints have a "data" property, which
