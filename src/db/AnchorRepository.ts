@@ -55,8 +55,8 @@ class AnchorRepository {
 
         const replaceStmt = `REPLACE INTO anchorAudienceSize (
             account_id,
-            aas_date,
-            aas_audience_size
+            date,
+            audience_size
             ) VALUES
             (?,?,?)`
 
@@ -78,12 +78,12 @@ class AnchorRepository {
 
         const replaceStmt = `REPLACE INTO anchorAggregatedPerformance (
             account_id,
-            aap_date,
-            aap_percentile25,
-            aap_percentile50,
-            aap_percentile75,
-            aap_percentile100,
-            aap_average_listen_seconds
+            date,
+            percentile25,
+            percentile50,
+            percentile75,
+            percentile100,
+            average_listen_seconds
             ) VALUES
             (?,?,?,?,?,?,?)`
 
@@ -107,10 +107,10 @@ class AnchorRepository {
         // Data format: "rows": [[0,"13"],...]
         const replaceStmt = `REPLACE INTO anchorEpisodePerformance (   
             account_id,
-            aep_episode_id,
-            aep_date,
-            aep_sample,
-            aep_listeners
+            episode_id,
+            date,
+            sample,
+            listeners
             ) VALUES
             (?,?,?,?,?)`
 
@@ -139,9 +139,9 @@ class AnchorRepository {
 
         const replaceStmt = `REPLACE INTO anchorEpisodePlays (
           account_id,
-          aep_episode_id,
-          aep_date,
-          aep_plays
+          episode_id,
+          date,
+          plays
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -167,8 +167,8 @@ class AnchorRepository {
 
         const replaceStmt = `REPLACE INTO anchorPlays (
           account_id,
-          aep_date,
-          aep_plays
+          date,
+          plays
         ) VALUES (?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -194,9 +194,9 @@ class AnchorRepository {
 
         const replaceStmt = `REPLACE INTO anchorPlaysByAgeRange (
             account_id,
-            apbar_date,
-            apbar_age_range,
-            apbar_plays_percent
+            date,
+            age_range,
+            plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -220,9 +220,9 @@ class AnchorRepository {
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorPlaysByApp (
             account_id,
-            apba_date,
-            apba_app,
-            apba_plays_percent
+            date,
+            app,
+            plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -246,9 +246,9 @@ class AnchorRepository {
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorPlaysByDevice (
             account_id,
-            apbd_date,
-            apbd_device,
-            apbd_plays_percent
+            date,
+            device,
+            plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -272,9 +272,9 @@ class AnchorRepository {
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorPlaysByEpisode (
             account_id,
-            apbe_date,
-            apbe_episode_id,
-            apbe_plays
+            date,
+            episode_id,
+            plays
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -298,9 +298,9 @@ class AnchorRepository {
     ): Promise<any> => {
         const replaceStmt = `REPLACE INTO anchorPlaysByGender (
             account_id,
-            apbg_date,
-            apbg_gender,
-            apbg_plays_percent
+            date,
+            gender,
+            plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -324,9 +324,9 @@ class AnchorRepository {
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorPlaysByGeo (
             account_id,
-            apbg_date,
-            apbg_geo,
-            apbg_plays_percent
+            date,
+            geo,
+            plays_percent
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -351,22 +351,22 @@ class AnchorRepository {
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorPodcastEpisodes (
             account_id,
-            ape_podcast_id,
-            ape_episode_id,
-            ape_date,
-            ape_title,
-            ape_description,
-            ape_url,
-            ape_tracked_url,
-            ape_episode_image,
-            ape_share_link_path,
-            ape_share_link_embed_path,
-            ape_ad_count,
-            ape_created,
-            ape_duration,
-            ape_hour_offset,
-            ape_is_deleted,
-            ape_is_published
+            podcast_id,
+            episode_id,
+            date,
+            title,
+            description,
+            url,
+            tracked_url,
+            episode_image,
+            share_link_path,
+            share_link_embed_path,
+            ad_count,
+            created,
+            duration,
+            hour_offset,
+            is_deleted,
+            is_published
         ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -406,8 +406,8 @@ class AnchorRepository {
 
         const replaceStmt = `REPLACE INTO anchorTotalPlays (
             account_id,
-            atp_date,
-            atp_plays
+            date,
+            plays
         ) VALUES (?,?,?)`
 
         const queryPromise = this.pool.query(replaceStmt, [
@@ -425,9 +425,9 @@ class AnchorRepository {
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorTotalPlaysByEpisode (
             account_id,
-            atpbe_date,
-            atpbe_episode_id,
-            atpbe_plays
+            date,
+            episode_id,
+            plays
         ) VALUES (?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
@@ -451,8 +451,8 @@ class AnchorRepository {
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorUniqueListeners (
             account_id,
-            aul_date,
-            aul_unique_listeners
+            date,
+            unique_listeners
         ) VALUES (?,?,?)`
 
         const queryPromise = this.pool.query(replaceStmt, [
