@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/episodePlays.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Plays per episode, per day",
   "type": "object",
   "properties": {
     "provider": {

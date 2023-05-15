@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/playsByDevice.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Percentage of podcast plays by device type and day",
   "type": "object",
   "properties": {
     "provider": {

@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/playsByEpisode.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Absolute number of plays by episode by day, for all episodes",
   "type": "object",
   "properties": {
     "provider": {

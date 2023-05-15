@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/podcastEpisode.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Detailed information about each podcast episode",
   "type": "object",
   "properties": {
     "provider": {

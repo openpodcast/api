@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/totalPlays.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Number of total podcast plays for time period",
   "type": "object",
   "properties": {
     "provider": {

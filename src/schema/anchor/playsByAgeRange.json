@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/playsByAgeRange.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Podcast plays by age range",
   "type": "object",
   "properties": {
     "provider": {

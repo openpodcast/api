@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/playsByGender.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Gender and percent of plays for the entire podcast, by day",
   "type": "object",
   "properties": {
     "provider": {

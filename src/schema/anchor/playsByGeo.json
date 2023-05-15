@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/playsByGeo.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Percent of plays by geo-location",
   "type": "object",
   "properties": {
     "provider": {

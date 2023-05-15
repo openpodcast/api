@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/aggregatedPerformance.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Percentiles and averageListenSeconds for a given episode",
   "type": "object",
   "properties": {
     "provider": {

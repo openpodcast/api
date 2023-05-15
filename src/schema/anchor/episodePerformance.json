@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/episodePerformance.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Listener data for a single episode, split up by day",
   "type": "object",
   "properties": {
     "provider": {

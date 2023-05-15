@@ -1,6 +1,6 @@
 {
     "$id": "http://openpodcast.dev/schema/anchor/audienceSize.schema.json",
-    "title": "Generated schema for Root",
+    "title": "Podcast audience size",
     "type": "object",
     "properties": {
         "provider": {

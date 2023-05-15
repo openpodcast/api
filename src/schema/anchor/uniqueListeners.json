@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/uniqueListeners.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Number of unique listeners for the entire podcast",
   "type": "object",
   "properties": {
     "provider": {

@@ -1,6 +1,6 @@
 {
   "$id": "http://openpodcast.dev/schema/anchor/totalPlaysByEpisode.schema.json",
-  "title": "Generated schema for Root",
+  "title": "Aggregated total plays split up by episode",
   "type": "object",
   "properties": {
     "provider": {
