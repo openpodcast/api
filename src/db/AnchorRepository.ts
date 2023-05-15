@@ -46,19 +46,6 @@ class AnchorRepository {
         return `${year}-${month}-${day}`
     }
 
-    unixTimestampToDate(unixTimestamp: number) {
-        const date = new Date(unixTimestamp * 1000) // Convert to milliseconds by multiplying by 1000
-        const yearString = date.getFullYear()
-        const month = date.getMonth() + 1 // JavaScript months are 0-11
-        const day = date.getDate()
-
-        // Pad the month and day with leading zeros if below 10
-        const monthString = month < 10 ? '0' + month : month
-        const dayString = day < 10 ? '0' + day : day
-
-        return `${yearString}-${monthString}-${dayString}`
-    }
-
     async storeAudienceSize(
         accountId: number,
         data: RawAnchorAudienceSizeData
@@ -398,7 +385,7 @@ class AnchorRepository {
                 episode.shareLinkPath,
                 episode.shareLinkEmbedPath,
                 episode.adCount,
-                this.unixTimestampToDate(episode.createdUnixTimestamp),
+                new Date(episode.createdUnixTimestamp * 1000),
                 episode.duration,
                 episode.hourOffset,
                 episode.isDeleted,
