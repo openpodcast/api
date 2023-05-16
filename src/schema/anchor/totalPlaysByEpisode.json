@@ -74,7 +74,9 @@
                   {
                     "type": "number"
                   }
-                ]
+                ],
+                "minItems": 5,
+                "maxItems": 5
               }
             },
             "columnHeaders": {
