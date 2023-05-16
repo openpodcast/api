@@ -71,6 +71,7 @@ WHERE
 CREATE OR REPLACE VIEW episodeMapping AS
 SELECT
   account_id,
+  ep_name,
   spotify.episode_id as spotify_episode_id,
   apple.episode_id as apple_episode_id,
   ep_guid as guid
