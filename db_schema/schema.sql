@@ -548,8 +548,8 @@ CREATE TABLE IF NOT EXISTS anchorEpisodePerformance (
   account_id INTEGER NOT NULL,
   episode_id VARCHAR(128) NOT NULL,
   date DATE NOT NULL,
-  sample INTEGER NOT NULL,
-  listeners INTEGER NOT NULL,
+  max_listeners INTEGER NOT NULL,
+  samples JSON NOT NULL,
   PRIMARY KEY (account_id, episode_id, date)
 );
 

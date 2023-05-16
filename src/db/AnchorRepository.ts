@@ -105,29 +105,32 @@ class AnchorRepository {
     ): Promise<any> {
         // Iterate over rows, convert to number, and store in the database
         // Data format: "rows": [[0,"13"],...]
+
         const replaceStmt = `REPLACE INTO anchorEpisodePerformance (   
             account_id,
             episode_id,
             date,
-            sample,
-            listeners
-            ) VALUES
-            (?,?,?,?,?)`
+            max_listeners,
+            samples 
+            ) VALUES (?,?,?,?,?)`
 
-        // This is probably not the most efficient way to do this.
-        // We could probably do a single query with multiple rows?
-        return await Promise.all(
-            data.rows.map(
-                async (entry: any): Promise<any> =>
-                    await this.pool.query(replaceStmt, [
-                        accountId,
-                        episodeId,
-                        this.getTodayDBString(),
-                        entry[0] as number,
-                        entry[1] as number,
-                    ])
-            )
-        )
+        let maxListeners = 0
+
+        const secondsMap = data.rows.reduce((acc, entry) => {
+            const listeners = Number(entry[1])
+            const seconds = Number(entry[0])
+            maxListeners = Math.max(maxListeners, listeners)
+            acc[seconds] = listeners
+            return acc
+        }, {} as Record<number, number>)
+
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            episodeId,
+            this.getTodayDBString(),
+            maxListeners,
+            JSON.stringify(secondsMap),
+        ])
     }
 
     async storeEpisodePlays(
