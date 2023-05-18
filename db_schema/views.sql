@@ -98,10 +98,10 @@ spotify_avg as (
 ),
 apple_avg as (
   SELECT account_id,
-    AVG(aed_quarter1_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter1,
-    AVG(aed_quarter2_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter2,
-    AVG(aed_quarter3_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter3,
-    AVG(aed_quarter4_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter4
+    AVG(CASE WHEN aed_histogram_max_listeners = 0 THEN 0 ELSE aed_quarter1_median_listeners/aed_histogram_max_listeners*100 END) as apple_avg_quarter1,
+    AVG(CASE WHEN aed_histogram_max_listeners = 0 THEN 0 ELSE aed_quarter2_median_listeners/aed_histogram_max_listeners*100 END) as apple_avg_quarter2,
+    AVG(CASE WHEN aed_histogram_max_listeners = 0 THEN 0 ELSE aed_quarter3_median_listeners/aed_histogram_max_listeners*100 END) as apple_avg_quarter3,
+    AVG(CASE WHEN aed_histogram_max_listeners = 0 THEN 0 ELSE aed_quarter4_median_listeners/aed_histogram_max_listeners*100 END) as apple_avg_quarter4
   FROM appleEpisodeDetails
   WHERE aed_date = (SELECT MIN(date) FROM latestValidDate)
   GROUP BY account_id
