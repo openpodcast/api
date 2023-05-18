@@ -77,3 +77,34 @@ SELECT
   ep_guid as guid
 FROM 
   spotifyEpisodeMetadata spotify JOIN appleEpisodeMetadata apple USING (account_id, ep_name);
+
+
+  -- Average LTR Quarters
+CREATE OR REPLACE VIEW averageLTRQuarters AS
+WITH latestValidDate as (
+    SELECT account_id,MAX(spp_date) as date FROM spotifyEpisodePerformance GROUP BY account_id
+    union
+    SELECT account_id,MAX(aed_date) as date FROM appleEpisodeDetails GROUP BY account_id
+),
+spotify_avg as (
+  SELECT account_id,
+    AVG(spp_percentile_25) as spotify_avg_quarter1,
+    AVG(spp_percentile_50) as spotify_avg_quarter2,
+    AVG(spp_percentile_75) as spotify_avg_quarter3,
+    AVG(spp_percentile_100) as spotify_avg_quarter4
+  FROM spotifyEpisodePerformance
+  WHERE spp_date = (SELECT MIN(date) FROM latestValidDate)
+  GROUP BY account_id
+),
+apple_avg as (
+  SELECT account_id,
+    AVG(aed_quarter1_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter1,
+    AVG(aed_quarter2_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter2,
+    AVG(aed_quarter3_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter3,
+    AVG(aed_quarter4_median_listeners/aed_histogram_max_listeners*100) as apple_avg_quarter4
+  FROM appleEpisodeDetails
+  WHERE aed_date = (SELECT MIN(date) FROM latestValidDate)
+  GROUP BY account_id
+)
+
+SELECT * FROM spotify_avg JOIN apple_avg USING (account_id);
