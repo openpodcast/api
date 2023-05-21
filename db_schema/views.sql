@@ -108,3 +108,58 @@ apple_avg as (
 )
 
 SELECT * FROM spotify_avg JOIN apple_avg USING (account_id);
+
+-- Average LTR Lines
+CREATE OR REPLACE VIEW averageLTR AS
+WITH latestValidDate as (
+    SELECT account_id,MAX(spp_date) as date FROM spotifyEpisodePerformance GROUP BY account_id
+    union
+    SELECT account_id,MAX(aed_date) as date FROM appleEpisodeDetails GROUP BY account_id
+),
+spotify as (
+  SELECT account_id,sample_id as sec,
+  COUNT(*) as episodes_count,
+  AVG(listeners/spp_sample_max) as percent FROM
+  spotifyEpisodePerformance CROSS JOIN
+  JSON_TABLE(
+      spp_samples,
+      "$[*]"
+      COLUMNS (
+        sample_id FOR ORDINALITY,
+        listeners INT PATH "$")
+  ) samples
+  WHERE spp_date = (SELECT MIN(date) FROM latestValidDate)
+  GROUP BY account_id,sample_id
+  -- consider only samples with more than 2 underlying episodes
+  HAVING count(*) > 2
+),
+apple as (
+  SELECT account_id,
+  -- extract from json data row like {"0": 5}
+  -- apple is already in 15 sec buckets
+  CAST(JSON_EXTRACT(JSON_KEYS(val),"$[0]") as UNSIGNED) as sec,
+  -- extract value from json data row like {"0": 5} and divide by max listeners
+  AVG(JSON_EXTRACT(JSON_EXTRACT(val,"$.*"),"$[0]")/aed_histogram_max_listeners) as percent,
+  COUNT(*) as episodes_count
+  FROM
+    appleEpisodeDetails CROSS JOIN
+    -- extract the elements in form of {"0": 5} per row
+    JSON_TABLE(
+        aed_play_histogram,
+        "$[*]"
+        COLUMNS (
+          val JSON PATH "$"
+        )
+    ) samples
+  WHERE aed_date = (SELECT MIN(date) FROM latestValidDate)
+  GROUP BY account_id,sec
+  -- consider only samples with more than 2 underlying episodes
+  HAVING count(*) > 2
+)
+
+SELECT account_id,sec,
+spotify.percent*100 as spotify_percent,
+apple.percent*100 as apple_percent,
+spotify.episodes_count as spotify_episodes_count,
+apple.episodes_count as apple_episodes_count
+FROM spotify LEFT JOIN apple USING (account_id,sec);
