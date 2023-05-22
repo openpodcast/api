@@ -47,7 +47,7 @@ shell-% sh-%: ## Run a shell in a container
 
 .PHONY: e2e-tests test
 e2e-tests test: ## Start end2end tests (local running server is required)
-	@# check if mysql is up by opening connectiont to 33006
+	@# check if mysql is up by opening connection to 33006
 	@- nc -z localhost 33006 || (docker compose up -d db && echo "1" > /tmp/openpodcast_db.STARTED && echo "Starting DB for tests")
 	
 	@# check if dev server is up by opening connection to 8080
