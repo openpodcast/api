@@ -14,6 +14,8 @@ import { HttpError, PayloadError } from './types/api'
 import { SpotifyConnector } from './api/connectors/SpotifyConnector'
 import { AppleRepository } from './db/AppleRepository'
 import { AppleConnector } from './api/connectors/AppleConnector'
+import { AnchorConnector } from './api/connectors/AnchorConnector'
+import { AnchorRepository } from './db/AnchorRepository'
 import { healthCheck, mysqlHealthy } from './healthcheck'
 import mysql from 'mysql2/promise'
 import { unless } from './utils/expressHelpers'
@@ -62,6 +64,9 @@ const spotifyConnector = new SpotifyConnector(spotifyRepo)
 const appleRepo = new AppleRepository(pool)
 const appleConnector = new AppleConnector(appleRepo)
 
+const anchorRepo = new AnchorRepository(pool)
+const anchorConnector = new AnchorConnector(anchorRepo)
+
 const feedbackRepo = new FeedbackRepository(pool)
 const feedbackApi = new FeedbackApi(feedbackRepo)
 
@@ -78,6 +83,7 @@ const statusApi = new StatusApi(statusRepo)
 const connectorApi = new ConnectorApi({
     spotify: spotifyConnector,
     apple: appleConnector,
+    anchor: anchorConnector,
 })
 
 // defines all endpoints where auth is not required
@@ -362,7 +368,7 @@ app.post('/events', (async (
     }
 }) as RequestHandler)
 
-// endpoint for the connectors importing data from spotify and apple
+// endpoint for the connectors importing data from Spotify, Apple, etc.
 app.post('/connector', (async (
     req: Request,
     res: Response,

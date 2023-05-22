@@ -1,7 +1,7 @@
 import { ConnectorHandler } from '.'
 import { PayloadError } from '../../types/api'
+import { ConnectorPayload } from '../../types/connector'
 import {
-    ConnectorPayload,
     SpotifyDetailedStreamsPayload,
     SpotifyEpisodesMetadataPayload,
     SpotifyPodcastMetadataPayload,
@@ -10,7 +10,7 @@ import {
     SpotifyEpisodeAggregatePayload,
     SpotifyPerformancePayload,
     SpotifyPodcastFollowersPayload,
-} from '../../types/connector'
+} from '../../types/provider/spotify'
 import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'

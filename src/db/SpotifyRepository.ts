@@ -10,7 +10,7 @@ import {
     SpotifyPodcastFollowersPayload,
     SpotifyPodcastMetadataPayload,
     SpotifyEpisodeAggregatePayload,
-} from '../types/connector'
+} from '../types/provider/spotify'
 
 class SpotifyRepository {
     pool
