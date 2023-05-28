@@ -69,9 +69,10 @@ class StatusRepository {
     // Write the raw JSON status data into the `updates` table
     // Use the current timestamp as the update time
     async updateStatus(accountId: number, update: StatusPayload): Promise<any> {
-        const query = `REPLACE INTO updates (account_id, endpoint, update_data) VALUES (?, ?, ?)`
+        const query = `REPLACE INTO updates (account_id, provider, endpoint, update_data) VALUES (?,?,?,?)`
         return await this.pool.query(query, [
             accountId,
+            update.provider,
             update.endpoint,
             JSON.stringify(update.data),
         ])
