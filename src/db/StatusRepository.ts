@@ -40,7 +40,7 @@ class StatusRepository {
     //     }
     // }
     async getStatus(): Promise<Status> {
-        const query = `SELECT account_id, endpoint, MAX(created) AS latest_update FROM updates GROUP BY account_id, endpoint`
+        const query = `SELECT account_id, provider, endpoint, MAX(created) AS latest_update FROM updates GROUP BY account_id, provider, endpoint`
         const response = (await this.pool.query(query)) as RowDataPacket[]
 
         // Response should have at least one row.
@@ -58,7 +58,9 @@ class StatusRepository {
                 }
             }
 
-            status[row.account_id].latestUpdates[row.endpoint] = new Date(
+            const identifier = `${row.provider}/${row.endpoint}`
+
+            status[row.account_id].latestUpdates[identifier] = new Date(
                 row.latest_update
             )
         })
