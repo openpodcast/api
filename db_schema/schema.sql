@@ -254,6 +254,7 @@ CREATE TABLE IF NOT EXISTS feedbackComment (
 -- contains JSON with the update data
 CREATE TABLE IF NOT EXISTS updates (
   account_id INTEGER NOT NULL,
+  provider VARCHAR(64) NOT NULL,
   endpoint VARCHAR(64) NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_data JSON NOT NULL,

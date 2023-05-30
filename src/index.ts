@@ -383,8 +383,8 @@ app.post('/connector', (async (
 
         // Construct a payload for event sourcing
         res.locals.update = {
+            provider: connectorPayload.provider,
             endpoint: connectorPayload.meta.endpoint,
-            // TODO: Which data should be stored?
             data: connectorPayload,
         }
     } catch (err) {
