@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (2, 'anchor support');
+INSERT INTO migrations (migration_id, migration_name) VALUES (3, 'updates_provider');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -254,6 +254,7 @@ CREATE TABLE IF NOT EXISTS feedbackComment (
 -- contains JSON with the update data
 CREATE TABLE IF NOT EXISTS updates (
   account_id INTEGER NOT NULL,
+  provider VARCHAR(64) NOT NULL,
   endpoint VARCHAR(64) NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_data JSON NOT NULL,

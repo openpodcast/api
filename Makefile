@@ -73,7 +73,7 @@ status: ## Send status request
 
 .PHONY: send-api-req-local
 send-api-req-local: ## Send a request to the local running server
-	curl -X POST http://localhost:8080/events -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/forwarder.json" 
+	curl -X POST http://localhost:8080/connector -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/spotifyPerformance.json" 
 
 .PHONY: send-analytics-req-local
 send-analytics-req-local: ## Send analytics request to the local running server
@@ -81,7 +81,7 @@ send-analytics-req-local: ## Send analytics request to the local running server
 
 .PHONY: send-api-req-prod
 send-api-req-prod: ## Send request to production
-	curl -X POST https://api.openpodcast.dev/connector  -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/spotifyListeners.json" 
+	curl -X POST https://api.openpodcast.dev/connector  -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/spotifyPerformance.json" 
 
 .PHONY: db-shell
 db-shell: ## Opens the mysql shell inside the db container
