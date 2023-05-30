@@ -12,7 +12,7 @@
     "end": "2023-05-04"
   },
   "data": {
-    "episode": 123456789,
+    "episodeId": 123456789,
     "kind": "plays",
     "parameters": {
       "timeRange": [

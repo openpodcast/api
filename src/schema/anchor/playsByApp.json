@@ -92,33 +92,6 @@
                 "maxItems": 2
               }
             },
-            "translationMapping": {
-              "type": "object",
-              "properties": {
-                "Spotify": {
-                  "type": "string"
-                },
-                "Web Browser": {
-                  "type": "string"
-                },
-                "Apple Podcasts": {
-                  "type": "string"
-                },
-                "Pocket Casts": {
-                  "type": "string"
-                },
-                "CastBox": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "Spotify",
-                "Web Browser",
-                "Apple Podcasts",
-                "Pocket Casts",
-                "CastBox"
-              ]
-            },
             "columnHeaders": {
               "type": "array",
               "items": {
@@ -136,40 +109,11 @@
                   "type"
                 ]
               }
-            },
-            "colors": {
-              "type": "object",
-              "properties": {
-                "Spotify": {
-                  "type": "string"
-                },
-                "Web Browser": {
-                  "type": "string"
-                },
-                "Apple Podcasts": {
-                  "type": "string"
-                },
-                "Pocket Casts": {
-                  "type": "string"
-                },
-                "CastBox": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "Spotify",
-                "Web Browser",
-                "Apple Podcasts",
-                "Pocket Casts",
-                "CastBox"
-              ]
             }
           },
           "required": [
             "rows",
-            "translationMapping",
-            "columnHeaders",
-            "colors"
+            "columnHeaders"
           ]
         }
       },

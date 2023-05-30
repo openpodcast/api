@@ -28,14 +28,20 @@ export function convertToAnchorAggregatedPerformanceData(
         }
     }
 
-    if (
-        !data.percentile25 ||
-        !data.percentile50 ||
-        !data.percentile75 ||
-        !data.percentile100 ||
-        !data.averageListenSeconds
-    ) {
-        throw new Error('Incomplete data.')
+    if (data.percentile25 === undefined) {
+        throw new Error('Missing percentile25.')
+    }
+    if (data.percentile50 === undefined) {
+        throw new Error('Missing percentile50.')
+    }
+    if (data.percentile75 === undefined) {
+        throw new Error('Missing percentile75.')
+    }
+    if (data.percentile100 === undefined) {
+        throw new Error('Missing percentile100.')
+    }
+    if (data.averageListenSeconds === undefined) {
+        throw new Error('Missing averageListenSeconds.')
     }
 
     return data as AnchorAggregatedPerformanceData

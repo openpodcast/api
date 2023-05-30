@@ -49,7 +49,7 @@
     "data": {
       "type": "object",
       "properties": {
-        "episode": {
+        "episodeId": {
           "type": "number"
         },
         "kind": {
@@ -114,7 +114,7 @@
         }
       },
       "required": [
-        "episode",
+        "episodeId",
         "kind",
         "parameters",
         "data"
