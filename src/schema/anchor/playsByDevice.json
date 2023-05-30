@@ -110,14 +110,7 @@
                 "Other": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "iPhone",
-                "Android",
-                "Mac",
-                "Windows",
-                "Other"
-              ]
+              }
             },
             "columnHeaders": {
               "type": "array",
@@ -155,14 +148,7 @@
                 "Other": {
                   "type": "string"
                 }
-              },
-              "required": [
-                "iPhone",
-                "Android",
-                "Mac",
-                "Windows",
-                "Other"
-              ]
+              }
             }
           },
           "required": [
