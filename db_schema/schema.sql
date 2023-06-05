@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (3, 'updates_provider');
+INSERT INTO migrations (migration_id, migration_name) VALUES (4, 'anchor_geo_plays_percent_float');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
