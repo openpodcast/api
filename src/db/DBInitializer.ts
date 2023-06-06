@@ -128,12 +128,18 @@ class DBInitializer {
                 'SELECT MAX(migration_id) as latestMigrationId FROM migrations'
             )) as RowDataPacket[]
             latestMigrationId = result[0][0].latestMigrationId || 0
-            console.log(`Latest migration id: ${latestMigrationId}`)
         } else {
             console.log('No migrations table found, init migration number 0')
         }
         const migrationIdGoal = this.getMigrationGoal()
+
+        if (latestMigrationId >= migrationIdGoal) {
+            return
+        }
+
+        console.log(`Latest migration id: ${latestMigrationId}`)
         console.log(`Migration id goal: ${migrationIdGoal}`)
+
         for (
             let migrationId = latestMigrationId + 1;
             migrationId <= migrationIdGoal;
