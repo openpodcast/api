@@ -347,6 +347,35 @@ class AnchorRepository {
         return Promise.all(queryPromises)
     }
 
+    async storePlaysByGeoCity(
+        accountId: number,
+        country: string,
+        data: RawAnchorPlaysByGeoData
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO anchorPlaysByGeoCity (
+            account_id,
+            date,
+            country,
+            city,
+            plays_percent
+        ) VALUES (?,?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        data.rows.forEach((entry) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                this.getTodayDBString(),
+                country,
+                entry[0],
+                entry[1],
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
     async storePodcastEpisodes(
         accountId: number,
         podcastId: string,
