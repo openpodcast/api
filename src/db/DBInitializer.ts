@@ -95,7 +95,7 @@ class DBInitializer {
         return Math.max(...migrationIds)
     }
 
-    private runMigration(migrationId: number): void {
+    private async runMigration(migrationId: number) {
         // find migration file of form <migrationId>OtherText.sql and run it
         const migrationFile = fs
             .readdirSync(this.migrationsPath)
@@ -110,7 +110,7 @@ class DBInitializer {
                 `${this.migrationsPath}/${migrationFile[0]}`,
                 'utf8'
             )
-            this.runQueries(migrationData)
+            await this.runQueries(migrationData)
         } else {
             throw new Error(
                 `Migration file for migration number ${migrationId} not found.`

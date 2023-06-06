@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (3, 'updates_provider');
+INSERT INTO migrations (migration_id, migration_name) VALUES (4, 'anchor_percent_float');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -573,7 +573,7 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByAgeRange (
   account_id INTEGER NOT NULL,
   date DATE NOT NULL,
   age_range VARCHAR(128) NOT NULL,
-  plays_percent INTEGER NOT NULL,
+  plays_percent FLOAT NOT NULL,
   PRIMARY KEY (account_id, date, age_range)
 );
 
@@ -581,7 +581,7 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByApp (
   account_id INTEGER NOT NULL,
   date DATE NOT NULL,
   app VARCHAR(128) NOT NULL,
-  plays_percent INTEGER NOT NULL,
+  plays_percent FLOAT NOT NULL,
   PRIMARY KEY (account_id, date, app)
 );
 
@@ -589,7 +589,7 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByDevice(
   account_id INTEGER NOT NULL,
   date DATE NOT NULL,
   device VARCHAR(128) NOT NULL,
-  plays_percent INTEGER NOT NULL,
+  plays_percent FLOAT NOT NULL,
   PRIMARY KEY (account_id, date, device)
 );
 
@@ -605,7 +605,7 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByGender (
   account_id INTEGER NOT NULL,
   date DATE NOT NULL,
   gender VARCHAR(128) NOT NULL,
-  plays_percent INTEGER NOT NULL,
+  plays_percent FLOAT NOT NULL,
   PRIMARY KEY (account_id, date, gender)
 );
 
@@ -613,7 +613,7 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByGeo (
   account_id INTEGER NOT NULL,
   date DATE NOT NULL,
   geo VARCHAR(128) NOT NULL,
-  plays_percent INTEGER NOT NULL,
+  plays_percent FLOAT NOT NULL,
   PRIMARY KEY (account_id, date, geo)
 );
 
