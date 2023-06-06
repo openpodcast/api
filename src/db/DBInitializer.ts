@@ -95,7 +95,7 @@ class DBInitializer {
         return Math.max(...migrationIds)
     }
 
-    private async runMigration(migrationId: number) {
+    private async runMigration(migrationId: number): Promise<void> {
         // find migration file of form <migrationId>OtherText.sql and run it
         const migrationFile = fs
             .readdirSync(this.migrationsPath)
