@@ -131,3 +131,4 @@ CREATE TABLE IF NOT EXISTS anchorUniqueListeners (
   PRIMARY KEY (account_id, date)
 );
 
+INSERT INTO migrations (migration_id, migration_name) VALUES (2, 'anchor support');
