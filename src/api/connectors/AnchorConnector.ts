@@ -38,6 +38,7 @@ import {
     RawAnchorUniqueListenersData,
 } from '../../types/provider/anchor'
 import { AnchorRepository } from '../../db/AnchorRepository'
+import { isArray } from 'mathjs'
 
 // Most Anchor endpoints have a "data" property, which
 // is an array of rows and headers.
@@ -197,7 +198,17 @@ class AnchorConnector implements ConnectorHandler {
 
             // The schema ensures that we have a "geos" array,
             // where the second element is the country code
-            const country = payload.data.parameters.geos[1]
+            const countryPayload = payload.data as AnchorDataPayload
+            if (countryPayload.kind !== 'playsByGeo') {
+                throw new PayloadError(
+                    `Incorrect payload data type: ${countryPayload}`
+                )
+            }
+            const geoParams = countryPayload.parameters
+            if (isArray(geoParams) || geoParams.geos.length < 2) {
+                throw new PayloadError(`Incorrect geo parameters: ${geoParams}`)
+            }
+            const country = countryPayload.parameters.geos[1]
 
             await this.repo.storePlaysByGeoCity(
                 accountId,

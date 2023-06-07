@@ -195,7 +195,11 @@ export type AnchorDataPayload =
     | { kind: 'playsByDevice'; data: RawAnchorPlaysByDeviceData }
     | { kind: 'playsByEpisode'; data: RawAnchorPlaysByEpisodeData }
     | { kind: 'playsByGender'; data: RawAnchorPlaysByGenderData }
-    | { kind: 'playsByGeo'; data: RawAnchorPlaysByGeoData }
+    | {
+          kind: 'playsByGeo'
+          parameters: { geos: string[] }
+          data: RawAnchorPlaysByGeoData
+      }
     | { kind: 'totalPlays'; data: RawAnchorTotalPlaysData }
     | { kind: 'totalPlaysByEpisode'; data: RawAnchorTotalPlaysByEpisodeData }
     | { kind: 'uniqueListeners'; data: RawAnchorUniqueListenersData }
