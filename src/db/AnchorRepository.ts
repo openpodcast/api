@@ -468,8 +468,8 @@ class AnchorRepository {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
                 this.getTodayDBString(),
-                entry[0],
                 entry[1],
+                entry[2],
             ])
             queryPromises.push(queryPromise)
         })
