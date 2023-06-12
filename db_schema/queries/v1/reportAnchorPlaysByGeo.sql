@@ -1,12 +1,22 @@
+WITH last_date AS (
+    SELECT 
+        MAX(date) AS max_date
+    FROM 
+        anchorPlaysByGeo
+    WHERE
+        date >= @start
+        AND date <= @end
+        AND account_id = @podcast_id
+)
 SELECT
-    account_id,
-    date,
-    geo,
-    plays_percent
+    a.account_id,
+    a.date,
+    a.geo,
+    a.plays_percent
 FROM
-    anchorPlaysByGeo
+    anchorPlaysByGeo AS a, last_date AS b
 WHERE
-    date >= @start
-    AND date <= @end
-    AND account_id = @podcast_id
-ORDER BY date ASC
+    a.account_id = @podcast_id
+    AND a.date = b.max_date
+ORDER BY 
+    a.date ASC;
