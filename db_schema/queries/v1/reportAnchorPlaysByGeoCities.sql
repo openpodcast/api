@@ -1,11 +1,20 @@
-WITH countries AS (
-    SELECT
-        geo as top_country
-    FROM
+WITH last_date AS (
+    SELECT 
+        MAX(date) AS max_date
+    FROM 
         anchorPlaysByGeo
     WHERE
         date >= @start
         AND date <= @end
+        AND account_id = @podcast_id
+),
+top_country AS (
+    SELECT
+        geo as country
+    FROM
+        anchorPlaysByGeo
+    WHERE
+        date = (SELECT max_date FROM last_date)
         AND account_id = @podcast_id
     ORDER BY plays_percent DESC
     LIMIT 1
@@ -22,5 +31,5 @@ WHERE
     date >= @start
     AND date <= @end
     AND account_id = @podcast_id
-    AND country = (SELECT top_country FROM countries)
-ORDER BY plays_percent DESC
+    AND country = (SELECT country FROM top_country)
+ORDER BY plays_percent DESC;
