@@ -28,8 +28,7 @@ SELECT
 FROM
     anchorPlaysByGeoCity
 WHERE
-    date >= @start
-    AND date <= @end
+    date = (SELECT max_date FROM last_date)
     AND account_id = @podcast_id
     AND country = (SELECT country FROM top_country)
 ORDER BY plays_percent DESC;
