@@ -12,6 +12,7 @@ import playsByDeviceSchema from '../../schema/anchor/playsByDevice.json'
 import playsByEpisodeSchema from '../../schema/anchor/playsByEpisode.json'
 import playsByGenderSchema from '../../schema/anchor/playsByGender.json'
 import playsByGeoSchema from '../../schema/anchor/playsByGeo.json'
+import playsByGeoCitySchema from '../../schema/anchor/playsByGeoCity.json'
 import podcastEpisodeSchema from '../../schema/anchor/podcastEpisode.json'
 import totalPlaysSchema from '../../schema/anchor/totalPlays.json'
 import totalPlaysByEpisodeSchema from '../../schema/anchor/totalPlaysByEpisode.json'
@@ -37,6 +38,7 @@ import {
     RawAnchorUniqueListenersData,
 } from '../../types/provider/anchor'
 import { AnchorRepository } from '../../db/AnchorRepository'
+import { isArray } from 'mathjs'
 
 // Most Anchor endpoints have a "data" property, which
 // is an array of rows and headers.
@@ -186,6 +188,31 @@ class AnchorConnector implements ConnectorHandler {
             }
             await this.repo.storePlaysByGeo(
                 accountId,
+                payload.data.data as RawAnchorPlaysByGeoData
+            )
+        } else if (endpoint == 'playsByGeoCity') {
+            validateJsonApiPayload(playsByGeoCitySchema, rawPayload)
+            if (!isDataPayload(payload.data)) {
+                throw new PayloadError('Incorrect payload data type')
+            }
+
+            // The schema ensures that we have a "geos" array,
+            // where the second element is the country code
+            const countryPayload = payload.data as AnchorDataPayload
+            if (countryPayload.kind !== 'playsByGeo') {
+                throw new PayloadError(
+                    `Incorrect payload data type: ${countryPayload}`
+                )
+            }
+            const geoParams = countryPayload.parameters
+            if (isArray(geoParams) || geoParams.geos.length < 2) {
+                throw new PayloadError(`Incorrect geo parameters: ${geoParams}`)
+            }
+            const country = countryPayload.parameters.geos[1]
+
+            await this.repo.storePlaysByGeoCity(
+                accountId,
+                country,
                 payload.data.data as RawAnchorPlaysByGeoData
             )
         } else if (endpoint == 'podcastEpisode') {

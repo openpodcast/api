@@ -617,6 +617,15 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByGeo (
   PRIMARY KEY (account_id, date, geo)
 );
 
+CREATE TABLE IF NOT EXISTS anchorPlaysByGeoCity (
+  account_id INTEGER NOT NULL,
+  date DATE NOT NULL,
+  country VARCHAR(128) NOT NULL,
+  city VARCHAR(128) NOT NULL,
+  plays_percent FLOAT NOT NULL,
+  PRIMARY KEY (account_id, date, country, city)
+);
+
 CREATE TABLE IF NOT EXISTS anchorPodcastEpisodes (
   account_id INTEGER NOT NULL,
   podcast_id VARCHAR(128) NOT NULL,

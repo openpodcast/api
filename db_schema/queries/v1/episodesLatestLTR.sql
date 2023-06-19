@@ -22,6 +22,12 @@ apple as (
     date >= @start
     AND date <= @end
     AND account_id = @podcast_id 
+),
+-- get the latest date from spotifyEpisodePerformance and appleEpisodeDetails
+latestValidDate as (
+    (SELECT max(spp_date) as date FROM spotifyEpisodePerformance WHERE account_id = @podcast_id)
+    UNION
+    (SELECT max(aed_date) as date FROM appleEpisodeDetails WHERE account_id = @podcast_id)
 )
 
 SELECT 
@@ -46,3 +52,5 @@ SELECT
 FROM spotify JOIN apple ON (spotify.raw_name = apple.raw_name AND apple.date=spp_date)
 -- make sure we have data from spotify and apple
 WHERE apple.quarter1 IS NOT NULL AND spotify.quarter1 IS NOT NULL
+-- get the latest date that is available in both spotifyEpisodePerformance and appleEpisodeDetails
+AND apple.date = (SELECT MIN(date) FROM latestValidDate)
