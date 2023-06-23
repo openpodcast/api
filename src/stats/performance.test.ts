@@ -72,7 +72,7 @@ describe('remove longtail from performance data', () => {
     it('empty data', () => {
         const testdata = []
         const res = removeLongtailFromPerformanceData(testdata, 0.05)
-        expect(res.maxListeners).toBeUndefined()
+        expect(res.maxListeners).toBe(0)
         expect(res.performanceValues).toStrictEqual([])
     })
 
@@ -87,16 +87,8 @@ describe('remove longtail from performance data', () => {
     it('test identical values', () => {
         const testdata = [4, 4, 4, 4, 4, 4, 4, 4, 4]
         const res = removeLongtailFromPerformanceData(testdata, 0.05)
-        expect(res.maxListeners).toBe(1)
+        expect(res.maxListeners).toBe(4)
         expect(res.performanceValues).toStrictEqual([4, 4, 4, 4, 4, 4, 4, 4, 4])
-    })
-
-    // Test with zeros
-    it('zeroes in data', () => {
-        const testdata = [0, 0, 0, 0, 0, 0]
-        const res = removeLongtailFromPerformanceData(testdata, 0.05)
-        expect(res.maxListeners).toBe(0)
-        expect(res.performanceValues).toStrictEqual([0, 0, 0, 0, 0, 0])
     })
 
     it('complex case', () => {

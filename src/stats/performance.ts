@@ -4,6 +4,13 @@ const removeLongtailFromPerformanceData = function (
     performanceValues: number[],
     longtailThresholdPercent: number
 ): { performanceValues: number[]; maxListeners: number } {
+    if (performanceValues.length === 0 || longtailThresholdPercent === 0) {
+        return {
+            performanceValues,
+            maxListeners: 0,
+        }
+    }
+
     const maxListeners = Math.max(...performanceValues)
 
     const longtailThresholdValue = maxListeners * longtailThresholdPercent
