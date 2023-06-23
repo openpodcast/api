@@ -68,6 +68,37 @@ describe('remove longtail from performance data', () => {
         expect(res.performanceValues).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9])
     })
 
+    // Test with empty data
+    it('empty data', () => {
+        const testdata = []
+        const res = removeLongtailFromPerformanceData(testdata, 0.05)
+        expect(res.maxListeners).toBeUndefined()
+        expect(res.performanceValues).toStrictEqual([])
+    })
+
+    // Test with only one item
+    it('single item data', () => {
+        const testdata = [1]
+        const res = removeLongtailFromPerformanceData(testdata, 0.05)
+        expect(res.maxListeners).toBe(1)
+        expect(res.performanceValues).toStrictEqual([1])
+    })
+
+    it('test identical values', () => {
+        const testdata = [4, 4, 4, 4, 4, 4, 4, 4, 4]
+        const res = removeLongtailFromPerformanceData(testdata, 0.05)
+        expect(res.maxListeners).toBe(1)
+        expect(res.performanceValues).toStrictEqual([4, 4, 4, 4, 4, 4, 4, 4, 4])
+    })
+
+    // Test with zeros
+    it('zeroes in data', () => {
+        const testdata = [0, 0, 0, 0, 0, 0]
+        const res = removeLongtailFromPerformanceData(testdata, 0.05)
+        expect(res.maxListeners).toBe(0)
+        expect(res.performanceValues).toStrictEqual([0, 0, 0, 0, 0, 0])
+    })
+
     it('complex case', () => {
         const testdata = [
             300, 250, 200, 190, 231, 210, 200, 200, 200, 50, 40, 30, 20, 16, 16,
