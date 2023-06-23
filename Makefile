@@ -50,8 +50,12 @@ install: ## Installs dependencies
 shell-% sh-%: ## Run a shell in a container
 	docker compose exec $* sh
 
-.PHONY: e2e-tests test
-e2e-tests test: ## Start end2end tests (local running server is required)
+.PHONY: test
+test: ## Run tests
+	npx jest ./src --verbose true
+
+.PHONY: e2e-tests
+e2e-tests: ## Start end2end tests (local running server is required)
 	@# check if mysql is up by opening connection to 33006
 	@- nc -z localhost 33006 || (docker compose up -d db && echo "1" > /tmp/openpodcast_db.STARTED && echo "Starting DB for tests")
 	
@@ -77,7 +81,7 @@ send-api-req-local: ## Send a request to the local running server
 
 .PHONY: send-analytics-req-local
 send-analytics-req-local: ## Send analytics request to the local running server
-	curl http://localhost:8080/analytics/v1/1/episodesAge -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
+	curl http://localhost:8080/analytics/v1/2/episodesAge -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
 
 .PHONY: send-api-req-prod
 send-api-req-prod: ## Send request to production

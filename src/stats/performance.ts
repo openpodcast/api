@@ -27,10 +27,22 @@ const calcApplePodcastPerformanceQuarters = function (
 
     const maxListeners = Math.max(...performanceValues)
 
-    if (performanceValues.length < 4) {
-        throw Error('too little data to calculate quarters')
+    // apple LTR data can contain q weird long tail which is a way longer than the episode itself
+    // filter out longtail if it is lower than the defined threshold (percent)
+    // start from the end of the array
+    const longtailThreshold = 0.05
+    const longtailThresholdValue = maxListeners * longtailThreshold
+    let longtailIndex = performanceValues.length - 1
+    while (
+        longtailIndex > 0 &&
+        performanceValues[longtailIndex] <= longtailThresholdValue
+    ) {
+        longtailIndex--
     }
+    // remove longtail from the data array
+    performanceValues.splice(longtailIndex + 1)
 
+    // split the data into 4 quarters
     const quarterSize = Math.floor(performanceValues.length / 4)
 
     const quarterMedianValues = [
