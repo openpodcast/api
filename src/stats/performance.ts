@@ -1,5 +1,35 @@
 import { median } from 'mathjs'
 
+const removeLongtailFromPerformanceData = function (
+    performanceValues: number[],
+    longtailThresholdPercent: number
+): { performanceValues: number[]; maxListeners: number } {
+    if (performanceValues.length === 0 || longtailThresholdPercent === 0) {
+        return {
+            performanceValues,
+            maxListeners: 0,
+        }
+    }
+
+    const maxListeners = Math.max(...performanceValues)
+
+    const longtailThresholdValue = maxListeners * longtailThresholdPercent
+    let longtailIndex = performanceValues.length - 1
+    while (
+        longtailIndex > 0 &&
+        performanceValues[longtailIndex] <= longtailThresholdValue
+    ) {
+        longtailIndex--
+    }
+    // remove longtail from the data array
+    performanceValues.splice(longtailIndex + 1)
+
+    return {
+        performanceValues,
+        maxListeners,
+    }
+}
+
 const calcApplePodcastPerformanceQuarters = function (
     performance: { [seconds: string]: number }[]
 ): { maxListeners: number; quarterMedianValues: number[] } {
@@ -23,14 +53,17 @@ const calcApplePodcastPerformanceQuarters = function (
     })
 
     // flatten the structure to have an array of values (listeners)
-    const performanceValues = sortedData.map((entry) => Object.values(entry)[0])
+    const flattenPerformanceValues = sortedData.map(
+        (entry) => Object.values(entry)[0]
+    )
 
-    const maxListeners = Math.max(...performanceValues)
+    // Apple LTR data can contain a weird long tail, which is a way longer than the episode itself
+    // filter out longtail if it is lower than the defined threshold (percent)
+    // start from the end of the array
+    const { performanceValues, maxListeners } =
+        removeLongtailFromPerformanceData(flattenPerformanceValues, 0.05)
 
-    if (performanceValues.length < 4) {
-        throw Error('too little data to calculate quarters')
-    }
-
+    // split the data into 4 quarters
     const quarterSize = Math.floor(performanceValues.length / 4)
 
     const quarterMedianValues = [
@@ -46,4 +79,7 @@ const calcApplePodcastPerformanceQuarters = function (
     }
 }
 
-export { calcApplePodcastPerformanceQuarters }
+export {
+    calcApplePodcastPerformanceQuarters,
+    removeLongtailFromPerformanceData,
+}
