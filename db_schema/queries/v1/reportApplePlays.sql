@@ -1,6 +1,6 @@
 SELECT
   account_id,
-  atl_date,
+  atl_date as `date`,
   SUM(atl_playscount) as apple_playscount,
   SUM(atl_totaltimelistened) as apple_totaltimelistened,
   SUM(atl_uniqueengagedlistenerscount) as apple_uniqueengagedlistenerscount,
