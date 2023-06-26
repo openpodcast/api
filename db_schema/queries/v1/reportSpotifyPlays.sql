@@ -1,20 +1,11 @@
-SELECT
+select
 	account_id,
-	spm_date as `date`,
-	spm_starts as spotify_starts,
-	spm_streams as spotify_streams,
-	spm_listeners as spotify_listeners,
-	spm_followers as spotify_followers
-FROM
-	spotifyPodcastMetadata
+	sps_date as `date`,
+	sps_starts as spotify_starts,
+	sps_streams as spotify_streams
+from
+	spotifyPodcastDetailedStreams
 WHERE
-	spm_date >= @start
-	AND spm_date <= @end
+	sps_date >= @start
+	AND sps_date <= @end
 	AND account_id = @podcast_id
-GROUP BY
-	account_id,
-	spm_date,
-	spm_starts,
-	spm_streams,
-	spm_listeners,
-	spm_followers
