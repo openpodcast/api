@@ -4,7 +4,14 @@ SELECT
     `date`,
     title,
     description,
-    episode_image
+    episode_image,
+    url,
+    tracked_url,
+    share_link_path,
+    share_link_embed_path,
+    created,
+    duration,
+    publishOn
 FROM
     anchorPodcastEpisodes
 WHERE
