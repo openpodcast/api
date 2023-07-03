@@ -90,7 +90,10 @@
                 "type": "string"
               },
               "publishOnUnixTimestamp": {
-                "type": "number"
+                "type": [
+                  "null",
+                  "number"
+                ]
               },
               "title": {
                 "type": "string"
@@ -119,7 +122,6 @@
               "isDeleted",
               "isPublished",
               "podcastEpisodeId",
-              "publishOn",
               "publishOnUnixTimestamp",
               "title",
               "url",
