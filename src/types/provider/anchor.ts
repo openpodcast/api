@@ -233,8 +233,8 @@ export interface RawAnchorEpisodeData {
     isDeleted: boolean
     isPublished: boolean
     podcastEpisodeId: string
-    publishOn: string
-    publishOnUnixTimestamp: number
+    publishOn?: string
+    publishOnUnixTimestamp: null | number
     title: string
     url: string
     trackedUrl: string

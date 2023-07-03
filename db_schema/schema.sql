@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (4, 'anchor percent float data type');
+INSERT INTO migrations (migration_id, migration_name) VALUES (6, 'anchor episode publish time');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -640,6 +640,7 @@ CREATE TABLE IF NOT EXISTS anchorPodcastEpisodes (
   share_link_embed_path VARCHAR(512) NOT NULL,
   ad_count INTEGER NOT NULL,
   created DATETIME NOT NULL,
+  publishOn DATETIME,
   duration BIGINT NOT NULL,
   hour_offset INTEGER NOT NULL,
   is_deleted BOOLEAN NOT NULL,

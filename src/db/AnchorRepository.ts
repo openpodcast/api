@@ -418,6 +418,11 @@ class AnchorRepository {
                 episode.shareLinkEmbedPath,
                 episode.adCount,
                 new Date(episode.createdUnixTimestamp * 1000),
+                // Note that the publishOnUnixTimestamp is in milliseconds, not seconds
+                // that's why we don't multiply by 1000 here
+                episode.publishOnUnixTimestamp !== null
+                    ? new Date(episode.publishOnUnixTimestamp)
+                    : null,
                 episode.duration,
                 episode.hourOffset,
                 episode.isDeleted,
