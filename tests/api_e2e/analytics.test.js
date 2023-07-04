@@ -7,7 +7,7 @@ const auth = require('./authheader')
 describe('check basic analytics query', () => {
     it('should return status 200 when sending proper analytics query without payload', async () => {
         const response = await request(baseURL)
-            .get('/analytics/v1/1/ping')
+            .get('/analytics/v1/2/ping')
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
@@ -70,7 +70,7 @@ describe('check basic analytics query', () => {
 
     it('should throw error when sending to non-existent endpoint', async () => {
         const response = await request(baseURL)
-            .get('/analytics/v1/1/shurelydoesnotexist')
+            .get('/analytics/v1/2/shurelydoesnotexist')
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
