@@ -2,7 +2,7 @@ WITH last_date AS (
     SELECT 
         MAX(date) AS max_date
     FROM 
-        anchorPlaysByGeo
+        anchorPlaysByGeoCity
     WHERE
         date >= @start
         AND date <= @end
