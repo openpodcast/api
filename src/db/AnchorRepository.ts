@@ -19,31 +19,34 @@ import {
     RawAnchorUniqueListenersData,
 } from '../types/provider/anchor'
 
+const getDateDBString = (date: Date): string => {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1)
+    const day = String(date.getDate())
+
+    return `${year}-${month}-${day}`
+}
+
+const getTodayDBString = (): string => {
+    return getDateDBString(new Date())
+}
+
+// Convert unix timestamp in seconds or milliseconds to Date string in
+// format YYYY-MM-DD
+const getDateFromTimestamp = (timestamp: number | string): string => {
+    // Convert milliseconds to seconds if necessary
+    if (timestamp.toString().length === 13) {
+        timestamp = Number(timestamp) / 1000
+    }
+    const date = new Date(Number(timestamp) * 1000)
+    return getDateDBString(date)
+}
+
 class AnchorRepository {
     pool
 
     constructor(pool: any) {
         this.pool = pool
-    }
-
-    getTodayDBString(): string {
-        const today = new Date()
-
-        return (
-            today.getFullYear() +
-            '-' +
-            (today.getMonth() + 1) +
-            '-' +
-            today.getDate()
-        )
-    }
-
-    getDateDBString(date: Date): string {
-        const year = date.getFullYear()
-        const month = String(date.getMonth() + 1)
-        const day = String(date.getDate())
-
-        return `${year}-${month}-${day}`
     }
 
     async storeAudienceSize(
@@ -62,7 +65,7 @@ class AnchorRepository {
 
         return await this.pool.query(replaceStmt, [
             accountId,
-            this.getTodayDBString(),
+            getTodayDBString(),
             audienceSize,
         ])
     }
@@ -89,7 +92,7 @@ class AnchorRepository {
 
         return await this.pool.query(replaceStmt, [
             accountId,
-            this.getTodayDBString(),
+            getTodayDBString(),
             anchorAggregatedPerformanceData.percentile25,
             anchorAggregatedPerformanceData.percentile50,
             anchorAggregatedPerformanceData.percentile75,
@@ -127,7 +130,7 @@ class AnchorRepository {
         return await this.pool.query(replaceStmt, [
             accountId,
             episodeId,
-            this.getTodayDBString(),
+            getTodayDBString(),
             maxListeners,
             JSON.stringify(secondsMap),
         ])
@@ -153,7 +156,7 @@ class AnchorRepository {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
                 episodeId,
-                this.getDateDBString(date),
+                getDateDBString(date),
                 plays,
             ])
             queryPromises.push(queryPromise)
@@ -179,7 +182,7 @@ class AnchorRepository {
         anchorPlaysData.data.forEach((plays, date) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getDateDBString(date),
+                getDateDBString(date),
                 plays,
             ])
             queryPromises.push(queryPromise)
@@ -207,7 +210,7 @@ class AnchorRepository {
         anchorPlaysByAgeRangeData.data.forEach((plays, ageRange) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 ageRange,
                 plays,
             ])
@@ -233,7 +236,7 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 entry[0],
                 entry[1],
             ])
@@ -259,7 +262,7 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 entry[0],
                 entry[1],
             ])
@@ -271,12 +274,13 @@ class AnchorRepository {
 
     async storePlaysByEpisode(
         accountId: number,
+        episodeId: string,
         data: RawAnchorPlaysByEpisodeData
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO anchorPlaysByEpisode (
             account_id,
-            date,
             episode_id,
+            date,
             plays
         ) VALUES (?,?,?,?)`
 
@@ -285,10 +289,8 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                entry[0],
-                // this.getTodayDBString(),
-                
-                entry[0],
+                episodeId,
+                getDateFromTimestamp(entry[0]),
                 entry[1],
             ])
             queryPromises.push(queryPromise)
@@ -313,7 +315,7 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 entry[0],
                 entry[1],
             ])
@@ -339,7 +341,7 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 entry[0],
                 entry[1],
             ])
@@ -367,7 +369,7 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 country,
                 entry[0],
                 entry[1],
@@ -397,11 +399,12 @@ class AnchorRepository {
             share_link_embed_path,
             ad_count,
             created,
+            publishOn,
             duration,
             hour_offset,
             is_deleted,
             is_published
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
 
         const queryPromises: Promise<any>[] = []
 
@@ -410,7 +413,7 @@ class AnchorRepository {
                 accountId,
                 podcastId,
                 episode.podcastEpisodeId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 episode.title,
                 episode.description,
                 episode.url,
@@ -451,7 +454,7 @@ class AnchorRepository {
 
         const queryPromise = this.pool.query(replaceStmt, [
             accountId,
-            this.getTodayDBString(),
+            getTodayDBString(),
             totalPlays,
         ])
 
@@ -474,7 +477,7 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                getTodayDBString(),
                 entry[1],
                 entry[2],
             ])
@@ -496,7 +499,7 @@ class AnchorRepository {
 
         const queryPromise = this.pool.query(replaceStmt, [
             accountId,
-            this.getTodayDBString(),
+            getTodayDBString(),
             data.rows[0],
         ])
 

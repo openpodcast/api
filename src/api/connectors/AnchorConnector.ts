@@ -165,11 +165,15 @@ class AnchorConnector implements ConnectorHandler {
             )
         } else if (endpoint == 'playsByEpisode') {
             validateJsonApiPayload(playsByEpisodeSchema, rawPayload)
+            if (payload.meta.episode === undefined) {
+                throw new PayloadError('missing episode id')
+            }
             if (!isDataPayload(payload.data)) {
                 throw new PayloadError('Incorrect payload data type')
             }
             await this.repo.storePlaysByEpisode(
                 accountId,
+                payload.meta.episode,
                 payload.data.data as RawAnchorPlaysByEpisodeData
             )
         } else if (endpoint == 'playsByGender') {
