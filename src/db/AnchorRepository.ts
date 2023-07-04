@@ -285,7 +285,9 @@ class AnchorRepository {
         data.rows.forEach((entry) => {
             const queryPromise = this.pool.query(replaceStmt, [
                 accountId,
-                this.getTodayDBString(),
+                entry[0],
+                // this.getTodayDBString(),
+                
                 entry[0],
                 entry[1],
             ])
