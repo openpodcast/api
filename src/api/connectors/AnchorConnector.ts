@@ -9,7 +9,6 @@ import playsSchema from '../../schema/anchor/plays.json'
 import playsByAgeRangeSchema from '../../schema/anchor/playsByAgeRange.json'
 import playsByAppSchema from '../../schema/anchor/playsByApp.json'
 import playsByDeviceSchema from '../../schema/anchor/playsByDevice.json'
-import playsByEpisodeSchema from '../../schema/anchor/playsByEpisode.json'
 import playsByGenderSchema from '../../schema/anchor/playsByGender.json'
 import playsByGeoSchema from '../../schema/anchor/playsByGeo.json'
 import playsByGeoCitySchema from '../../schema/anchor/playsByGeoCity.json'
@@ -162,19 +161,6 @@ class AnchorConnector implements ConnectorHandler {
             await this.repo.storePlaysByDevice(
                 accountId,
                 payload.data.data as RawAnchorPlaysByDeviceData
-            )
-        } else if (endpoint == 'playsByEpisode') {
-            validateJsonApiPayload(playsByEpisodeSchema, rawPayload)
-            if (payload.meta.episode === undefined) {
-                throw new PayloadError('missing episode id')
-            }
-            if (!isDataPayload(payload.data)) {
-                throw new PayloadError('Incorrect payload data type')
-            }
-            await this.repo.storePlaysByEpisode(
-                accountId,
-                payload.meta.episode,
-                payload.data.data as RawAnchorPlaysByEpisodeData
             )
         } else if (endpoint == 'playsByGender') {
             validateJsonApiPayload(playsByGenderSchema, rawPayload)

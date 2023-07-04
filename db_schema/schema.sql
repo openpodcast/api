@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (6, 'anchor episode publish time');
+INSERT INTO migrations (migration_id, migration_name) VALUES (7, 'drop anchor plays episode table');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -591,14 +591,6 @@ CREATE TABLE IF NOT EXISTS anchorPlaysByDevice(
   device VARCHAR(128) NOT NULL,
   plays_percent FLOAT NOT NULL,
   PRIMARY KEY (account_id, date, device)
-);
-
-CREATE TABLE IF NOT EXISTS anchorPlaysByEpisode (
-  account_id INTEGER NOT NULL,
-  date DATE NOT NULL,
-  episode_id VARCHAR(128) NOT NULL,
-  plays INTEGER NOT NULL,
-  PRIMARY KEY (account_id, date, episode_id)
 );
 
 CREATE TABLE IF NOT EXISTS anchorPlaysByGender (

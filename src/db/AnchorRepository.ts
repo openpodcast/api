@@ -272,33 +272,6 @@ class AnchorRepository {
         return Promise.all(queryPromises)
     }
 
-    async storePlaysByEpisode(
-        accountId: number,
-        episodeId: string,
-        data: RawAnchorPlaysByEpisodeData
-    ): Promise<any> {
-        const replaceStmt = `REPLACE INTO anchorPlaysByEpisode (
-            account_id,
-            episode_id,
-            date,
-            plays
-        ) VALUES (?,?,?,?)`
-
-        const queryPromises: Promise<any>[] = []
-
-        data.rows.forEach((entry) => {
-            const queryPromise = this.pool.query(replaceStmt, [
-                accountId,
-                episodeId,
-                getDateFromTimestamp(entry[0]),
-                entry[1],
-            ])
-            queryPromises.push(queryPromise)
-        })
-
-        return Promise.all(queryPromises)
-    }
-
     storePlaysByGender = async (
         accountId: number,
         data: RawAnchorPlaysByGenderData

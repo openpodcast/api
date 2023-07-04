@@ -148,16 +148,6 @@ describe('check Connector API with anchorPlaysByDevicePayload', () => {
     })
 })
 
-describe('check Connector API with anchorPlaysByEpisodePayload', () => {
-    it('should return status 200 when sending proper Anchor payload', async () => {
-        const response = await request(baseURL)
-            .post('/connector')
-            .set(auth)
-            .send(anchorPlaysByEpisodePayload)
-        expect(response.statusCode).toBe(200)
-    })
-})
-
 describe('check Connector API with anchorPlaysByGenderPayload', () => {
     it('should return status 200 when sending proper Anchor payload', async () => {
         const response = await request(baseURL)
