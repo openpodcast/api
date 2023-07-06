@@ -63,13 +63,17 @@ e2e-tests: ## Start end2end tests (local running server is required)
 	@- curl -s http://localhost:8080/status >> /dev/null || (make dev & echo $$! > /tmp/openpodcast_dev.PID && echo "Starting dev server for tests")
 
 	@# wait until server is ready and the connection to the db is ready
-	@- while ! curl -s http://localhost:8080/status >> /dev/null; do echo "waiting until server is ready for tests..." && sleep 3; done
+	@- while ! curl -s -f -LI http://localhost:8080/health >> /dev/null; do echo "waiting until server is ready for tests..." && sleep 3; done
 
 	npx jest ./tests/api_e2e --verbose true
 
 	@# stop the dev server and db server if they were started by this makefile, echo "" to return exit code 0
 	@- ([[ -f /tmp/openpodcast_db.STARTED ]] && echo "Stopping DB Server" && docker compose stop db && rm /tmp/openpodcast_db.STARTED) || echo ""
 	@- ([[ -f /tmp/openpodcast_dev.PID ]] && echo "Stopping Dev Server" && kill $$(cat /tmp/openpodcast_dev.PID) && rm /tmp/openpodcast_dev.PID) || echo ""
+
+	@echo "Done - Some important information for debugging:"
+	@echo "  - If the tests fail, consider to refresh the db by running 'make down' first"
+	@echo "  - To have data for spotify, apple, and anchor, use podcast_id 3 for the tests"
 
 .PHONY: status
 status: ## Send status request
@@ -79,9 +83,9 @@ status: ## Send status request
 send-api-req-local: ## Send a request to the local running server
 	curl -X POST http://localhost:8080/connector -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/spotifyPerformance.json" 
 
-.PHONY: send-analytics-req-local
-send-analytics-req-local: ## Send analytics request to the local running server
-	curl http://localhost:8080/analytics/v1/2/episodesAge -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
+.PHONY: send-analytics-%
+send-analytics-%: ## Send analytics request to the local running server
+	curl http://localhost:8080/analytics/v1/3/$*?start=2023-01-01\&end=2023-07-01 -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
 
 .PHONY: send-api-req-prod
 send-api-req-prod: ## Send request to production
