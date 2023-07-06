@@ -1,3 +1,24 @@
+
+WITH spotify as (
+  SELECT JSON_ARRAYAGG(JSON_OBJECT(sample_id-1,listeners)) as histogram,episode_id,account_id,spp_date,spp_sample_max FROM 
+    spotifyEpisodePerformance CROSS JOIN
+    JSON_TABLE(
+        spp_samples,
+        "$[*]"
+        COLUMNS (
+          sample_id FOR ORDINALITY,
+          listeners INT PATH "$"
+        )
+    ) samples
+  WHERE
+    account_id = @podcast_id
+    AND spp_date = @end
+    -- just show numbers every 15 seconds and the first+last one
+    -- as we start with 0 and decrease sample_id by 1, calc -1 % 15
+    AND (MOD(sample_id-1,15) = 0 OR sample_id = 1 OR spp_sample_seconds = sample_id)
+  GROUP BY account_id,episode_id,spp_sample_max,spp_date
+)
+
 SELECT
   guid,
   spotify.spp_date as date,
@@ -7,7 +28,7 @@ SELECT
   aed_play_histogram as apple_histogram
 FROM
   episodeMapping
-  JOIN spotifyEpisodePerformance15SecBuckets as spotify
+  JOIN spotify
   JOIN appleEpisodeDetails as apple
 WHERE
   -- main join criteria
