@@ -21,6 +21,7 @@ WITH spotify as (
 
 SELECT
   guid,
+  ep_name as name,
   spotify.spp_date as date,
   spp_sample_max as spotify_listeners_max,
   aed_histogram_max_listeners as apple_listeners_max,
