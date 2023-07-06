@@ -53,7 +53,6 @@ const dbInit = new DBInitializer(
     config.getViewsData(),
     config.getMigrationsPath()
 )
-dbInit.init()
 
 const eventRepo = new EventRepository(pool)
 const eventsApi = new EventsApi(eventRepo)
@@ -420,6 +419,10 @@ app.use(function (err: Error, req: Request, res: Response) {
     res.send(err.message)
 })
 
-app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
+dbInit.init().then(() => {
+    app.listen(port, () => {
+        console.log(
+            `⚡️[server]: Server is running at http://localhost:${port}`
+        )
+    })
 })
