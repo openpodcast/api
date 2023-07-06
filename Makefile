@@ -55,21 +55,15 @@ test: ## Run tests
 	npx jest ./src --verbose true
 
 .PHONY: e2e-tests
-e2e-tests: ## Start end2end tests (local running server is required)
-	@# check if mysql is up by opening connection to 33006
-	@- nc -z localhost 33006 || (docker compose up -d db && echo "1" > /tmp/openpodcast_db.STARTED && echo "Starting DB for tests")
-	
-	@# check if dev server is up by opening connection to 8080
-	@- curl -s http://localhost:8080/status >> /dev/null || (make dev & echo $$! > /tmp/openpodcast_dev.PID && echo "Starting dev server for tests")
+e2e-tests: ## Start end2end tests
+	@make up &
 
 	@# wait until server is ready and the connection to the db is ready
 	@- while ! curl -s -f -LI http://localhost:8080/health >> /dev/null; do echo "waiting until server is ready for tests..." && sleep 3; done
 
 	npx jest ./tests/api_e2e --verbose true
 
-	@# stop the dev server and db server if they were started by this makefile, echo "" to return exit code 0
-	@- ([[ -f /tmp/openpodcast_db.STARTED ]] && echo "Stopping DB Server" && docker compose stop db && rm /tmp/openpodcast_db.STARTED) || echo ""
-	@- ([[ -f /tmp/openpodcast_dev.PID ]] && echo "Stopping Dev Server" && kill $$(cat /tmp/openpodcast_dev.PID) && rm /tmp/openpodcast_dev.PID) || echo ""
+	@docker compose down
 
 	@echo "Done - Some important information for debugging:"
 	@echo "  - If the tests fail, consider to refresh the db by running 'make down' first"
