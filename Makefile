@@ -79,7 +79,7 @@ send-api-req-local: ## Send a request to the local running server
 
 .PHONY: send-analytics-%
 send-analytics-%: ## Send analytics request to the local running server
-	curl http://localhost:8080/analytics/v1/3/$*?start=2023-01-01\&end=2023-07-01 -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
+	curl http://localhost:8080/analytics/v1/3/$*?start=$$(date -d "2 months ago" +%Y-%m-%d)\&end=$$(date -d "2 days ago" +%Y-%m-%d) -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
 
 .PHONY: send-api-req-prod
 send-api-req-prod: ## Send request to production
