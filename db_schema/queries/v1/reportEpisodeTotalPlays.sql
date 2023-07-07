@@ -25,7 +25,7 @@ apple_streams AS (
         episode_id
 )
 SELECT 
-	E.account_id as podcast_id,
+    E.account_id as podcast_id,
     E.guid,
     S.spotify_plays AS spotify_plays,
     A.apple_plays AS apple_plays,
