@@ -1,5 +1,5 @@
 SELECT
-  account_id,
+  account_id as podcast_id,
   SUM(spm_total_episodes) as spotify_total_episodes,
   SUM(spm_starts) as spotify_starts,
   SUM(spm_streams) as spotify_streams,

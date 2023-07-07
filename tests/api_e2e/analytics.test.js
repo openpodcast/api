@@ -1,13 +1,18 @@
-const e = require('express')
 const request = require('supertest')
+const fs = require('fs')
+const auth = require('./authheader')
+
 const baseURL = 'http://localhost:8080'
 
-const auth = require('./authheader')
+const account_map = JSON.parse(process.env.ACCOUNTS)
+const podcast_test_id = account_map[Object.keys(account_map)[0]]
+
+const path_prefix = `/analytics/v1/${podcast_test_id}/`
 
 describe('check basic analytics query', () => {
     it('should return status 200 when sending proper analytics query without payload', async () => {
         const response = await request(baseURL)
-            .get('/analytics/v1/2/ping')
+            .get(`${path_prefix}ping`)
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
@@ -70,7 +75,7 @@ describe('check basic analytics query', () => {
 
     it('should throw error when sending to non-existent endpoint', async () => {
         const response = await request(baseURL)
-            .get('/analytics/v1/2/shurelydoesnotexist')
+            .get(`${path_prefix}shurelydoesnotexist`)
             .set(auth)
             .send()
         expect(response.statusCode).toBe(200)
@@ -100,5 +105,39 @@ describe('check basic analytics query', () => {
             .set(auth)
             .send()
         expect(response.statusCode).toBe(404)
+    })
+})
+
+// read all filesnames in db_schema/queries/v1
+// consider only files with .sql extension
+// for each filename check the analytics endpoint and check if there are any errors
+const queries = fs
+    .readdirSync('./db_schema/queries/v1')
+    .filter((file) => file.endsWith('.sql'))
+    .map((file) => file.replace('.sql', ''))
+
+// date range 30days ago to yesterday
+const to = new Date(Date.now() - 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split('T')[0]
+const from = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split('T')[0]
+
+describe('check all analytics queries', () => {
+    queries.forEach((query) => {
+        it(`should return status 200 and a non empty result set when requesting analytics query ${query}`, async () => {
+            const response = await request(baseURL)
+                .get(`${path_prefix}${query}?start=${from}&end=${to}`)
+                .set(auth)
+                .send()
+            expect(response.statusCode).toBe(200)
+            expect(response.body).toHaveProperty('data')
+            expect(response.body).toHaveProperty('meta')
+            expect(response.body.meta.query).toBe(query)
+            expect(response.body.meta.result).toBe('success')
+            expect(response.body.data).not.toBeNull()
+            expect(response.body.data.length).toBeGreaterThan(0)
+        })
     })
 })

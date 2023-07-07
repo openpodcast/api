@@ -14,7 +14,7 @@ services:
             - MYSQL_PASSWORD=openpodcast
             - MYSQL_DATABASE=openpodcast
             - MYSQL_PORT=3306
-            - ACCOUNTS={"dummy-cn389ncoiwuencr":2}
+            - ACCOUNTS={"dummy-cn389ncoiwuencr":3}
         ports:
             - '8080:8080'
         links:
