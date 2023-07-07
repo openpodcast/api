@@ -111,8 +111,9 @@ export interface AppleShowTrendsFollowersPayload {
 }
 
 export interface AppleShowTrendsFollowersDay {
-    date: number
-    totalListeners: number
+    date: string
+    totalFollowers: number
+    totalUnfollowers: number
     gained: number
     lost: number
 }

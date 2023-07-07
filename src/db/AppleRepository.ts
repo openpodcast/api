@@ -212,10 +212,11 @@ class AppleRepository {
             account_id,
             atf_date,
             atf_totalfollowers,
+            atf_unfollowers,
             atf_gained,
             atf_lost
             ) VALUES
-            (?,STR_TO_DATE(?,'%Y%m%d'),?,?,?)`
+            (?,STR_TO_DATE(?,'%Y%m%d'),?,?,?,?)`
 
         return await Promise.all(
             data.map(
@@ -223,7 +224,8 @@ class AppleRepository {
                     await this.pool.query(replaceStmt, [
                         accountId,
                         entry.date,
-                        entry.totalListeners,
+                        entry.totalFollowers,
+                        entry.totalUnfollowers,
                         entry.gained,
                         entry.lost,
                     ])

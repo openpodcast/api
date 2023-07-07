@@ -19,6 +19,7 @@ import {
     AppleShowTrendsListeningTimeFollowerStateDay,
 } from '../../types/provider/apple'
 import { AppleRepository } from '../../db/AppleRepository'
+import moment from 'moment'
 
 class AppleConnector implements ConnectorHandler {
     repo: AppleRepository
@@ -90,35 +91,48 @@ class AppleConnector implements ConnectorHandler {
             const payloadData = payload.data as AppleShowTrendsFollowersPayload
 
             // map all day values into one structure
-            let days = payloadData.followerAllTimeTrends.reduce(
+            let followerData = payloadData.followerAllTimeTrends.reduce(
                 (prev, curr) => {
-                    prev[curr[0]] = {
-                        date: curr[0],
-                        totalListeners: curr[1],
+                    // use moment to get date from YYYYMMDD format
+                    const day = curr[0].toString()
+                    const totalFollowers = curr[1]
+                    const totalUnfollowers = curr[2]
+                    prev[day] = {
+                        date: day,
+                        totalFollowers: totalFollowers,
+                        totalUnfollowers: totalUnfollowers,
                         gained: 0,
                         lost: 0,
                     } as AppleShowTrendsFollowersDay
                     return prev
                 },
                 {} as {
-                    [day: number]: AppleShowTrendsFollowersDay
+                    [day: string]: AppleShowTrendsFollowersDay
                 }
             )
 
             // add gained/lost values
-            days = payloadData.followerGrowthTrends.reduce((prev, curr) => {
-                const dayElem = prev[curr[0]] || null
-                if (dayElem) {
-                    dayElem.gained = curr[1]
-                    dayElem.lost = curr[1]
-                }
-                return prev
-            }, days)
+            followerData = payloadData.followerGrowthTrends.reduce(
+                (prev, curr) => {
+                    // as gained/lost is the difference between the date and the next date
+                    // we want to store it together with the next day
+                    const nextDay = moment(curr[0].toString(), 'YYYYMMDD')
+                        .add(1, 'days')
+                        .format('YYYYMMDD')
+                    // if next day present, add gained/lost values
+                    if (prev[nextDay]) {
+                        prev[nextDay].gained = curr[1]
+                        prev[nextDay].lost = curr[2]
+                    }
+                    return prev
+                },
+                followerData
+            )
 
             //stores data per podcast and day
             return await this.repo.storeTrendsPodcastFollowers(
                 accountId,
-                Object.values(days)
+                Object.values(followerData)
             )
         } else if (
             payload.meta.endpoint === 'showTrends/ListeningTimeFollowerState'

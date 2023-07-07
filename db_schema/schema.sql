@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (7, 'drop anchor plays episode table');
+INSERT INTO migrations (migration_id, migration_name) VALUES (8, 'apple followers');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -221,7 +221,10 @@ CREATE TABLE IF NOT EXISTS appleTrendsPodcastListeningTimeFollowerState (
 CREATE TABLE IF NOT EXISTS appleTrendsPodcastFollowers (
   account_id INTEGER NOT NULL,
   atf_date DATE NOT NULL,
+  -- values on the specific date
   atf_totalfollowers INTEGER NOT NULL,
+  atf_unfollowers INTEGER NOT NULL,
+  -- gained/lost followers compared to the previous day
   atf_gained INTEGER NOT NULL,
   atf_lost INTEGER NOT NULL,
   PRIMARY KEY (account_id, atf_date)
