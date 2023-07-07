@@ -18,7 +18,7 @@ WITH plays AS (
 followers_start AS (
   SELECT
     account_id as podcast_id,
-    atf_totalfollowers as apple_followers
+    atf_totalfollowers-atf_totalunfollowers as apple_followers
   FROM
     appleTrendsPodcastFollowers
   WHERE
@@ -28,7 +28,7 @@ followers_start AS (
 followers_end AS (
   SELECT
     account_id as podcast_id,
-    atf_totalfollowers as apple_followers
+    atf_totalfollowers-atf_totalunfollowers as apple_followers
   FROM
     appleTrendsPodcastFollowers
   WHERE
