@@ -38,7 +38,7 @@ followers_end AS (
 SELECT
   podcast_id,
   apple_playscount,
-  apple_totaltimelistened,
+  apple_totaltimelistened, -- in seconds
   apple_uniqueengagedlistenerscount,
   apple_uniquelistenerscount,
   followers_start.apple_followers as apple_followers_start,
