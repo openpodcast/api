@@ -87,7 +87,6 @@
                 "name",
                 "collectionName",
                 "podcastEpisodeGuid",
-                "podcastEpisodeITunesTitle",
                 "podcastEpisodeType",
                 "releaseDateTime",
                 "releaseDate",

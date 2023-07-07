@@ -3,7 +3,7 @@ export interface AppleEpisodePayload {
     name: string
     collectionName: string
     podcastEpisodeGuid: string
-    podcastEpisodeITunesTitle: string
+    podcastEpisodeITunesTitle?: string
     podcastEpisodeNumber?: number
     podcastEpisodeType: string
     releaseDateTime: string
