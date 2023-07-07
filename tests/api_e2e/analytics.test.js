@@ -3,7 +3,11 @@ const fs = require('fs')
 const auth = require('./authheader')
 
 const baseURL = 'http://localhost:8080'
-const path_prefix = '/analytics/v1/3/'
+
+const account_map = JSON.parse(process.env.ACCOUNTS)
+const podcast_test_id = account_map[Object.keys(account_map)[0]]
+
+const path_prefix = `/analytics/v1/${podcast_test_id}/`
 
 describe('check basic analytics query', () => {
     it('should return status 200 when sending proper analytics query without payload', async () => {

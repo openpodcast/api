@@ -61,7 +61,7 @@ e2e-tests: ## Start end2end tests
 	@# wait until server is ready and the connection to the db is ready
 	@- while ! curl -s -f -LI http://localhost:8080/health >> /dev/null; do echo "waiting until server is ready for tests..." && sleep 3; done
 
-	npx jest ./tests/api_e2e --verbose true
+	set -a && source env.local.test && set +a && npx jest ./tests/api_e2e --verbose true
 
 	@docker compose down
 
