@@ -1,6 +1,3 @@
-SET @start = '2023-05-15';
-SET @end = '2023-06-11';
-SET @podcast_id = 3;
 WITH streams AS (
   SELECT
     account_id as podcast_id,
