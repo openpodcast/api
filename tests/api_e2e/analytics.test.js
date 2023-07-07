@@ -116,8 +116,10 @@ const queries = fs
     .filter((file) => file.endsWith('.sql'))
     .map((file) => file.replace('.sql', ''))
 
-// date range 30days ago to now
-const to = new Date().toISOString().split('T')[0]
+// date range 30days ago to yesterday
+const to = new Date(Date.now() - 24 * 60 * 60 * 1000)
+    .toISOString()
+    .split('T')[0]
 const from = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
     .toISOString()
     .split('T')[0]
