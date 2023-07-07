@@ -14,7 +14,7 @@ WITH streams AS (
 followers_start AS (
   SELECT
     account_id as podcast_id,
-   spf_count as spotify_followers
+    spf_count as spotify_followers
   FROM
     spotifyPodcastFollowers
   WHERE
@@ -24,7 +24,7 @@ followers_start AS (
 followers_end AS (
   SELECT
     account_id as podcast_id,
-   spf_count as spotify_followers
+    spf_count as spotify_followers
   FROM
     spotifyPodcastFollowers
   WHERE
