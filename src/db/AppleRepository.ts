@@ -212,7 +212,7 @@ class AppleRepository {
             account_id,
             atf_date,
             atf_totalfollowers,
-            atf_unfollowers,
+            atf_totalunfollowers,
             atf_gained,
             atf_lost
             ) VALUES

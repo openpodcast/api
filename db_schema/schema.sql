@@ -223,7 +223,7 @@ CREATE TABLE IF NOT EXISTS appleTrendsPodcastFollowers (
   atf_date DATE NOT NULL,
   -- values on the specific date
   atf_totalfollowers INTEGER NOT NULL,
-  atf_unfollowers INTEGER NOT NULL,
+  atf_totalunfollowers INTEGER NOT NULL,
   -- gained/lost followers compared to the previous day
   atf_gained INTEGER NOT NULL,
   atf_lost INTEGER NOT NULL,
