@@ -5,6 +5,7 @@ import episodesSchema from '../../schema/apple/episodes.json'
 import episodeDetailsSchema from '../../schema/apple/episodeDetails.json'
 import showTrendsListenersSchema from '../../schema/apple/showTrendsListeners.json'
 import showTrendsFollowersSchema from '../../schema/apple/showTrendsFollowers.json'
+import showTrendsListeningTimeEpisodesSchema from '../../schema/apple/showTrendsListeningTimeEpisodes.json'
 import showTrendsListeningTimeFollowerState from '../../schema/apple/showTrendsListeningTimeFollowerState.json'
 import { ConnectorPayload } from '../../types/connector'
 import {
@@ -17,6 +18,7 @@ import {
     AppleShowTrendsListenersPayload,
     AppleShowTrendsListeningTimeFollowerStatePayload,
     AppleShowTrendsListeningTimeFollowerStateDay,
+    AppleShowTrendsListeningTimeEpisodesPayload,
 } from '../../types/provider/apple'
 import { AppleRepository } from '../../db/AppleRepository'
 
@@ -83,6 +85,21 @@ class AppleConnector implements ConnectorHandler {
             return await this.repo.storeTrendsPodcastListeners(
                 accountId,
                 payloadData.showPlayCountTrends
+            )
+        } else if (
+            payload.meta.endpoint === 'showTrends/ListeningTimeEpisodes'
+        ) {
+            validateJsonApiPayload(
+                showTrendsListeningTimeEpisodesSchema,
+                payload.data
+            )
+            const payloadData =
+                payload.data as AppleShowTrendsListeningTimeEpisodesPayload
+
+            //stores data per episode and day
+            return await this.repo.storeTrendsEpisodeListeningTime(
+                accountId,
+                payloadData.episodeListeningTimeTrends
             )
         } else if (payload.meta.endpoint === 'showTrends/Followers') {
             validateJsonApiPayload(showTrendsFollowersSchema, payload.data)

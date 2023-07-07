@@ -6,6 +6,7 @@ const appleEpisodeDetailsPayload = require('../../fixtures/appleEpisodeDetails.j
 const appleEpisodeDetailsPayloadSparse = require('../../fixtures/appleEpisodeDetailsSparse.json')
 const appleEpisodeDetailsPayloadEmpty = require('../../fixtures/appleEpisodeDetailsEmpty.json')
 const appleShowTrendsListenersPayload = require('../../fixtures/appleTrendsListenersByEpisode.json')
+const appleShowTrendsListeningTimeEpisodes = require('../../fixtures/appleTrendsListeningTimeEpisodes.json')
 const appleShowTrendsFollowersPayload = require('../../fixtures/appleTrendsFollowers.json')
 const appleShowTrendsFollowersPayloadEmpty = require('../../fixtures/appleTrendsFollowersEmpty.json')
 const appleShowTrendsListeningTimeFollowerStatePayload = require('../../fixtures/appleTrendsListeningTimeFollowerState.json')
@@ -59,6 +60,16 @@ describe('check Connector API with Listeners of ShowTrends API', () => {
             .post('/connector')
             .set(auth)
             .send(appleShowTrendsListenersPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with Listening Time of ShowTrends API', () => {
+    it('should return status 200 when sending proper Apple payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(appleShowTrendsListeningTimeEpisodes)
         expect(response.statusCode).toBe(200)
     })
 })

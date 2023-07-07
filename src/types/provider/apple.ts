@@ -116,3 +116,48 @@ export interface AppleShowTrendsFollowersDay {
     gained: number
     lost: number
 }
+
+export interface AppleShowTrendsListeningTimeEpisodesPayload {
+    measure: string
+    dimension: string
+    content: (string | number | null)[][]
+    episodesPlayCount: {
+        [key: string]: EpisodePlayCountItem | EpisodePlayCountItem[]
+    }
+    showPlayCount: ShowPlayCount
+    showPlayCountTrends: ShowPlayCountTrend[]
+    showTopCities: string[]
+    showTopCountries: string[]
+}
+
+export interface EpisodePlayCountItem {
+    episodeid: string
+    followstate: string
+    playscount: number
+    podcastid: string
+    timebucket?: number
+    totaltimelistened: number
+    uniqueengagedlistenerscount: number
+    uniquelistenerscount: number
+}
+
+export interface ShowPlayCount {
+    latestValue: {
+        followstate: string
+        playscount: number
+        podcastid: string
+        totaltimelistened: number
+        uniqueengagedlistenerscount: number
+        uniquelistenerscount: number
+    }
+}
+
+export interface ShowPlayCountTrend {
+    followstate: string
+    playscount: number
+    podcastid: string
+    timebucket: number
+    totaltimelistened: number
+    uniqueengagedlistenerscount: number
+    uniquelistenerscount: number
+}
