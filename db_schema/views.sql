@@ -1,8 +1,9 @@
 CREATE OR REPLACE VIEW spotifyEpisodeBase AS
   SELECT
-    spotifyEpisodeListeners.account_id,
-    spotifyEpisodeListeners.episode_id,
-    spotifyEpisodeListeners.spl_count as spotify_listeners,
+    spotifyEpisodeMetadataHistory.account_id,
+    spotifyEpisodeMetadataHistory.episode_id,
+    spotifyEpisodeMetadataHistory.epm_date as `date`,
+    spotifyEpisodeMetadataHistory.epm_listeners as spotify_listeners,
     spotifyEpisodePerformance.spp_median_percentage as spotify_median_percentage,
     spotifyEpisodePerformance.spp_median_seconds as spotify_median_seconds,
     spotifyEpisodePerformance.spp_sample_max as spotify_sample_max,
@@ -12,11 +13,11 @@ CREATE OR REPLACE VIEW spotifyEpisodeBase AS
     spotifyEpisodePerformance.spp_percentile_50 as spotify_quarter2_percentage,
     spotifyEpisodePerformance.spp_percentile_100 as spotify_quarter4_percentage
   FROM
-  spotifyEpisodeListeners
+  spotifyEpisodeMetadataHistory
   JOIN spotifyEpisodePerformance
-  ON (spotifyEpisodeListeners.account_id = spotifyEpisodePerformance.account_id
-    AND spotifyEpisodeListeners.episode_id = spotifyEpisodePerformance.episode_id
-    AND spotifyEpisodeListeners.spl_date = spotifyEpisodePerformance.spp_date);
+  ON (spotifyEpisodeMetadataHistory.account_id = spotifyEpisodePerformance.account_id
+    AND spotifyEpisodeMetadataHistory.episode_id = spotifyEpisodePerformance.episode_id
+    AND spotifyEpisodeMetadataHistory.epm_date = spotifyEpisodePerformance.spp_date);
 
 CREATE OR REPLACE VIEW spotifyPodcastAgeBase AS
 WITH data as (
