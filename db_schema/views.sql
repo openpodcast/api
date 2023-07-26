@@ -169,12 +169,13 @@ FROM spotify LEFT JOIN apple USING (account_id,sec);
 CREATE OR REPLACE VIEW appleEpisodesLTR AS  SELECT 
   aed_date as `date`,
   appleEpisodeDetails.account_id,
+  appleEpisodeDetails.episode_id,
   ep_name as raw_name,
   aed_quarter1_median_listeners/aed_histogram_max_listeners*100 as quarter1,
   aed_quarter2_median_listeners/aed_histogram_max_listeners*100 as quarter2,
   aed_quarter3_median_listeners/aed_histogram_max_listeners*100 as quarter3,
   aed_quarter4_median_listeners/aed_histogram_max_listeners*100 as quarter4,
-  aed_histogram_max_listeners as listeners,
+  aed_uniquelistenerscount as listeners,
   ep_guid as guid
   FROM appleEpisodeDetails
   LEFT JOIN appleEpisodeMetadata USING (account_id, episode_id);
