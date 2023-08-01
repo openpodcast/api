@@ -1,4 +1,26 @@
-WITH anchor_total_podcast AS (
+ 
+WITH 
+first_date AS (
+  SELECT 
+    MIN(date) as first_date
+  FROM 
+    anchorTotalPlays
+  WHERE 
+    date >= @start
+    AND date <= @end
+    AND account_id = @podcast_id
+),
+last_date AS (
+  SELECT 
+    MAX(date) as last_date
+  FROM 
+    anchorTotalPlays
+  WHERE 
+    date >= @start
+    AND date <= @end
+    AND account_id = @podcast_id
+),
+anchor_total_podcast AS (
   SELECT 
     account_id,
     date,
@@ -10,25 +32,28 @@ WITH anchor_total_podcast AS (
     AND date <= @end
     AND account_id = @podcast_id
 ),
-anchor_total_by_episode AS (
+first_day_plays AS (
   SELECT
-    account_id,
-    date,
-    AVG(plays) as average_plays
+    atp.plays as first_day_plays
   FROM
-    anchorTotalPlaysByEpisode
-  WHERE
-    date >= @start
-    AND date <= @end
-    AND account_id = @podcast_id
-  GROUP BY
-    account_id,
-    date
+    anchor_total_podcast atp
+  JOIN
+    first_date fd
+  ON
+    atp.date = fd.first_date
+),
+last_day_plays AS (
+  SELECT
+    atp.plays as last_day_plays
+  FROM
+    anchor_total_podcast atp
+  JOIN
+    last_date ld
+  ON
+    atp.date = ld.last_date
 )
 SELECT
-  atp.plays as anchor_total_plays,
-  atbe.average_plays as anchor_average_total_plays
+  ldp.last_day_plays as total_plays,
+  (ldp.last_day_plays - fdp.first_day_plays) as plays_within_period
 FROM
-  anchor_total_podcast atp
-JOIN anchor_total_by_episode atbe ON atp.account_id = atbe.account_id AND atp.date = atbe.date
-GROUP BY atp.account_id, atp.plays, atbe.average_plays;
+  first_day_plays fdp, last_day_plays ldp;
