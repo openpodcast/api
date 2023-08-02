@@ -9,11 +9,12 @@ spotify as (
   `spotifyEpisodePerformance`.`spp_percentile_100` as quarter4,
   spp_sample_max as listeners
   FROM spotifyEpisodePerformance
-  LEFT JOIN spotifyEpisodeMetadata USING (episode_id)
+  LEFT JOIN spotifyEpisodeMetadata USING (account_id,episode_id)
   WHERE
   spp_date >= @start
   AND spp_date <= @end
   AND spotifyEpisodePerformance.account_id = @podcast_id
+  AND spotifyEpisodeMetadata.account_id = @podcast_id
 ),
 apple as (
   SELECT * 
@@ -23,8 +24,10 @@ apple as (
     AND date <= @end
     AND account_id = @podcast_id 
 )
-
-SELECT 
+-- no merge hint because the long merged query takes ages
+-- no_merge executes both queries separately and then
+-- executes the final one on the intermediate results
+SELECT /*+ NO_MERGE(spotify)  NO_MERGE(apple) */
   apple.raw_name as name,
   guid,
   apple.date as `date`,
