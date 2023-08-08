@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (8, 'apple followers');
+INSERT INTO migrations (migration_id, migration_name) VALUES (9, 'anchor episodeid');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -536,16 +536,16 @@ CREATE TABLE IF NOT EXISTS anchorAudienceSize (
   PRIMARY KEY (account_id, date)
 );
 
-
 CREATE TABLE IF NOT EXISTS anchorAggregatedPerformance (
   account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
   date DATE NOT NULL,
   percentile25 INTEGER NOT NULL,
   percentile50 INTEGER NOT NULL,
   percentile75 INTEGER NOT NULL,
   percentile100 INTEGER NOT NULL,
   average_listen_seconds INTEGER NOT NULL,
-  PRIMARY KEY (account_id, date)
+  PRIMARY KEY (account_id, episode_id, date)
 );
 
 CREATE TABLE IF NOT EXISTS anchorEpisodePerformance (

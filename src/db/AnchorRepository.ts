@@ -72,6 +72,7 @@ class AnchorRepository {
 
     async storeAggregatedPerformance(
         accountId: number,
+        episodeId: string,
         data: RawAnchorAggregatedPerformanceData
     ): Promise<any> {
         // This conversion is done here instead of in the connector because of
@@ -81,6 +82,7 @@ class AnchorRepository {
 
         const replaceStmt = `REPLACE INTO anchorAggregatedPerformance (
             account_id,
+            episode_id,
             date,
             percentile25,
             percentile50,
@@ -88,10 +90,11 @@ class AnchorRepository {
             percentile100,
             average_listen_seconds
             ) VALUES
-            (?,?,?,?,?,?,?)`
+            (?,?,?,?,?,?,?,?)`
 
         return await this.pool.query(replaceStmt, [
             accountId,
+            episodeId,
             getTodayDBString(),
             anchorAggregatedPerformanceData.percentile25,
             anchorAggregatedPerformanceData.percentile50,

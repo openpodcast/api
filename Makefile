@@ -75,7 +75,7 @@ status: ## Send status request
 
 .PHONY: send-api-req-local
 send-api-req-local: ## Send a request to the local running server
-	curl -X POST http://localhost:8080/connector -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/spotifyPerformance.json" 
+	curl -X POST http://localhost:8080/connector -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/anchorEpisodeAggregatedPerformance.json" 
 
 .PHONY: send-analytics-%
 send-analytics-%: ## Send analytics request to the local running server
