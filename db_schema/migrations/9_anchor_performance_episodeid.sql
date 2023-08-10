@@ -1,4 +1,4 @@
--- as old data are not stored per episode,
+-- as old data is not stored per episode,
 -- we can just delete all rows, they are useless
 DROP TABLE IF EXISTS anchorAggregatedPerformance;
 
