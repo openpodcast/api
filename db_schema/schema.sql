@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (9, 'anchor episodeid');
+INSERT INTO migrations (migration_id, migration_name) VALUES (10, 'voting agent');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -236,6 +236,7 @@ CREATE TABLE IF NOT EXISTS feedbackVote (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
   user_hash VARCHAR(64) NOT NULL,
+  agent VARCHAR(255) NOT NULL,
   vote TINYINT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (account_id, episode_id, user_hash)
