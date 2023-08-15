@@ -19,6 +19,10 @@ up-db: ## docker-compose up db
 down docker-down: ## docker-compose down
 	docker compose down -v
 
+.PHONY: stop 
+stop: ## docker-compose stop
+	docker compose stop
+
 .PHONY: docker-build
 docker-build: build ## docker-compose build
 	docker compose build

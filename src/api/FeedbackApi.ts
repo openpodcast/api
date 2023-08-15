@@ -11,6 +11,7 @@ class FeedbackApi {
     async handleApiGet(
         episodeId: string | undefined,
         userHash: string,
+        agent: string,
         feedbackType: string | undefined
     ) {
         if (
@@ -23,6 +24,7 @@ class FeedbackApi {
                 1,
                 Number(episodeId),
                 userHash,
+                agent,
                 feedbackType === 'upvote'
             )
         } else {
