@@ -12,7 +12,7 @@
   },
   "data": {
     "allEpisodeWebIds": [
-      "foo1234"
+      "e215pm4"
     ],
     "podcastId": "123abcde",
     "podcastEpisodes": [
@@ -25,14 +25,14 @@
         "hourOffset": -2,
         "isDeleted": false,
         "isPublished": true,
-        "podcastEpisodeId": "foo1234",
+        "podcastEpisodeId": "e215pm4",
         "publishOn": "2023-04-21T04:30:48.000Z",
         "publishOnUnixTimestamp": 1682051448000,
         "title": "Title 0",
         "url": "https://s3-us-west-2.amazonaws.com/anchor-audio-bank/staging/2023-1-01/392204921-22100-1-6f1f1cdebd586.mp3",
         "trackedUrl": "https://anchor.fm/s/undefined/podcast/play/undefined/undefined",
         "episodeImage": null,
-        "shareLinkPath": "/john-doe/episodes/Self-serve-analytics-powered-by-GPT-4-w-David-Jayatillake-foo1234",
+        "shareLinkPath": "/john-doe/episodes/Self-serve-analytics-powered-by-GPT-4-w-David-Jayatillake-e215pm4",
         "shareLinkEmbedPath": "/john-doe/embed/episodes/Self-serve-analytics-powered-by-GPT-4-w-David-Jayatillake-foo1234"
       }
     ],

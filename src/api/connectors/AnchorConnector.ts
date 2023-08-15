@@ -5,6 +5,7 @@ import audienceSizeSchema from '../../schema/anchor/audienceSize.json'
 import aggregatedPerformanceSchema from '../../schema/anchor/aggregatedPerformance.json'
 import episodePerformanceSchema from '../../schema/anchor/episodePerformance.json'
 import episodePlaysSchema from '../../schema/anchor/episodePlays.json'
+import episodesPageSchema from '../../schema/anchor/episodesPage.json'
 import playsSchema from '../../schema/anchor/plays.json'
 import playsByAgeRangeSchema from '../../schema/anchor/playsByAgeRange.json'
 import playsByAppSchema from '../../schema/anchor/playsByApp.json'
@@ -35,6 +36,7 @@ import {
     RawAnchorTotalPlaysData,
     RawAnchorTotalPlaysByEpisodeData,
     RawAnchorUniqueListenersData,
+    RawAnchorEpisodesPageData,
 } from '../../types/provider/anchor'
 import { AnchorRepository } from '../../db/AnchorRepository'
 import { isArray } from 'mathjs'
@@ -104,6 +106,11 @@ class AnchorConnector implements ConnectorHandler {
                 payload.meta.episode,
                 payload.data.data as RawAnchorAggregatedPerformanceData
             )
+        } else if (endpoint == 'episodesPage') {
+            validateJsonApiPayload(episodesPageSchema, rawPayload)
+            const data = payload.data as RawAnchorEpisodesPageData[]
+            // episodeId and webEpisodeId are part of the `data` payload
+            await this.repo.storeEpisodesPage(accountId, data)
         } else if (endpoint == 'episodePerformance') {
             validateJsonApiPayload(episodePerformanceSchema, rawPayload)
             if (payload.meta.episode === undefined) {

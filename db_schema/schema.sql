@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (10, 'voting agent');
+INSERT INTO migrations (migration_id, migration_name) VALUES (11, 'anchor episodesPage');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -529,6 +529,16 @@ INSERT INTO appleCountries (id, name, code, ccc) VALUES (4, "Afghanistan", "AF",
 (887, "Yemen", "YE", "yem"),
 (894, "Zambia", "ZM", "zmb"),
 (716, "Zimbabwe", "ZW", "zwe");
+
+CREATE TABLE IF NOT EXISTS anchorEpisodesPage (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  web_episode_id VARCHAR(128) NOT NULL,
+  PRIMARY KEY (account_id, episode_id, web_episode_id)
+);
+
+-- Add a secondary index to resolve the web_episode_id to the episode_id
+CREATE INDEX idx_account_episode ON anchorEpisodesPage(account_id, web_episode_id, episode_id);
 
 CREATE TABLE IF NOT EXISTS anchorAudienceSize (
   account_id INTEGER NOT NULL,

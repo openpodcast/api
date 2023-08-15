@@ -222,6 +222,7 @@ export interface AnchorConnectorPayload {
 type AnchorConnectorPayloadData =
     | (AnchorDataPayload & { stationId: string })
     | RawAnchorPodcastData
+    | RawAnchorEpisodesPageData[]
 
 export interface RawAnchorEpisodeData {
     adCount: number
@@ -250,4 +251,29 @@ export interface RawAnchorPodcastData {
     totalPodcastEpisodes: number
     vanitySlug: string
     stationCreatedDate: string
+}
+
+// This type is similar to `RawAnchorEpisodeData`,
+// but it's used by the `EpisodesPage` API endpoint.
+// We are only interested in the `episodeId` and `webEpisodeId` fields.
+// The rest of the data is either not relevant or is fetched from other
+// endpoints.
+export interface RawAnchorEpisodesPageData {
+    episodeId: number
+    webEpisodeId: string
+    title: string
+    publishOnUnixTimestamp: number
+    createdUnixTimestamp: number
+    shareLinkPath: string
+    shareLinkEmbedPath: string
+    downloadUrl: string
+    totalPlays: number
+    duration: number
+    adCount: number
+    containsMusicSegments: boolean
+    isPublishedToSpotifyExclusively: boolean
+    wordpressPostMetadataId: null | number
+    isTrailer: boolean
+    isVideoEpisode?: boolean
+    audioCount: number
 }
