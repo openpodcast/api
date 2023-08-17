@@ -15,6 +15,7 @@ const anchorPodcastEpisodePayload = require('../../fixtures/anchorPodcastEpisode
 const anchorTotalPlaysPayload = require('../../fixtures/anchorTotalPlays.json')
 const anchorTotalPlaysByEpisodePayload = require('../../fixtures/anchorTotalPlaysByEpisode.json')
 const anchorUniqueListenersPayload = require('../../fixtures/anchorUniqueListeners.json')
+const anchorEpisodesPagePayload = require('../../fixtures/anchorEpisodesPage.json')
 
 const auth = require('./authheader')
 
@@ -203,6 +204,17 @@ describe('check Connector API with anchorUniqueListenersPayload', () => {
             .post('/connector')
             .set(auth)
             .send(anchorUniqueListenersPayload)
+        expect(response.statusCode).toBe
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with anchorEpisodesPagePayload', () => {
+    it('should return status 200 when sending proper Anchor payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(anchorEpisodesPagePayload)
         expect(response.statusCode).toBe
         expect(response.statusCode).toBe(200)
     })

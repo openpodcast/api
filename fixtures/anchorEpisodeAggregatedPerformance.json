@@ -5,7 +5,9 @@
   "meta": {
     "show": "123abcde",
     "endpoint": "aggregatedPerformance",
-    "episode": "foo1234"
+    "episode": "e215pm4",
+    "episodeIdNum": 67347588,
+    "webEpisodeId": "e215pm4"
   },
   "range": {
     "start": "2023-05-01",

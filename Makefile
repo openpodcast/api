@@ -58,6 +58,10 @@ shell-% sh-%: ## Run a shell in a container
 test: ## Run tests
 	npx jest ./src --verbose true
 
+.PHONY: integration-test
+integration-test: ## Run integration tests locally
+	npx jest ./tests/api_e2e --verbose true
+
 .PHONY: e2e-tests
 e2e-tests: ## Start end2end tests
 	@make up &

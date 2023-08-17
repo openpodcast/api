@@ -17,6 +17,7 @@ import {
     RawAnchorTotalPlaysData,
     RawAnchorTotalPlaysByEpisodeData,
     RawAnchorUniqueListenersData,
+    RawAnchorEpisodesPageData,
 } from '../types/provider/anchor'
 
 const getDateDBString = (date: Date): string => {
@@ -102,6 +103,35 @@ class AnchorRepository {
             anchorAggregatedPerformanceData.percentile100,
             anchorAggregatedPerformanceData.averageListenSeconds,
         ])
+    }
+
+    async storeEpisodesPage(
+        accountId: number,
+        data: RawAnchorEpisodesPageData[]
+    ): Promise<any> {
+        // We are only interested in storing the episodeIds and the
+        // webEpisodeId fields for each episode.
+        // This is used for mapping the API data of other endpoints.
+        // The rest of the data is redundant or not useful for us.
+        const replaceStmt = `REPLACE INTO anchorEpisodesPage (
+            account_id,
+            episode_id,
+            web_episode_id
+            ) VALUES
+            (?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        data.forEach((episode) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                episode.episodeId,
+                episode.webEpisodeId,
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
     }
 
     async storeEpisodePerformance(
