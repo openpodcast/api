@@ -39,3 +39,14 @@ describe('check Connector API error cases', () => {
         expect(response.statusCode).toBe(400)
     })
 })
+
+describe('check Connector API error cases', () => {
+    it('should return status 404 and print missing route when requesting invalid route', async () => {
+        const response = await request(baseURL)
+            .post('/unknown')
+            .set(auth)
+            .send({ endpoint: 'unknown' })
+        expect(response.statusCode).toBe(404)
+        expect(response.text).toContain('Not Found: /unknown')
+    })
+})

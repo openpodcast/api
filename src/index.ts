@@ -403,7 +403,7 @@ app.get(
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
-    const err = new HttpError('Not Found')
+    const err = new HttpError(`Not Found: ${req.originalUrl}`)
     err.status = 404
     next(err)
 })
