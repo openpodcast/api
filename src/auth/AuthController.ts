@@ -25,7 +25,7 @@ class AuthController {
         if (this.accountsMap[token] !== undefined) {
             return this.accountsMap[token]
         } else {
-            throw new AuthError('Specified token is not valid')
+            throw new AuthError(`Specified token is not valid: ${token}`)
         }
     }
 
@@ -49,7 +49,9 @@ class AuthController {
             authToken.length < 7 ||
             !authToken.startsWith('Bearer ')
         ) {
-            const err = new AuthError('Not authorized: Token format is invalid')
+            const err = new AuthError(
+                `Not authorized: Token format is invalid (token: ${authToken})`
+            )
             return next(err)
         }
 
@@ -61,9 +63,7 @@ class AuthController {
                 accountId,
             }
         } catch (err) {
-            return next(
-                new AuthError('Not authorized: Specified token is not valid')
-            )
+            return next(err)
         }
 
         return next()

@@ -10,7 +10,7 @@ import { EventsApi, ConnectorApi } from './api'
 import { EventRepository } from './db/EventRepository'
 import { SpotifyRepository } from './db/SpotifyRepository'
 import { AuthController } from './auth/AuthController'
-import { HttpError, PayloadError } from './types/api'
+import { AuthError, HttpError, PayloadError } from './types/api'
 import { SpotifyConnector } from './api/connectors/SpotifyConnector'
 import { AppleRepository } from './db/AppleRepository'
 import { AppleConnector } from './api/connectors/AppleConnector'
@@ -31,6 +31,7 @@ import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
+import e from 'express'
 
 const config = new Config()
 
@@ -409,17 +410,22 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
 })
 
 // error handler
-app.use(function (err: Error, req: Request, res: Response) {
-    let httpCode = 500
-    if (err instanceof HttpError) {
-        console.log(err)
-        httpCode = err.status
+app.use(function (
+    err: Error | HttpError | AuthError,
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    if (err instanceof HttpError || err instanceof AuthError) {
+        console.log(`Not Auth 401 ${err.message}`)
     } else {
         // if it is not a known http error, print it for debugging purposes
         console.log(err)
     }
-    res.status(httpCode)
-    res.send(err.message)
+    res.status(
+        err instanceof HttpError || err instanceof AuthError ? err.status : 500
+    )
+    res.send("Something's wrong. We're looking into it.")
 })
 
 dbInit.init().then(() => {
