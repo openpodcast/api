@@ -22,8 +22,10 @@ followers_start AS (
   FROM
     appleTrendsPodcastFollowers
   WHERE
-    atf_date = @start
-    AND account_id = @podcast_id 
+    atf_date BETWEEN @start AND @end
+    AND account_id = @podcast_id
+  ORDER BY atf_date ASC
+  LIMIT 1
 ),
 followers_end AS (
   SELECT
@@ -32,8 +34,10 @@ followers_end AS (
   FROM
     appleTrendsPodcastFollowers
   WHERE
-    atf_date = @end
+    atf_date BETWEEN @start AND @end
     AND account_id = @podcast_id
+  ORDER BY atf_date DESC
+  LIMIT 1
 )
 SELECT
   plays.podcast_id,

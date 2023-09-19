@@ -18,8 +18,10 @@ followers_start AS (
   FROM
     spotifyPodcastFollowers
   WHERE
-    spf_date = @start
+    spf_date BETWEEN @start AND @end
     AND account_id = @podcast_id 
+  ORDER BY spf_date ASC
+  LIMIT 1
 ),
 followers_end AS (
   SELECT
@@ -28,8 +30,10 @@ followers_end AS (
   FROM
     spotifyPodcastFollowers
   WHERE
-    spf_date = @end
+    spf_date BETWEEN @start AND @end
     AND account_id = @podcast_id 
+  ORDER BY spf_date DESC
+  LIMIT 1
 )
 SELECT
   streams.podcast_id,
