@@ -36,7 +36,7 @@ followers_end AS (
     AND account_id = @podcast_id
 )
 SELECT
-  podcast_id,
+  plays.podcast_id,
   apple_playscount,
   apple_totaltimelistened, -- in seconds
   apple_uniqueengagedlistenerscount,
@@ -44,6 +44,7 @@ SELECT
   followers_start.apple_followers as apple_followers_start,
   followers_end.apple_followers as apple_followers_end
 FROM
-  plays JOIN followers_start USING (podcast_id)
-  JOIN followers_end USING (podcast_id)
+  plays 
+LEFT JOIN followers_start ON plays.podcast_id = followers_start.podcast_id
+LEFT JOIN followers_end ON plays.podcast_id = followers_end.podcast_id
 
