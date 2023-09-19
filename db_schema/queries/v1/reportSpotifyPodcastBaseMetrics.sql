@@ -32,12 +32,12 @@ followers_end AS (
     AND account_id = @podcast_id 
 )
 SELECT
-  podcast_id,
+  streams.podcast_id,
   spotify_starts,
   spotify_streams,
   followers_start.spotify_followers as spotify_followers_start,
   followers_end.spotify_followers as spotify_followers_end
 FROM
-  streams JOIN followers_start USING (podcast_id)
-  JOIN followers_end USING (podcast_id)
-
+  streams 
+LEFT JOIN followers_start ON streams.podcast_id = followers_start.podcast_id
+LEFT JOIN followers_end ON streams.podcast_id = followers_end.podcast_id
