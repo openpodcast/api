@@ -7,8 +7,8 @@ WITH episodeListeners AS
         spotifyEpisodeMetadataHistory o
     JOIN spotifyEpisodeMetadataHistory n USING (account_id, episode_id)
     WHERE 
-        o.epm_date = (SELECT MAX(epm_date) FROM spotifyEpisodeMetadataHistory WHERE epm_date <= @start AND account_id = @podcast_id)
-        AND n.epm_date = (SELECT MAX(epm_date) FROM spotifyEpisodeMetadataHistory WHERE epm_date <= @end AND account_id = @podcast_id)
+        o.epm_date = (SELECT MIN(epm_date) FROM spotifyEpisodeMetadataHistory WHERE (epm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
+        AND n.epm_date = (SELECT MAX(epm_date) FROM spotifyEpisodeMetadataHistory WHERE (epm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
         AND o.account_id = @podcast_id
     GROUP BY o.account_id
 ),
@@ -21,14 +21,18 @@ podcastListeners AS
         spotifyPodcastMetadata o
     JOIN spotifyPodcastMetadata n USING (account_id)
     WHERE
-        o.spm_date = (SELECT MAX(spm_date) FROM spotifyPodcastMetadata WHERE spm_date <= @start AND account_id = @podcast_id)
-        AND n.spm_date = (SELECT MAX(spm_date) FROM spotifyPodcastMetadata WHERE spm_date <= @end AND account_id = @podcast_id)
+        o.spm_date = (SELECT MIN(spm_date) FROM spotifyPodcastMetadata WHERE (spm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
+        AND n.spm_date = (SELECT MAX(spm_date) FROM spotifyPodcastMetadata WHERE (spm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
         AND o.account_id = @podcast_id
     LIMIT 1
 )
 SELECT
     account_id,
-    episodeListeners.listeners as unique_podcast_listens,
-    podcastListeners.listeners as new_unique_podcast_listeners
+    -- Sum up all newly joined unique listeners for all episodes in the period
+    episodeListeners.listeners as new_unique_episode_listens,
+    -- Newly joined unique listeners for the podcast in the period
+    podcastListeners.listeners as new_unique_podcast_listeners,
+    -- Average consumed episodes per new unique listener
+    episodeListeners.listeners / podcastListeners.listeners as new_unique_episode_listens_per_podcast_listener
 FROM episodeListeners 
 JOIN podcastListeners USING (account_id)
