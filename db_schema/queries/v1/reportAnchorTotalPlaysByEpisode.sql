@@ -22,5 +22,5 @@ JOIN
 WHERE
     a.account_id = @podcast_id
 ORDER BY 
-    a.date ASC;
+    a.plays DESC
    
