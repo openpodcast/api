@@ -21,9 +21,10 @@ WHERE
         FROM anchorTotalPlaysByEpisode
         WHERE 
             account_id = @podcast_id
-            AND date BETWEEN @start AND @end
+            -- as this table stores always the total number of yesterday
+            AND date BETWEEN @start AND DATE_ADD(@end, INTERVAL 1 DAY)
     )
 GROUP BY 
     e.episode_id, p.title, t.plays
 ORDER BY 
-    total_plays DESC
+    total_plays DESC 
