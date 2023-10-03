@@ -62,6 +62,16 @@ test: ## Run tests
 integration-test: ## Run integration tests locally
 	npx jest ./tests/api_e2e --verbose true
 
+.PHONY: dev-sql
+dev-sql: ## Watch SQL files and output ready to run queries (specify podcast id as first param)
+ifndef PODCAST_ID
+	@echo "Error: Podcast ID is missing. Please specify the PODCAST_ID variable. Example: make dev-sql PODCAST_ID=3"
+	@exit 1
+else
+	@echo "Podcast ID: $(PODCAST_ID)"
+	$(SHELL) ./watch-sql-queries.sh "$(PODCAST_ID)"
+endif
+
 .PHONY: e2e-tests
 e2e-tests: ## Start end2end tests
 	@make up &
