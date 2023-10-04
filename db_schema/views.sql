@@ -198,3 +198,10 @@ CREATE OR REPLACE VIEW spotifyEpisodePerformance15SecBuckets AS
     -- as we start with 0 and decrease sample_id by 1, calc -1 % 15
     (MOD(sample_id-1,15) = 0 OR sample_id = 1 OR spp_sample_seconds = sample_id)
   GROUP BY account_id,episode_id,spp_sample_max,spp_date;
+
+-- clean votes and ignore votes by bots and spider
+CREATE OR REPLACE VIEW feedbackVoteCleaned AS
+  SELECT * FROM feedbackVote
+  WHERE agent NOT LIKE "%Bot%"
+  AND agent <> "Google"
+  AND agent <> "Google-Safety";
