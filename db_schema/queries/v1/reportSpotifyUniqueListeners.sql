@@ -1,4 +1,15 @@
-WITH episodeListeners AS
+WITH minmax AS
+(
+    SELECT
+        MIN(epm_date) as min_date,
+        MAX(epm_date) as max_date
+    FROM
+        spotifyEpisodeMetadataHistory
+    WHERE
+        account_id = @podcast_id
+        AND epm_date BETWEEN @start AND @end
+),
+episodeListeners AS
 (
     SELECT
         account_id,
@@ -7,8 +18,8 @@ WITH episodeListeners AS
         spotifyEpisodeMetadataHistory o
     JOIN spotifyEpisodeMetadataHistory n USING (account_id, episode_id)
     WHERE 
-        o.epm_date = (SELECT MIN(epm_date) FROM spotifyEpisodeMetadataHistory WHERE (epm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
-        AND n.epm_date = (SELECT MAX(epm_date) FROM spotifyEpisodeMetadataHistory WHERE (epm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
+        o.epm_date = (SELECT min_date FROM minmax)
+        AND n.epm_date = (SELECT max_date FROM minmax)
         AND o.account_id = @podcast_id
     GROUP BY o.account_id
 ),
@@ -21,8 +32,8 @@ podcastListeners AS
         spotifyPodcastMetadata o
     JOIN spotifyPodcastMetadata n USING (account_id)
     WHERE
-        o.spm_date = (SELECT MIN(spm_date) FROM spotifyPodcastMetadata WHERE (spm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
-        AND n.spm_date = (SELECT MAX(spm_date) FROM spotifyPodcastMetadata WHERE (spm_date BETWEEN @start AND @end) AND account_id = @podcast_id)
+        o.spm_date = (SELECT min_date FROM minmax)
+        AND n.spm_date = (SELECT max_date FROM minmax)
         AND o.account_id = @podcast_id
     LIMIT 1
 )
