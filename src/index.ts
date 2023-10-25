@@ -417,13 +417,17 @@ app.use(function (
     next: NextFunction
 ) {
     if (err instanceof HttpError || err instanceof AuthError) {
-        console.log(`Not Auth 401 ${err.message}`)
+        console.log(`Status ${err.status}: ${err.message} (${req.originalUrl})`)
     } else {
         // if it is not a known http error, print it for debugging purposes
         console.log(err)
     }
     res.status(
-        err instanceof HttpError || err instanceof AuthError ? err.status : 500
+        err instanceof HttpError || err instanceof AuthError
+            ? err.status > 0
+                ? err.status
+                : 0
+            : 500
     )
     res.send("Something's wrong. We're looking into it.")
 })
@@ -431,7 +435,7 @@ app.use(function (
 dbInit.init().then(() => {
     app.listen(port, () => {
         console.log(
-            `⚡️[server]: Server is running at http://localhost:${port}`
+            `⚡️[server]: Open Podcast is running at http://localhost:${port}`
         )
     })
 })
