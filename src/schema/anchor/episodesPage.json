@@ -54,7 +54,11 @@
                         "type": "string"
                     },
                     "title": {
-                        "type": "string"
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "$comment": "As some episodes do not have a title (null) and we don't use it at the moment, allow null here"
                     },
                     "publishOnUnixTimestamp": {
                         "type": "number"
