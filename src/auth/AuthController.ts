@@ -25,7 +25,9 @@ class AuthController {
         if (this.accountsMap[token] !== undefined) {
             return this.accountsMap[token]
         } else {
-            throw new AuthError(`Specified token is not valid: ${token}`)
+            throw new AuthError(
+                `Specified token is not valid (not in accounts map): ${token}.`
+            )
         }
     }
 

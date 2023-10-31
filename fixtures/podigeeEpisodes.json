@@ -1,0 +1,393 @@
+{
+    "provider": "podigee",
+    "version": 1,
+    "retrieved": "2023-10-29T16:20:57.307540",
+    "meta": {
+        "show": "123abcde",
+        "endpoint": "episodes"
+    },
+    "range": {
+        "start": "2023-05-01",
+        "end": "2023-05-04"
+    },
+    "data": [
+        {
+            "id": 1218042,
+            "downloads": 125,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Childprozesse forken",
+            "slug": "42-childprozesse-forken",
+            "number": 42,
+            "published_at": "2023-09-12T22:00:00Z"
+        },
+        {
+            "id": 1199128,
+            "downloads": 222,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "AAAAA Schl\u00fcsseldienst STORM 558",
+            "slug": "41-aaaaa-schlusseldienst-storm-558",
+            "number": 41,
+            "published_at": "2023-08-29T22:00:00Z"
+        },
+        {
+            "id": 1189276,
+            "downloads": 203,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Endzeitstimmung im Sommerloch",
+            "slug": "40-endzeitstimmung-im-sommerloch",
+            "number": 40,
+            "published_at": "2023-08-15T22:00:00Z"
+        },
+        {
+            "id": 1177706,
+            "downloads": 226,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Greenfield im Tier4 RZ",
+            "slug": "39-greenfield-im-tier4-rz",
+            "number": 39,
+            "published_at": "2023-08-01T22:00:00Z"
+        },
+        {
+            "id": 1165887,
+            "downloads": 227,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Einmal mit Profis",
+            "slug": "38-einmal-mit-profis",
+            "number": 38,
+            "published_at": "2023-07-18T22:00:00Z"
+        },
+        {
+            "id": 1151791,
+            "downloads": 242,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Ein Server namens UP",
+            "slug": "37-ein-server-namens-up",
+            "number": 37,
+            "published_at": "2023-07-04T22:00:00Z"
+        },
+        {
+            "id": 1139771,
+            "downloads": 243,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "VDI ist nix f\u00fcr Boomer",
+            "slug": "36-vdi-ist-nix-fur-boomer",
+            "number": 36,
+            "published_at": "2023-06-20T22:00:00Z"
+        },
+        {
+            "id": 1127932,
+            "downloads": 223,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Currywurst",
+            "slug": "35-currywurst",
+            "number": 35,
+            "published_at": "2023-06-06T22:00:00Z"
+        },
+        {
+            "id": 1113021,
+            "downloads": 250,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Break Stuff",
+            "slug": "34-break-stuff",
+            "number": 34,
+            "published_at": "2023-05-23T22:00:00Z"
+        },
+        {
+            "id": 1100399,
+            "downloads": 262,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Alice liest Bobs Post",
+            "slug": "33-alice-liest-bobs-post",
+            "number": 33,
+            "published_at": "2023-05-09T22:00:00Z"
+        },
+        {
+            "id": 1086693,
+            "downloads": 288,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Einsatz in 4 W\u00e4nden",
+            "slug": "32-einsatz-in-4-wanden",
+            "number": 32,
+            "published_at": "2023-04-25T22:00:00Z"
+        },
+        {
+            "id": 1075164,
+            "downloads": 243,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "geSOCKS-Proxy",
+            "slug": "31-gesocks-proxy",
+            "number": 31,
+            "published_at": "2023-04-11T22:00:00Z"
+        },
+        {
+            "id": 1059292,
+            "downloads": 269,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Gesalzenes Hash",
+            "slug": "30-gesalzenes-hash",
+            "number": 30,
+            "published_at": "2023-03-28T22:00:00Z"
+        },
+        {
+            "id": 1047784,
+            "downloads": 275,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Software-definierte Automatisierung",
+            "slug": "29-software-definierte-automatisierung",
+            "number": 29,
+            "published_at": "2023-03-14T23:00:00Z"
+        },
+        {
+            "id": 1032293,
+            "downloads": 311,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Das S in OT steht f\u00fcr Sicherheit",
+            "slug": "28-das-s-in-ot-steht-fur-sicherheit",
+            "number": 28,
+            "published_at": "2023-02-28T23:00:00Z"
+        },
+        {
+            "id": 1021208,
+            "downloads": 259,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Hebt die Itanic!",
+            "slug": "27-hebt-die-itanic",
+            "number": 27,
+            "published_at": "2023-02-14T23:00:00Z"
+        },
+        {
+            "id": 996352,
+            "downloads": 266,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "T\u00fcrsteher, Dinos und alte Leute",
+            "slug": "26-tursteher-dinos-und-alte-leute",
+            "number": 26,
+            "published_at": "2023-01-31T23:00:00Z"
+        },
+        {
+            "id": 989820,
+            "downloads": 271,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Robert'); DROP TABLE Students;--",
+            "slug": "25-robert-drop-table-students-",
+            "number": 25,
+            "published_at": "2023-01-17T23:00:00Z"
+        },
+        {
+            "id": 977998,
+            "downloads": 293,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "V2FydHVuZ3NmZW5zdGVy",
+            "slug": "24-v2fydhvuz3nmzw5zdgvy",
+            "number": 24,
+            "published_at": "2023-01-03T23:00:00Z"
+        },
+        {
+            "id": 969591,
+            "downloads": 263,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Naughty or nice",
+            "slug": "23-naughty-or-nice",
+            "number": 23,
+            "published_at": "2022-12-20T23:00:00Z"
+        },
+        {
+            "id": 955105,
+            "downloads": 281,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Die L\u00fcmmel von der ersten Bank",
+            "slug": "22-die-lummel-von-der-ersten-bank",
+            "number": 22,
+            "published_at": "2022-12-06T23:00:00Z"
+        },
+        {
+            "id": 939726,
+            "downloads": 299,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Too much security",
+            "slug": "21-too-much-security",
+            "number": 21,
+            "published_at": "2022-11-22T23:00:00Z"
+        },
+        {
+            "id": 927929,
+            "downloads": 268,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Make or Buy",
+            "slug": "20-make-or-buy",
+            "number": 20,
+            "published_at": "2022-11-08T23:00:00Z"
+        },
+        {
+            "id": 913442,
+            "downloads": 235,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Ohne Sticker keine Competition",
+            "slug": "19-ohne-sticker-keine-competition",
+            "number": 19,
+            "published_at": "2022-10-25T22:00:00Z"
+        },
+        {
+            "id": 896975,
+            "downloads": 221,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Business-Tinder",
+            "slug": "18-business-tinder",
+            "number": 18,
+            "published_at": "2022-10-13T22:00:00Z"
+        },
+        {
+            "id": 882405,
+            "downloads": 260,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "NVMe-onlyFans",
+            "slug": "17-nvme-onlyfans",
+            "number": 17,
+            "published_at": "2022-09-27T22:00:00Z"
+        },
+        {
+            "id": 869192,
+            "downloads": 215,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "IT-Adel",
+            "slug": "16-it-adel",
+            "number": 16,
+            "published_at": "2022-09-13T22:00:00Z"
+        },
+        {
+            "id": 856111,
+            "downloads": 224,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Deployment By Accident",
+            "slug": "15-deployment-by-accident",
+            "number": 15,
+            "published_at": "2022-08-30T22:00:00Z"
+        },
+        {
+            "id": 844967,
+            "downloads": 200,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Initial Access Broker",
+            "slug": "14-initial-access-broker",
+            "number": 14,
+            "published_at": "2022-08-16T22:00:00Z"
+        },
+        {
+            "id": 832225,
+            "downloads": 251,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Pl\u00f6tzlich PROD",
+            "slug": "13-ploetzlich-prod",
+            "number": 13,
+            "published_at": "2022-08-02T22:00:00Z"
+        },
+        {
+            "id": 785905,
+            "downloads": 181,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Sommerloch",
+            "slug": "12-sommerloch",
+            "number": 12,
+            "published_at": "2022-07-19T22:00:00Z"
+        },
+        {
+            "id": 785902,
+            "downloads": 235,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Something by Proxy",
+            "slug": "11-something-by-proxy",
+            "number": 11,
+            "published_at": "2022-07-05T22:00:00Z"
+        },
+        {
+            "id": 785900,
+            "downloads": 221,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Switches hamstern",
+            "slug": "10-switches-hamstern",
+            "number": 10,
+            "published_at": "2022-06-21T22:00:00Z"
+        },
+        {
+            "id": 760918,
+            "downloads": 234,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Technical debt as a service",
+            "slug": "9-technical-debt-as-a-service",
+            "number": 9,
+            "published_at": "2022-06-07T22:00:00Z"
+        },
+        {
+            "id": 760914,
+            "downloads": 181,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Kenne mer nit - bruche mer nit",
+            "slug": "8-kenne-mer-nit-bruche-mer-nit",
+            "number": 8,
+            "published_at": "2022-05-24T22:00:00Z"
+        },
+        {
+            "id": 752199,
+            "downloads": 166,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Together Forever",
+            "slug": "7-together-forever",
+            "number": 7,
+            "published_at": "2022-05-11T08:42:37Z"
+        },
+        {
+            "id": 734503,
+            "downloads": 164,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Technische Schulden sind Ehrenschulden",
+            "slug": "6-technische-schulden-sind-ehrenschulden",
+            "number": 6,
+            "published_at": "2022-04-20T06:59:10Z"
+        },
+        {
+            "id": 718824,
+            "downloads": 213,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Zertifizierter Schwurbel",
+            "slug": "5-zertifizierter-schwurbel",
+            "number": 5,
+            "published_at": "2022-04-01T06:27:31Z"
+        },
+        {
+            "id": 678648,
+            "downloads": 167,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Blinzelnde Zyklopen",
+            "slug": "4-blinzelnde-zyklopen",
+            "number": 4,
+            "published_at": "2022-03-17T07:52:49Z"
+        },
+        {
+            "id": 674603,
+            "downloads": 161,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,skH7mYalBFMjj6VzAb5RZp7CiQ5Z6vWdpY7VBk8HdhMY=/https://cdn.podigee.com/uploads/u35870/06b57b14-4489-4868-aca5-924406e92b8c.jpg",
+            "title": "Gemischte T\u00fcte",
+            "slug": "3-gemischte-tute",
+            "number": 3,
+            "published_at": "2022-02-25T05:00:00Z"
+        },
+        {
+            "id": 652366,
+            "downloads": 264,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,s0SUlT2-YrC4eDXoh47eGLciEHHQ--7QYeHR4jAKS70E=/https://cdn.podigee.com/uploads/u35870/18932dd7-91a2-49c6-a3bc-fb237647ae11.jpg",
+            "title": "Hausparty au\u00dfer Kontrolle",
+            "slug": "2-hausparty-ausser-kontrolle",
+            "number": 2,
+            "published_at": "2022-02-11T23:05:42Z"
+        },
+        {
+            "id": 642672,
+            "downloads": 298,
+            "analytics_episodes_cover_image": "https://images.podigee-cdn.net/128x,s4YawY0dOJhVAkYCQ7n_R2lQ4V7ebrBhdYKG61q4CLFo=/https://cdn.podigee.com/uploads/u35870/bd9930e3-3a01-491e-aac1-30d739bcbea2.jpg",
+            "title": "Arrays start at 1",
+            "slug": "1-arrays-start-at-1",
+            "number": 1,
+            "published_at": "2022-01-25T22:30:57Z"
+        }
+    ]
+}
