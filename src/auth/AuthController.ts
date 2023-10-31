@@ -17,12 +17,12 @@ class AuthController {
         // remove 'Bearer ' from token to get the actual token
         const token = authToken.substring(7)
 
-        // First try to get the account ID from the database
-        if (this.accountKeyRepository) {
-            const accountId = await this.accountKeyRepository.getAccountIdByKey(token)
-            if (accountId !== null) {
-                return accountId
-            }
+        if (this.accountsMap[token] !== undefined) {
+            return this.accountsMap[token]
+        } else {
+            throw new AuthError(
+                `Specified token is not valid (not in accounts map): ${token}.`
+            )
         }
 
         // If the account ID is not found in the database, throw an error

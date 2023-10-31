@@ -1,0 +1,54 @@
+{
+    "$id": "http://openpodcast.dev/schema/podigee/podcastDetails.schema.json",
+    "title": "Podigee Podcast Details",
+    "type": "object",
+    "properties": {
+        "downloaded_on": {
+            "type": "string"
+        },
+        "downloads": {
+            "type": "object",
+            "properties": {
+                "complete": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false
+        },
+        "platforms": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "number"
+            }
+        },
+        "clients": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "number"
+            }
+        },
+        "clients_on_platforms": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                    "type": "number"
+                }
+            }
+        },
+        "sources": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "number"
+            }
+        }
+    },
+    "required": [
+        "downloaded_on",
+        "downloads",
+        "platforms",
+        "clients",
+        "clients_on_platforms",
+        "sources"
+    ]
+}
