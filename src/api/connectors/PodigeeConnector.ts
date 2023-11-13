@@ -37,7 +37,9 @@ class PodigeeConnector implements ConnectorHandler {
         accountId: number,
         payload: ConnectorPayload
     ): Promise<void> | never {
-        if (payload.meta.endpoint === 'analytics') {
+        if (payload.meta.endpoint === 'podcastAnalytics') {
+            console.log('podcastAnalytics')
+
             // validates the payload and throws an error if it is not valid
             validateJsonApiPayload(analyticsSchema, payload.data)
 
@@ -48,6 +50,8 @@ class PodigeeConnector implements ConnectorHandler {
                         .results
                 ) as AppleEpisodePayload[]
             )
+        } else if (payload.meta.endpoint === 'episodeAnalytics') {
+            console.log('episodeAnalytics')
         } else {
             throw new PayloadError(
                 `Unknown endpoint in meta: ${payload.meta.endpoint}`
@@ -56,4 +60,4 @@ class PodigeeConnector implements ConnectorHandler {
     }
 }
 
-export default { PodigeeConnector }
+export { PodigeeConnector }
