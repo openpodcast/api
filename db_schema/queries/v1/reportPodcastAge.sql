@@ -3,7 +3,7 @@ data as
 (
   SELECT
   spa_facet as age_group,
-  SUM(spa_gender_female+spa_gender_male+spa_gender_non_binary+spa_gender_not_specified) listeners,
+  SUM(spa_gender_female+spa_gender_male+spa_gender_non_binary+spa_gender_not_specified) AS listeners,
   SUM(spa_gender_female) as female,
   SUM(spa_gender_male) as male,
   SUM(spa_gender_non_binary) as non_binary,
@@ -19,6 +19,7 @@ data as
 SELECT
 *,
 SUM(listeners) OVER() as total_listeners,
+ROUND(listeners/(SUM(listeners) OVER())*100, 2) as listeners_percent,
 ROUND(female/(SUM(listeners) OVER())*100, 2) as female_percent,
 ROUND(male/(SUM(listeners) OVER())*100, 2) as male_percent,
 ROUND(non_binary/(SUM(listeners) OVER())*100, 2) as non_binary_percent,
