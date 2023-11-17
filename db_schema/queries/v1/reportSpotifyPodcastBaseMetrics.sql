@@ -11,6 +11,15 @@ WITH streams AS (
     AND account_id = @podcast_id
   GROUP BY account_id 
 ),
+streamstotal AS (
+  SELECT
+    *,
+    account_id as podcast_id
+  FROM spotifyPodcastMetadata
+  WHERE
+    account_id = @podcast_id
+    AND spm_date = (SELECT MAX(spm_date) FROM spotifyPodcastMetadata WHERE account_id = @podcast_id AND spm_date <= @end AND spm_date >= @start)
+),
 followers_start AS (
   SELECT
     account_id as podcast_id,
@@ -40,8 +49,13 @@ SELECT
   spotify_starts,
   spotify_streams,
   followers_start.spotify_followers as spotify_followers_start,
-  followers_end.spotify_followers as spotify_followers_end
+  followers_end.spotify_followers as spotify_followers_end,
+  streamstotal.spm_starts as spotify_starts_total,
+  streamstotal.spm_streams as spotify_streams_total,
+  streamstotal.spm_followers as spotify_followers_total,
+  streamstotal.spm_listeners as spotify_listeners_total
 FROM
   streams 
 LEFT JOIN followers_start ON streams.podcast_id = followers_start.podcast_id
 LEFT JOIN followers_end ON streams.podcast_id = followers_end.podcast_id
+LEFT JOIN streamstotal ON streams.podcast_id = streamstotal.account_id
