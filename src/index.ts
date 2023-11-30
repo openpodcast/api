@@ -333,7 +333,7 @@ app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
 app.post(
     '/comments/:episodeId',
     userHashMiddleware,
-    body('email').isEmail(),
+    body('email').optional().isEmail(),
     body('comment').not().isEmpty().trim().isLength({ min: 3, max: 1000 }),
     async (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req)
