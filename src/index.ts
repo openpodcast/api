@@ -343,10 +343,13 @@ app.post(
 
         const episodeId = req.params.episodeId
         try {
+            const comment = req.body.email
+                ? `${req.body.email}: ${req.body.comment}`
+                : req.body.comment
             await feedbackApi.handleCommentPost(
                 episodeId,
                 req.headers.userHash as string,
-                req.body.comment
+                comment
             )
 
             res.render('comment.hbs')
