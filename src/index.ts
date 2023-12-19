@@ -101,7 +101,7 @@ const app: Express = express()
 const port = config.getExpressPort()
 
 // extract json payload from body automatically
-app.use(bodyParser.json({ limit: '1mb' }))
+app.use(bodyParser.json({ limit: '2mb' }))
 
 app.use(express.static('public'))
 app.set('view engine', 'handlebars')
