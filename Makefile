@@ -69,7 +69,7 @@ ifndef PODCAST_ID
 	@exit 1
 else
 	@echo "Podcast ID: $(PODCAST_ID)"
-	$(SHELL) ./watch-sql-queries.sh "$(PODCAST_ID)"
+	$(SHELL) ./watch-sql-queries.sh "$(PODCAST_ID)" "$(START_DATE)" "$(END_DATE)"
 endif
 
 .PHONY: e2e-tests
