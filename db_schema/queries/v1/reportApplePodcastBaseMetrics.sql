@@ -12,6 +12,9 @@ WITH plays AS (
   GROUP BY
     account_id
 ),
+maxEpDetailsDate AS ( 
+  SELECT MAX(aed_date) as d FROM appleEpisodeDetails WHERE account_id = @podcast_id AND aed_date <= @end AND aed_date >= @start
+),
 totalPlays AS (
   SELECT
   account_id as podcast_id,
@@ -20,7 +23,7 @@ totalPlays AS (
   FROM appleEpisodeDetails
   WHERE
     account_id = @podcast_id
-    AND aed_date = (SELECT MAX(aed_date) FROM appleEpisodeDetails WHERE account_id = @podcast_id AND aed_date <= @end AND aed_date >= @start)
+    AND aed_date = (SELECT d FROM maxEpDetailsDate)
   GROUP BY
     account_id
 ),
