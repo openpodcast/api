@@ -419,6 +419,10 @@ app.use(function (
     res: Response,
     next: NextFunction
 ) {
+    // add a tracing id to the error message for easier debugging
+    const tracingId = crypto.randomBytes(16).toString('hex')
+    err.message = `${err.message} - Tracing ID: ${tracingId}`
+
     if (err instanceof HttpError || err instanceof AuthError) {
         console.log(`Status ${err.status}: ${err.message} (${req.originalUrl})`)
     } else {
@@ -432,7 +436,7 @@ app.use(function (
                 : 0
             : 500
     )
-    res.send("Something's wrong. We're looking into it.")
+    res.send(`Something's wrong. We're looking into it. (${tracingId})`)
 })
 
 dbInit.init().then(() => {
