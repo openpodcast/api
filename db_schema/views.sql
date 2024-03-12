@@ -48,8 +48,8 @@ spotify as (
 apple as (
   SELECT
     today.account_id, today.atf_date as `date`,
-    today.atf_totalfollowers as total_followers,
-    today.atf_totalfollowers-yesterday.atf_totalfollowers as `change`
+    today.atf_totalfollowers - today.atf_totalunfollowers as total_followers,
+    (today.atf_totalfollowers - today.atf_totalunfollowers) - (yesterday.atf_totalfollowers - yesterday.atf_totalunfollowers) as `change`
   FROM
     appleTrendsPodcastFollowers as today LEFT JOIN appleTrendsPodcastFollowers as yesterday
     ON (yesterday.atf_date=DATE_SUB(today.atf_date, INTERVAL 1 DAY) AND today.account_id=yesterday.account_id)
