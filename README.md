@@ -2,6 +2,8 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/openpodcast/api?color=%23099cec&logo=Docker)](https://hub.docker.com/r/openpodcast/api)
 
+![OpenPodcast Banner](https://raw.githubusercontent.com/openpodcast/banner/main/openpodcast-banner.png)
+
 This thin API layer is used to store `POST`ed payloads to the main storage
 system of Open Podcast.
 
