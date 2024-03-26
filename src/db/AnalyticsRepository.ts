@@ -34,8 +34,6 @@ class AnalyticsRepository {
             query = query?.replaceAll(`@${key}`, escapedValue)
         }
 
-        console.log(query)
-
         // Execute the query and return the result
         const [rows, _] = await this.pool.query(query)
         return rows
