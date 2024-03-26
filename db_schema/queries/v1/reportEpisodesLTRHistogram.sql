@@ -1,3 +1,8 @@
+WITH
+maxSpotifyDate as (SELECT MAX(spp_date) as d FROM spotifyEpisodePerformance WHERE account_id = @podcast_id AND spp_date <= @end) 
+,maxAppleDate as (SELECT MAX(aed_date) as d FROM appleEpisodeDetails WHERE account_id = @podcast_id AND aed_date <= @end)
+,maxSpotifyMetadataDate as (SELECT MAX(epm_date) as d FROM spotifyEpisodeMetadataHistory WHERE account_id = @podcast_id AND epm_date <= @end)
+
 SELECT
   guid,
   meta.ep_name,
@@ -26,9 +31,9 @@ WHERE
   AND apple.account_id = @podcast_id
   AND metaHistory.account_id = @podcast_id
   -- date criteria
-  AND spotify.spp_date = @end
-  AND apple.aed_date = @end
-  AND metaHistory.epm_date = @end
+  AND spotify.spp_date = (SELECT d FROM maxSpotifyDate)
+  AND apple.aed_date = (SELECT d FROM maxAppleDate)
+  AND metaHistory.epm_date = (SELECT d FROM maxSpotifyMetadataDate)
   -- in the report we would not have data for episodes 
   -- that weren't released yet
   AND ep_release_date <= @end
