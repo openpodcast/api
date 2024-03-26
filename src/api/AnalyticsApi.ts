@@ -28,7 +28,7 @@ class AnalyticsApi {
         }
 
         const sqlVars = {
-            podcast_id: podcastId,
+            podcast_id: parseInt(podcastId),
             start: formatDate(startDate),
             end: formatDate(endDate),
         }
