@@ -41,7 +41,6 @@
       },
       "required": [
         "episodeid",
-        "followstate",
         "playscount",
         "podcastid",
         "totaltimelistened",
