@@ -10,7 +10,7 @@ export interface JsonPayload {
 export type Event = JsonPayload
 
 export class HttpError extends Error {
-    status = 0
+    status = 500
 }
 export class PayloadError extends HttpError {
     status = 400 // invalid request

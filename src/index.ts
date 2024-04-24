@@ -429,11 +429,7 @@ app.use(function (
         console.log(err)
     }
     res.status(
-        err instanceof HttpError || err instanceof AuthError
-            ? err.status > 0
-                ? err.status
-                : 0
-            : 500
+        err instanceof HttpError || err instanceof AuthError ? err.status : 500
     )
     res.send(`Something's wrong. We're looking into it. (${tracingId})`)
 })
