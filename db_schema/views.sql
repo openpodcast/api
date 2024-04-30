@@ -205,3 +205,21 @@ CREATE OR REPLACE VIEW feedbackVoteCleaned AS
   WHERE agent NOT LIKE "%Bot%"
   AND agent <> "Google"
   AND agent <> "Google-Safety";
+
+-- gender stats of episodes
+CREATE OR REPLACE VIEW spotifyEpisodeGenderStats AS
+  SELECT
+    account_id,
+    episode_id,
+    SUM(spa_gender_not_specified) as not_specified,
+    SUM(spa_gender_male) as male,
+    SUM(spa_gender_female) as female,
+    SUM(spa_gender_non_binary) as non_binary,
+    SUM(spa_gender_not_specified+spa_gender_male+spa_gender_female+spa_gender_non_binary) as total,
+    SUM(spa_gender_not_specified)/SUM(spa_gender_not_specified+spa_gender_male+spa_gender_female+spa_gender_non_binary)*100 as not_specified_percent,
+    SUM(spa_gender_male)/SUM(spa_gender_not_specified+spa_gender_male+spa_gender_female+spa_gender_non_binary)*100 as male_percent,
+    SUM(spa_gender_female)/SUM(spa_gender_not_specified+spa_gender_male+spa_gender_female+spa_gender_non_binary)*100 as female_percent,
+    SUM(spa_gender_non_binary)/SUM(spa_gender_not_specified+spa_gender_male+spa_gender_female+spa_gender_non_binary)*100 as non_binary_percent
+  FROM spotifyEpisodeAggregate
+  WHERE spa_facet_type = 'age_sum'
+  GROUP BY account_id,episode_id;
