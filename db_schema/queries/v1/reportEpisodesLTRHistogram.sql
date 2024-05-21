@@ -3,6 +3,29 @@ maxSpotifyDate as (SELECT MAX(spp_date) as d FROM spotifyEpisodePerformance WHER
 ,maxAppleDate as (SELECT MAX(aed_date) as d FROM appleEpisodeDetails WHERE account_id = @podcast_id AND aed_date <= @end)
 ,maxSpotifyMetadataDate as (SELECT MAX(epm_date) as d FROM spotifyEpisodeMetadataHistory WHERE account_id = @podcast_id AND epm_date <= @end)
 
+-- Normalize Spotify LTR to 15sec buckets to be usable together with Apple LTR
+-- Optimizer doesn't push down selection when using a VIEW, so we need to repeat the subquery here
+,spotifyEpisodePerformance15SecBuckets as (
+
+  SELECT JSON_ARRAYAGG(JSON_OBJECT(sample_id-1,listeners)) as histogram,episode_id,account_id,spp_date,spp_sample_max FROM 
+    spotifyEpisodePerformance CROSS JOIN
+    JSON_TABLE(
+        spp_samples,
+        "$[*]"
+        COLUMNS (
+          sample_id FOR ORDINALITY,
+          listeners INT PATH "$"
+        )
+    ) samples
+  WHERE
+    -- just show numbers every 15 seconds and the first+last one
+    -- as we start with 0 and decrease sample_id by 1, calc -1 % 15
+    (MOD(sample_id-1,15) = 0 OR sample_id = 1 OR spp_sample_seconds = sample_id)
+    AND account_id = @podcast_id
+    AND spp_date = (SELECT d FROM maxSpotifyDate)
+  GROUP BY account_id,episode_id,spp_sample_max,spp_date
+) 
+
 SELECT
   guid,
   meta.ep_name,

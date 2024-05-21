@@ -180,25 +180,6 @@ CREATE OR REPLACE VIEW appleEpisodesLTR AS  SELECT
   FROM appleEpisodeDetails
   LEFT JOIN appleEpisodeMetadata USING (account_id, episode_id);
 
-
--- Normalize Spotify LTR to 15sec buckets to be usable together with Apple LTR
-CREATE OR REPLACE VIEW spotifyEpisodePerformance15SecBuckets AS
-  SELECT JSON_ARRAYAGG(JSON_OBJECT(sample_id-1,listeners)) as histogram,episode_id,account_id,spp_date,spp_sample_max FROM 
-    spotifyEpisodePerformance CROSS JOIN
-    JSON_TABLE(
-        spp_samples,
-        "$[*]"
-        COLUMNS (
-          sample_id FOR ORDINALITY,
-          listeners INT PATH "$"
-        )
-    ) samples
-  WHERE
-    -- just show numbers every 15 seconds and the first+last one
-    -- as we start with 0 and decrease sample_id by 1, calc -1 % 15
-    (MOD(sample_id-1,15) = 0 OR sample_id = 1 OR spp_sample_seconds = sample_id)
-  GROUP BY account_id,episode_id,spp_sample_max,spp_date;
-
 -- clean votes and ignore votes by bots and spider
 CREATE OR REPLACE VIEW feedbackVoteCleaned AS
   SELECT * FROM feedbackVote
