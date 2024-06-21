@@ -12,6 +12,6 @@ export interface HosterMetricsPayload {
     start: string
     end: string
     dimension: string
-    subdimension: string
+    subdimension?: string
     value: number
 }

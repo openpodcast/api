@@ -76,9 +76,6 @@ const appleConnector = new AppleConnector(appleRepo)
 const anchorRepo = new AnchorRepository(pool)
 const anchorConnector = new AnchorConnector(anchorRepo)
 
-const hosterRepo = new HosterRepository(pool)
-const hosterConnector = new HosterConnector(hosterRepo)
-
 const feedbackRepo = new FeedbackRepository(pool)
 const feedbackApi = new FeedbackApi(feedbackRepo)
 
@@ -91,15 +88,26 @@ const analyticsApi = new AnalyticsApi(analyticsRepo)
 const statusRepo = new StatusRepository(pool)
 const statusApi = new StatusApi(statusRepo)
 
-// Initialize the account key repository
-const accountKeyRepo = new AccountKeyRepository(authPool)
+const supportedGenericHosters = {
+    podigee: 1,
+}
+
+const hosterRepo = new HosterRepository(pool)
+const hosterConnectors = Object.reduce(
+    supportedGenericHosters,
+    (acc, val, key) => {
+        acc[key] = new HosterConnector(hosterRepo, supportedGenericHosters[key])
+        return acc
+    },
+    {}
+)
 
 // parameter map will consist of spotify and apple in the future
 const connectorApi = new ConnectorApi({
     spotify: spotifyConnector,
     apple: appleConnector,
     anchor: anchorConnector,
-    hoster: hosterConnector,
+    ...hosterConnectors,
 })
 
 // defines all endpoints where auth is not required
