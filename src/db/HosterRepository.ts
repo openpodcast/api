@@ -1,26 +1,11 @@
-import { HosterPodcastMetadata } from '../types/provider/hoster'
+import {
+    HosterMetricsPayload,
+    HosterPodcastMetadataPayload,
+} from '../types/provider/hoster'
 
-const getDateDBString = (date: Date): string => {
-    const year = date.getFullYear()
-    const month = String(date.getMonth() + 1)
-    const day = String(date.getDate())
-
-    return `${year}-${month}-${day}`
-}
-
-const getTodayDBString = (): string => {
-    return getDateDBString(new Date())
-}
-
-// Convert unix timestamp in seconds or milliseconds to Date string in
-// format YYYY-MM-DD
-const getDateFromTimestamp = (timestamp: number | string): string => {
-    // Convert milliseconds to seconds if necessary
-    if (timestamp.toString().length === 13) {
-        timestamp = Number(timestamp) / 1000
-    }
-    const date = new Date(Number(timestamp) * 1000)
-    return getDateDBString(date)
+const convertAnyDatetimeToDBString = (date: any): string => {
+    const dateObj = new Date(date)
+    return dateObj.toISOString().slice(0, 19).replace('T', ' ')
 }
 
 class HosterRepository {
@@ -31,26 +16,104 @@ class HosterRepository {
     }
 
     async storeHosterPodcastMetadata(
+        hosterId: number,
         accountId: number,
-        data: HosterPodcastMetadata
+        data: HosterPodcastMetadataPayload
     ): Promise<any> {
-        throw new Error('Method not implemented.')
+        const replaceStmt = `REPLACE INTO hosterPodcastMetadata (
+            account_id,
+            date,
+            hoster_id,
+            name
+            ) VALUES
+            (?,?,?,?)`
 
-        // // audienceSize.rows is an array with a single element
-        // const audienceSize = data.rows[0]
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            getTodayDBString(),
+            hosterId,
+            data.name,
+        ])
+    }
 
-        // const replaceStmt = `REPLACE INTO anchorAudienceSize (
-        //     account_id,
-        //     date,
-        //     audience_size
-        //     ) VALUES
-        //     (?,?,?)`
+    async storeHosterEpisodeMetadata(
+        hosterId: number,
+        accountId: number,
+        episode: string,
+        data: HosterEpisodeMetadataPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO hosterEpisodeMetadata (
+            account_id,
+            hoster_id,
+            episode_id,
+            ep_name,
+            ep_url,
+            ep_release_date
+            ) VALUES
+            (?,?,?,?,?,?)`
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            hosterId,
+            episode,
+            data.ep_name,
+            data.ep_url,
+            data.ep_release_date,
+        ])
+    }
 
-        // return await this.pool.query(replaceStmt, [
-        //     accountId,
-        //     getTodayDBString(),
-        //     audienceSize,
-        // ])
+    async storeHosterEpisodeMetrics(
+        hosterId: number,
+        accountId: number,
+        episode: string,
+        data: HosterMetricsPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO hosterEpisodeMetrics (
+            account_id,
+            hoster_id,
+            episode_id,
+            start,
+            end,
+            dimension,
+            subdimension,
+            value
+            ) VALUES
+            (?,?,?,?,?,?,?,?)`
+        return this.pool.query(replaceStmt, [
+            accountId,
+            hosterId,
+            episode,
+            convertAnyDatetimeToDBString(data.start),
+            convertAnyDatetimeToDBString(data.end),
+            data.dimension,
+            data.subdimension,
+            data.value,
+        ])
+    }
+
+    async storeHosterPodcastMetrics(
+        hosterId: number,
+        accountId: number,
+        data: HosterMetricsPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO hosterPodcastMetrics (
+            account_id,
+            hoster_id,
+            start,
+            end,
+            dimension,
+            subdimension,
+            value
+            ) VALUES
+            (?,?,?,?,?,?,?)`
+        return this.pool.query(replaceStmt, [
+            accountId,
+            hosterId,
+            convertAnyDatetimeToDBString(data.start),
+            convertAnyDatetimeToDBString(data.end),
+            data.dimension,
+            data.subdimension,
+            data.value,
+        ])
     }
 }
 
