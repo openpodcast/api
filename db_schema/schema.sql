@@ -678,6 +678,8 @@ CREATE TABLE IF NOT EXISTS anchorUniqueListeners (
     PRIMARY KEY (account_id, date)
 );
 
+-- Support for generic hosters, e.g. Podigee (migration 12)
+
 CREATE TABLE IF NOT EXISTS hosterPodcastMetadata (
   account_id INTEGER NOT NULL,
   hoster_id MEDIUMINT UNSIGNED NOT NULL,
