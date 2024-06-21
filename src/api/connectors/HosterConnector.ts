@@ -1,7 +1,7 @@
 import { ConnectorHandler } from '.'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { PayloadError } from '../../types/api'
-import hosterSchema from '../../schema/hoster/hoster.json'
+import hosterPodcastMetadata from '../../schema/hoster/hosterPodcastMetadata.json'
 
 import { ConnectorPayload } from '../../types/connector'
 import {
@@ -25,6 +25,7 @@ import {
 } from '../../types/provider/anchor'
 import { isArray } from 'mathjs'
 import { HosterRepository } from '../../db/HosterRepository'
+import { HosterPodcastMetadataPayload } from '../../types/provider/hoster'
 
 class HosterConnector implements ConnectorHandler {
     repo: HosterRepository
@@ -37,23 +38,18 @@ class HosterConnector implements ConnectorHandler {
         accountId: number,
         payload: ConnectorPayload
     ): Promise<void> | never {
-        if (payload.meta.endpoint === 'podcastAnalytics') {
+        if (payload.meta.endpoint === 'metadata') {
             console.log('podcastAnalytics')
 
-            f (payload.meta.endpoint === 'hoster') {
-
             // validates the payload and throws an error if it is not valid
-            validateJsonApiPayload(hosterSchema, payload.data)
+            validateJsonApiPayload(hosterPodcastMetadata, payload.data)
 
-            return await this.repo.storeEpisodesMetadata(
+            return await this.repo.storeHosterPodcastMetadata(
                 accountId,
-                Object.values(
-                    (payload.data as HosterPodcastAnalyticsPayload).content
-                        .results
-                ) as AppleEpisodePayload[]
+                payload.data as HosterPodcastMetadataPayload
             )
-        } else if (payload.meta.endpoint === 'episodeAnalytics') {
-            console.log('episodeAnalytics')
+        } else if (payload.meta.endpoint === 'episodeMetadata') {
+            console.log('episodeMetadata')
         } else {
             throw new PayloadError(
                 `Unknown endpoint in meta: ${payload.meta.endpoint}`

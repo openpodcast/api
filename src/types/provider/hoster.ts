@@ -1,14 +1,14 @@
-export interface HosterPodcastMetadata {
+export interface HosterPodcastMetadataPayload {
     name: string
 }
 
-export interface HosterEpisodeMetadata {
+export interface HosterEpisodeMetadataPayload {
     name: string
     url: string
     release_date: string
 }
 
-export interface HosterMetrics {
+export interface HosterMetricsPayload {
     start: string
     end: string
     dimension: string
