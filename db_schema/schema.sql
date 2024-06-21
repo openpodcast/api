@@ -676,111 +676,63 @@ CREATE TABLE IF NOT EXISTS anchorUniqueListeners (
     PRIMARY KEY (account_id, date)
 );
 
-CREATE TABLE IF NOT EXISTS podigeeEpisodeMetadata (
-    account_id INTEGER UNSIGNED NOT NULL,
-    episode_id INTEGER UNSIGNED NOT NULL,
-    downloads_total INTEGER UNSIGNED NOT NULL,
-    cover_image VARCHAR(1024) NOT NULL,
-    title VARCHAR(1024) NOT NULL,
-    slug VARCHAR(1024) NOT NULL,
-    published_at DATETIME NOT NULL,
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (account_id, episode_id)
+CREATE TABLE IF NOT EXISTS hoster (
+  hoster_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  hoster_name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (hoster_id)
 );
 
-CREATE TABLE IF NOT EXISTS podigeePodcastAnalytics (
-  account_id INTEGER UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS hosterPodcastMetadata (
+  account_id INTEGER NOT NULL,
   date DATE NOT NULL,
-  downloads_complete INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, date)
+  hoster_id MEDIUMINT UNSIGNED NOT NULL,
+  name VARCHAR(2048) NOT NULL,
+  -- Date is not part of the primary key
+  -- because we only want to store the latest data
+  PRIMARY KEY (account_id, hoster_id)
 );
 
-CREATE TABLE IF NOT EXISTS podigeePodcastAnalyticsEpisodes (
-  account_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  episode_id INTEGER UNSIGNED NOT NULL,
-  cover_image VARCHAR(1024) NOT NULL,
-  title VARCHAR(1024) NOT NULL,
-  slug VARCHAR(1024) NOT NULL,
-  published_at DATETIME NOT NULL,
-  downloads INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, episode_id, date)
+CREATE TABLE IF NOT EXISTS hosterPodcastMetrics (
+  account_id INTEGER NOT NULL,
+  hoster_id MEDIUMINT UNSIGNED NOT NULL,
+  start DATETIME NOT NULL,
+  end DATETIME NOT NULL,
+  dimension ENUM(
+    'downloads',
+    'platforms',
+    'clients',
+    'sources',
+  ) NOT NULL,
+  subdimension VARCHAR(255) NOT NULL DEFAULT '',
+  value INTEGER NOT NULL,
+  PRIMARY KEY (account_id, hoster_id, start, end, dimension, subdimension)
 );
 
-CREATE TABLE IF NOT EXISTS podigeePodcastAnalyticsPlatforms (
-  account_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  platform VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, date)
+CREATE TABLE IF NOT EXISTS hosterEpisodeMetadata (
+  account_id INTEGER NOT NULL,
+  hoster_id MEDIUMINT UNSIGNED NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  ep_name VARCHAR(2048) NOT NULL,
+  ep_url VARCHAR(2048),
+  -- Date could be NULL for unpublished episodes
+  ep_release_date DATETIME,
+  PRIMARY KEY (account_id, hoster_id, episode_id)
 );
 
-CREATE TABLE IF NOT EXISTS podigeePodcastAnalyticsClients (
-  account_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  client VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, date)
+CREATE TABLE IF NOT EXISTS hosterEpisodeMetrics (
+  account_id INTEGER NOT NULL,
+  hoster_id MEDIUMINT UNSIGNED NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  start DATETIME NOT NULL,
+  end DATETIME NOT NULL,
+  dimension ENUM(
+    'downloads',
+    'platforms',
+    'clients',
+    'sources',
+  ) NOT NULL,
+  subdimension VARCHAR(255) NOT NULL DEFAULT '',
+  value INTEGER NOT NULL,
+  PRIMARY KEY (account_id, hoster_id, episode_id, start, end, dimension, subdimension)
 );
 
-CREATE TABLE IF NOT EXISTS podigeePodcastAnalyticsClientsOnPlatforms (
-  account_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  platform VARCHAR(255) NOT NULL,
-  client VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, date)
-);
-
-CREATE TABLE IF NOT EXISTS podigeePodcastAnalyticsSources (
-  account_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  source VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, date)
-);
-
-CREATE TABLE IF NOT EXISTS podigeeEpisodeAnalytics (
-  account_id INTEGER UNSIGNED NOT NULL,
-  episode_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  downloads_complete INTEGER UNSIGNED  NOT NULL,
-  PRIMARY KEY (account_id, episode_id, date)
-);
-
-CREATE TABLE IF NOT EXISTS podigeeEpisodeAnalyticsPlatforms (
-  account_id INTEGER UNSIGNED NOT NULL,
-  episode_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  platform VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, episode_id, date)
-);
-
-CREATE TABLE IF NOT EXISTS podigeeEpisodeAnalyticsClients (
-  account_id INTEGER UNSIGNED NOT NULL,
-  episode_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  client VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, episode_id, date)
-);
-
-CREATE TABLE IF NOT EXISTS podigeeEpisodeAnalyticsClientsOnPlatforms (
-  account_id INTEGER UNSIGNED NOT NULL,
-  episode_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  platform VARCHAR(255) NOT NULL,
-  client VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, episode_id, date)
-);
-
-CREATE TABLE IF NOT EXISTS podigeeEpisodeAnalyticsSources (
-  account_id INTEGER UNSIGNED NOT NULL,
-  episode_id INTEGER UNSIGNED NOT NULL,
-  date DATE NOT NULL,
-  source VARCHAR(255) NOT NULL,
-  count INTEGER UNSIGNED NOT NULL,
-  PRIMARY KEY (account_id, episode_id, date)
-);

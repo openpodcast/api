@@ -1,0 +1,14 @@
+{
+    "provider": "hoster",
+    "version": 1,
+    "retrieved": "2022-10-04T10:09:46.463Z",
+    "meta": {
+        "endpoint": "metadata",
+        "episode": "123XASDF"
+    },
+    "data": {
+        "name": "Name of episode",
+        "url": "https://www.example.com/episode/1243940",
+        "release_date": "2022-10-04T10:09:46.463Z"
+    }
+}

@@ -1,4 +1,4 @@
-export interface PodigeePodcastDetails {
+export interface HosterPodcastDetails {
     name: string
     id: string
     url: string
@@ -16,4 +16,4 @@ export interface PodigeePodcastDetails {
     [k: string]: unknown
 }
 
-export interface RawPodigeePodcastAnalyticsData {}
+export interface RawHosterPodcastAnalyticsData {}

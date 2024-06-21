@@ -15,9 +15,9 @@ import { SpotifyConnector } from './api/connectors/SpotifyConnector'
 import { AppleRepository } from './db/AppleRepository'
 import { AppleConnector } from './api/connectors/AppleConnector'
 import { AnchorConnector } from './api/connectors/AnchorConnector'
-import { PodigeeConnector } from './api/connectors/PodigeeConnector'
+import { HosterConnector } from './api/connectors/HosterConnector'
 import { AnchorRepository } from './db/AnchorRepository'
-import { PodigeeRepository } from './db/PodigeeRepository'
+import { HosterRepository } from './db/HosterRepository'
 import { healthCheck, mysqlHealthy } from './healthcheck'
 import mysql from 'mysql2/promise'
 import { unless } from './utils/expressHelpers'
@@ -67,8 +67,8 @@ const appleConnector = new AppleConnector(appleRepo)
 const anchorRepo = new AnchorRepository(pool)
 const anchorConnector = new AnchorConnector(anchorRepo)
 
-const podigeeRepo = new PodigeeRepository(pool)
-const podigeeConnector = new PodigeeConnector(podigeeRepo)
+const hosterRepo = new HosterRepository(pool)
+const hosterConnector = new HosterConnector(hosterRepo)
 
 const feedbackRepo = new FeedbackRepository(pool)
 const feedbackApi = new FeedbackApi(feedbackRepo)
@@ -87,7 +87,7 @@ const connectorApi = new ConnectorApi({
     spotify: spotifyConnector,
     apple: appleConnector,
     anchor: anchorConnector,
-    podigee: podigeeConnector,
+    hoster: hosterConnector,
 })
 
 // defines all endpoints where auth is not required
