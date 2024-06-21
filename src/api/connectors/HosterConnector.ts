@@ -1,7 +1,7 @@
 import { ConnectorHandler } from '.'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { PayloadError } from '../../types/api'
-import podcastDetailsSchema from '../../schema/podigee/podcastDetails.json'
+import hosterSchema from '../../schema/hoster/hoster.json'
 
 import { ConnectorPayload } from '../../types/connector'
 import {
@@ -24,12 +24,12 @@ import {
     RawAnchorEpisodesPageData,
 } from '../../types/provider/anchor'
 import { isArray } from 'mathjs'
-import { PodigeeRepository } from '../../db/PodigeeRepository'
+import { HosterRepository } from '../../db/HosterRepository'
 
-class PodigeeConnector implements ConnectorHandler {
-    repo: PodigeeRepository
+class HosterConnector implements ConnectorHandler {
+    repo: HosterRepository
 
-    constructor(repo: PodigeeRepository) {
+    constructor(repo: HosterRepository) {
         this.repo = repo
     }
 
@@ -40,13 +40,15 @@ class PodigeeConnector implements ConnectorHandler {
         if (payload.meta.endpoint === 'podcastAnalytics') {
             console.log('podcastAnalytics')
 
+            f (payload.meta.endpoint === 'hoster') {
+
             // validates the payload and throws an error if it is not valid
-            validateJsonApiPayload(analyticsSchema, payload.data)
+            validateJsonApiPayload(hosterSchema, payload.data)
 
             return await this.repo.storeEpisodesMetadata(
                 accountId,
                 Object.values(
-                    (payload.data as PodigeePodcastAnalyticsPayload).content
+                    (payload.data as HosterPodcastAnalyticsPayload).content
                         .results
                 ) as AppleEpisodePayload[]
             )
@@ -60,4 +62,4 @@ class PodigeeConnector implements ConnectorHandler {
     }
 }
 
-export { PodigeeConnector }
+export { HosterConnector }

@@ -1,4 +1,4 @@
-import { RawPodigeePodcastAnalyticsData } from '../types/provider/podigee'
+import { RawHosterPodcastAnalyticsData } from '../types/provider/hoster'
 
 const getDateDBString = (date: Date): string => {
     const year = date.getFullYear()
@@ -23,7 +23,7 @@ const getDateFromTimestamp = (timestamp: number | string): string => {
     return getDateDBString(date)
 }
 
-class PodigeeRepository {
+class HosterRepository {
     pool
 
     constructor(pool: any) {
@@ -32,7 +32,7 @@ class PodigeeRepository {
 
     async storePodcastAnalytics(
         accountId: number,
-        data: RawPodigeePodcastAnalyticsData
+        data: RawHosterPodcastAnalyticsData
     ): Promise<any> {
         throw new Error('Method not implemented.')
 
@@ -54,4 +54,4 @@ class PodigeeRepository {
     }
 }
 
-export { PodigeeRepository }
+export { HosterRepository }
