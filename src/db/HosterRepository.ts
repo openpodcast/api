@@ -1,4 +1,4 @@
-import { RawHosterPodcastAnalyticsData } from '../types/provider/hoster'
+import {} from '../types/provider/hoster'
 
 const getDateDBString = (date: Date): string => {
     const year = date.getFullYear()
@@ -30,7 +30,7 @@ class HosterRepository {
         this.pool = pool
     }
 
-    async storePodcastAnalytics(
+    async storeHosterPodcastMetadata(
         accountId: number,
         data: RawHosterPodcastAnalyticsData
     ): Promise<any> {
