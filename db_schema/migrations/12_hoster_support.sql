@@ -1,8 +1,4 @@
-CREATE TABLE IF NOT EXISTS hoster (
-  hoster_id MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  hoster_name VARCHAR(255) NOT NULL,
-  PRIMARY KEY (hoster_id)
-);
+INSERT INTO migrations (migration_id, migration_name) VALUES (12, 'genericHoster');
 
 CREATE TABLE IF NOT EXISTS hosterPodcastMetadata (
   account_id INTEGER NOT NULL,
@@ -57,5 +53,3 @@ CREATE TABLE IF NOT EXISTS hosterEpisodeMetrics (
   value INTEGER NOT NULL,
   PRIMARY KEY (account_id, hoster_id, episode_id, start, end, dimension, subdimension)
 );
-
-INSERT INTO migrations (migration_id, migration_name) VALUES (12, 'generic hoster support');
