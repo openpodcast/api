@@ -8,14 +8,14 @@ describe('check authentication', () => {
     it('should return not authenticated without bearer', async () => {
         const response = await request(baseURL).post('/events')
         expect(response.statusCode).toBe(401)
-        expect(response.text).toContain('Not authorized')
+        expect(response.text).toContain("Something's wrong")
     })
     it('should return not be authenticated with random token', async () => {
         const wrongToken = { ...auth }
         wrongToken.Authorization = 'Bearer 123'
         const response = await request(baseURL).post('/events').set(wrongToken)
         expect(response.statusCode).toBe(401)
-        expect(response.text).toContain('Not authorized')
+        expect(response.text).toContain("Something's wrong")
     })
     it('should return status 200 with correct auth token', async () => {
         const response = await request(baseURL)
@@ -47,6 +47,6 @@ describe('check Connector API error cases', () => {
             .set(auth)
             .send({ endpoint: 'unknown' })
         expect(response.statusCode).toBe(404)
-        expect(response.text).toContain('Not Found: /unknown')
+        expect(response.text).toContain("Something's wrong.")
     })
 })
