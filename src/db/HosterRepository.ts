@@ -34,23 +34,21 @@ class HosterRepository {
         accountId: number,
         data: HosterPodcastMetadataPayload
     ): Promise<any> {
-        throw new Error('Method not implemented.')
+        const replaceStmt = `REPLACE INTO hosterPodcastMetadata (
+            account_id,
+            hoster_id,
+            date,
+            name
+            ) VALUES
+            (?,?,?,?)`,
+            date = getTodayDBString()
 
-        // // audienceSize.rows is an array with a single element
-        // const audienceSize = data.rows[0]
-
-        // const replaceStmt = `REPLACE INTO anchorAudienceSize (
-        //     account_id,
-        //     date,
-        //     audience_size
-        //     ) VALUES
-        //     (?,?,?)`
-
-        // return await this.pool.query(replaceStmt, [
-        //     accountId,
-        //     getTodayDBString(),
-        //     audienceSize,
-        // ])
+        return this.pool.query(replaceStmt, [
+            accountId,
+            hoster,
+            date,
+            data.name,
+        ])
     }
 }
 

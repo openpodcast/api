@@ -3,11 +3,19 @@
     "title": "Hoster Podcast Metadata (e.g. for Podigee)",
     "type": "object",
     "properties": {
+        "hoster": {
+            "type": "string"
+        },
+        "show": {
+            "type": "string"
+        },
         "name": {
             "type": "string"
         }
     },
     "required": [
+        "hoster",
+        "show",
         "name"
     ]
 }
