@@ -93,14 +93,10 @@ const supportedGenericHosters = {
 }
 
 const hosterRepo = new HosterRepository(pool)
-const hosterConnectors = Object.reduce(
-    supportedGenericHosters,
-    (acc, val, key) => {
-        acc[key] = new HosterConnector(hosterRepo, supportedGenericHosters[key])
-        return acc
-    },
-    {}
-)
+const hosterConnectors: { [key: string]: HosterConnector } = {}
+Object.entries(supportedGenericHosters).forEach(([key, value]) => {
+    hosterConnectors[key] = new HosterConnector(hosterRepo, value)
+})
 
 // parameter map will consist of spotify and apple in the future
 const connectorApi = new ConnectorApi({
