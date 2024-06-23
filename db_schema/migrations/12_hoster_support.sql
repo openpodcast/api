@@ -23,9 +23,9 @@ CREATE TABLE IF NOT EXISTS hosterPodcastMetrics (
     'downloads',
     'platforms',
     'clients',
-    'sources',
+    'sources'
   ) NOT NULL,
-  subdimension VARCHAR(255) NOT NULL DEFAULT '',
+  subdimension VARCHAR(255) DEFAULT '' NOT NULL,
   value INTEGER NOT NULL,
   PRIMARY KEY (account_id, hoster_id, start, end, dimension, subdimension)
 );
@@ -51,9 +51,9 @@ CREATE TABLE IF NOT EXISTS hosterEpisodeMetrics (
     'downloads',
     'platforms',
     'clients',
-    'sources',
+    'sources'
   ) NOT NULL,
-  subdimension VARCHAR(255) NOT NULL DEFAULT '',
+  subdimension VARCHAR(255) DEFAULT '' NOT NULL,
   value INTEGER NOT NULL,
   PRIMARY KEY (account_id, hoster_id, episode_id, start, end, dimension, subdimension)
 );
