@@ -1,17 +1,26 @@
 import { ConnectorHandler } from '.'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { PayloadError } from '../../types/api'
-import hosterPodcastMetadata from '../../schema/hoster/hosterPodcastMetadata.json'
-
 import { ConnectorPayload } from '../../types/connector'
-import { HosterPodcastMetadataPayload } from '../../types/provider/hoster'
 import { HosterRepository } from '../../db/HosterRepository'
+
+import hosterEpisodeMetadataSchema from '../../schema/hoster/hosterEpisodeMetadata.json'
+import hosterPodcastMetadataSchema from '../../schema/hoster/hosterPodcastMetadata.json'
+import hosterEpisodeMetricsSchema from '../../schema/hoster/hosterEpisodeMetrics.json'
+import hosterPodcastMetricsSchema from '../../schema/hoster/hosterPodcastMetrics.json'
+import {
+    HosterEpisodeMetadataPayload,
+    HosterPodcastMetadataPayload,
+    HosterMetricsPayload,
+} from '../../types/provider/hoster'
 
 class HosterConnector implements ConnectorHandler {
     repo: HosterRepository
+    hosterId: number
 
-    constructor(repo: HosterRepository) {
+    constructor(repo: HosterRepository, hosterId: number) {
         this.repo = repo
+        this.hosterId = hosterId
     }
 
     async handleRequest(
@@ -19,17 +28,45 @@ class HosterConnector implements ConnectorHandler {
         payload: ConnectorPayload
     ): Promise<void> | never {
         if (payload.meta.endpoint === 'metadata') {
-            console.log('podcastAnalytics')
-
-            // validates the payload and throws an error if it is not valid
-            validateJsonApiPayload(hosterPodcastMetadata, payload.data)
-
-            return await this.repo.storeHosterPodcastMetadata(
-                accountId,
-                payload.data as HosterPodcastMetadataPayload
-            )
-        } else if (payload.meta.endpoint === 'episodeMetadata') {
-            console.log('episodeMetadata')
+            if (payload.meta.episode) {
+                validateJsonApiPayload(
+                    hosterEpisodeMetadataSchema,
+                    payload.data
+                )
+                return await this.repo.storeHosterEpisodeMetadata(
+                    this.hosterId,
+                    accountId,
+                    payload.meta.episode,
+                    payload.data as HosterEpisodeMetadataPayload
+                )
+            } else {
+                validateJsonApiPayload(
+                    hosterPodcastMetadataSchema,
+                    payload.data
+                )
+                return await this.repo.storeHosterPodcastMetadata(
+                    this.hosterId,
+                    accountId,
+                    payload.data as HosterPodcastMetadataPayload
+                )
+            }
+        } else if (payload.meta.endpoint === 'metrics') {
+            if (payload.meta.episode) {
+                validateJsonApiPayload(hosterEpisodeMetricsSchema, payload.data)
+                return await this.repo.storeHosterEpisodeMetrics(
+                    this.hosterId,
+                    accountId,
+                    payload.meta.episode,
+                    payload.data as HosterMetricsPayload
+                )
+            } else {
+                validateJsonApiPayload(hosterPodcastMetricsSchema, payload.data)
+                return await this.repo.storeHosterPodcastMetrics(
+                    this.hosterId,
+                    accountId,
+                    payload.data as HosterMetricsPayload
+                )
+            }
         } else {
             throw new PayloadError(
                 `Unknown endpoint in meta: ${payload.meta.endpoint}`
