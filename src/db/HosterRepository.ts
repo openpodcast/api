@@ -141,7 +141,7 @@ class HosterRepository {
             convertAnyDatetimeToDBString(metric.start),
             convertAnyDatetimeToDBString(metric.end),
             metric.dimension,
-            metric.subdimension || '', // Ensure subdimension is handled correctly if undefined
+            metric.subdimension,
             metric.value,
         ])
 
