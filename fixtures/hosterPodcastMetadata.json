@@ -3,6 +3,7 @@
     "version": 1,
     "retrieved": "2022-10-04T10:09:46.463Z",
     "meta": {
+        "show": "0tJRC0UsObPCWLmmzmOkIs",
         "endpoint": "metadata"
     },
     "range": {
@@ -10,8 +11,6 @@
         "end": "2022-10-04"
     },
     "data": {
-        "hoster": "podigee",
-        "showId": "0tJRC0UsObPCWLmmzmOkIs",
         "name": "TOPP - The Open Podcast Podcast"
     }
 }

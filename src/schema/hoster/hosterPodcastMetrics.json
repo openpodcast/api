@@ -3,26 +3,34 @@
     "title": "Hoster Podcast Metrics (e.g. for Podigee)",
     "type": "object",
     "properties": {
-        "start": {
-            "type": "string"
-        },
-        "end": {
-            "type": "string"
-        },
-        "dimension": {
-            "type": "string"
-        },
-        "subdimension": {
-            "type": "string"
-        },
-        "value": {
-            "type": "number"
+        "metrics": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "start": {
+                        "type": "string"
+                    },
+                    "end": {
+                        "type": "string"
+                    },
+                    "dimension": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "number"
+                    },
+                    "subdimension": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "start",
+                    "end",
+                    "dimension",
+                    "value"
+                ]
+            }
         }
-    },
-    "required": [
-        "start",
-        "end",
-        "dimension",
-        "value"
-    ]
+    }
 }

@@ -3,20 +3,20 @@
     "title": "Hoster Episode Metadata (e.g. for Podigee)",
     "type": "object",
     "properties": {
-        "name": {
+        "ep_name": {
             "type": "string"
         },
-        "url": {
+        "ep_url": {
             "type": "string"
         },
-        "release_date": {
+        "ep_release_date": {
             "type": "string",
             "format": "date-time"
         }
     },
     "required": [
-        "name",
-        "url",
-        "release_date"
+        "ep_name",
+        "ep_url",
+        "ep_release_date"
     ]
 }
