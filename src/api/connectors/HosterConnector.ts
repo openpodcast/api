@@ -4,28 +4,8 @@ import { PayloadError } from '../../types/api'
 import hosterPodcastMetadata from '../../schema/hoster/hosterPodcastMetadata.json'
 
 import { ConnectorPayload } from '../../types/connector'
-import {
-    RawAnchorAudienceSizeData,
-    AnchorConnectorPayload,
-    RawAnchorAggregatedPerformanceData,
-    RawAnchorEpisodePerformanceData,
-    RawAnchorPlaysByEpisodeData,
-    RawAnchorPlaysData,
-    RawAnchorPlaysByAgeRangeData,
-    RawAnchorPlaysByAppData,
-    RawAnchorPlaysByDeviceData,
-    RawAnchorPlaysByGenderData,
-    RawAnchorPlaysByGeoData,
-    RawAnchorPodcastData,
-    AnchorDataPayload,
-    RawAnchorTotalPlaysData,
-    RawAnchorTotalPlaysByEpisodeData,
-    RawAnchorUniqueListenersData,
-    RawAnchorEpisodesPageData,
-} from '../../types/provider/anchor'
-import { isArray } from 'mathjs'
-import { HosterRepository } from '../../db/HosterRepository'
 import { HosterPodcastMetadataPayload } from '../../types/provider/hoster'
+import { HosterRepository } from '../../db/HosterRepository'
 
 class HosterConnector implements ConnectorHandler {
     repo: HosterRepository

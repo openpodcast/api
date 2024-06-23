@@ -1,4 +1,4 @@
-import { HosterPodcastMetadata } from '../types/provider/hoster'
+import { HosterPodcastMetadataPayload } from '../types/provider/hoster'
 
 const getDateDBString = (date: Date): string => {
     const year = date.getFullYear()
@@ -32,7 +32,7 @@ class HosterRepository {
 
     async storeHosterPodcastMetadata(
         accountId: number,
-        data: HosterPodcastMetadata
+        data: HosterPodcastMetadataPayload
     ): Promise<any> {
         throw new Error('Method not implemented.')
 
