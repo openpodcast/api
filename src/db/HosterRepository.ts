@@ -1,4 +1,5 @@
 import {
+    HosterEpisodeMetadataPayload,
     HosterMetricsPayload,
     HosterPodcastMetadataPayload,
 } from '../types/provider/hoster'
@@ -13,6 +14,21 @@ class HosterRepository {
 
     constructor(pool: any) {
         this.pool = pool
+    }
+
+    getTodayDBString(): string {
+        const today = new Date()
+
+        // format to YYYY-mm-dd
+        // Note that today.toLocaleDateString('en-CA') returned `DD/MM/YYYY` on
+        // some systems
+        return (
+            today.getFullYear() +
+            '-' +
+            (today.getMonth() + 1) +
+            '-' +
+            today.getDate()
+        )
     }
 
     async storeHosterPodcastMetadata(
@@ -30,7 +46,7 @@ class HosterRepository {
 
         return await this.pool.query(replaceStmt, [
             accountId,
-            getTodayDBString(),
+            this.getTodayDBString(),
             hosterId,
             data.name,
         ])

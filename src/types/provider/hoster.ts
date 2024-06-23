@@ -3,9 +3,9 @@ export interface HosterPodcastMetadataPayload {
 }
 
 export interface HosterEpisodeMetadataPayload {
-    name: string
-    url: string
-    release_date: string
+    ep_name: string
+    ep_url: string
+    ep_release_date: string
 }
 
 export interface HosterMetricsPayload {
