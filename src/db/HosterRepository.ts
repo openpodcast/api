@@ -73,7 +73,7 @@ class HosterRepository {
             episode,
             data.ep_name,
             data.ep_url,
-            data.ep_release_date,
+            convertAnyDatetimeToDBString(data.ep_release_date),
         ])
     }
 
@@ -83,7 +83,13 @@ class HosterRepository {
         episode: string,
         data: HosterMetricsPayload
     ): Promise<any> {
-        const replaceStmt = `REPLACE INTO hosterEpisodeMetrics (
+        if (!data.metrics) {
+            // No metrics to store
+            return
+        }
+
+        const replaceStmt =
+            `REPLACE INTO hosterEpisodeMetrics (
             account_id,
             hoster_id,
             episode_id,
@@ -92,18 +98,20 @@ class HosterRepository {
             dimension,
             subdimension,
             value
-            ) VALUES
-            (?,?,?,?,?,?,?,?)`
-        return this.pool.query(replaceStmt, [
+        ) VALUES ` + data.metrics.map(() => '(?,?,?,?,?,?,?,?)').join(',')
+
+        const values = data.metrics.flatMap((metric) => [
             accountId,
             hosterId,
             episode,
-            convertAnyDatetimeToDBString(data.start),
-            convertAnyDatetimeToDBString(data.end),
-            data.dimension,
-            data.subdimension,
-            data.value,
+            convertAnyDatetimeToDBString(metric.start),
+            convertAnyDatetimeToDBString(metric.end),
+            metric.dimension,
+            metric.subdimension,
+            metric.value,
         ])
+
+        return this.pool.query(replaceStmt, values)
     }
 
     async storeHosterPodcastMetrics(
@@ -111,7 +119,13 @@ class HosterRepository {
         accountId: number,
         data: HosterMetricsPayload
     ): Promise<any> {
-        const replaceStmt = `REPLACE INTO hosterPodcastMetrics (
+        if (!data.metrics) {
+            // No metrics to store
+            return
+        }
+
+        const replaceStmt =
+            `REPLACE INTO hosterPodcastMetrics (
             account_id,
             hoster_id,
             start,
@@ -119,17 +133,19 @@ class HosterRepository {
             dimension,
             subdimension,
             value
-            ) VALUES
-            (?,?,?,?,?,?,?)`
-        return this.pool.query(replaceStmt, [
+        ) VALUES ` + data.metrics.map(() => '(?,?,?,?,?,?,?)').join(',')
+
+        const values = data.metrics.flatMap((metric) => [
             accountId,
             hosterId,
-            convertAnyDatetimeToDBString(data.start),
-            convertAnyDatetimeToDBString(data.end),
-            data.dimension,
-            data.subdimension,
-            data.value,
+            convertAnyDatetimeToDBString(metric.start),
+            convertAnyDatetimeToDBString(metric.end),
+            metric.dimension,
+            metric.subdimension || '', // Ensure subdimension is handled correctly if undefined
+            metric.value,
         ])
+
+        return this.pool.query(replaceStmt, values)
     }
 }
 
