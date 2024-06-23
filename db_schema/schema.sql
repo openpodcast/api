@@ -686,8 +686,8 @@ CREATE TABLE IF NOT EXISTS hoster (
 
 CREATE TABLE IF NOT EXISTS hosterPodcastMetadata (
   account_id INTEGER NOT NULL,
-  date DATE NOT NULL,
   hoster_id MEDIUMINT UNSIGNED NOT NULL,
+  date DATE NOT NULL,
   name VARCHAR(2048) NOT NULL,
   -- Date is not part of the primary key
   -- because we only want to store the latest data
