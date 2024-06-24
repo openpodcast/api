@@ -3,10 +3,10 @@ export interface ConnectorPayload {
         endpoint: string
         episode?: string
     }
-    range: {
+    range?: {
         start: string
         end: string
     }
-    data: Object
+    data: object
     provider: string
 }
