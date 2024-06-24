@@ -7,10 +7,6 @@
         "show": "0tJRC0UsObPCWLmmzmOkIs",
         "episode": "123XASDF"
     },
-    "range": {
-        "start": "2022-10-03",
-        "end": "2022-10-04"
-    },
     "data": {
         "ep_name": "Name of episode",
         "ep_url": "https://www.example.com/episode/1243940",

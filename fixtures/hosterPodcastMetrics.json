@@ -6,10 +6,6 @@
         "endpoint": "metrics",
         "show": "0tJRC0UsObPCWLmmzmOkIs"
     },
-    "range": {
-        "start": "2022-10-03",
-        "end": "2022-10-04"
-    },
     "data": {
         "metrics": [
             {

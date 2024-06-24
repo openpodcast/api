@@ -6,10 +6,6 @@
         "show": "0tJRC0UsObPCWLmmzmOkIs",
         "endpoint": "metadata"
     },
-    "range": {
-        "start": "2022-10-03",
-        "end": "2022-10-04"
-    },
     "data": {
         "name": "TOPP - The Open Podcast Podcast"
     }
