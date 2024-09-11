@@ -113,6 +113,29 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodePerformance (
   PRIMARY KEY (account_id, episode_id, spp_date)
 );
 
+-- table to store impressions data of spotify
+-- stores one count value per day
+
+CREATE TABLE IF NOT EXISTS spotifyPodcastImpressions (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  `date` DATE NOT NULL,
+  impressions MEDIUMINT UNSIGNED NOT NULL,
+  PRIMARY KEY (account_id, episode_id, `date`)
+);
+
+-- faceted impressions data of spotify
+-- it is always aggregated to 30 days
+CREATE TABLE IF NOT EXISTS spotifyPodcastImpressionsFacets (
+  account_id INTEGER NOT NULL,
+  episode_id VARCHAR(128) NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  facet ENUM("library", "search", "home", "other") NOT NULL,
+  impressions INT UNSIGNED NOT NULL,
+  PRIMARY KEY (account_id, episode_id, end_date, facet, start_date)
+);
+
 CREATE TABLE IF NOT EXISTS spotifyPodcastMetadata (
   account_id INTEGER NOT NULL,
   spm_date DATE NOT NULL,
