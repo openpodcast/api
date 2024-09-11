@@ -1,0 +1,49 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2022-10-04T10:09:46.463Z",
+  "meta": {
+    "show": "0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "impressions"
+  },
+  "range": {
+    "start": "2022-10-03",
+    "end": "2022-10-04"
+  },
+  "data": {
+    "counts": [
+      {
+        "count": 155,
+        "date": "2024-08-01"
+      },
+      {
+        "count": 171,
+        "date": "2024-08-02"
+      },
+      {
+        "count": 120,
+        "date": "2024-08-03"
+      },
+      {
+        "count": 126,
+        "date": "2024-08-04"
+      },
+      {
+        "count": 145,
+        "date": "2024-08-05"
+      },
+      {
+        "count": 106,
+        "date": "2024-08-06"
+      },
+      {
+        "count": 131,
+        "date": "2024-08-07"
+      },
+      {
+        "count": 115,
+        "date": "2024-08-08"
+      }
+    ]
+  }
+}

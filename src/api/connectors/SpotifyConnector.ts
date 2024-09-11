@@ -10,6 +10,8 @@ import {
     SpotifyEpisodeAggregatePayload,
     SpotifyPerformancePayload,
     SpotifyPodcastFollowersPayload,
+    SpotifyEpisodeImpressionPayload,
+    SpotifyEpisodeImpressionFacetedPayload,
 } from '../../types/provider/spotify'
 import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
@@ -17,6 +19,8 @@ import listenersSchema from '../../schema/spotify/listeners.json'
 import performanceSchema from '../../schema/spotify/performance.json'
 import podcastMetadataSchema from '../../schema/spotify/podcastMetadata.json'
 import episodesMetadataSchema from '../../schema/spotify/episodesMetadata.json'
+import impressionsSchema from '../../schema/spotify/impressions.json'
+import impressionsFacetedSchema from '../../schema/spotify/impressionsFaceted.json'
 import followerSchema from '../../schema/spotify/followers.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
@@ -119,6 +123,29 @@ class SpotifyConnector implements ConnectorHandler {
                     accountId,
                     payload.range.start,
                     payload.data as SpotifyPodcastAggregatePayload
+                )
+            }
+            S
+        } else if (payload.meta.endpoint === 'impressions') {
+            //validates the payload and throws an error if it is not valid
+            validateJsonApiPayload(impressionsSchema, payload.data)
+
+            if (payload.meta.episode !== undefined) {
+                return await this.repo.storeEpisodeImpressions(
+                    accountId,
+                    payload.meta.episode,
+                    payload.data as SpotifyEpisodeImpressionPayload
+                )
+            }
+        } else if (payload.meta.endpoint === 'impressionsfaceted') {
+            //validates the payload and throws an error if it is not valid
+            validateJsonApiPayload(impressionsFacetedSchema, payload.data)
+
+            if (payload.meta.episode !== undefined) {
+                return await this.repo.storeEpisodeImpressionsFaceted(
+                    accountId,
+                    payload.meta.episode,
+                    payload.data as SpotifyEpisodeImpressionFacetedPayload
                 )
             }
         } else {

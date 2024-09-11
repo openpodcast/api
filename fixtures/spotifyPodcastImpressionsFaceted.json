@@ -1,0 +1,23 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2022-10-04T10:09:46.463Z",
+  "meta": {
+    "show": "0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "impressionsfaceted"
+  },
+  "range": {
+    "start": "2022-10-03",
+    "end": "2022-10-04"
+  },
+  "data": {
+    "sourcedCounts": {
+      "counts": {
+        "LIBRARY": 23,
+        "SEARCH": 2410,
+        "HOME": 694,
+        "OTHER": 0
+      }
+    }
+  }
+}

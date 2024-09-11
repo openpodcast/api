@@ -1,0 +1,41 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/impressions.schema.json",
+    "title": "Spotify impression data",
+    "type": "object",
+    "properties": {
+        "sourcedCounts": {
+            "type": "object",
+            "properties": {
+                "counts": {
+                    "type": "object",
+                    "properties": {
+                        "LIBRARY": {
+                            "type": "number"
+                        },
+                        "SEARCH": {
+                            "type": "number"
+                        },
+                        "HOME": {
+                            "type": "number"
+                        },
+                        "OTHER": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "LIBRARY",
+                        "SEARCH",
+                        "HOME",
+                        "OTHER"
+                    ]
+                }
+            },
+            "required": [
+                "counts"
+            ]
+        }
+    },
+    "required": [
+        "sourcedCounts"
+    ]
+}

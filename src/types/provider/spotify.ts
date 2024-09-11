@@ -107,3 +107,23 @@ export interface SpotifyPodcastFollowersPayload {
     }[]
     [k: string]: unknown
 }
+
+export interface SpotifyEpisodeImpressionsPaypload {
+    counts: {
+        count: number
+        date: string
+        [k: string]: unknown
+    }[]
+    [k: string]: unknown
+}
+
+export interface SpotifyEpisodeImpressionsFacetedPayload {
+    counts: {
+        LIBRARY: number
+        SEARCH: number
+        HOME: number
+        OTHER: number
+        [k: string]: unknown
+    }
+    [k: string]: unknown
+}
