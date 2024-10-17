@@ -61,3 +61,4 @@ To query it, use the following endpoint: `/status`
 ### Tools to create (JSON) schemata
 
 -   <https://transform.tools/json-to-json-schema>
+-   <https://jsoning.com/jsonschema/>
