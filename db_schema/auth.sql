@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS podcastSources (
   source_podcast_id VARCHAR(64) NOT NULL,
   -- keys are stored in json format and are encrypted by the client
   source_access_keys_encrypted JSON NOT NULL,
+  source_access_keys_created TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (account_id, source_name)
 );
 
