@@ -31,7 +31,7 @@ import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
-import e from 'express'
+import { PodigeeRepository } from './db/PodigeeRepository'
 
 const config = new Config()
 
@@ -402,6 +402,57 @@ app.get(
     healthCheck({
         db: mysqlHealthy(pool),
     })
+)
+
+app.get(
+    '/oauth/podigee/callback',
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const {
+                access_token,
+                refresh_token,
+                token_type,
+                expires_in,
+                scope,
+                podigee_user_id,
+                podigee_podcast_id,
+                ...otherParams // capture all other parameters
+            } = req.query
+
+            // Validate required parameters
+            if (
+                !access_token ||
+                !refresh_token ||
+                !expires_in ||
+                !token_type ||
+                !podigee_user_id ||
+                !podigee_podcast_id
+            ) {
+                throw new HttpError('Missing required OAuth parameters')
+            }
+
+            // Get the account ID from your auth system
+            const accountId = res.locals.user.accountId
+
+            // Store the tokens
+            const podigeeRepo = new PodigeeRepository(pool)
+            await podigeeRepo.saveTokens(accountId, {
+                access_token: access_token as string,
+                refresh_token: refresh_token as string,
+                token_type: token_type as string,
+                expires_in: parseInt(expires_in as string),
+                scope: scope as string,
+                podigee_user_id: podigee_user_id as string,
+                podigee_podcast_id: podigee_podcast_id as string,
+                ...otherParams,
+            })
+
+            // Redirect to success page
+            res.redirect('/settings?oauth=success')
+        } catch (err) {
+            next(err)
+        }
+    }
 )
 
 // catch 404 and forward to error handler
