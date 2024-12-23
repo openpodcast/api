@@ -1,0 +1,225 @@
+{
+    "$id": "http://openpodcast.dev/schema/anchor/impressions.schema.json",
+    "title": "Anchor / Spotify for Creators - Impressions data",
+    "type": "object",
+    "properties": {
+        "provider": {
+            "type": "string"
+        },
+        "version": {
+            "type": "number"
+        },
+        "retrieved": {
+            "type": "string"
+        },
+        "meta": {
+            "type": "object",
+            "properties": {
+                "show": {
+                    "type": "string"
+                },
+                "endpoint": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "show",
+                "endpoint"
+            ]
+        },
+        "range": {
+            "type": "object",
+            "properties": {
+                "start": {
+                    "type": "string"
+                },
+                "end": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "start",
+                "end"
+            ]
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "impressionsFunnel": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "object",
+                                    "properties": {
+                                        "counts": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "count": {
+                                                        "type": "number"
+                                                    },
+                                                    "conversionPercent": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "count"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "counts"
+                                    ]
+                                },
+                                "isDistributedToSpotify": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "value",
+                                "isDistributedToSpotify"
+                            ]
+                        },
+                        "error": {}
+                    },
+                    "required": [
+                        "data",
+                        "error"
+                    ]
+                },
+                "impressions": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "number"
+                                },
+                                "isDistributedToSpotify": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "value",
+                                "isDistributedToSpotify"
+                            ]
+                        },
+                        "error": {}
+                    },
+                    "required": [
+                        "data",
+                        "error"
+                    ]
+                },
+                "dailyImpressions": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "date": {
+                                                "type": "number"
+                                            },
+                                            "value": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "required": [
+                                            "date",
+                                            "value"
+                                        ]
+                                    }
+                                },
+                                "isDistributedToSpotify": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "value",
+                                "isDistributedToSpotify"
+                            ]
+                        },
+                        "error": {}
+                    },
+                    "required": [
+                        "data",
+                        "error"
+                    ]
+                },
+                "impressionsBySource": {
+                    "type": "object",
+                    "properties": {
+                        "data": {
+                            "type": "object",
+                            "properties": {
+                                "value": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "number"
+                                            },
+                                            "displayName": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "id",
+                                            "value",
+                                            "displayName"
+                                        ]
+                                    }
+                                },
+                                "isDistributedToSpotify": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "required": [
+                                "value",
+                                "isDistributedToSpotify"
+                            ]
+                        },
+                        "error": {}
+                    },
+                    "required": [
+                        "data",
+                        "error"
+                    ]
+                }
+            },
+            "required": [
+                "impressionsFunnel",
+                "impressions",
+                "dailyImpressions",
+                "impressionsBySource"
+            ]
+        }
+    },
+    "required": [
+        "provider",
+        "version",
+        "retrieved",
+        "meta",
+        "range",
+        "data"
+    ]
+}
