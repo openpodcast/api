@@ -33,7 +33,7 @@ while true; do
     # Use inotifywait to monitor file changes in the directory
     file=$(inotifywait -q -e modify --format "%w%f" "$WATCH_DIR")
 
-    # Use sed to replace all placeholders occurences @start, @end, @podcast_id
+    # Use sed to replace all placeholders occurrences @start, @end, @podcast_id
     content=$(sed -e "s/@start/\"$START_DATE\"/g" -e "s/@end/\"$END_DATE\"/g" -e "s/@podcast_id/$PODCAST_ID/g" "$file")
 
     # Output the modified content
