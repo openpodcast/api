@@ -46,8 +46,12 @@ class SpotifyRepository {
             spm_starts,
             spm_streams,
             spm_listeners,
-            spm_followers ) VALUES
-            (?,?,?,?,?,?,?)`
+            spm_followers,
+            spm_artwork_url,
+            spm_release_date,
+            spm_url,
+            spm_publisher
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?)`
 
         return await this.pool.query(replaceStmtHistory, [
             accountId,
@@ -57,6 +61,10 @@ class SpotifyRepository {
             payload.streams,
             payload.listeners,
             payload.followers,
+            payload.artworkUrl,
+            payload.releaseDate,
+            payload.url,
+            payload.publisher,
         ])
     }
 

@@ -74,6 +74,10 @@ export interface SpotifyPodcastMetadataPayload {
     streams: number
     listeners: number
     followers: number
+    artworkUrl: string
+    releaseDate: string
+    url: string
+    publisher: string
 }
 
 export interface SpotifyEpisodeMetadata {
