@@ -69,6 +69,7 @@ export interface SpotifyEpisodeAggregatePayload {
 }
 
 export interface SpotifyPodcastMetadataPayload {
+    name: string
     totalEpisodes: number
     starts: number
     streams: number
