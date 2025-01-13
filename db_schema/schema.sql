@@ -276,6 +276,8 @@ DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 3 DAY);
 CREATE TABLE IF NOT EXISTS podcasts (
   account_id INTEGER NOT NULL AUTO_INCREMENT,
   pod_name VARCHAR(2048) NOT NULL,
+  -- 1 if shoudl be monitored and alerts should be sent
+  monitored BOOLEAN NOT NULL DEFAULT 1,
   PRIMARY KEY (account_id)
 );
 
