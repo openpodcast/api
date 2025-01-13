@@ -31,7 +31,6 @@ import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
-import e from 'express'
 
 const config = new Config()
 
