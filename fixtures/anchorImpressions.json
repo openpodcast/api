@@ -1,0 +1,202 @@
+{
+    "provider": "anchor",
+    "version": 1,
+    "retrieved": "2023-05-05T16:20:56.696026",
+    "meta": {
+        "show": "123abcde",
+        "endpoint": "impressions"
+    },
+    "range": {
+        "start": "2023-05-01",
+        "end": "2023-05-04"
+    },
+    "data": {
+        "impressionsFunnel": {
+            "data": {
+                "value": {
+                    "counts": [
+                        {
+                            "id": "impressions",
+                            "count": 4571
+                        },
+                        {
+                            "id": "considerations",
+                            "count": 731,
+                            "conversionPercent": 0.15992
+                        },
+                        {
+                            "id": "streams",
+                            "count": 381,
+                            "conversionPercent": 0.5212
+                        }
+                    ]
+                },
+                "isDistributedToSpotify": true
+            },
+            "error": null
+        },
+        "impressions": {
+            "data": {
+                "value": 30868,
+                "isDistributedToSpotify": true
+            },
+            "error": null
+        },
+        "dailyImpressions": {
+            "data": {
+                "value": [
+                    {
+                        "date": 1732233600,
+                        "value": 1145
+                    },
+                    {
+                        "date": 1732320000,
+                        "value": 860
+                    },
+                    {
+                        "date": 1732406400,
+                        "value": 846
+                    },
+                    {
+                        "date": 1732492800,
+                        "value": 952
+                    },
+                    {
+                        "date": 1732579200,
+                        "value": 1054
+                    },
+                    {
+                        "date": 1732665600,
+                        "value": 1079
+                    },
+                    {
+                        "date": 1732752000,
+                        "value": 915
+                    },
+                    {
+                        "date": 1732838400,
+                        "value": 1047
+                    },
+                    {
+                        "date": 1732924800,
+                        "value": 974
+                    },
+                    {
+                        "date": 1733011200,
+                        "value": 1050
+                    },
+                    {
+                        "date": 1733097600,
+                        "value": 849
+                    },
+                    {
+                        "date": 1733184000,
+                        "value": 873
+                    },
+                    {
+                        "date": 1733270400,
+                        "value": 1449
+                    },
+                    {
+                        "date": 1733356800,
+                        "value": 983
+                    },
+                    {
+                        "date": 1733443200,
+                        "value": 1036
+                    },
+                    {
+                        "date": 1733529600,
+                        "value": 857
+                    },
+                    {
+                        "date": 1733616000,
+                        "value": 955
+                    },
+                    {
+                        "date": 1733702400,
+                        "value": 1115
+                    },
+                    {
+                        "date": 1733788800,
+                        "value": 1261
+                    },
+                    {
+                        "date": 1733875200,
+                        "value": 1100
+                    },
+                    {
+                        "date": 1733961600,
+                        "value": 979
+                    },
+                    {
+                        "date": 1734048000,
+                        "value": 1381
+                    },
+                    {
+                        "date": 1734134400,
+                        "value": 882
+                    },
+                    {
+                        "date": 1734220800,
+                        "value": 1335
+                    },
+                    {
+                        "date": 1734307200,
+                        "value": 956
+                    },
+                    {
+                        "date": 1734393600,
+                        "value": 1146
+                    },
+                    {
+                        "date": 1734480000,
+                        "value": 967
+                    },
+                    {
+                        "date": 1734566400,
+                        "value": 932
+                    },
+                    {
+                        "date": 1734652800,
+                        "value": 1000
+                    },
+                    {
+                        "date": 1734739200,
+                        "value": 890
+                    }
+                ],
+                "isDistributedToSpotify": true
+            },
+            "error": null
+        },
+        "impressionsBySource": {
+            "data": {
+                "value": [
+                    {
+                        "id": "home",
+                        "value": 9082,
+                        "displayName": "Spotify Home"
+                    },
+                    {
+                        "id": "search",
+                        "value": 20849,
+                        "displayName": "Spotify Search"
+                    },
+                    {
+                        "id": "library",
+                        "value": 936,
+                        "displayName": "Spotify Library"
+                    },
+                    {
+                        "id": "other",
+                        "value": 1,
+                        "displayName": "Other Spotify features"
+                    }
+                ],
+                "isDistributedToSpotify": true
+            },
+            "error": null
+        }
+    }
+}
