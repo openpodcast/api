@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (11, 'anchor episodesPage');
+INSERT INTO migrations (migration_id, migration_name) VALUES (12, 'podcast metadata');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (

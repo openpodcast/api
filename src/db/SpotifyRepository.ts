@@ -39,24 +39,46 @@ class SpotifyRepository {
         accountId: number,
         payload: SpotifyPodcastMetadataPayload
     ): Promise<any> {
-        const replaceStmtHistory = `REPLACE INTO spotifyPodcastMetadata (
+        // Daily stats go into the time series table
+        const replaceStatsStmt = `REPLACE INTO spotifyPodcastMetadata (
             account_id,
             spm_date,
             spm_total_episodes,
             spm_starts,
             spm_streams,
             spm_listeners,
-            spm_followers ) VALUES
-            (?,?,?,?,?,?,?)`
+            spm_followers
+        ) VALUES (?,?,?,?,?,?,?)`
 
-        return await this.pool.query(replaceStmtHistory, [
-            accountId,
-            this.getTodayDBString(),
-            payload.totalEpisodes,
-            payload.starts,
-            payload.streams,
-            payload.listeners,
-            payload.followers,
+        // Metadata goes into a seprate metadata table
+        // because we only need to store the latest values
+        const replaceMetadataStmt = `REPLACE INTO podcastMetadata (
+            account_id,
+            name,
+            artwork_url,
+            release_date,
+            url,
+            publisher
+        ) VALUES (?,?,?,?,?,?)`
+
+        await Promise.all([
+            this.pool.query(replaceStatsStmt, [
+                accountId,
+                this.getTodayDBString(),
+                payload.totalEpisodes,
+                payload.starts,
+                payload.streams,
+                payload.listeners,
+                payload.followers,
+            ]),
+            this.pool.query(replaceMetadataStmt, [
+                accountId,
+                payload.name,
+                payload.artworkUrl,
+                payload.releaseDate,
+                payload.url,
+                payload.publisher,
+            ]),
         ])
     }
 
