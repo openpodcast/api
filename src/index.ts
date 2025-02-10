@@ -331,12 +331,30 @@ app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
 app.post(
     '/comments/:episodeId',
     userHashMiddleware,
-    body('email').optional().isEmail(),
-    body('comment').not().isEmpty().trim().isLength({ min: 3, max: 1000 }),
+    body('email')
+        .optional()
+        .isEmail()
+        .withMessage(
+            'Please provide a valid email address or remove it completely'
+        ),
+    body('comment')
+        .not()
+        .isEmpty()
+        .withMessage('Comment cannot be empty')
+        .trim()
+        .isLength({ min: 3, max: 1000 })
+        .withMessage('Comment must be between 3 and 1000 characters'),
     async (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
+            return res.status(400).json({
+                status: 'error',
+                message: 'Validation failed',
+                errors: errors.array().map((err) => ({
+                    field: err.param,
+                    message: err.msg,
+                })),
+            })
         }
 
         const episodeId = req.params.episodeId
