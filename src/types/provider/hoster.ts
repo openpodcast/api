@@ -16,6 +16,10 @@ export interface HosterMetric {
     end: string
     dimension: string
     value: number
+    // Examples for "dimension: subdimension":
+    // - downloads: total,
+    // - clients: PocketCast,
+    // - countries: regions
     subdimension?: string
 }
 
