@@ -133,6 +133,9 @@ class DBInitializer {
         }
         const migrationIdGoal = this.getMigrationGoal()
 
+        console.log('Latest migration id:', latestMigrationId)
+        console.log('Migration id goal:', migrationIdGoal)
+
         if (latestMigrationId >= migrationIdGoal) {
             return
         }

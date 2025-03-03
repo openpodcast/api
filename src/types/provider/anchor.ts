@@ -185,6 +185,50 @@ export interface RawAnchorUniqueListenersData {
     columnHeaders: [AnchorColumnHeader]
 }
 
+export interface RawAnchorImpressionData {
+    impressionsFunnel: {
+        data: {
+            value: {
+                counts: Array<{
+                    id: string
+                    count: number
+                    conversionPercent?: number
+                }>
+            }
+            isDistributedToSpotify: boolean
+        }
+        error: null | any
+    }
+    impressions: {
+        data: {
+            value: number
+            isDistributedToSpotify: boolean
+        }
+        error: null | any
+    }
+    dailyImpressions: {
+        data: {
+            value: Array<{
+                date: number
+                value: number
+            }>
+            isDistributedToSpotify: boolean
+        }
+        error: null | any
+    }
+    impressionsBySource: {
+        data: {
+            value: Array<{
+                id: string
+                value: number
+                displayName: string
+            }>
+            isDistributedToSpotify: boolean
+        }
+        error: null | any
+    }
+}
+
 export type AnchorDataPayload =
     | { kind: 'aggregatedPerformance'; data: AnchorAggregatedPerformanceData }
     | { kind: 'audienceSize'; data: RawAnchorAudienceSizeData }
@@ -203,6 +247,7 @@ export type AnchorDataPayload =
     | { kind: 'totalPlays'; data: RawAnchorTotalPlaysData }
     | { kind: 'totalPlaysByEpisode'; data: RawAnchorTotalPlaysByEpisodeData }
     | { kind: 'uniqueListeners'; data: RawAnchorUniqueListenersData }
+    | { kind: 'impressions'; data: RawAnchorImpressionData }
 
 export interface AnchorConnectorPayload {
     meta: {
