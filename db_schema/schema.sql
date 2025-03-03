@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (12, 'anchor impressions');
+INSERT INTO migrations (migration_id, migration_name) VALUES (13, 'anchor impressions');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -276,6 +276,8 @@ DO DELETE FROM updates WHERE created < DATE_SUB(NOW(), INTERVAL 3 DAY);
 CREATE TABLE IF NOT EXISTS podcasts (
   account_id INTEGER NOT NULL AUTO_INCREMENT,
   pod_name VARCHAR(2048) NOT NULL,
+  -- 1 if should be monitored and alerts should be sent
+  monitored BOOLEAN NOT NULL DEFAULT 1,
   PRIMARY KEY (account_id)
 );
 

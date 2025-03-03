@@ -26,7 +26,7 @@ class AnalyticsRepository {
         // as the optimizer had huge problems with @VARS in queries
         // we changed to use our own replacement system
 
-        // escape first and then replace all occurences of the key in the query with the escaped value
+        // escape first and then replace all occurrences of the key in the query with the escaped value
         for (const [key, value] of Object.entries(sqlVars)) {
             const escapedValue: string =
                 // bit weird, but this is the only way to get the escape function without a type error

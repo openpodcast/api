@@ -31,7 +31,6 @@ import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
-import e from 'express'
 
 const config = new Config()
 
@@ -100,7 +99,7 @@ const app: Express = express()
 const port = config.getExpressPort()
 
 // extract json payload from body automatically
-app.use(bodyParser.json({ limit: '2mb' }))
+app.use(bodyParser.json({ limit: '5mb' }))
 
 app.use(express.static('public'))
 app.set('view engine', 'handlebars')
