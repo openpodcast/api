@@ -14,7 +14,11 @@ services:
             - MYSQL_PASSWORD=openpodcast
             - MYSQL_DATABASE=openpodcast
             - MYSQL_PORT=3306
-            - ACCOUNTS={"dummy-cn389ncoiwuencr":3}
+            - MYSQL_AUTH_HOST=db
+            - MYSQL_AUTH_USER=openpodcast
+            - MYSQL_AUTH_PASSWORD=openpodcast
+            - MYSQL_AUTH_DATABASE=openpodcast_auth
+            - MYSQL_AUTH_PORT=3306
         ports:
             - '8080:8080'
         links:
@@ -23,7 +27,8 @@ services:
         image: mysql:8.0
         volumes:
             - mysqldata:/var/lib/mysql
-            - ./dbinit.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./dbinit.sql:/docker-entrypoint-initdb.d/1_init.sql
+            - ./db_auth_init.sql:/docker-entrypoint-initdb.d/2_init_auth.sql
         ports:
             - '33006:3306'
         environment:
