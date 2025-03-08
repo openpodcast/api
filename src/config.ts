@@ -93,35 +93,35 @@ class Config {
      *
      * */
     getMySQLConnectionString(
-        prefixString: string | undefined = undefined
+        infixString: string | undefined = undefined
     ): string | undefined {
-        const prefix = prefixString ? `${prefixString}_` : ''
+        const infix = infixString ? `${infixString}_` : ''
 
-        let connectionString = process.env[`${prefix}DB_CONNECTION_STRING`]
+        let connectionString = process.env[`DB_${infix}CONNECTION_STRING`]
         if (connectionString === undefined) {
             //let's build the connection string from the individual env vars
             const host = this.readStringFromEnvOrFile(
-                `${prefix}MYSQL_HOST`,
+                `MYSQL_${infix}HOST`,
                 'localhost'
             )
             const port = this.readStringFromEnvOrFile(
-                `${prefix}MYSQL_PORT`,
+                `MYSQL_${infix}PORT`,
                 '3306'
             )
             const user = this.readStringFromEnvOrFile(
-                `${prefix}MYSQL_USER`,
+                `MYSQL_${infix}USER`,
                 undefined
             )
             const password = this.readStringFromEnvOrFile(
-                `${prefix}MYSQL_PASSWORD`,
+                `MYSQL_${infix}PASSWORD`,
                 undefined
             )
             const database = this.readStringFromEnvOrFile(
-                `${prefix}MYSQL_DATABASE`,
+                `MYSQL_${infix}DATABASE`,
                 undefined
             )
             const options = this.readStringFromEnvOrFile(
-                `${prefix}MYSQL_OPTIONS`,
+                `MYSQL_${infix}OPTIONS`,
                 ''
             )
 
@@ -131,9 +131,7 @@ class Config {
                 console.log(options)
                 throw new Error(
                     'MySQL connection string not defined or could not be built from environment variables' +
-                    prefixString
-                        ? ` with prefix ${prefixString}`
-                        : ''
+                        (infixString ? ` with prefix ${infixString}` : '')
                 )
             }
         }

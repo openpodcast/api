@@ -23,6 +23,7 @@ class AccountKeyRepository {
         )
 
         const result = rows as any[]
+
         return result.length > 0 ? result[0].account_id : null
     }
 
