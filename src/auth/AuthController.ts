@@ -1,20 +1,15 @@
 import { AuthError } from '../types/api'
 import { NextFunction, Request, RequestHandler, Response } from 'express'
+import { AccountKeyRepository } from '../db/AccountKeyRepository'
 
 class AuthController {
-    accountsMap: { [key: string]: number }
+    private accountKeyRepository: AccountKeyRepository
 
-    constructor(accountsMap: { [key: string]: number }) {
-        this.accountsMap = accountsMap
+    constructor(accountsKeyRepository: AccountKeyRepository) {
+        this.accountKeyRepository = accountsKeyRepository
     }
 
-    /**
-     * Returns the account id for the specified auth token
-     * @param authToken The auth token to get the account id for (incl. 'Bearer ')
-     * @returns The account id
-     * @throws AuthError if the token is not valid
-     * */
-    getAccountId = (authToken: string): number => {
+    async getAccountId(authToken: string): Promise<number> {
         if (authToken.startsWith('Bearer ') === false) {
             throw new AuthError('Specified token is not valid')
         }
@@ -22,11 +17,16 @@ class AuthController {
         // remove 'Bearer ' from token to get the actual token
         const token = authToken.substring(7)
 
-        if (this.accountsMap[token] !== undefined) {
-            return this.accountsMap[token]
-        } else {
-            throw new AuthError(`Specified token is not valid: ${token}`)
+        // First try to get the account ID from the database
+        if (this.accountKeyRepository) {
+            const accountId = await this.accountKeyRepository.getAccountIdByKey(token)
+            if (accountId !== null) {
+                return accountId
+            }
         }
+
+        // If the account ID is not found in the database, throw an error
+        throw new AuthError('Specified token is not valid')
     }
 
     getMiddleware = (): RequestHandler => {

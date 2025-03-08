@@ -31,6 +31,7 @@ import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
+import { AccountKeyRepository } from './db/AccountKeyRepository'
 
 const config = new Config()
 
@@ -41,6 +42,14 @@ const pool = mysql.createPool({
     queueLimit: 0,
     // do not touch dates and return native string representation
     // see https://github.com/mysqljs/mysql#connection-options
+    dateStrings: true,
+})
+
+const authPool = mysql.createPool({
+    uri: config.getMySQLConnectionString('AUTH'),
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
     dateStrings: true,
 })
 
@@ -77,6 +86,9 @@ const analyticsApi = new AnalyticsApi(analyticsRepo)
 const statusRepo = new StatusRepository(pool)
 const statusApi = new StatusApi(statusRepo)
 
+// Initialize the account key repository
+const accountKeyRepo = new AccountKeyRepository(authPool)
+
 // parameter map will consist of spotify and apple in the future
 const connectorApi = new ConnectorApi({
     spotify: spotifyConnector,
@@ -93,7 +105,7 @@ const publicEndpoints = [
     '^/comments/*',
 ]
 
-const authController = new AuthController(config.getAccountsMap())
+const authController = new AuthController(accountKeyRepo)
 
 const app: Express = express()
 const port = config.getExpressPort()
