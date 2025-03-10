@@ -85,29 +85,53 @@ class Config {
         return parseInt(portString || '8080', 10)
     }
 
-    getMySQLConnectionString(): string | undefined {
-        let connectionString = process.env.DB_CONNECTION_STRING
+    /**
+     * Get the MySQL connection string for a database defined in the environment variables
+     *
+     * @param prefix if you have multiple databases, you can specify a prefix to differentiate them
+     * @returns The connection string
+     *
+     * */
+    getMySQLConnectionString(
+        infixString: string | undefined = undefined
+    ): string | undefined {
+        const infix = infixString ? `${infixString}_` : ''
+
+        let connectionString = process.env[`DB_${infix}CONNECTION_STRING`]
         if (connectionString === undefined) {
             //let's build the connection string from the individual env vars
-            const host = this.readStringFromEnvOrFile('MYSQL_HOST', 'localhost')
-            const port = this.readStringFromEnvOrFile('MYSQL_PORT', '3306')
-            const user = this.readStringFromEnvOrFile('MYSQL_USER', undefined)
+            const host = this.readStringFromEnvOrFile(
+                `MYSQL_${infix}HOST`,
+                'localhost'
+            )
+            const port = this.readStringFromEnvOrFile(
+                `MYSQL_${infix}PORT`,
+                '3306'
+            )
+            const user = this.readStringFromEnvOrFile(
+                `MYSQL_${infix}USER`,
+                undefined
+            )
             const password = this.readStringFromEnvOrFile(
-                'MYSQL_PASSWORD',
+                `MYSQL_${infix}PASSWORD`,
                 undefined
             )
             const database = this.readStringFromEnvOrFile(
-                'MYSQL_DATABASE',
+                `MYSQL_${infix}DATABASE`,
                 undefined
             )
-            const options = this.readStringFromEnvOrFile('MYSQL_OPTIONS', '')
+            const options = this.readStringFromEnvOrFile(
+                `MYSQL_${infix}OPTIONS`,
+                ''
+            )
 
             if (host && user && password && database && port) {
                 connectionString = `mysql://${user}:${password}@${host}:${port}/${database}${options}`
             } else {
                 console.log(options)
                 throw new Error(
-                    'MySQL connection string not defined or could not be built from environment variables'
+                    'MySQL connection string not defined or could not be built from environment variables' +
+                        (infixString ? ` with infix ${infixString}` : '')
                 )
             }
         }

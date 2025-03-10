@@ -62,3 +62,11 @@ To query it, use the following endpoint: `/status`
 
 -   <https://transform.tools/json-to-json-schema>
 -   <https://jsoning.com/jsonschema/>
+
+## Development
+
+### DB
+
+- `make up-db` starts the db and inits basic auth related tables
+- `make dev` starts the dev server which also creates the tables using migrations
+- to finalize the auth data run `make init-auth-db` which creates the auth structures

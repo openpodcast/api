@@ -37,6 +37,8 @@ build: ## Build the js code
 
 .PHONY: dev
 dev: ## Starts the api development server
+	echo "Do not forget to run 'make db-init-auth' to initialize the auth db"
+	echo "The main migration has to be finished before running the db-init-auth"
 	set -a && source env.local.test && set +a && npm run dev
 
 .PHONY: clean
@@ -109,4 +111,15 @@ send-api-req-prod: ## Send request to production
 
 .PHONY: db-shell
 db-shell: ## Opens the mysql shell inside the db container
-	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast'
+.PHONY: db-init-auth
+db-init-auth: ## Initialize the auth db after api is up
+	# creates the auth schema
+	docker cp ./db_schema/auth.sql $$(docker compose ps -q db):/tmp/auth.sql
+	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast_auth < /tmp/auth.sql'
+	
+	# creates some dummy auth data 
+	docker cp ./db_auth_data.sql $$(docker compose ps -q db):/tmp/auth_data.sql
+	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast_auth < /tmp/auth_data.sql'
+	docker cp ./db_auth_data.sql api-db-1:/tmp/auth_data.sql
+	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast_auth < /tmp/auth_data.sql'
+
