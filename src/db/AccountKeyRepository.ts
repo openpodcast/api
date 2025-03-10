@@ -1,5 +1,6 @@
-import { Pool } from 'mysql2/promise'
+import { Pool, RowDataPacket } from 'mysql2/promise'
 import crypto from 'crypto'
+import { i } from 'mathjs'
 
 class AccountKeyRepository {
     private pool: Pool
@@ -15,16 +16,17 @@ class AccountKeyRepository {
      * @returns Account ID if found, null otherwise
      */
     async getAccountIdByKey(apiKey: string): Promise<number | null> {
+        if (!apiKey || apiKey.length === 0 || apiKey.length > 255) {
+            throw new Error('Invalid API key')
+        }
         const hashedKey = this.hashKey(apiKey)
 
-        const [rows] = await this.pool.execute(
+        const [rows] = await this.pool.execute<RowDataPacket[]>(
             'SELECT account_id FROM apiKeys WHERE key_hash = ?',
             [hashedKey]
         )
 
-        const result = rows as any[]
-
-        return result.length > 0 ? result[0].account_id : null
+        return (rows[0].account_id as number) || null
     }
 
     /**

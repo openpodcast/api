@@ -67,6 +67,6 @@ To query it, use the following endpoint: `/status`
 
 ### DB
 
-- `make up-db` starts the db and init basic auth related tables
+- `make up-db` starts the db and inits basic auth related tables
 - `make dev` starts the dev server which also creates the tables using migrations
 - to finalize the auth data run `make init-auth-db` which creates the auth structures

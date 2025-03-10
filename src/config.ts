@@ -131,7 +131,7 @@ class Config {
                 console.log(options)
                 throw new Error(
                     'MySQL connection string not defined or could not be built from environment variables' +
-                        (infixString ? ` with prefix ${infixString}` : '')
+                        (infixString ? ` with infix ${infixString}` : '')
                 )
             }
         }
