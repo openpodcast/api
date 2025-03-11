@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (12, 'podcast metadata');
+INSERT INTO migrations (migration_id, migration_name) VALUES (13, 'increase ep_guid size');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS appleEpisodeMetadata (
   ep_collection_name VARCHAR(255) NOT NULL,
   ep_release_datetime DATETIME NOT NULL,
   ep_release_date DATE NOT NULL,
-  ep_guid VARCHAR(64) NOT NULL,
+  ep_guid VARCHAR(512) NOT NULL,
   ep_number INTEGER,
   ep_type VARCHAR(255) NOT NULL,
   PRIMARY KEY (account_id, episode_id)
