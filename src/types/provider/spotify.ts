@@ -81,7 +81,7 @@ export interface SpotifyPodcastMetadataPayload {
     publisher: string
 }
 
-export interface SpotifyEpisodeMetadata {
+export interface SpotifyEpisodeMetadataPayload {
     name: string
     id: string
     url: string
@@ -96,11 +96,6 @@ export interface SpotifyEpisodeMetadata {
     listeners: number
     sparkLine: unknown[]
     hasVideo: boolean
-    [k: string]: unknown
-}
-
-export interface SpotifyEpisodesMetadataPayload {
-    episodes: SpotifyEpisodeMetadata[]
     [k: string]: unknown
 }
 

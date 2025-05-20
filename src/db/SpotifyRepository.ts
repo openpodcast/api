@@ -2,8 +2,7 @@ import { Pool } from 'mysql2/promise'
 import {
     SpotifyPodcastAggregatePayload,
     SpotifyDetailedStreamsPayload,
-    SpotifyEpisodeMetadata,
-    SpotifyEpisodesMetadataPayload,
+    SpotifyEpisodeMetadataPayload,
     SpotifyGenderCounts,
     SpotifyListenersPayload,
     SpotifyPerformancePayload,
@@ -83,9 +82,9 @@ class SpotifyRepository {
     }
 
     // store metadata of multiple episodes
-    async storeEpisodesMetadata(
+    async storeEpisodeMetadata(
         accountId: number,
-        payload: SpotifyEpisodesMetadataPayload
+        episode: SpotifyEpisodeMetadataPayload
     ): Promise<any> {
         const replaceStmtHistory = `REPLACE INTO spotifyEpisodeMetadataHistory (
             account_id,
@@ -96,19 +95,14 @@ class SpotifyRepository {
             epm_listeners) VALUES
             (?,?,?,?,?,?)`
 
-        await Promise.all(
-            payload.episodes.map(
-                async (entry: SpotifyEpisodeMetadata): Promise<any> =>
-                    await this.pool.query(replaceStmtHistory, [
-                        accountId,
-                        entry.id,
-                        this.getTodayDBString(),
-                        entry.starts,
-                        entry.streams,
-                        entry.listeners,
-                    ])
-            )
-        )
+        await this.pool.query(replaceStmtHistory, [
+            accountId,
+            episode.id,
+            this.getTodayDBString(),
+            episode.starts,
+            episode.streams,
+            episode.listeners,
+        ])
 
         const replaceStmt = `REPLACE INTO spotifyEpisodeMetadata (
             account_id,
@@ -125,25 +119,20 @@ class SpotifyRepository {
             ep_has_video) VALUES
             (?,?,?,?,?,?,?,?,?,?,?,?)`
 
-        return await Promise.all(
-            payload.episodes.map(
-                async (entry: SpotifyEpisodeMetadata): Promise<any> =>
-                    await this.pool.query(replaceStmt, [
-                        accountId,
-                        entry.id,
-                        entry.name,
-                        entry.url,
-                        entry.artworkUrl,
-                        entry.releaseDate,
-                        entry.description,
-                        entry.explict, // typo in Spotify API
-                        entry.duration,
-                        entry.language,
-                        JSON.stringify(entry.sparkLine),
-                        entry.hasVideo,
-                    ])
-            )
-        )
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            episode.id,
+            episode.name,
+            episode.url,
+            episode.artworkUrl,
+            episode.releaseDate,
+            episode.description,
+            episode.explict, // typo in Spotify API
+            episode.duration,
+            episode.language,
+            JSON.stringify(episode.sparkLine),
+            episode.hasVideo,
+        ])
     }
 
     // store performance data of one single episode

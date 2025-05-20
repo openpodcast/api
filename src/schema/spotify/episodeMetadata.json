@@ -1,0 +1,67 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/episodesmetadata.schema.json",
+    "title": "metadata of episodes",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "id": {
+            "type": "string"
+        },
+        "url": {
+            "type": "string"
+        },
+        "releaseDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "artworkUrl": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "explict": {
+            "type": "boolean"
+        },
+        "language": {
+            "type": "string"
+        },
+        "duration": {
+            "type": "number"
+        },
+        "starts": {
+            "type": "number"
+        },
+        "streams": {
+            "type": "number"
+        },
+        "listeners": {
+            "type": "number"
+        },
+        "sparkLine": {
+            "type": "array",
+            "items": {}
+        },
+        "hasVideo": {
+            "type": "boolean"
+        }
+    },
+    "required": [
+        "name",
+        "id",
+        "url",
+        "releaseDate",
+        "artworkUrl",
+        "description",
+        "explict",
+        "language",
+        "duration",
+        "starts",
+        "streams",
+        "listeners",
+        "sparkLine",
+        "hasVideo"
+    ]
+}
