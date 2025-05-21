@@ -111,6 +111,8 @@ send-api-req-prod: ## Send request to production
 
 .PHONY: db-shell
 db-shell: ## Opens the mysql shell inside the db container
+	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast'
+
 .PHONY: db-init-auth
 db-init-auth: ## Initialize the auth db after api is up
 	# creates the auth schema

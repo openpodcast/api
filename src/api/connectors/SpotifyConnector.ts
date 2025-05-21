@@ -3,7 +3,7 @@ import { PayloadError } from '../../types/api'
 import { ConnectorPayload } from '../../types/connector'
 import {
     SpotifyDetailedStreamsPayload,
-    SpotifyEpisodesMetadataPayload,
+    SpotifyEpisodeMetadataPayload,
     SpotifyPodcastMetadataPayload,
     SpotifyListenersPayload,
     SpotifyPodcastAggregatePayload,
@@ -16,7 +16,7 @@ import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
 import listenersSchema from '../../schema/spotify/listeners.json'
 import performanceSchema from '../../schema/spotify/performance.json'
 import podcastMetadataSchema from '../../schema/spotify/podcastMetadata.json'
-import episodesMetadataSchema from '../../schema/spotify/episodesMetadata.json'
+import episodeMetadataSchema from '../../schema/spotify/episodeMetadata.json'
 import followerSchema from '../../schema/spotify/followers.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
@@ -58,13 +58,13 @@ class SpotifyConnector implements ConnectorHandler {
                     payload.data as SpotifyDetailedStreamsPayload
                 )
             }
-        } else if (payload.meta.endpoint === 'episodes') {
-            // metadata of multiple episodes
-            validateJsonApiPayload(episodesMetadataSchema, payload.data)
+        } else if (payload.meta.endpoint === 'episodeMetadata') {
+            // metadata of single episode
+            validateJsonApiPayload(episodeMetadataSchema, payload.data)
 
-            return await this.repo.storeEpisodesMetadata(
+            return await this.repo.storeEpisodeMetadata(
                 accountId,
-                payload.data as SpotifyEpisodesMetadataPayload
+                payload.data as SpotifyEpisodeMetadataPayload
             )
         } else if (payload.meta.endpoint === 'followers') {
             // follower count per day
