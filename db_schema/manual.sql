@@ -1,4 +1,4 @@
--- procedure to delete a specifi podcast with account_id
+-- procedure to delete a specific podcast with account_id
 DELIMITER //
 CREATE PROCEDURE openpodcast.deletePodcast(IN p_account_id INTEGER)
 BEGIN
