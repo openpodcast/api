@@ -1,3 +1,3 @@
-REPLACE INTO openpodcast.podcasts (account_id, pod_name) VALUES (1, 'test');
--- Plaintext value of key_hash: test
-REPLACE INTO openpodcast_auth.apiKeys (key_hash, account_id) VALUES ('9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 1);
+REPLACE INTO openpodcast.podcasts (account_id, pod_name) VALUES (3, 'test');
+-- Plaintext value of key_hash: dummy-cn389ncoiwuencr
+REPLACE INTO openpodcast_auth.apiKeys (key_hash, account_id) VALUES ('e158a7d3efa31fa234b6bdb1014b028491c515eb41abd8bd1c484ec6bd64f091', 3);
