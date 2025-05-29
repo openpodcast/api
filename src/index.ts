@@ -308,7 +308,7 @@ app.get(
                 }
 
                 const csvData = dataToCSV(data)
-                res.setHeader('Content-Type', 'text/csv')
+                res.setHeader('Content-Type', 'text/csv; charset=utf-8')
                 res.setHeader(
                     'Content-Disposition',
                     `attachment; filename="${query}_${formatDate(
