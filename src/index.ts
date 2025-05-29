@@ -19,6 +19,7 @@ import { AnchorRepository } from './db/AnchorRepository'
 import { healthCheck, mysqlHealthy } from './healthcheck'
 import mysql from 'mysql2/promise'
 import { unless } from './utils/expressHelpers'
+import { dataToCSV } from './utils/csvHelpers'
 import { FeedbackRepository } from './db/FeedbackRepository'
 import { FeedbackApi } from './api/FeedbackApi'
 import { StatusRepository } from './db/StatusRepository'
@@ -209,10 +210,10 @@ app.get(
 // Check that the user is allowed to access the endpoint
 // and then run the query
 // The endpoint must contain a version number and a query name
-// e.g. /analytics/v1/1234/someQuery
+// e.g. /analytics/v1/1234/someQuery or /analytics/v1/1234/someQuery/csv
 // where 1234 is the podcast id and someQuery is the name of the query
 app.get(
-    '/analytics/:version/:podcastId/:query',
+    '/analytics/:version/:podcastId/:query/:format?',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
             const accountId = res.locals.user.accountId
@@ -229,6 +230,13 @@ app.get(
 
             const version = req.params.version
             const query = req.params.query
+            const format = req.params.format // Optional format parameter
+
+            // Validate format parameter if provided
+            if (format && format !== 'csv') {
+                res.status(400).send('Invalid format. Only "csv" is supported.')
+                return
+            }
 
             // Backwards compatibility:
             // For v1, the podcast id is the account id
@@ -290,6 +298,28 @@ app.get(
                 console.log(err)
             }
 
+            // Handle CSV format
+            if (format === 'csv') {
+                if (!data) {
+                    res.status(404).send(
+                        'No data found for the specified query'
+                    )
+                    return
+                }
+
+                const csvData = dataToCSV(data)
+                res.setHeader('Content-Type', 'text/csv; charset=utf-8')
+                res.setHeader(
+                    'Content-Disposition',
+                    `attachment; filename="${query}_${formatDate(
+                        startDate
+                    )}_${formatDate(endDate)}.csv"`
+                )
+                res.send(csvData)
+                return
+            }
+
+            // Default JSON response
             res.json({
                 meta: {
                     query,
