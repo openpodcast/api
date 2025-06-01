@@ -24,7 +24,9 @@ episode_performance AS (
         spp_percentile_25 as quartile_1,
         spp_percentile_50 as quartile_2, 
         spp_percentile_75 as quartile_3,
-        spp_percentile_100 as quartile_4
+        spp_percentile_100 as quartile_4,
+        spp_median_seconds as median_seconds,
+        spp_median_percentage as median_percent
     FROM spotifyEpisodePerformance
     WHERE account_id = @podcast_id
     AND spp_date = (SELECT max_date FROM latest_date)
@@ -84,17 +86,21 @@ SELECT
     COALESCE(eg.non_binary_percent, 0) as non_binary_percent,
     COALESCE(eg.not_specified_percent, 0) as not_specified_percent,
 
-    COALESCE(ed.age_18_22, 0) as age_18_22,
-    COALESCE(ed.age_23_27, 0) as age_23_27,
-    COALESCE(ed.age_28_34, 0) as age_28_34,
-    COALESCE(ed.age_35_44, 0) as age_35_44,
-    COALESCE(ed.age_45_59, 0) as age_45_59,
-    COALESCE(ed.age_60_plus, 0) as age_60_plus,
+    COALESCE(ed.age_18_22, 0)*100 as age_18_22_percent,
+    COALESCE(ed.age_0_17, 0)*100 as age_0_17_percent,
+    COALESCE(ed.age_23_27, 0)*100 as age_23_27_percent,
+    COALESCE(ed.age_28_34, 0)*100 as age_28_34_percent,
+    COALESCE(ed.age_35_44, 0)*100 as age_35_44_percent,
+    COALESCE(ed.age_45_59, 0)*100 as age_45_59_percent,
+    COALESCE(ed.age_60_plus, 0)*100 as age_60_plus_percent,
+    COALESCE(ed.age_unknown, 0)*100 as age_unknown_percent,
 
-    COALESCE(ep.quartile_1, 0) as quartile_1,
-    COALESCE(ep.quartile_2, 0) as quartile_2,
-    COALESCE(ep.quartile_3, 0) as quartile_3,
-    COALESCE(ep.quartile_4, 0) as quartile_4
+    COALESCE(ep.quartile_1, 0) as quartile_1_percent,
+    COALESCE(ep.quartile_2, 0) as quartile_2_percent,
+    COALESCE(ep.quartile_3, 0) as quartile_3_percent,
+    COALESCE(ep.quartile_4, 0) as quartile_4_percent,
+    COALESCE(ep.median_seconds, 0) as median_seconds,
+    COALESCE(ep.median_percent, 0) as median_percent
 FROM episode_metadata em
 LEFT JOIN episode_performance ep ON em.account_id = ep.account_id AND em.episode_id = ep.episode_id
 LEFT JOIN episode_streams es ON em.account_id = es.account_id AND em.episode_id = es.episode_id
