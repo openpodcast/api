@@ -151,6 +151,19 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadataHistory (
   PRIMARY KEY (account_id, episode_id, epm_date)
 );
 
+-- Introduced by migration 12
+CREATE TABLE IF NOT EXISTS podcastMetadata (
+  account_id INTEGER NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  artwork_url VARCHAR(255) NOT NULL,
+  release_date DATE NOT NULL,
+  url VARCHAR(255) NOT NULL,
+  publisher VARCHAR(255) NOT NULL,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (account_id)
+);
+
+
 CREATE TABLE IF NOT EXISTS appleEpisodeMetadata (
   account_id INTEGER NOT NULL,
   episode_id BIGINT NOT NULL,
