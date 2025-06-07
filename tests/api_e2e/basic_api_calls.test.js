@@ -4,15 +4,6 @@ const baseURL = 'http://localhost:8080'
 const auth = require('./authheader')
 const someRandomContent = { 'some data': 'anything' }
 
-// create a failing test case to check testing framework and call on github
-describe('check if fail is working', () => {
-    it('should fail with status 500', async () => {
-        const response = await request(baseURL).get('/fail')
-        expect(response.statusCode).toBe(200)
-    })
-})
-
-
 describe('check authentication', () => {
     it('should return not authenticated without bearer', async () => {
         const response = await request(baseURL).post('/events')
