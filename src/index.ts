@@ -16,6 +16,8 @@ import { AppleRepository } from './db/AppleRepository'
 import { AppleConnector } from './api/connectors/AppleConnector'
 import { AnchorConnector } from './api/connectors/AnchorConnector'
 import { AnchorRepository } from './db/AnchorRepository'
+import { HosterConnector } from './api/connectors/HosterConnector'
+import { HosterRepository } from './db/HosterRepository'
 import { healthCheck, mysqlHealthy } from './healthcheck'
 import mysql from 'mysql2/promise'
 import { unless } from './utils/expressHelpers'
@@ -32,7 +34,6 @@ import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
-import { AccountKeyRepository } from './db/AccountKeyRepository'
 
 const config = new Config()
 
@@ -87,14 +88,22 @@ const analyticsApi = new AnalyticsApi(analyticsRepo)
 const statusRepo = new StatusRepository(pool)
 const statusApi = new StatusApi(statusRepo)
 
-// Initialize the account key repository
-const accountKeyRepo = new AccountKeyRepository(authPool)
+const supportedGenericHosters = {
+    podigee: 1,
+}
+
+const hosterRepo = new HosterRepository(pool)
+const hosterConnectors: { [key: string]: HosterConnector } = {}
+Object.entries(supportedGenericHosters).forEach(([key, value]) => {
+    hosterConnectors[key] = new HosterConnector(hosterRepo, value)
+})
 
 // parameter map will consist of spotify and apple in the future
 const connectorApi = new ConnectorApi({
     spotify: spotifyConnector,
     apple: appleConnector,
     anchor: anchorConnector,
+    ...hosterConnectors,
 })
 
 // defines all endpoints where auth is not required
