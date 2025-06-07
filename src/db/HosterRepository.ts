@@ -1,3 +1,4 @@
+import { RowDataPacket, Pool } from 'mysql2/promise'
 import {
     HosterEpisodeMetadataPayload,
     HosterMetricsPayload,
@@ -10,10 +11,10 @@ const convertAnyDatetimeToDBString = (date: any): string => {
 }
 
 class HosterRepository {
-    pool
+    pool: Pool
     subDimensionIdCache: Map<string, number> = new Map()
 
-    constructor(pool: any) {
+    constructor(pool: Pool) {
         this.pool = pool
     }
 
@@ -162,26 +163,25 @@ class HosterRepository {
             return id
         }
 
-        // Use REPLACE to insert the dimension if it doesn't exist
-        // as it is the same as checking if it exists and inserting it
-        // As we have a cache this shouldn't be performed often
-        await this.pool.query(
-            'REPLACE INTO subdimensions (dim_name) VALUES (?)',
+        // Insert or ignore if exists, then get the ID
+        await this.pool.execute(
+            'INSERT INTO subdimensions (dim_name) VALUES (?)',
             [dimension]
         )
 
-        const result = await this.pool.query(
+        // Now get the ID (whether it was just inserted or already existed)
+        const [rows] = await this.pool.execute<RowDataPacket[]>(
             'SELECT dim_id FROM subdimensions WHERE dim_name = ?',
             [dimension]
         )
 
-        if (result.length === 0) {
+        if (!Array.isArray(rows) || rows.length !== 1) {
             throw new Error(
                 `Critical error, failed to retrieve subdimension ID for: ${dimension}`
             )
         }
 
-        const dimensionId = result[0].dim_id
+        const dimensionId = rows[0].dim_id as number
 
         // Store in cache for future use
         this.subDimensionIdCache.set(dimension, dimensionId)

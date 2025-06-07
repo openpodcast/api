@@ -706,7 +706,8 @@ CREATE TABLE IF NOT EXISTS hosterPodcastMetadata (
 CREATE TABLE IF NOT EXISTS subdimensions (
     dim_id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     dim_name CHAR(64) NOT NULL,
-    PRIMARY KEY (dim_id)
+    PRIMARY KEY (dim_id),
+    UNIQUE KEY (dim_name)
 );
 
 CREATE TABLE IF NOT EXISTS hosterPodcastMetrics (
