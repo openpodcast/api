@@ -90,7 +90,7 @@ e2e-tests: ## Start end2end tests
 	@docker compose down
 
 	@echo "Done - Some important information for debugging:"
-	@echo "  - If the tests fail, consider to refresh the db by running 'make down' first"
+	@echo "  - If the tests fail, consider to refresh the db by running 'make down-db' first"
 	@echo "  - To have data for spotify, apple, and anchor, use podcast_id 3 for the tests"
 
 .PHONY: status
