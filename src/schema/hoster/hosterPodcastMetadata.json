@@ -1,0 +1,13 @@
+{
+    "$id": "http://openpodcast.dev/schema/hoster/podcastmetadata.schema.json",
+    "title": "Hoster Podcast Metadata (e.g. for Podigee)",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "name"
+    ]
+}
