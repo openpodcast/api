@@ -6,23 +6,21 @@
 -- auth database and write access to the main database
 
 -- define access keys for podcast sources
-CREATE TABLE IF NOT EXISTS podcastSources (
+CREATE TABLE IF NOT EXISTS openpodcast_auth.podcastSources (
   account_id INTEGER NOT NULL,
   source_name ENUM('spotify','apple','anchor'),
   source_podcast_id VARCHAR(64) NOT NULL,
   -- keys are stored in json format and are encrypted by the client
   source_access_keys_encrypted JSON NOT NULL,
   source_access_keys_created TIMESTAMP NULL DEFAULT NULL,
-  PRIMARY KEY (account_id, source_name),
-  CONSTRAINT podcastSources_account_id_fk FOREIGN KEY (account_id) REFERENCES openpodcast.podcasts(account_id) ON DELETE CASCADE
+  PRIMARY KEY (account_id, source_name)
 );
 
-CREATE TABLE IF NOT EXISTS apiKeys (
+CREATE TABLE IF NOT EXISTS openpodcast_auth.apiKeys (
   -- SHA256 hash of the key, no salting as we are storing long random keys
   -- and the hash is used to lookup the key which would be more complicated using salting
   -- and wouldn't increase security a lot
   key_hash CHAR(64) NOT NULL,
   account_id INTEGER NOT NULL,
-  PRIMARY KEY (key_hash, account_id),
-  CONSTRAINT apiKeys_account_id_fk FOREIGN KEY (account_id) REFERENCES openpodcast.podcasts(account_id) ON DELETE CASCADE
+  PRIMARY KEY (key_hash, account_id)
 );
