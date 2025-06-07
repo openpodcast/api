@@ -28,6 +28,7 @@
                     "start",
                     "end",
                     "dimension",
+                    "subdimension",
                     "value"
                 ]
             }

@@ -20,7 +20,9 @@ export interface HosterMetric {
     // - downloads: total,
     // - clients: PocketCast,
     // - countries: regions
-    subdimension?: string
+    // is mandatory, as even if it not realy needed
+    // as it is valid for a global scale, it is called "total" or "global"
+    subdimension: string
 }
 
 // Metrics from a hoster
