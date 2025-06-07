@@ -20,12 +20,12 @@
           "type": "string"
         },
         "episode": {
-          "type": "string",
+          "type":  "string",
           "nullable": true
         },
         "endpoint": {
           "type": "string"
-        }
+        }        
       },
       "required": [
         "show",
@@ -54,6 +54,7 @@
     "provider",
     "version",
     "retrieved",
-    "meta"
+    "meta",
+    "range"
   ]
 }

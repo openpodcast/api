@@ -42,8 +42,6 @@ export interface SpotifyGenderCounts {
 }
 
 export interface SpotifyPodcastAggregatePayload {
-    start: string
-    end: string
     count: number
     ageFacetedCounts: {
         [ageGroup: string]: SpotifyGenderCounts
@@ -63,8 +61,6 @@ export interface SpotifyPodcastAggregatePayload {
 }
 
 export interface SpotifyEpisodeAggregatePayload {
-    start: string
-    end: string
     count: number
     ageFacetedCounts: {
         [ageGroup: string]: SpotifyGenderCounts

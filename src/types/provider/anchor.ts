@@ -209,7 +209,7 @@ export interface AnchorConnectorPayload {
         endpoint: string
         episode?: string
     }
-    range?: {
+    range: {
         start: string
         end: string
     }

@@ -3,14 +3,6 @@
     "title": "Aggregated Spotify Gender Counts",
     "type": "object",
     "properties": {
-        "start": {
-            "type": "string",
-            "format": "date"
-        },
-        "end": {
-            "type": "string",
-            "format": "date"
-        },
         "count": {
             "type": "number"
         },
@@ -125,8 +117,6 @@
         }
     },
     "required": [
-        "start",
-        "end",
         "count",
         "ageFacetedCounts",
         "genderedCounts"

@@ -106,18 +106,19 @@ class SpotifyConnector implements ConnectorHandler {
         } else if (payload.meta.endpoint === 'aggregate') {
             //validates the payload and throws an error if it is not valid
             validateJsonApiPayload(aggregateSchema, payload.data)
-            const data = payload.data as SpotifyEpisodeAggregatePayload
 
             if (payload.meta.episode !== undefined) {
                 return await this.repo.storeEpisodeAggregate(
                     accountId,
                     payload.meta.episode,
-                    data
+                    payload.range.start,
+                    payload.data as SpotifyEpisodeAggregatePayload
                 )
             } else {
                 return await this.repo.storePodcastAggregate(
                     accountId,
-                    data as SpotifyPodcastAggregatePayload
+                    payload.range.start,
+                    payload.data as SpotifyPodcastAggregatePayload
                 )
             }
         } else {
