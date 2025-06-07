@@ -34,6 +34,7 @@ import { QueryLoader } from './db/QueryLoader'
 import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
+import { AccountKeyRepository } from './db/AccountKeyRepository'
 
 const config = new Config()
 
@@ -87,6 +88,9 @@ const analyticsApi = new AnalyticsApi(analyticsRepo)
 
 const statusRepo = new StatusRepository(pool)
 const statusApi = new StatusApi(statusRepo)
+
+// Initialize the account key repository
+const accountKeyRepo = new AccountKeyRepository(authPool)
 
 const supportedGenericHosters = {
     podigee: 1,
