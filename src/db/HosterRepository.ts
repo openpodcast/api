@@ -110,9 +110,7 @@ class HosterRepository {
                 convertAnyDatetimeToDBString(metric.start),
                 convertAnyDatetimeToDBString(metric.end),
                 metric.dimension,
-                metric.subdimension
-                    ? await this.getSubDimensionId(metric.subdimension)
-                    : null,
+                await this.getSubDimensionId(metric.subdimension),
                 metric.value
             )
         }
@@ -149,9 +147,7 @@ class HosterRepository {
                 convertAnyDatetimeToDBString(metric.start),
                 convertAnyDatetimeToDBString(metric.end),
                 metric.dimension,
-                metric.subdimension
-                    ? await this.getSubDimensionId(metric.subdimension)
-                    : null,
+                await this.getSubDimensionId(metric.subdimension),
                 metric.value
             )
         }
