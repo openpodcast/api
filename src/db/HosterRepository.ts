@@ -157,6 +157,8 @@ class HosterRepository {
     }
 
     async getSubDimensionId(dimension: string): Promise<number> {
+        // to reduce errors we consider always lower case
+        dimension = dimension.toLowerCase()
         const id = this.subDimensionIdCache.get(dimension)
 
         if (id !== undefined) {
@@ -165,7 +167,7 @@ class HosterRepository {
 
         // Insert or ignore if exists, then get the ID
         await this.pool.execute(
-            'INSERT INTO subdimensions (dim_name) VALUES (?)',
+            'INSERT IGNORE INTO subdimensions (dim_name) VALUES (?)',
             [dimension]
         )
 
