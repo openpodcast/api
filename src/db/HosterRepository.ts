@@ -11,6 +11,7 @@ const convertAnyDatetimeToDBString = (date: any): string => {
 
 class HosterRepository {
     pool
+    subDimensionIdCache: Map<string, number> = new Map()
 
     constructor(pool: any) {
         this.pool = pool
@@ -100,16 +101,21 @@ class HosterRepository {
             value
         ) VALUES ` + data.metrics.map(() => '(?,?,?,?,?,?,?,?)').join(',')
 
-        const values = data.metrics.flatMap((metric) => [
-            accountId,
-            hosterId,
-            episode,
-            convertAnyDatetimeToDBString(metric.start),
-            convertAnyDatetimeToDBString(metric.end),
-            metric.dimension,
-            metric.subdimension,
-            metric.value,
-        ])
+        const values = []
+        for (const metric of data.metrics) {
+            values.push(
+                accountId,
+                hosterId,
+                episode,
+                convertAnyDatetimeToDBString(metric.start),
+                convertAnyDatetimeToDBString(metric.end),
+                metric.dimension,
+                metric.subdimension
+                    ? await this.getSubDimensionId(metric.subdimension)
+                    : null,
+                metric.value
+            )
+        }
 
         return this.pool.query(replaceStmt, values)
     }
@@ -135,17 +141,56 @@ class HosterRepository {
             value
         ) VALUES ` + data.metrics.map(() => '(?,?,?,?,?,?,?)').join(',')
 
-        const values = data.metrics.flatMap((metric) => [
-            accountId,
-            hosterId,
-            convertAnyDatetimeToDBString(metric.start),
-            convertAnyDatetimeToDBString(metric.end),
-            metric.dimension,
-            metric.subdimension,
-            metric.value,
-        ])
+        const values = []
+        for (const metric of data.metrics) {
+            values.push(
+                accountId,
+                hosterId,
+                convertAnyDatetimeToDBString(metric.start),
+                convertAnyDatetimeToDBString(metric.end),
+                metric.dimension,
+                metric.subdimension
+                    ? await this.getSubDimensionId(metric.subdimension)
+                    : null,
+                metric.value
+            )
+        }
 
         return this.pool.query(replaceStmt, values)
+    }
+
+    async getSubDimensionId(dimension: string): Promise<number> {
+        const id = this.subDimensionIdCache.get(dimension)
+
+        if (id !== undefined) {
+            return id
+        }
+
+        // Use REPLACE to insert the dimension if it doesn't exist
+        // as it is the same as checking if it exists and inserting it
+        // As we have a cache this shouldn't be performed often
+        await this.pool.query(
+            'REPLACE INTO subdimensions (dim_name) VALUES (?)',
+            [dimension]
+        )
+
+        const result = await this.pool.query(
+            'SELECT dim_id FROM subdimensions WHERE dim_name = ?',
+            [dimension]
+        )
+
+        if (result.length === 0) {
+            throw new Error(
+                `Critical error, failed to retrieve subdimension ID for: ${dimension}`
+            )
+        }
+
+        const dimensionId = result[0].dim_id
+
+        // Store in cache for future use
+        this.subDimensionIdCache.set(dimension, dimensionId)
+
+        return dimensionId
     }
 }
 
