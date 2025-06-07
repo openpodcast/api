@@ -65,6 +65,24 @@ To query it, use the following endpoint: `/status`
 
 ## Development
 
+### Testing
+
+Run all tests:
+```bash
+make test               # Unit tests
+make e2e-tests          # End-to-end tests incl setup of stack
+```
+
+Run a specific test by name, dev and db server must be running:
+```bash
+make test-one-e2e-"test name here"
+```
+
+For example, to run only the authentication test:
+```bash
+make test-one-e2e-"should return not be authenticated with random token"
+```
+
 ### DB
 
 - `make up-db` starts the db and inits basic auth related tables
