@@ -37,8 +37,6 @@ build: ## Build the js code
 
 .PHONY: dev
 dev: ## Starts the api development server
-	echo "Do not forget to run 'make db-init-auth' to initialize the auth db"
-	echo "The main migration has to be finished before running the db-init-auth"
 	set -a && source env.local.test && set +a && npm run dev
 
 .PHONY: clean
@@ -90,7 +88,7 @@ e2e-tests: ## Start end2end tests
 	@docker compose down
 
 	@echo "Done - Some important information for debugging:"
-	@echo "  - If the tests fail, consider to refresh the db by running 'make down' first"
+	@echo "  - If the tests fail, consider to refresh the db by running 'make down-db' first"
 	@echo "  - To have data for spotify, apple, and anchor, use podcast_id 3 for the tests"
 
 .PHONY: status
@@ -113,15 +111,7 @@ send-api-req-prod: ## Send request to production
 db-shell: ## Opens the mysql shell inside the db container
 	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast'
 
-.PHONY: db-init-auth
-db-init-auth: ## Initialize the auth db after api is up
-	# creates the auth schema
-	docker cp ./db_schema/auth.sql $$(docker compose ps -q db):/tmp/auth.sql
-	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast_auth < /tmp/auth.sql'
-	
-	# creates some dummy auth data 
-	docker cp ./db_auth_data.sql $$(docker compose ps -q db):/tmp/auth_data.sql
-	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast_auth < /tmp/auth_data.sql'
-	docker cp ./db_auth_data.sql api-db-1:/tmp/auth_data.sql
-	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast_auth < /tmp/auth_data.sql'
-
+.PHONY: test-one-e2e-%
+test-one-e2e-%: ## Run end2end tests for a specific test case
+	@echo "Running end2end test for: $*"
+	npx jest ./tests/api_e2e --verbose true --testNamePattern="$*"

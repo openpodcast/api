@@ -4,7 +4,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "concurrently \"tsc --watch\" \"nodemon -e ts,tsx,sql,js -q dist/index.js \"",
+    "dev": "nodemon --exec ts-node src/index.ts --watch src --ext ts",
     "lint": "npx eslint --config .eslintrc.js  ./src"
   },
   "license": "MIT",
