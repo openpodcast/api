@@ -21,16 +21,12 @@ class HosterRepository {
     getTodayDBString(): string {
         const today = new Date()
 
-        // format to YYYY-mm-dd
-        // Note that today.toLocaleDateString('en-CA') returned `DD/MM/YYYY` on
-        // some systems
-        return (
-            today.getFullYear() +
-            '-' +
-            (today.getMonth() + 1) +
-            '-' +
-            today.getDate()
-        )
+        // format to YYYY-MM-DD
+        const year = today.getFullYear()
+        const month = (today.getMonth() + 1).toString().padStart(2, '0')
+        const day = today.getDate().toString().padStart(2, '0')
+
+        return `${year}-${month}-${day}`
     }
 
     async storeHosterPodcastMetadata(
