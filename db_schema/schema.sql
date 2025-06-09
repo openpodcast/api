@@ -691,7 +691,7 @@ CREATE TABLE IF NOT EXISTS anchorUniqueListeners (
     PRIMARY KEY (account_id, date)
 );
 
--- Generic Host Suppport, introduced with migration 14
+-- Generic Host Support, introduced with migration 14
 
 CREATE TABLE IF NOT EXISTS hosterPodcastMetadata (
   account_id INTEGER NOT NULL,
