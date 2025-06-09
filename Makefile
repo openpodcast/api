@@ -37,8 +37,6 @@ build: ## Build the js code
 
 .PHONY: dev
 dev: ## Starts the api development server
-	echo "Do not forget to run 'make db-init-auth' to initialize the auth db"
-	echo "The main migration has to be finished before running the db-init-auth"
 	set -a && source env.local.test && set +a && npm run dev
 
 .PHONY: clean
@@ -81,17 +79,20 @@ endif
 .PHONY: e2e-tests
 e2e-tests: ## Start end2end tests
 	@make up &
-
-	@# wait until server is ready and the connection to the db is ready
-	@- while ! curl -s -f -LI http://localhost:8080/health >> /dev/null; do echo "waiting until server is ready for tests..." && sleep 3; done
-
-	@set -a && source env.local.test && set +a && npx jest ./tests/api_e2e --verbose true || true
-
-	@docker compose down
-
-	@echo "Done - Some important information for debugging:"
-	@echo "  - If the tests fail, consider to refresh the db by running 'make down' first"
-	@echo "  - To have data for spotify, apple, and anchor, use podcast_id 3 for the tests"
+	@UP_PID=$$!; \
+	echo "Starting services (PID: $$UP_PID)..."; \
+	trap 'docker compose down; kill $$UP_PID 2>/dev/null || true' EXIT; \
+	while ! curl -s -f -LI http://localhost:8080/health >> /dev/null; do \
+		echo "waiting until server is ready for tests..." && sleep 3; \
+	done; \
+	echo "Server is ready, running tests..."; \
+	set -a && source env.local.test && set +a && npx jest ./tests/api_e2e --verbose true; \
+	TEST_EXIT_CODE=$$?; \
+	docker compose down; \
+	echo "Done - Some important information for debugging:"; \
+	echo "  - If the tests fail, consider to refresh the db by running 'make down' first"; \
+	echo "  - To have data for spotify, apple, and anchor, use podcast_id 3 for the tests"; \
+	exit $$TEST_EXIT_CODE
 
 .PHONY: status
 status: ## Send status request
