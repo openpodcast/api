@@ -18,19 +18,80 @@ describe('comments endpoint tests', () => {
         expect(response.statusCode).toBe(200)
     })
 
-    // Test with invalid comment (too short, email is optional)
-    it('should return status 400 for invalid comment', async () => {
+    // Test with invalid comment (too short)
+    it('should return status 400 for comment that is too short', async () => {
         const response = await request(baseURL)
             .post('/comments/123456')
-            .send({ comment: 'Hi' }) // Assuming the minimum length is 3
+            .send({ comment: 'Hi' })
         expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual({
+            status: 'error',
+            message: 'Validation failed',
+            errors: [
+                {
+                    field: 'comment',
+                    message: 'Comment must be between 3 and 1000 characters',
+                },
+            ],
+        })
     })
 
-    // Test with invalid email (comment is valid)
+    // Test with invalid email
     it('should return status 400 for invalid email', async () => {
         const response = await request(baseURL)
             .post('/comments/123456')
             .send({ email: 'notanemail', comment: 'This is a valid comment.' })
         expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual({
+            status: 'error',
+            message: 'Validation failed',
+            errors: [
+                {
+                    field: 'email',
+                    message:
+                        'Please provide a valid email address or remove it completely',
+                },
+            ],
+        })
+    })
+
+    // Test with empty comment
+    it('should return status 400 for empty comment', async () => {
+        const response = await request(baseURL)
+            .post('/comments/123456')
+            .send({ comment: '' })
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual({
+            status: 'error',
+            message: 'Validation failed',
+            errors: [
+                {
+                    field: 'comment',
+                    message: 'Comment cannot be empty',
+                },
+                {
+                    field: 'comment',
+                    message: 'Comment must be between 3 and 1000 characters',
+                },
+            ],
+        })
+    })
+
+    // Test with comment that is too long
+    it('should return status 400 for comment exceeding max length', async () => {
+        const response = await request(baseURL)
+            .post('/comments/123456')
+            .send({ comment: 'a'.repeat(1001) })
+        expect(response.statusCode).toBe(400)
+        expect(response.body).toEqual({
+            status: 'error',
+            message: 'Validation failed',
+            errors: [
+                {
+                    field: 'comment',
+                    message: 'Comment must be between 3 and 1000 characters',
+                },
+            ],
+        })
     })
 })
