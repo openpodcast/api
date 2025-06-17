@@ -17,7 +17,7 @@ SELECT
     sem.ep_language as spotify_language,
     sem.ep_explicit as spotify_explicit_content,
     sem.ep_has_video as spotify_has_video,
-    sem.ep_artwork_url as spotify_artwork_url
+    sem.ep_artwork_url as spotify_artwork_url,
     
     -- Apple metadata  
     aem.ep_collection_name as apple_collection_name,
