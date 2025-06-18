@@ -1,6 +1,7 @@
 SELECT 
   atf_date as `date`,
   atf_totalfollowers as total_followers,
+  atf_totalunfollowers as total_unfollowers,
   atf_gained as gained_followers,
   atf_lost as lost_followers
 FROM appleTrendsPodcastFollowers
