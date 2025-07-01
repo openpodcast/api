@@ -112,6 +112,7 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodePerformance (
   spp_samples JSON NOT NULL,
   PRIMARY KEY (account_id, episode_id, spp_date)
 );
+CREATE INDEX idx_spotify_perf_account_date ON spotifyEpisodePerformance(account_id, spp_date, episode_id);
 
 CREATE TABLE IF NOT EXISTS spotifyPodcastMetadata (
   account_id INTEGER NOT NULL,
@@ -197,6 +198,8 @@ CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   aed_quarter4_median_listeners INTEGER,
   PRIMARY KEY (account_id, episode_id,aed_date)
 );
+CREATE INDEX idx_apple_details_account_date ON appleEpisodeDetails(account_id, aed_date, episode_id);
+
 
 -- listeners values per day and per episode coming from the apple trends api
 CREATE TABLE IF NOT EXISTS appleTrendsEpisodeListeners (
