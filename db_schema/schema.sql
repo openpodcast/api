@@ -151,6 +151,7 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadataHistory (
   epm_listeners INTEGER NOT NULL,
   PRIMARY KEY (account_id, episode_id, epm_date)
 );
+CREATE INDEX idx_spotify_meta_hist_account_date ON spotifyEpisodeMetadataHistory(account_id, epm_date, episode_id);
 
 -- Introduced by migration 12
 CREATE TABLE IF NOT EXISTS podcastMetadata (

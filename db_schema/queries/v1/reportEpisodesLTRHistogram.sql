@@ -53,6 +53,7 @@ WHERE
   AND spotify.account_id = @podcast_id
   AND apple.account_id = @podcast_id
   AND metaHistory.account_id = @podcast_id
+  AND meta.account_id = @podcast_id
   -- date criteria
   AND spotify.spp_date = (SELECT d FROM maxSpotifyDate)
   AND apple.aed_date = (SELECT d FROM maxAppleDate)
