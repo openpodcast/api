@@ -582,6 +582,7 @@ CREATE TABLE IF NOT EXISTS anchorEpisodePerformance (
   samples JSON NOT NULL,
   PRIMARY KEY (account_id, episode_id, date)
 );
+CREATE INDEX idx_account_date ON anchorEpisodePerformance(account_id, date);
 
 CREATE TABLE IF NOT EXISTS anchorPlays (
   account_id INTEGER NOT NULL,
