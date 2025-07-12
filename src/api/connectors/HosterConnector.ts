@@ -69,7 +69,7 @@ class HosterConnector implements ConnectorHandler {
             }
         } else {
             throw new PayloadError(
-                `Unknown endpoint in meta: ${payload.meta.endpoint}`
+                `HosterConnector: Unknown endpoint in meta: ${payload.meta.endpoint}`
             )
         }
     }
