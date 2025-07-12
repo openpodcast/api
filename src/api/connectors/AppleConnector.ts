@@ -196,7 +196,7 @@ class AppleConnector implements ConnectorHandler {
             )
         } else {
             throw new PayloadError(
-                `Unknown endpoint in meta: ${payload.meta.endpoint}`
+                `AppleConnector: Unknown endpoint in meta: ${payload.meta.endpoint}`
             )
         }
     }

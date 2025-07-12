@@ -256,7 +256,7 @@ class AnchorConnector implements ConnectorHandler {
             )
         } else {
             throw new PayloadError(
-                `Unknown endpoint in meta: ${rawPayload.meta.endpoint}`
+                `AnchorConnector: Unknown endpoint in meta: ${rawPayload.meta.endpoint}`
             )
         }
     }
