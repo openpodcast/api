@@ -183,9 +183,12 @@ CREATE OR REPLACE VIEW appleEpisodesLTR AS  SELECT
 -- clean votes and ignore votes by bots and spider
 CREATE OR REPLACE VIEW feedbackVoteCleaned AS
   SELECT * FROM feedbackVote
-  WHERE agent NOT LIKE "%Bot%"
-  AND agent <> "Google"
-  AND agent <> "Google-Safety";
+  WHERE LOWER(agent) NOT LIKE "%bot%"
+  AND LOWER(agent) NOT LIKE "%spider%"
+  AND LOWER(agent) NOT LIKE "%crawler%"
+  AND LOWER(agent) NOT LIKE "%go-http-client%"
+  AND LOWER(agent) NOT LIKE "%google%"
+  AND LOWER(agent) NOT LIKE "%google-safety%";
 
 -- gender stats of episodes
 CREATE OR REPLACE VIEW spotifyEpisodeGenderStats AS
