@@ -7,5 +7,4 @@
 CREATE DATABASE IF NOT EXISTS openpodcast_auth;
 GRANT ALL PRIVILEGES ON openpodcast_auth.* TO 'openpodcast'@'%';
 
--- the auth schema itself is created by `make db-init-auth`
--- and should be run by a root user after the api has created the schema using the migrations
+-- the auth schema itself is created in the docker compose sourcing the manual_auth.sql file

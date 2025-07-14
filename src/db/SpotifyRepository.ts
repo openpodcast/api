@@ -278,7 +278,6 @@ class SpotifyRepository {
     async storeEpisodeAggregate(
         accountId: number,
         episodeId: string,
-        date: string,
         payload: SpotifyEpisodeAggregatePayload
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO spotifyEpisodeAggregate (account_id, episode_id, spa_date, spa_facet, spa_facet_type, 
@@ -292,7 +291,7 @@ class SpotifyRepository {
                     return await this.pool.execute(replaceStmt, [
                         accountId,
                         episodeId,
-                        date,
+                        payload.start,
                         ageGroup,
                         'age',
                         entry.counts.NOT_SPECIFIED,
@@ -305,7 +304,7 @@ class SpotifyRepository {
             this.pool.execute(replaceStmt, [
                 accountId,
                 episodeId,
-                date,
+                payload.start,
                 'ALL',
                 'age_sum',
                 payload.genderedCounts.counts.NOT_SPECIFIED,
@@ -318,7 +317,6 @@ class SpotifyRepository {
 
     async storePodcastAggregate(
         accountId: number,
-        date: string,
         payload: SpotifyPodcastAggregatePayload
     ): Promise<any> {
         const replaceStmt = `REPLACE INTO spotifyPodcastAggregate (account_id, spa_date, spa_facet, spa_facet_type, 
@@ -336,7 +334,7 @@ class SpotifyRepository {
                         payload.ageFacetedCounts[ageGroup]
                     return await this.pool.execute(replaceStmt, [
                         accountId,
-                        date,
+                        payload.start,
                         ageGroup,
                         'age',
                         entry.counts.NOT_SPECIFIED,
@@ -351,7 +349,7 @@ class SpotifyRepository {
                     const entry = countryFacetedCounts[country]
                     return await this.pool.execute(replaceStmt, [
                         accountId,
-                        date,
+                        payload.start,
                         entry.countryCode,
                         'country',
                         entry.counts.NOT_SPECIFIED,
@@ -363,7 +361,7 @@ class SpotifyRepository {
             ),
             this.pool.execute(replaceStmt, [
                 accountId,
-                date,
+                payload.start,
                 'ALL',
                 'age_sum',
                 payload.genderedCounts.counts.NOT_SPECIFIED,
