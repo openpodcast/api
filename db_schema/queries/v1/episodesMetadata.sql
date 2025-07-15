@@ -13,7 +13,7 @@ SELECT
     sem.ep_url as spotify_url,
     sem.ep_release_date as spotify_release_date,
     sem.ep_description as spotify_description,
-    sem.ep_duration as spotify_duration_seconds,
+    sem.ep_duration/1000 as spotify_duration_seconds,
     sem.ep_language as spotify_language,
     sem.ep_explicit as spotify_explicit_content,
     sem.ep_has_video as spotify_has_video,
