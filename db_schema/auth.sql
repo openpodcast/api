@@ -8,7 +8,7 @@
 -- define access keys for podcast sources
 CREATE TABLE IF NOT EXISTS podcastSources (
   account_id INTEGER NOT NULL,
-  source_name ENUM('spotify','apple','anchor'),
+  source_name ENUM('spotify','apple','anchor','podigee'),
   source_podcast_id VARCHAR(64) NOT NULL,
   -- keys are stored in json format and are encrypted by the client
   source_access_keys_encrypted JSON NOT NULL,
