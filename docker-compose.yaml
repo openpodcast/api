@@ -27,7 +27,9 @@ services:
         volumes:
             - mysqldata:/var/lib/mysql
             - ./dbinit.sql:/docker-entrypoint-initdb.d/1_init.sql
-            - ./db_auth_init.sql:/docker-entrypoint-initdb.d/2_init_auth.sql
+            - ./db_schema/dev_env/db_auth_init.sql:/docker-entrypoint-initdb.d/3_dev_env_auth.sql
+            - ./db_schema/manual_auth.sql:/docker-entrypoint-initdb.d/4_manual_auth.sql
+            - ./db_schema/dev_env/db_auth_data.sql:/docker-entrypoint-initdb.d/5_dev_env_auth_data.sql
         ports:
             - '33006:3306'
         environment:

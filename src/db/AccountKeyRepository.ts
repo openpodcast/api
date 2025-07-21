@@ -26,7 +26,11 @@ class AccountKeyRepository {
             [hashedKey]
         )
 
-        return (rows[0].account_id as number) || null
+        if (!Array.isArray(rows) || rows.length !== 1 || !rows[0].account_id) {
+            return null // No account found for this key
+        }
+
+        return rows[0].account_id as number
     }
 
     /**

@@ -6,8 +6,8 @@ const auth = require('./authheader')
 
 const baseURL = 'http://localhost:8080'
 
-const account_map = JSON.parse(process.env.ACCOUNTS)
-const podcast_test_id = account_map[Object.keys(account_map)[0]]
+// hardcoded for testing and is set in db_auth_data.sql file
+const podcast_test_id = 3
 
 const path_prefix = `/analytics/v1/${podcast_test_id}/`
 

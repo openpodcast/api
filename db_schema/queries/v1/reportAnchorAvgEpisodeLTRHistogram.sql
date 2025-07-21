@@ -1,6 +1,6 @@
 WITH
 latestValidDate as ( SELECT MAX(date) as d FROM anchorEpisodePerformance WHERE account_id = @podcast_id),  
-baseData as (SELECT * FROM anchorEpisodePerformance WHERE date = (SELECT d FROM latestValidDate) AND account_id = @podcast_id)
+baseData as (SELECT * FROM anchorEpisodePerformance WHERE	date = (SELECT d	FROM latestValidDate) AND account_id = @podcast_id)
 
 SELECT
 	account_id,
@@ -19,4 +19,4 @@ GROUP BY
 	sec
 	-- cut off tail of the average values, for which we don't have at least 3 episodes
 HAVING
-	count(*) > 2
+	count(*) > 2 
