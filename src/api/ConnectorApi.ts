@@ -29,6 +29,11 @@ class ConnectorApi {
         // after validation we can cast the payload to the proper typed payload
         const connectorPayload = payload as ConnectorPayload
 
+        // Convert meta.show to string if it's a number (for compatibility with Podigee and other providers)
+        if (typeof connectorPayload.meta.show === 'number') {
+            connectorPayload.meta.show = connectorPayload.meta.show.toString()
+        }
+
         //get responsible connector handler such as Spotify or Apple
         const connectorHandler = this.getConnectorHandler(
             connectorPayload.provider
