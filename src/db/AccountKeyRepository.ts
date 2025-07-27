@@ -10,12 +10,12 @@ class AccountKeyRepository {
     }
 
     /**
-     * Get account ID by API key
+     * Get account IDs by API key
      *
      * @param apiKey The API key to lookup
-     * @returns Account ID if found, null otherwise
+     * @returns Array of account IDs if found, empty array otherwise
      */
-    async getAccountIdByKey(apiKey: string): Promise<number | null> {
+    async getAccountIdsByKey(apiKey: string): Promise<number[]> {
         if (!apiKey || apiKey.length === 0 || apiKey.length > 255) {
             throw new Error('Invalid API key')
         }
@@ -26,11 +26,13 @@ class AccountKeyRepository {
             [hashedKey]
         )
 
-        if (!Array.isArray(rows) || rows.length !== 1 || !rows[0].account_id) {
-            return null // No account found for this key
+        if (!Array.isArray(rows) || rows.length === 0) {
+            return [] // No accounts found for this key
         }
 
-        return rows[0].account_id as number
+        return rows
+            .filter((row) => row.account_id)
+            .map((row) => row.account_id as number)
     }
 
     /**

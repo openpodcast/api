@@ -229,11 +229,11 @@ app.get(
     '/analytics/:version/:podcastId/:query/:format?',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const accountId = res.locals.user.accountId
+            const accountIds = res.locals.user.accountIds
 
-            // Throw error if accountId is not set
-            if (!accountId || accountId === '') {
-                res.status(401).send('Not authorized: accountId not set')
+            // Throw error if accountIds is not set or empty
+            if (!accountIds || accountIds.length === 0) {
+                res.status(401).send('Not authorized: no account access')
             }
 
             const podcastId = req.params.podcastId
@@ -251,11 +251,12 @@ app.get(
                 return
             }
 
-            // Backwards compatibility:
-            // For v1, the podcast id is the account id
-            if (version === 'v1' && accountId != podcastId) {
+            // Check if the user has access to the requested podcast ID
+            // For v1, the podcast id must be one of the user's account ids
+            const podcastIdNum = parseInt(podcastId, 10)
+            if (version === 'v1' && !accountIds.includes(podcastIdNum)) {
                 res.status(401).send(
-                    'Not authorized: accountId must be podcastId in v1'
+                    'Not authorized: podcastId must be one of your accessible account IDs in v1'
                 )
             }
 
@@ -336,7 +337,7 @@ app.get(
             res.json({
                 meta: {
                     query,
-                    accountId,
+                    accountId: podcastId, // Keep for backward compatibility
                     podcastId,
                     date: nowString(),
                     startDate: formatDate(startDate),

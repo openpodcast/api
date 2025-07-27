@@ -9,7 +9,7 @@ class AuthController {
         this.accountKeyRepository = accountsKeyRepository
     }
 
-    async getAccountId(authToken: string): Promise<number> {
+    async getAccountIds(authToken: string): Promise<number[]> {
         if (authToken.startsWith('Bearer ') === false) {
             throw new AuthError('Specified token is not valid')
         }
@@ -19,9 +19,10 @@ class AuthController {
 
         // First try to get the account ID from the database
         if (this.accountKeyRepository) {
-            const accountId = await this.accountKeyRepository.getAccountIdByKey(token)
-            if (accountId !== null) {
-                return accountId
+            const accountIds =
+                await this.accountKeyRepository.getAccountIdsByKey(token)
+            if (accountIds.length > 0) {
+                return accountIds
             }
         }
 
@@ -58,9 +59,10 @@ class AuthController {
         try {
             // store the user data in the response object (locals is officially made for this)
             // so we can access this data in the backend when it is stored to the database
-            const accountId = await this.getAccountId(authToken)
+            const accountIds = await this.getAccountIds(authToken)
             res.locals.user = {
-                accountId,
+                accountIds: accountIds, // Store all account IDs
+                accountId: accountIds.length > 0 ? accountIds[0] : undefined, // Store the first account ID
             }
         } catch (err) {
             return next(err)
