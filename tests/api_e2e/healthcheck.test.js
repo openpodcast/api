@@ -6,5 +6,8 @@ describe('check health endpoint', () => {
     const response = await request(baseURL).get('/health')
     expect(response.statusCode).toBe(200)
     expect(response.body.db).toBe(true)
+    expect(response.body).toHaveProperty('version')
+    expect(response.body).toHaveProperty('buildTime')
+    expect(response.body).toHaveProperty('commit')
   })
 })

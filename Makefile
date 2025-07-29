@@ -29,7 +29,9 @@ stop: ## docker-compose stop
 
 .PHONY: docker-build
 docker-build: build ## docker-compose build
-	docker compose build
+	docker compose build --build-arg VERSION="$$(git describe --tags --always --dirty 2>/dev/null || echo 'unknown')" \
+		--build-arg BUILD_TIME="$$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+		--build-arg COMMIT_HASH="$$(git rev-parse HEAD 2>/dev/null || echo 'unknown')"
 
 .PHONY: build
 build: ## Build the js code

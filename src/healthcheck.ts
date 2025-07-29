@@ -35,15 +35,23 @@ function healthCheck(services: {
         // return 200 if all checks were successful, 500 otherwise
         const status = overallHealthy ? 200 : 500
 
-        // return the results of all checks
-        res.status(status).send(
-            serviceIDs.reduce((acc: { [key: string]: boolean }, id, idx) => {
+        // return the results of all checks with version information
+        const response = serviceIDs.reduce(
+            (acc: { [key: string]: any }, id, idx) => {
                 acc[id] = (
                     results[idx] as PromiseFulfilledResult<boolean>
                 ).value
                 return acc
-            }, {})
+            },
+            {}
         )
+
+        // Add version information from environment variables
+        response.version = process.env.VERSION || 'unknown'
+        response.buildTime = process.env.BUILD_TIME || 'unknown'
+        response.commit = process.env.COMMIT_HASH || 'unknown'
+
+        res.status(status).send(response)
     }
 
     return healthCheckHandler
