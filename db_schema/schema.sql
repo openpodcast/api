@@ -17,8 +17,18 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (14, 'genericHoster');
+INSERT INTO migrations (migration_id, migration_name) VALUES (15, 'user_registration');
 -- -----------------------------------------
+
+-- User registration table (introduced by migration 15)
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_email (email)
+);
 
 CREATE TABLE IF NOT EXISTS events (
   account_id INTEGER NOT NULL,

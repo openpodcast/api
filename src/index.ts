@@ -35,6 +35,8 @@ import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
 import { AccountKeyRepository } from './db/AccountKeyRepository'
+import { UserRepository } from './db/UserRepository'
+import { RegistrationApi } from './api/RegistrationApi'
 
 const config = new Config()
 
@@ -92,6 +94,10 @@ const statusApi = new StatusApi(statusRepo)
 // Initialize the account key repository
 const accountKeyRepo = new AccountKeyRepository(authPool)
 
+// Initialize the user repository and registration API
+const userRepo = new UserRepository(pool)
+const registrationApi = new RegistrationApi(userRepo, accountKeyRepo)
+
 const supportedGenericHosters = {
     podigee: 1,
 }
@@ -117,6 +123,7 @@ const publicEndpoints = [
     '^/status',
     '^/feedback/*',
     '^/comments/*',
+    '^/register$',
 ]
 
 const authController = new AuthController(accountKeyRepo)
@@ -407,6 +414,36 @@ app.post(
             )
 
             res.render('comment.hbs')
+        } catch (err) {
+            next(err)
+        }
+    }
+)
+
+app.post(
+    '/register',
+    body('name')
+        .trim()
+        .isLength({ min: 2, max: 100 })
+        .withMessage('Name must be between 2 and 100 characters'),
+    body('email').normalizeEmail().isEmail().withMessage('Email must be valid'),
+    async (req: Request, res: Response, next: NextFunction) => {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                success: false,
+                error: 'Validation failed',
+                details: errors.array().map((err) => err.msg),
+            })
+        }
+
+        try {
+            const { response, statusCode } = await registrationApi.register({
+                name: req.body.name,
+                email: req.body.email,
+            })
+
+            res.status(statusCode).json(response)
         } catch (err) {
             next(err)
         }

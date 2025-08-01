@@ -1,6 +1,5 @@
-import { Pool, RowDataPacket } from 'mysql2/promise'
+import { Pool, RowDataPacket, ResultSetHeader } from 'mysql2/promise'
 import crypto from 'crypto'
-import { i } from 'mathjs'
 
 class AccountKeyRepository {
     private pool: Pool
@@ -33,6 +32,55 @@ class AccountKeyRepository {
         return rows
             .filter((row) => row.account_id)
             .map((row) => row.account_id as number)
+    }
+
+    /**
+     * Generate a new API key and store it for the given account ID
+     *
+     * @param accountId The account ID to associate with the API key
+     * @returns The generated API key (not hashed)
+     */
+    async generateApiKey(accountId: number): Promise<string> {
+        const apiKey = this.generateRandomApiKey()
+        const hashedKey = this.hashKey(apiKey)
+
+        await this.pool.execute<ResultSetHeader>(
+            'INSERT INTO apiKeys (key_hash, account_id) VALUES (?, ?)',
+            [hashedKey, accountId]
+        )
+
+        return apiKey
+    }
+
+    /**
+     * Get the first API key hash for a given account ID
+     * Note: This returns the hash, not the actual key (which cannot be retrieved)
+     *
+     * @param accountId The account ID to lookup
+     * @returns The API key hash if found, null otherwise
+     */
+    async getApiKeyHashByAccountId(accountId: number): Promise<string | null> {
+        const [rows] = await this.pool.execute<RowDataPacket[]>(
+            'SELECT key_hash FROM apiKeys WHERE account_id = ? LIMIT 1',
+            [accountId]
+        )
+
+        if (!Array.isArray(rows) || rows.length === 0) {
+            return null
+        }
+
+        return rows[0].key_hash as string
+    }
+
+    /**
+     * Generate a random API key in the format: op_<32 hex characters>
+     *
+     * @returns A random API key string
+     */
+    private generateRandomApiKey(): string {
+        const randomBytes = crypto.randomBytes(16)
+        const hexString = randomBytes.toString('hex')
+        return `op_${hexString}`
     }
 
     /**
