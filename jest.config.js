@@ -7,8 +7,7 @@ module.exports = {
   },
   testMatch: [
     '**/__tests__/**/*.ts',
-    '**/?(*.)+(spec|test).ts',
-    '**/tests/api_e2e/**/*.js'
+    '**/?(*.)+(spec|test).ts'
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 }

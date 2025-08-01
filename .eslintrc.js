@@ -17,12 +17,6 @@ module.exports = {
         sourceType: 'module',
         project: './tsconfig.json',
     },
-    ignorePatterns: [
-        '**/*.test.ts',
-        '**/*.spec.ts',
-        'tests/**/*',
-        'dist/**/*'
-    ],
     rules: {
         'prettier/prettier': ['error'],
     },
