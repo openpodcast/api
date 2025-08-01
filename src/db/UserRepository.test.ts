@@ -1,5 +1,5 @@
 import { UserRepository, User } from './UserRepository'
-import { Pool, RowDataPacket, ResultSetHeader } from 'mysql2/promise'
+import { Pool, RowDataPacket, ResultSetHeader, FieldPacket } from 'mysql2/promise'
 
 jest.mock('mysql2/promise')
 
@@ -30,7 +30,8 @@ describe('UserRepository', () => {
             }
 
             const mockRows: RowDataPacket[] = [mockUser as RowDataPacket]
-            mockPool.execute.mockResolvedValue([mockRows])
+            const mockFields: FieldPacket[] = []
+            mockPool.execute.mockResolvedValue([mockRows, mockFields])
 
             const result = await userRepo.getUserByEmail('john@example.com')
 
@@ -43,7 +44,8 @@ describe('UserRepository', () => {
 
         it('should return null when user not found', async () => {
             const mockRows: RowDataPacket[] = []
-            mockPool.execute.mockResolvedValue([mockRows])
+            const mockFields: FieldPacket[] = []
+            mockPool.execute.mockResolvedValue([mockRows, mockFields])
 
             const result = await userRepo.getUserByEmail('notfound@example.com')
 
@@ -52,7 +54,8 @@ describe('UserRepository', () => {
 
         it('should normalize email to lowercase', async () => {
             const mockRows: RowDataPacket[] = []
-            mockPool.execute.mockResolvedValue([mockRows])
+            const mockFields: FieldPacket[] = []
+            mockPool.execute.mockResolvedValue([mockRows, mockFields])
 
             await userRepo.getUserByEmail('JOHN@EXAMPLE.COM')
 
@@ -65,15 +68,16 @@ describe('UserRepository', () => {
 
     describe('createUser', () => {
         it('should create user successfully', async () => {
-            const mockResult: ResultSetHeader = {
+            const mockResult = {
                 insertId: 1,
                 affectedRows: 1,
                 changedRows: 1,
                 fieldCount: 0,
                 info: '',
                 serverStatus: 0,
-                warningStatus: 0
-            }
+                warningStatus: 0,
+                constructor: { name: 'ResultSetHeader' }
+            } as ResultSetHeader
 
             const mockUser = {
                 id: 1,
@@ -83,9 +87,11 @@ describe('UserRepository', () => {
                 updated_at: '2023-01-01T00:00:00.000Z'
             }
 
+            const mockFields: FieldPacket[] = []
+            
             mockPool.execute
-                .mockResolvedValueOnce([mockResult]) // INSERT
-                .mockResolvedValueOnce([[mockUser as RowDataPacket]]) // SELECT
+                .mockResolvedValueOnce([mockResult, mockFields]) // INSERT
+                .mockResolvedValueOnce([[mockUser as RowDataPacket], mockFields]) // SELECT
 
             const result = await userRepo.createUser('John Doe', 'john@example.com')
 
@@ -97,15 +103,16 @@ describe('UserRepository', () => {
         })
 
         it('should normalize email to lowercase and trim name', async () => {
-            const mockResult: ResultSetHeader = {
+            const mockResult = {
                 insertId: 1,
                 affectedRows: 1,
                 changedRows: 1,
                 fieldCount: 0,
                 info: '',
                 serverStatus: 0,
-                warningStatus: 0
-            }
+                warningStatus: 0,
+                constructor: { name: 'ResultSetHeader' }
+            } as ResultSetHeader
 
             const mockUser = {
                 id: 1,
@@ -115,9 +122,11 @@ describe('UserRepository', () => {
                 updated_at: '2023-01-01T00:00:00.000Z'
             }
 
+            const mockFields: FieldPacket[] = []
+
             mockPool.execute
-                .mockResolvedValueOnce([mockResult])
-                .mockResolvedValueOnce([[mockUser as RowDataPacket]])
+                .mockResolvedValueOnce([mockResult, mockFields])
+                .mockResolvedValueOnce([[mockUser as RowDataPacket], mockFields])
 
             await userRepo.createUser('  John Doe  ', 'JOHN@EXAMPLE.COM')
 
@@ -128,36 +137,41 @@ describe('UserRepository', () => {
         })
 
         it('should throw error when insertId is not available', async () => {
-            const mockResult: ResultSetHeader = {
+            const mockResult = {
                 insertId: 0,
                 affectedRows: 1,
                 changedRows: 1,
                 fieldCount: 0,
                 info: '',
                 serverStatus: 0,
-                warningStatus: 0
-            }
+                warningStatus: 0,
+                constructor: { name: 'ResultSetHeader' }
+            } as ResultSetHeader
 
-            mockPool.execute.mockResolvedValue([mockResult])
+            const mockFields: FieldPacket[] = []
+            mockPool.execute.mockResolvedValue([mockResult, mockFields])
 
             await expect(userRepo.createUser('John Doe', 'john@example.com'))
                 .rejects.toThrow('Failed to create user')
         })
 
         it('should throw error when created user cannot be retrieved', async () => {
-            const mockResult: ResultSetHeader = {
+            const mockResult = {
                 insertId: 1,
                 affectedRows: 1,
                 changedRows: 1,
                 fieldCount: 0,
                 info: '',
                 serverStatus: 0,
-                warningStatus: 0
-            }
+                warningStatus: 0,
+                constructor: { name: 'ResultSetHeader' }
+            } as ResultSetHeader
+
+            const mockFields: FieldPacket[] = []
 
             mockPool.execute
-                .mockResolvedValueOnce([mockResult])
-                .mockResolvedValueOnce([[]])
+                .mockResolvedValueOnce([mockResult, mockFields])
+                .mockResolvedValueOnce([[], mockFields])
 
             await expect(userRepo.createUser('John Doe', 'john@example.com'))
                 .rejects.toThrow('Failed to retrieve created user')
