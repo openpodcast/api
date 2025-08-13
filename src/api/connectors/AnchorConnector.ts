@@ -258,11 +258,17 @@ class AnchorConnector implements ConnectorHandler {
             )
         } else if (endpoint == 'impressions') {
             validateJsonApiPayload(impressionsSchema, rawPayload)
+            if (!rawPayload.range) {
+                throw new PayloadError('Range is required for impressions endpoint')
+            }
+            if (!isDataPayload(payload.data)) {
+                throw new PayloadError('Incorrect payload data type')
+            }
             await this.repo.storeImpressions(
                 accountId,
                 rawPayload.range.start,
                 rawPayload.range.end,
-                payload.data as RawAnchorImpressionData
+                payload.data.data as RawAnchorImpressionData
             )
         } else {
             throw new PayloadError(
