@@ -35,8 +35,54 @@ import { AnalyticsRepository } from './db/AnalyticsRepository'
 import { AnalyticsApi } from './api/AnalyticsApi'
 import { formatDate, nowString } from './utils/dateHelpers'
 import { AccountKeyRepository } from './db/AccountKeyRepository'
+import fs from 'fs'
+import path from 'path'
 
 const config = new Config()
+
+// Helper function to log error details to a file
+const logErrorToFile = (
+    tracingId: string,
+    req: Request,
+    res: Response,
+    err: Error
+) => {
+    try {
+        const tmpDir = '/tmp'
+        const filename = `error_${tracingId}.json`
+        const filepath = path.join(tmpDir, filename)
+
+        const errorLog = {
+            tracingId,
+            timestamp: new Date().toISOString(),
+            error: {
+                message: err.message,
+                name: err.name,
+                stack: err.stack,
+            },
+            request: {
+                method: req.method,
+                url: req.originalUrl,
+                endpoint: req.path,
+                headers: req.headers,
+                query: req.query,
+                params: req.params,
+                payload: req.body, // This is the plain payload
+            },
+            user: res.locals?.user || null,
+        }
+
+        // Ensure tmp directory exists
+        if (!fs.existsSync(tmpDir)) {
+            fs.mkdirSync(tmpDir, { recursive: true })
+        }
+
+        fs.writeFileSync(filepath, JSON.stringify(errorLog, null, 2))
+        console.log(`Error details logged to: ${filepath}`)
+    } catch (logError) {
+        console.error('Failed to log error to file:', logError)
+    }
+}
 
 const pool = mysql.createPool({
     uri: config.getMySQLConnectionString(),
@@ -476,6 +522,9 @@ app.use(function (
     // add a tracing id to the error message for easier debugging
     const tracingId = crypto.randomBytes(16).toString('hex')
     err.message = `${err.message} - Tracing ID: ${tracingId}`
+
+    // Log error details to file for debugging
+    logErrorToFile(tracingId, req, res, err)
 
     if (err instanceof HttpError || err instanceof AuthError) {
         console.log(`Status ${err.status}: ${err.message} (${req.originalUrl})`)
