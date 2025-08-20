@@ -64,7 +64,12 @@ const logErrorToFile = (
                 method: req.method,
                 url: req.originalUrl,
                 endpoint: req.path,
-                headers: req.headers,
+                headers: {
+                    ...req.headers,
+                    authorization: req.headers.authorization
+                        ? 'REDACTED'
+                        : undefined, // Redact sensitive info
+                },
                 query: req.query,
                 params: req.params,
                 payload: req.body, // This is the plain payload
