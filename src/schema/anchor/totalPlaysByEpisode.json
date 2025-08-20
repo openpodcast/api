@@ -58,7 +58,7 @@
               "type": "array",
               "items": {
                 "type": "array",
-                "prefixItems": [
+                "items": [
                   {
                     "type": "string"
                   },
@@ -73,10 +73,14 @@
                   },
                   {
                     "type": "number"
+                  },
+                  {
+                    "type": "string"
                   }
                 ],
-                "minItems": 5,
-                "maxItems": 5
+                "minItems": 6,
+                "maxItems": 6,
+                "additionalItems": false
               }
             },
             "columnHeaders": {
