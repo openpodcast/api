@@ -170,8 +170,9 @@ export interface RawAnchorTotalPlaysData {
 }
 
 export interface RawAnchorTotalPlaysByEpisodeData {
-    rows: [string, number, number, number, number][]
+    rows: [string, number, number, number, number, string][]
     columnHeaders: [
+        AnchorColumnHeader,
         AnchorColumnHeader,
         AnchorColumnHeader,
         AnchorColumnHeader,

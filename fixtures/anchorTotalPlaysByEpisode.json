@@ -20,14 +20,16 @@
           12345678,
           111,
           1654237852,
-          1
+          1,
+          "spotify:episode:1cPUh123example"
         ],
         [
           "Some other title",
           98765432,
           222,
           1645779600,
-          2
+          2,
+          "spotify:episode:2dQVi456example"
         ]
       ],
       "columnHeaders": [
@@ -51,6 +53,10 @@
         {
           "name": "Rank",
           "type": "integer"
+        },
+        {
+          "name": "Episode URI",
+          "type": "string"
         }
       ]
     }
