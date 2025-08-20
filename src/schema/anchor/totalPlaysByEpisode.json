@@ -80,7 +80,7 @@
                 ],
                 "minItems": 6,
                 "maxItems": 6,
-                "additionalItems": false
+                "items": false
               }
             },
             "columnHeaders": {

@@ -42,7 +42,7 @@
           "type": "integer"
         },
         {
-          "name": "Plays",
+          "name": "Streams & Downloads",
           "type": "integer"
         },
         {
