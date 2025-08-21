@@ -112,8 +112,3 @@ send-api-req-prod: ## Send request to production
 .PHONY: db-shell
 db-shell: ## Opens the mysql shell inside the db container
 	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast'
-
-.PHONY: test-one-e2e-%
-test-one-e2e-%: ## Run end2end tests for a specific test case
-	@echo "Running end2end test for: $*"
-	npx jest ./tests/api_e2e --verbose true --testNamePattern="$*"
