@@ -5,7 +5,7 @@ export interface AnchorColumnHeader {
 }
 
 export interface RawAnchorAggregatedPerformanceData {
-    rows: [string, number][]
+    rows: [string, number | null][]
     columnHeaders: [AnchorColumnHeader, AnchorColumnHeader]
 }
 
@@ -28,6 +28,23 @@ export function convertToAnchorAggregatedPerformanceData(
         }
     }
 
+    // if we have null values, set them to 0
+    if (data.percentile25 === null) {
+        data.percentile25 = 0
+    }
+    if (data.percentile50 === null) {
+        data.percentile50 = 0
+    }
+    if (data.percentile75 === null) {
+        data.percentile75 = 0
+    }
+    if (data.percentile100 === null) {
+        data.percentile100 = 0
+    }
+    if (data.averageListenSeconds === null) {
+        data.averageListenSeconds = 0
+    }
+
     if (data.percentile25 === undefined) {
         throw new Error('Missing percentile25.')
     }
@@ -48,11 +65,11 @@ export function convertToAnchorAggregatedPerformanceData(
 }
 
 export interface AnchorAggregatedPerformanceData {
-    percentile25: number
-    percentile50: number
-    percentile75: number
-    percentile100: number
-    averageListenSeconds: number
+    percentile25: number | null
+    percentile50: number | null
+    percentile75: number | null
+    percentile100: number | null
+    averageListenSeconds: number | null
 }
 
 export interface RawAnchorAudienceSizeData {

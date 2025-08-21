@@ -3,6 +3,7 @@ const baseURL = 'http://localhost:8080'
 
 const anchorAudienceSizePayload = require('../../fixtures/anchorAudienceSize.json')
 const anchorEpisodeAggregatedPerformancePayload = require('../../fixtures/anchorEpisodeAggregatedPerformance.json')
+const anchorEpisodeAggregatedPerformanceNullValuePayload = require('../../fixtures/anchorEpisodeAggregatedPerformanceNullValue.json')
 const anchorEpisodePerformancePayload = require('../../fixtures/anchorEpisodePerformance.json')
 const anchorEpisodePlaysPayload = require('../../fixtures/anchorEpisodePlays.json')
 const anchorPlaysPayload = require('../../fixtures/anchorPlays.json')
@@ -87,6 +88,17 @@ describe('check Connector API with anchorEpisodeAggregatedPerformancePayload', (
             .set(auth)
             .send(anchorEpisodeAggregatedPerformancePayload)
         expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with anchorEpisodeAggregatedPerformanceNullValuePayload', () => {
+    it('should return status 200 and gracefully handle null values when all data is zero/null', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(anchorEpisodeAggregatedPerformanceNullValuePayload)
+        expect(response.statusCode).toBe(200)
+        expect(response.text).toContain('Data stored. Thx')
     })
 })
 

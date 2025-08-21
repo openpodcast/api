@@ -71,7 +71,8 @@
                   {
                     "type": [
                       "number",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   }
                 ],
