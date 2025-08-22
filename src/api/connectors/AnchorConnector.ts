@@ -17,6 +17,7 @@ import podcastEpisodeSchema from '../../schema/anchor/podcastEpisode.json'
 import totalPlaysSchema from '../../schema/anchor/totalPlays.json'
 import totalPlaysByEpisodeSchema from '../../schema/anchor/totalPlaysByEpisode.json'
 import uniqueListenersSchema from '../../schema/anchor/uniqueListeners.json'
+import impressionsSchema from '../../schema/anchor/impressions.json'
 
 import { ConnectorPayload } from '../../types/connector'
 import {
@@ -37,6 +38,7 @@ import {
     RawAnchorTotalPlaysByEpisodeData,
     RawAnchorUniqueListenersData,
     RawAnchorEpisodesPageData,
+    RawAnchorImpressionData,
 } from '../../types/provider/anchor'
 import { AnchorRepository } from '../../db/AnchorRepository'
 import { isArray } from 'mathjs'
@@ -253,6 +255,20 @@ class AnchorConnector implements ConnectorHandler {
             await this.repo.storeUniqueListeners(
                 accountId,
                 payload.data.data as RawAnchorUniqueListenersData
+            )
+        } else if (endpoint == 'impressions') {
+            validateJsonApiPayload(impressionsSchema, rawPayload)
+            if (!rawPayload.range) {
+                throw new PayloadError('Range is required for impressions endpoint')
+            }
+            if (!isDataPayload(payload.data)) {
+                throw new PayloadError('Incorrect payload data type')
+            }
+            await this.repo.storeImpressions(
+                accountId,
+                rawPayload.range.start,
+                rawPayload.range.end,
+                payload.data.data as RawAnchorImpressionData
             )
         } else {
             throw new PayloadError(

@@ -18,6 +18,7 @@ import {
     RawAnchorTotalPlaysByEpisodeData,
     RawAnchorUniqueListenersData,
     RawAnchorEpisodesPageData,
+    RawAnchorImpressionData,
 } from '../types/provider/anchor'
 
 const getDateDBString = (date: Date): string => {
@@ -510,6 +511,92 @@ class AnchorRepository {
         ])
 
         return queryPromise
+    }
+
+    async storeImpressions(
+        accountId: number,
+        startDate: string,
+        endDate: string,
+        data: RawAnchorImpressionData
+    ): Promise<any> {
+        const promises: Promise<any>[] = []
+
+        // Store aggregate impression data
+        if (data.impressions?.data?.value) {
+            const replaceStmt = `REPLACE INTO anchorImpressions (
+                account_id,
+                date_start,
+                date_end,
+                total_impressions,
+                total_considerations, 
+                total_streams,
+                considerations_conversion_rate,
+                streams_conversion_rate
+            ) VALUES (?,?,?,?,?,?,?,?)`
+
+            const funnel = data.impressionsFunnel.data.value.counts
+            const considerations = funnel.find((x) => x.id === 'considerations')
+            const streams = funnel.find((x) => x.id === 'streams')
+
+            promises.push(
+                this.pool.query(replaceStmt, [
+                    accountId,
+                    startDate,
+                    endDate,
+                    data.impressions.data.value,
+                    considerations?.count || 0,
+                    streams?.count || 0,
+                    considerations?.conversionPercent || 0,
+                    streams?.conversionPercent || 0,
+                ])
+            )
+        }
+
+        // Store daily impressions
+        if (data.dailyImpressions?.data?.value) {
+            const dailyStmt = `REPLACE INTO anchorImpressionsDaily (
+                account_id,
+                date,
+                impressions
+            ) VALUES (?,?,?)`
+
+            data.dailyImpressions.data.value.forEach((daily) => {
+                promises.push(
+                    this.pool.query(dailyStmt, [
+                        accountId,
+                        getDateFromTimestamp(daily.date),
+                        daily.value,
+                    ])
+                )
+            })
+        }
+
+        // Store impression sources
+        if (data.impressionsBySource?.data?.value) {
+            const sourceStmt = `REPLACE INTO anchorImpressionsSources (
+                account_id, 
+                date_start,
+                date_end,
+                source_id,
+                source_name,
+                impression_count
+            ) VALUES (?,?,?,?,?,?)`
+
+            data.impressionsBySource.data.value.forEach((source) => {
+                promises.push(
+                    this.pool.query(sourceStmt, [
+                        accountId,
+                        startDate,
+                        endDate,
+                        source.id,
+                        source.displayName,
+                        source.value,
+                    ])
+                )
+            })
+        }
+
+        return Promise.all(promises)
     }
 }
 
