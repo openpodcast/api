@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (14, 'genericHoster');
+INSERT INTO migrations (migration_id, migration_name) VALUES (15, 'spotify impressions');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -152,6 +152,33 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadataHistory (
   PRIMARY KEY (account_id, episode_id, epm_date)
 );
 CREATE INDEX idx_spotify_meta_hist_account_date ON spotifyEpisodeMetadataHistory(account_id, epm_date, episode_id);
+
+-- Introduced by migration 15
+CREATE TABLE IF NOT EXISTS spotifyImpressions (
+    account_id INTEGER NOT NULL,
+    date_start DATE NOT NULL,
+    date_end DATE NOT NULL,
+    total_impressions INTEGER NOT NULL,
+    PRIMARY KEY (account_id, date_start, date_end)
+);
+
+CREATE TABLE IF NOT EXISTS spotifyImpressionsDaily (
+    account_id INTEGER NOT NULL,
+    date DATE NOT NULL,
+    impressions INTEGER NOT NULL,
+    PRIMARY KEY (account_id, date)
+);
+
+CREATE TABLE IF NOT EXISTS spotifyImpressionsSources (
+    account_id INTEGER NOT NULL,
+    date_start DATE NOT NULL,
+    date_end DATE NOT NULL,
+    source_id VARCHAR(32) NOT NULL,
+    impression_count INTEGER NOT NULL,
+    PRIMARY KEY (account_id, date_start, date_end, source_id)
+);
+
+CREATE INDEX idx_spotify_impression_sources_date ON spotifyImpressionsSources(account_id, date_start, date_end);
 
 -- Introduced by migration 12
 CREATE TABLE IF NOT EXISTS podcastMetadata (

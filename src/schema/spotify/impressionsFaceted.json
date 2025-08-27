@@ -1,0 +1,55 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/impressionsFaceted.schema.json",
+    "title": "Spotify faceted impressions data",
+    "type": "object",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "start": {
+            "type": "string",
+            "format": "date"
+        },
+        "end": {
+            "type": "string",
+            "format": "date"
+        },
+        "sourcedCounts": {
+            "type": "object",
+            "properties": {
+                "counts": {
+                    "type": "object",
+                    "properties": {
+                        "SEARCH": {
+                            "type": "number"
+                        },
+                        "LIBRARY": {
+                            "type": "number"
+                        },
+                        "OTHER": {
+                            "type": "number"
+                        },
+                        "HOME": {
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "SEARCH",
+                        "LIBRARY", 
+                        "OTHER",
+                        "HOME"
+                    ]
+                }
+            },
+            "required": [
+                "counts"
+            ]
+        }
+    },
+    "required": [
+        "count",
+        "start",
+        "end",
+        "sourcedCounts"
+    ]
+}

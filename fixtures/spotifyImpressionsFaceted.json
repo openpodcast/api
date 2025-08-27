@@ -1,0 +1,13 @@
+{
+    "count": 44636,
+    "start": "2025-07-27",
+    "end": "2025-08-25",
+    "sourcedCounts": {
+        "counts": {
+            "SEARCH": 13197,
+            "LIBRARY": 9033,
+            "OTHER": 0,
+            "HOME": 22406
+        }
+    }
+}
