@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS spotifyImpressionsSources (
     account_id INTEGER NOT NULL,
     date_start DATE NOT NULL,
     date_end DATE NOT NULL,
-    source_id VARCHAR(32) NOT NULL,
+    source_type ENUM('HOME', 'SEARCH', 'LIBRARY', 'OTHER') NOT NULL,
     impression_count INTEGER NOT NULL,
     PRIMARY KEY (account_id, date_start, date_end, source_id)
 );
