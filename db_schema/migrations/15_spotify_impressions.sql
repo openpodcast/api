@@ -25,8 +25,5 @@ CREATE TABLE IF NOT EXISTS spotifyImpressionsSources (
     PRIMARY KEY (account_id, date_start, date_end, source_id)
 );
 
--- Add index for querying date ranges efficiently on sources table
-CREATE INDEX idx_spotify_impression_sources_date ON spotifyImpressionsSources(account_id, date_start, date_end);
-
 -- Record the migration
 INSERT INTO migrations (migration_id, migration_name) VALUES (15, 'spotify impressions');

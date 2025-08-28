@@ -178,8 +178,6 @@ CREATE TABLE IF NOT EXISTS spotifyImpressionsSources (
     PRIMARY KEY (account_id, date_start, date_end, source_id)
 );
 
-CREATE INDEX idx_spotify_impression_sources_date ON spotifyImpressionsSources(account_id, date_start, date_end);
-
 -- Introduced by migration 12
 CREATE TABLE IF NOT EXISTS podcastMetadata (
   account_id INTEGER NOT NULL,
