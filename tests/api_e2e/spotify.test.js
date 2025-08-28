@@ -14,6 +14,7 @@ const spotifyEpisodesMetadataPayload = require('../../fixtures/spotifyEpisodesMe
 const spotifyImpressionsTotalPayload = require('../../fixtures/spotifyImpressionsTotalPayload.json')
 const spotifyImpressionsDailyPayload = require('../../fixtures/spotifyImpressionsDailyPayload.json')
 const spotifyImpressionsFacetedPayload = require('../../fixtures/spotifyImpressionsFacetedPayload.json')
+const spotifyImpressionsFunnelPayload = require('../../fixtures/spotifyImpressionsFunnelPayload.json')
 
 const auth = require("./authheader")
 
@@ -155,6 +156,16 @@ describe('check Connector API with spotifyImpressionsFacetedPayload', () => {
             .post('/connector')
             .set(auth)
             .send(spotifyImpressionsFacetedPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyImpressionsFunnelPayload', () => {
+    it('should return status 200 when sending proper spotify impressions_funnel payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyImpressionsFunnelPayload)
         expect(response.statusCode).toBe(200)
     })
 })

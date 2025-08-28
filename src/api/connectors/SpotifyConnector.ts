@@ -13,6 +13,7 @@ import {
     SpotifyImpressionsTotalPayload,
     SpotifyImpressionsDailyPayload,
     SpotifyImpressionsFacetedPayload,
+    SpotifyImpressionsFunnelPayload,
 } from '../../types/provider/spotify'
 import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
@@ -24,6 +25,7 @@ import followerSchema from '../../schema/spotify/followers.json'
 import impressionsTotalSchema from '../../schema/spotify/impressionsTotal.json'
 import impressionsDailySchema from '../../schema/spotify/impressionsDaily.json'
 import impressionsFacetedSchema from '../../schema/spotify/impressionsFaceted.json'
+import impressionsFunnelSchema from '../../schema/spotify/impressionsFunnel.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
 
@@ -143,6 +145,12 @@ class SpotifyConnector implements ConnectorHandler {
             return await this.repo.storeImpressionsFaceted(
                 accountId,
                 payload.data as SpotifyImpressionsFacetedPayload
+            )
+        } else if (payload.meta.endpoint === 'impressions_funnel') {
+            validateJsonApiPayload(impressionsFunnelSchema, payload.data)
+            return await this.repo.storeImpressionsFunnel(
+                accountId,
+                payload.data as SpotifyImpressionsFunnelPayload
             )
         } else {
             throw new PayloadError(

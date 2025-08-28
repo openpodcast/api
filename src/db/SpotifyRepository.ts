@@ -12,6 +12,7 @@ import {
     SpotifyImpressionsTotalPayload,
     SpotifyImpressionsDailyPayload,
     SpotifyImpressionsFacetedPayload,
+    SpotifyImpressionsFunnelPayload,
 } from '../types/provider/spotify'
 
 class SpotifyRepository {
@@ -464,6 +465,34 @@ class SpotifyRepository {
         })
 
         return Promise.all(promises)
+    }
+
+    async storeImpressionsFunnel(
+        accountId: number,
+        payload: SpotifyImpressionsFunnelPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO spotifyImpressionsFunnel (
+            account_id,
+            date,
+            step_id,
+            step_count,
+            conversion_percent
+        ) VALUES (?,?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        payload.counts.forEach((step) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                this.getTodayDBString(),
+                step.id,
+                step.count,
+                step.conversionPercent || null,
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
     }
 }
 

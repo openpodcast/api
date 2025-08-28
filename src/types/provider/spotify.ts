@@ -138,3 +138,11 @@ export interface SpotifyImpressionsFacetedPayload {
         }
     }
 }
+
+export interface SpotifyImpressionsFunnelPayload {
+    counts: {
+        id: string
+        count: number
+        conversionPercent?: number
+    }[]
+}
