@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS spotifyImpressionsSources (
     account_id INTEGER NOT NULL,
     date_start DATE NOT NULL,
     date_end DATE NOT NULL,
-    source_type ENUM('HOME', 'SEARCH', 'LIBRARY', 'OTHER') NOT NULL,
+    source_id ENUM('HOME', 'SEARCH', 'LIBRARY', 'OTHER') NOT NULL,
     impression_count INTEGER NOT NULL,
     PRIMARY KEY (account_id, date_start, date_end, source_id)
 );
@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS spotifyImpressionsSources (
 CREATE TABLE IF NOT EXISTS spotifyImpressionsFunnel (
     account_id INTEGER NOT NULL,
     date DATE NOT NULL,
-    step_id VARCHAR(32) NOT NULL,
+    step_id ENUM('impressions', 'considerations', 'streams') NOT NULL,
     step_count INTEGER NOT NULL,
     conversion_percent DECIMAL(10,5),
     PRIMARY KEY (account_id, date, step_id)
