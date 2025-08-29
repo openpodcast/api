@@ -1,0 +1,26 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2025-08-27T18:22:41.266Z",
+  "meta": {
+    "show": "0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "impressions_faceted"
+  },
+  "range": {
+    "start": "2025-07-27",
+    "end": "2025-08-25"
+  },
+  "data": {
+    "count": 44636,
+    "start": "2025-07-27",
+    "end": "2025-08-25",
+    "sourcedCounts": {
+      "counts": {
+        "SEARCH": 13197,
+        "LIBRARY": 9033,
+        "OTHER": 0,
+        "HOME": 22406
+      }
+    }
+  }
+}

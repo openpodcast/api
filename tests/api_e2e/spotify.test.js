@@ -11,6 +11,10 @@ const spotifyEpisodesPayload = require('../../fixtures/spotifyEpisodesMetadata.j
 const spotifyPodcastFollowersPayload = require('../../fixtures/spotifyPodcastFollowers.json')
 const spotifyPodcastMetadataPayload = require('../../fixtures/spotifyPodcastMetadata.json')
 const spotifyEpisodesMetadataPayload = require('../../fixtures/spotifyEpisodesMetadata.json')
+const spotifyImpressionsTotalPayload = require('../../fixtures/spotifyImpressionsTotalPayload.json')
+const spotifyImpressionsDailyPayload = require('../../fixtures/spotifyImpressionsDailyPayload.json')
+const spotifyImpressionsFacetedPayload = require('../../fixtures/spotifyImpressionsFacetedPayload.json')
+const spotifyImpressionsFunnelPayload = require('../../fixtures/spotifyImpressionsFunnelPayload.json')
 
 const auth = require("./authheader")
 
@@ -122,6 +126,46 @@ describe('check Connector API with spotifyEpisodesMetadataPayload', () => {
             .post('/connector')
             .set(auth)
             .send(spotifyEpisodesMetadataPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyImpressionsTotalPayload', () => {
+    it('should return status 200 when sending proper spotify impressions_total payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyImpressionsTotalPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyImpressionsDailyPayload', () => {
+    it('should return status 200 when sending proper spotify impressions_daily payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyImpressionsDailyPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyImpressionsFacetedPayload', () => {
+    it('should return status 200 when sending proper spotify impressions_faceted payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyImpressionsFacetedPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyImpressionsFunnelPayload', () => {
+    it('should return status 200 when sending proper spotify impressions_funnel payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyImpressionsFunnelPayload)
         expect(response.statusCode).toBe(200)
     })
 })

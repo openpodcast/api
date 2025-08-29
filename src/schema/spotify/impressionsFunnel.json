@@ -1,0 +1,31 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/impressionsFunnel.schema.json",
+    "title": "Spotify impressions funnel data",
+    "type": "object",
+    "properties": {
+        "counts": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "count": {
+                        "type": "number"
+                    },
+                    "conversionPercent": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "id",
+                    "count"
+                ]
+            }
+        }
+    },
+    "required": [
+        "counts"
+    ]
+}

@@ -10,6 +10,10 @@ import {
     SpotifyEpisodeAggregatePayload,
     SpotifyPerformancePayload,
     SpotifyPodcastFollowersPayload,
+    SpotifyImpressionsTotalPayload,
+    SpotifyImpressionsDailyPayload,
+    SpotifyImpressionsFacetedPayload,
+    SpotifyImpressionsFunnelPayload,
 } from '../../types/provider/spotify'
 import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
@@ -18,6 +22,10 @@ import performanceSchema from '../../schema/spotify/performance.json'
 import podcastMetadataSchema from '../../schema/spotify/podcastMetadata.json'
 import episodeMetadataSchema from '../../schema/spotify/episodeMetadata.json'
 import followerSchema from '../../schema/spotify/followers.json'
+import impressionsTotalSchema from '../../schema/spotify/impressionsTotal.json'
+import impressionsDailySchema from '../../schema/spotify/impressionsDaily.json'
+import impressionsFacetedSchema from '../../schema/spotify/impressionsFaceted.json'
+import impressionsFunnelSchema from '../../schema/spotify/impressionsFunnel.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
 
@@ -120,6 +128,30 @@ class SpotifyConnector implements ConnectorHandler {
                     data as SpotifyPodcastAggregatePayload
                 )
             }
+        } else if (payload.meta.endpoint === 'impressions_total') {
+            validateJsonApiPayload(impressionsTotalSchema, payload.data)
+            return await this.repo.storeImpressionsTotal(
+                accountId,
+                payload.data as SpotifyImpressionsTotalPayload
+            )
+        } else if (payload.meta.endpoint === 'impressions_daily') {
+            validateJsonApiPayload(impressionsDailySchema, payload.data)
+            return await this.repo.storeImpressionsDaily(
+                accountId,
+                payload.data as SpotifyImpressionsDailyPayload
+            )
+        } else if (payload.meta.endpoint === 'impressions_faceted') {
+            validateJsonApiPayload(impressionsFacetedSchema, payload.data)
+            return await this.repo.storeImpressionsFaceted(
+                accountId,
+                payload.data as SpotifyImpressionsFacetedPayload
+            )
+        } else if (payload.meta.endpoint === 'impressions_funnel') {
+            validateJsonApiPayload(impressionsFunnelSchema, payload.data)
+            return await this.repo.storeImpressionsFunnel(
+                accountId,
+                payload.data as SpotifyImpressionsFunnelPayload
+            )
         } else {
             throw new PayloadError(
                 `Unknown endpoint in meta: ${payload.meta.endpoint}`

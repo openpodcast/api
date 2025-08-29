@@ -9,6 +9,10 @@ import {
     SpotifyPodcastFollowersPayload,
     SpotifyPodcastMetadataPayload,
     SpotifyEpisodeAggregatePayload,
+    SpotifyImpressionsTotalPayload,
+    SpotifyImpressionsDailyPayload,
+    SpotifyImpressionsFacetedPayload,
+    SpotifyImpressionsFunnelPayload,
 } from '../types/provider/spotify'
 
 class SpotifyRepository {
@@ -370,6 +374,125 @@ class SpotifyRepository {
                 payload.genderedCounts.counts.NON_BINARY,
             ]),
         ])
+    }
+
+    async storeImpressionsTotal(
+        accountId: number,
+        payload: SpotifyImpressionsTotalPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO spotifyImpressions (
+            account_id,
+            date_start,
+            date_end,
+            total_impressions
+        ) VALUES (?,?,?,?)`
+
+        return await this.pool.query(replaceStmt, [
+            accountId,
+            payload.start,
+            payload.end,
+            payload.count,
+        ])
+    }
+
+    async storeImpressionsDaily(
+        accountId: number,
+        payload: SpotifyImpressionsDailyPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO spotifyImpressionsDaily (
+            account_id,
+            date,
+            impressions
+        ) VALUES (?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        payload.counts.forEach((daily) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                daily.date,
+                daily.count,
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
+    }
+
+    async storeImpressionsFaceted(
+        accountId: number,
+        payload: SpotifyImpressionsFacetedPayload
+    ): Promise<any> {
+        const promises: Promise<any>[] = []
+
+        // Store total impressions
+        const totalStmt = `REPLACE INTO spotifyImpressions (
+            account_id,
+            date_start,
+            date_end,
+            total_impressions
+        ) VALUES (?,?,?,?)`
+
+        promises.push(
+            this.pool.query(totalStmt, [
+                accountId,
+                payload.start,
+                payload.end,
+                payload.count,
+            ])
+        )
+
+        // Store source breakdown
+        const sourceStmt = `REPLACE INTO spotifyImpressionsSources (
+            account_id,
+            date_start,
+            date_end,
+            source_id,
+            impression_count
+        ) VALUES (?,?,?,?,?)`
+
+        const sources = payload.sourcedCounts.counts
+        Object.keys(sources).forEach((sourceId) => {
+            promises.push(
+                this.pool.query(sourceStmt, [
+                    accountId,
+                    payload.start,
+                    payload.end,
+                    sourceId,
+                    sources[sourceId as keyof typeof sources],
+                ])
+            )
+        })
+
+        return Promise.all(promises)
+    }
+
+    async storeImpressionsFunnel(
+        accountId: number,
+        payload: SpotifyImpressionsFunnelPayload
+    ): Promise<any> {
+        const replaceStmt = `REPLACE INTO spotifyImpressionsFunnel (
+            account_id,
+            date,
+            step_id,
+            step_count,
+            conversion_percent
+        ) VALUES (?,?,?,?,?)`
+
+        const queryPromises: Promise<any>[] = []
+
+        payload.counts.forEach((step) => {
+            const queryPromise = this.pool.query(replaceStmt, [
+                accountId,
+                this.getTodayDBString(),
+                step.id,
+                step.count,
+                step.conversionPercent || null,
+            ])
+            queryPromises.push(queryPromise)
+        })
+
+        return Promise.all(queryPromises)
     }
 }
 

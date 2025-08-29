@@ -1,0 +1,23 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/impressionsTotal.schema.json",
+    "title": "Spotify total impressions data",
+    "type": "object",
+    "properties": {
+        "count": {
+            "type": "number"
+        },
+        "start": {
+            "type": "string",
+            "format": "date"
+        },
+        "end": {
+            "type": "string",
+            "format": "date"
+        }
+    },
+    "required": [
+        "count",
+        "start",
+        "end"
+    ]
+}
