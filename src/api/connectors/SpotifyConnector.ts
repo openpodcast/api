@@ -112,15 +112,27 @@ class SpotifyConnector implements ConnectorHandler {
                 )
             }
         } else if (payload.meta.endpoint === 'aggregate') {
+            const data = payload.data as any
+            if (!data.start || !data.end) {
+                // No date information available
+                if (data.count === 0) {
+                    // Skip processing for zero count without dates
+                    return
+                } else {
+                    throw new PayloadError(
+                        'Date information (start/end) is required when count > 0'
+                    )
+                }
+            }
+
             //validates the payload and throws an error if it is not valid
             validateJsonApiPayload(aggregateSchema, payload.data)
-            const data = payload.data as SpotifyEpisodeAggregatePayload
 
             if (payload.meta.episode !== undefined) {
                 return await this.repo.storeEpisodeAggregate(
                     accountId,
                     payload.meta.episode,
-                    data
+                    data as SpotifyEpisodeAggregatePayload
                 )
             } else {
                 return await this.repo.storePodcastAggregate(
