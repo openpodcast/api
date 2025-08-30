@@ -331,11 +331,6 @@ CREATE TABLE IF NOT EXISTS podcasts (
   pod_name VARCHAR(2048) NOT NULL,
   -- 1 if should be monitored and alerts should be sent
   monitored BOOLEAN NOT NULL DEFAULT 1,
-  -- Provider-specific IDs for chart lookups
-  spotify_id VARCHAR(64) NULL,
-  apple_id VARCHAR(64) NULL,
-  podigee_id VARCHAR(64) NULL,
-  anchor_id VARCHAR(64) NULL,
   PRIMARY KEY (account_id)
 );
 

@@ -1,0 +1,34 @@
+{
+    "provider": "podigee",
+    "version": 1,
+    "retrieved": "2025-08-30T10:09:46.463Z",
+    "meta": {
+        "endpoint": "metrics",
+        "show": "123456"
+    },
+    "data": {
+        "metrics": [
+            {
+                "start": "2025-07-27",
+                "end": "2025-08-26",
+                "dimension": "listeners",
+                "subdimension": "unique",
+                "value": 293
+            },
+            {
+                "start": "2025-07-27",
+                "end": "2025-08-26",
+                "dimension": "subscribers",
+                "subdimension": "unique",
+                "value": 270
+            },
+            {
+                "start": "2025-07-27",
+                "end": "2025-08-26",
+                "dimension": "downloads",
+                "subdimension": "total",
+                "value": 707
+            }
+        ]
+    }
+}
