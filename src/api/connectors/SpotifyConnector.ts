@@ -113,20 +113,30 @@ class SpotifyConnector implements ConnectorHandler {
             }
         } else if (payload.meta.endpoint === 'aggregate') {
             const data = payload.data as any
-            if (!data.start || !data.end) {
-                // No date information available
-                if (data.count === 0) {
-                    // Skip processing for zero count without dates
-                    return
-                } else {
-                    throw new PayloadError(
-                        'Date information (start/end) is required when count > 0'
-                    )
-                }
+
+            // Get date range - use data.start/end if available, otherwise fall back to payload.range
+            let startDate: string
+            let endDate: string
+
+            if (data.start && data.end) {
+                // Normal case: dates are in the data
+                startDate = data.start
+                endDate = data.end
+            } else if (payload.range?.start && payload.range?.end) {
+                // Fallback: use dates from payload range
+                startDate = payload.range.start
+                endDate = payload.range.end
+                // Add the missing dates to the data object for schema validation
+                data.start = startDate
+                data.end = endDate
+            } else {
+                throw new PayloadError(
+                    'Date information is required either in data (start/end) or payload range'
+                )
             }
 
-            //validates the payload and throws an error if it is not valid
-            validateJsonApiPayload(aggregateSchema, payload.data)
+            // Validate the payload (now with start/end dates added if they were missing)
+            validateJsonApiPayload(aggregateSchema, data)
 
             if (payload.meta.episode !== undefined) {
                 return await this.repo.storeEpisodeAggregate(
