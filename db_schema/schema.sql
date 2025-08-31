@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (15, 'spotify impressions');
+INSERT INTO migrations (migration_id, migration_name) VALUES (16, 'podcasts provider ids');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -331,6 +331,11 @@ CREATE TABLE IF NOT EXISTS podcasts (
   pod_name VARCHAR(2048) NOT NULL,
   -- 1 if should be monitored and alerts should be sent
   monitored BOOLEAN NOT NULL DEFAULT 1,
+  -- Provider-specific IDs for chart lookups
+  spotify_id VARCHAR(64) NULL,
+  apple_id VARCHAR(64) NULL,
+  podigee_id VARCHAR(64) NULL,
+  anchor_id VARCHAR(64) NULL,
   PRIMARY KEY (account_id)
 );
 
