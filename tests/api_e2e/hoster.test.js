@@ -4,7 +4,9 @@ const hosterPodcastMetadataPayload = require('../../fixtures/hosterPodcastMetada
 const hosterEpisodeMetadataPayload = require('../../fixtures/hosterEpisodeMetadata.json')
 const hosterPodcastMetricsPayload = require('../../fixtures/hosterPodcastMetrics.json')
 const hosterEpisodeMetricsPayload = require('../../fixtures/hosterEpisodeMetrics.json')
+
 const hosterPodcastMetadataNumericPayload = require('../../fixtures/hosterPodcastMetadataNumeric.json')
+const hosterPodcastMetricsTotalsPayload = require('../../fixtures/hosterPodcastMetricsTotals.json')
 
 const auth = require('./authheader')
 
@@ -38,6 +40,14 @@ describe('check Connector API with generic hosters', () => {
             .post('/connector')
             .set(auth)
             .send(hosterEpisodeMetricsPayload)
+        expect(response.statusCode).toBe(200)
+    })
+
+    it('should return status 200 when sending podcast metrics totals payload', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(hosterPodcastMetricsTotalsPayload)
         expect(response.statusCode).toBe(200)
     })
 
