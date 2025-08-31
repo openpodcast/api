@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (16, 'podcasts provider ids');
+INSERT INTO migrations (migration_id, migration_name) VALUES (17, 'podigee totals dimensions');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -760,7 +760,9 @@ CREATE TABLE IF NOT EXISTS hosterPodcastMetrics (
     'downloads',
     'platforms',
     'clients',
-    'sources'
+    'sources',
+    'listeners',
+    'subscribers'
   ) NOT NULL,
   subdimension SMALLINT UNSIGNED NOT NULL,
   value INTEGER NOT NULL,

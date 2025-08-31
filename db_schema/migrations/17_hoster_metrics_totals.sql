@@ -7,4 +7,4 @@ ALTER TABLE hosterPodcastMetrics MODIFY dimension ENUM(
     'subscribers'
 ) NOT NULL;
 
-INSERT INTO migrations (migration_id, migration_name) VALUES (16, 'podigee totals dimensions');
+INSERT INTO migrations (migration_id, migration_name) VALUES (17, 'podigee totals dimensions');
