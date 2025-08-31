@@ -3,7 +3,6 @@ ALTER TABLE hosterPodcastMetrics MODIFY dimension ENUM(
     'platforms',
     'clients',
     'sources',
-    'totals',
     'listeners',
     'subscribers'
 ) NOT NULL;
