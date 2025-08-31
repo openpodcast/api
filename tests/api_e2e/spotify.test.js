@@ -15,6 +15,9 @@ const spotifyImpressionsTotalPayload = require('../../fixtures/spotifyImpression
 const spotifyImpressionsDailyPayload = require('../../fixtures/spotifyImpressionsDailyPayload.json')
 const spotifyImpressionsFacetedPayload = require('../../fixtures/spotifyImpressionsFacetedPayload.json')
 const spotifyImpressionsFunnelPayload = require('../../fixtures/spotifyImpressionsFunnelPayload.json')
+const spotifyEpisodeAggregateNoDateRangePayload = require('../../fixtures/spotifyEpisodeAggregateNoDateRange.json')
+const spotifyEpisodeAggregateNoDateRangeWithCountPayload = require('../../fixtures/spotifyEpisodeAggregateNoDateRangeWithCount.json')
+
 
 const auth = require("./authheader")
 
@@ -166,6 +169,26 @@ describe('check Connector API with spotifyImpressionsFunnelPayload', () => {
             .post('/connector')
             .set(auth)
             .send(spotifyImpressionsFunnelPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyEpisodeAggregateNoDateRangePayload', () => {
+    it('should return status 200 when sending spotify episode aggregate with count=0 and no date range in data', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyEpisodeAggregateNoDateRangePayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with spotifyEpisodeAggregateNoDateRangeWithCountPayload', () => {
+    it('should return status 200 when sending spotify episode aggregate with count>0 and no date range in data', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(spotifyEpisodeAggregateNoDateRangeWithCountPayload)
         expect(response.statusCode).toBe(200)
     })
 })
