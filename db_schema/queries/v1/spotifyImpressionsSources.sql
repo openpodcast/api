@@ -1,3 +1,5 @@
+-- Gets impressions breakdown by source (HOME, SEARCH, LIBRARY, OTHER)
+-- Returns data for the most recent 30-day period only
 SELECT
 	account_id,
 	date_start,
@@ -7,8 +9,12 @@ SELECT
 FROM
 	spotifyImpressionsSources
 WHERE
-	date_start >= @start
-	AND date_end <= @end
-	AND account_id = @podcast_id
+	account_id = @podcast_id
+	AND date_start = (
+		-- Find the most recent 30-day period available
+		SELECT MAX(date_start) 
+		FROM spotifyImpressionsSources 
+		WHERE account_id = @podcast_id
+	)
 ORDER BY
-	date_start ASC, source_id ASC
+	source_id ASC
