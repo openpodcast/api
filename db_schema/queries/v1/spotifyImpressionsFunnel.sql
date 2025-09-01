@@ -16,7 +16,7 @@ SELECT DISTINCT
 		PARTITION BY step_id 
 		ORDER BY date DESC
 	) AS conversion_percent
-FROM spotifyimpressionsfunnel
+FROM spotifyImpressionsFunnel
 WHERE account_id = @podcast_id
 	AND date >= @start 
 	AND date <= @end 
