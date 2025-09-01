@@ -23,10 +23,8 @@ total_downloads AS (
         account_id = @podcast_id
         AND dimension = 'downloads'
         AND subdimension = (SELECT dim_id FROM download_subdimensions)
-        AND DAYOFMONTH(start) = 1
-        AND YEAR(start) = YEAR(end)
-        AND MONTH(start) = MONTH(end)
-        AND DAYOFMONTH(end) = LAST_DAY(end)
+        -- monthly rows start on the first of a month and the end is the last day of the month
+        AND DAYOFMONTH(start) = 1 AND DATE(end) = LAST_DAY(start)
     GROUP BY
         account_id,
         hoster_id,
@@ -39,7 +37,7 @@ SELECT
     hoster_id,
     dimension,
     subdimension,
-    start,
+    DATE(start) AS date,
     value as daily_downloads, -- daily value
     -- total sum over daterange
     SUM(value) OVER (
@@ -51,7 +49,7 @@ SELECT
 FROM
     hosterPodcastMetrics
 WHERE
-    account_id = @podcast_id
+    account_id = @podcast_id 
     AND dimension = 'downloads'
     AND subdimension = (SELECT dim_id FROM download_subdimensions)
     AND start = end
