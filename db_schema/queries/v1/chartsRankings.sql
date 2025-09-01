@@ -9,7 +9,7 @@ WITH podcast_ids AS (
     podigee_id,
     anchor_id
   FROM podcasts 
-  WHERE account_id = @account_id
+  WHERE account_id = @podcast_id
   LIMIT 1
 )
 
@@ -24,9 +24,8 @@ SELECT
   pc.position         AS position,
   pc.date             AS chart_date
 FROM openpodcast_charts.podcast_charts pc
-INNER JOIN podcast_ids p ON pc.showid = p.spotify_id
-WHERE p.spotify_id IS NOT NULL
-  AND pc.date BETWEEN @start AND @end
+WHERE pc.showid = (SELECT spotify_id FROM podcast_ids WHERE spotify_id IS NOT NULL LIMIT 1)
+  AND pc.date BETWEEN @start AND @end 
 
 UNION ALL
 
@@ -40,8 +39,7 @@ SELECT
   ec.position         AS position,
   ec.date             AS chart_date
 FROM openpodcast_charts.episode_charts ec
-INNER JOIN podcast_ids p ON ec.showid = p.spotify_id
-WHERE p.spotify_id IS NOT NULL
+WHERE ec.showid = (SELECT spotify_id FROM podcast_ids WHERE spotify_id IS NOT NULL LIMIT 1)
   AND ec.date BETWEEN @start AND @end
 
 UNION ALL
@@ -56,11 +54,10 @@ SELECT
   apc.position        AS position,
   apc.date            AS chart_date
 FROM openpodcast_charts.apple_podcast_charts apc
-INNER JOIN podcast_ids p ON CAST(apc.id AS CHAR) = p.apple_id
 LEFT JOIN openpodcast_charts.apple_genres ag
        ON apc.genre_id = ag.id
       AND apc.country = ag.country
-WHERE p.apple_id IS NOT NULL
+WHERE apc.id = (SELECT apple_id FROM podcast_ids WHERE apple_id IS NOT NULL LIMIT 1)
   AND apc.date BETWEEN @start AND @end
 
 UNION ALL
@@ -75,11 +72,10 @@ SELECT
   aec.position        AS position,
   aec.date            AS chart_date
 FROM openpodcast_charts.apple_episode_charts aec
-INNER JOIN podcast_ids p ON CAST(aec.podcast_id AS CHAR) = p.apple_id
 LEFT JOIN openpodcast_charts.apple_genres ag
        ON aec.genre_id = ag.id
       AND aec.country = ag.country
-WHERE p.apple_id IS NOT NULL
+WHERE aec.podcast_id = (SELECT apple_id FROM podcast_ids WHERE apple_id IS NOT NULL LIMIT 1)
   AND aec.date BETWEEN @start AND @end
 
 ORDER BY chart_date, platform, item_type, market, position;
