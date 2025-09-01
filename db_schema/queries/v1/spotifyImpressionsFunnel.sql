@@ -1,5 +1,5 @@
 -- Gets the latest 30-day funnel data (impressions -> considerations -> streams)
--- Returns exactly 3 rows for the most recent period
+-- Returns data for the most recent period within the requested date range
 -- Each row includes the total impressions for reference
 SELECT
 	account_id,
@@ -16,11 +16,7 @@ FROM
 	spotifyImpressionsFunnel
 WHERE
 	account_id = @podcast_id
-	AND date = (
-		-- Find the most recent date available for this podcast
-		SELECT MAX(date) 
-		FROM spotifyImpressionsFunnel 
-		WHERE account_id = @podcast_id
-	)
+	AND date >= @start
+	AND date <= @end
 ORDER BY
-	step_id ASC
+	date DESC, step_id ASC
