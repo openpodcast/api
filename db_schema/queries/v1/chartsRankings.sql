@@ -47,7 +47,7 @@ UNION ALL
 SELECT
   'apple'             AS platform,
   'podcast'           AS item_type,
-  CAST(apc.id AS CHAR)        AS show_id,
+  apc.id              AS show_id,
   NULL                AS episode_id,
   apc.country         AS market,
   ag.name             AS chart_name,
@@ -65,10 +65,10 @@ UNION ALL
 SELECT
   'apple'             AS platform,
   'episode'           AS item_type,
-  CAST(aec.podcast_id AS CHAR) AS show_id,
-  CAST(aec.episode_id AS CHAR) AS episode_id,
+  aec.podcast_id      AS show_id,
+  aec.episode_id      AS episode_id,
   aec.country         AS market,
-  ag.name             AS chart_name,
+  ag.name             AS chart_name, 
   aec.position        AS position,
   aec.date            AS chart_date
 FROM openpodcast_charts.apple_episode_charts aec
