@@ -1,9 +1,4 @@
--- Returns both total metrics and metrics for a given period (e.g., last 30 days)
--- Only sums daily metrics (start = end)
--- Covers downloads, platforms, clients, sources
-
 -- get subdimension id for downloads
-
 WITH download_subdimensions AS (
     SELECT
         dim_id, dim_name
@@ -20,7 +15,8 @@ SELECT
     dimension,
     subdimension,
     start,
-    value,
+    value, -- daily value
+    -- total sum over daterange
     SUM(value) OVER (
         PARTITION BY account_id, hoster_id, dimension, subdimension
         ORDER BY start
