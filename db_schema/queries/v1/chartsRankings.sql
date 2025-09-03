@@ -19,6 +19,7 @@ SELECT
   'podcast'           AS item_type,
   pc.showid           AS show_id,
   NULL                AS episode_id,
+  NULL                AS episode_name,
   pc.region           AS market,
   pc.category         AS chart_name,
   pc.position         AS position,
@@ -34,11 +35,14 @@ SELECT
   'episode'           AS item_type,
   ec.showid           AS show_id,
   ec.episodeid        AS episode_id,
+  sem.ep_name         AS episode_name,
   ec.region           AS market,
   'top_episodes'      AS chart_name,
   ec.position         AS position,
   ec.date             AS chart_date
 FROM openpodcast_charts.episode_charts ec
+LEFT JOIN spotifyEpisodeMetadata sem ON sem.episode_id = ec.episodeid 
+  AND sem.account_id = @podcast_id
 WHERE ec.showid = (SELECT spotify_id FROM podcast_ids WHERE spotify_id IS NOT NULL LIMIT 1)
   AND ec.date BETWEEN @start AND @end
 
@@ -49,6 +53,7 @@ SELECT
   'podcast'           AS item_type,
   apc.id              AS show_id,
   NULL                AS episode_id,
+  NULL                AS episode_name,
   apc.country         AS market,
   ag.name             AS chart_name,
   apc.position        AS position,
@@ -67,6 +72,7 @@ SELECT
   'episode'           AS item_type,
   aec.podcast_id      AS show_id,
   aec.episode_id      AS episode_id,
+  aem.ep_name         AS episode_name,
   aec.country         AS market,
   ag.name             AS chart_name, 
   aec.position        AS position,
@@ -75,6 +81,8 @@ FROM openpodcast_charts.apple_episode_charts aec
 LEFT JOIN openpodcast_charts.apple_genres ag
        ON aec.genre_id = ag.id
       AND aec.country = ag.country
+LEFT JOIN appleEpisodeMetadata aem ON aem.episode_id = aec.episode_id 
+  AND aem.account_id = @podcast_id
 WHERE aec.podcast_id = (SELECT apple_id FROM podcast_ids WHERE apple_id IS NOT NULL LIMIT 1)
   AND aec.date BETWEEN @start AND @end
 
