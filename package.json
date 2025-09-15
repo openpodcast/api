@@ -6,7 +6,8 @@
     "build": "tsc",
     "dev": "nodemon --exec ts-node src/index.ts --watch src --ext ts",
     "lint": "npx eslint --config .eslintrc.js  ./src",
-    "test": "jest"
+    "test": "jest",
+    "insert-api-key": "ts-node scripts/insert-api-key.ts"
   },
   "license": "MIT",
   "private": true,
