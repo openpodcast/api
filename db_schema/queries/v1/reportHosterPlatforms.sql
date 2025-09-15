@@ -9,9 +9,8 @@ WITH platforms_data AS (
     WHERE h.account_id = @podcast_id
         AND h.dimension = 'platforms'
         AND h.start = h.end
-        AND h.start >= @start_date
-        AND h.end <= @end_date
-    GROUP BY s.dim_name
+        AND h.start BETWEEN @start_date AND @end_date
+    GROUP BY s.dim_id, s.dim_name
     HAVING total_downloads > 0
 )
 
