@@ -75,9 +75,13 @@ SELECT
   ep_name,
   spotify.episode_id as spotify_episode_id,
   apple.episode_id as apple_episode_id,
-  ep_guid as guid
+  ep_guid as guid,
+  hoster.hoster_id as hoster_id,
+  hoster.episode_id as hoster_episode_id
 FROM 
-  spotifyEpisodeMetadata spotify JOIN appleEpisodeMetadata apple USING (account_id, ep_name);
+  spotifyEpisodeMetadata spotify
+  JOIN appleEpisodeMetadata apple USING (account_id, ep_name)
+  LEFT JOIN hosterEpisodeMetadata hoster USING (account_id, ep_name);
 
 
   -- Average LTR Quarters
