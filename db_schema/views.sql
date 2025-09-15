@@ -68,16 +68,24 @@ WHERE
   spotify.total_followers IS NOT NULL
   AND apple.total_followers IS NOT NULL;
 
--- Mapping View between Apple and Spotify episode ids
+-- Mapping View between Apple, Spotify, and Podigee episode ids
 CREATE OR REPLACE VIEW episodeMapping AS
 SELECT
-  account_id,
-  ep_name,
+  spotify.account_id,
+  spotify.ep_name,
   spotify.episode_id as spotify_episode_id,
   apple.episode_id as apple_episode_id,
-  ep_guid as guid
-FROM 
-  spotifyEpisodeMetadata spotify JOIN appleEpisodeMetadata apple USING (account_id, ep_name);
+  podigee.episode_id as podigee_episode_id,
+  apple.ep_guid as guid,
+  podigee.ep_release_date as podigee_release_date
+FROM
+  spotifyEpisodeMetadata spotify
+  JOIN appleEpisodeMetadata apple USING (account_id, ep_name)
+  LEFT JOIN hosterEpisodeMetadata podigee ON (
+    spotify.account_id = podigee.account_id
+    AND spotify.ep_name = podigee.ep_name
+    AND podigee.hoster_id = 1
+  );
 
 
   -- Average LTR Quarters
