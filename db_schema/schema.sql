@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadata (
   ep_has_video BOOLEAN,
   PRIMARY KEY (account_id, episode_id)
 );
-CREATE INDEX idx_spotify_episode_meta_name ON spotifyEpisodeMetadata(account_id, ep_name, episode_id);
+CREATE INDEX idx_spotify_episode_meta_account_name ON spotifyEpisodeMetadata(account_id, ep_name(255));
 
 CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadataHistory (
   account_id INTEGER NOT NULL,
@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS appleEpisodeMetadata (
   ep_type VARCHAR(255) NOT NULL,
   PRIMARY KEY (account_id, episode_id)
 );
-CREATE INDEX idx_apple_episode_meta_name ON appleEpisodeMetadata(account_id, ep_name, episode_id);
+CREATE INDEX idx_apple_episode_meta_account_name ON appleEpisodeMetadata(account_id, ep_name(255));
 
 CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   account_id INTEGER NOT NULL,
@@ -786,6 +786,7 @@ CREATE TABLE IF NOT EXISTS hosterEpisodeMetadata (
   ep_release_date DATETIME,
   PRIMARY KEY (account_id, hoster_id, episode_id)
 );
+CREATE INDEX idx_hoster_episode_meta_account_name ON hosterEpisodeMetadata(account_id, ep_name(255));
 
 CREATE TABLE IF NOT EXISTS hosterEpisodeMetrics (
   account_id INTEGER NOT NULL,
