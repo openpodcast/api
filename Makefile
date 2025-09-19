@@ -112,3 +112,15 @@ send-api-req-prod: ## Send request to production
 .PHONY: db-shell
 db-shell: ## Opens the mysql shell inside the db container
 	docker compose exec db bash -c 'mysql -uopenpodcast -popenpodcast openpodcast'
+
+.PHONY: insert-api-key
+insert-api-key: ## Insert an API key into the dev database (usage: make insert-api-key API_KEY=dummy-cn389ncoiwuencr ACCOUNT_ID=3)
+ifndef API_KEY
+	@echo "Error: API_KEY is missing. Please specify the API_KEY variable. Example: make insert-api-key API_KEY=dummy-cn389ncoiwuencr ACCOUNT_ID=3"
+	@exit 1
+endif
+ifndef ACCOUNT_ID
+	@echo "Error: ACCOUNT_ID is missing. Please specify the ACCOUNT_ID variable. Example: make insert-api-key API_KEY=dummy-cn389ncoiwuencr ACCOUNT_ID=3"
+	@exit 1
+endif
+	@set -a && source env.local.test && set +a && npm run insert-api-key $(API_KEY) $(ACCOUNT_ID)
