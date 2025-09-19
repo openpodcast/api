@@ -28,17 +28,16 @@ FROM episodeMapping em
 
 -- Apple episode details (total metrics)
 LEFT JOIN appleEpisodeDetails aed
-    ON em.account_id = aed.account_id
+    ON em.account_id = aed.account_id 
     AND em.apple_episode_id = aed.episode_id
-    AND aed.aed_date BETWEEN @start AND @end
 
 -- Spotify episode metadata history (total metrics)
 LEFT JOIN spotifyEpisodeMetadataHistory semh
-    ON em.account_id = semh.account_id
+    ON em.account_id = semh.account_id 
     AND em.spotify_episode_id = semh.episode_id
-    AND semh.epm_date BETWEEN @start AND @end
+    AND semh.epm_date = aed.aed_date
 
 WHERE em.account_id = @podcast_id
-    AND (aed.aed_date BETWEEN @start AND @end OR semh.epm_date BETWEEN @start AND @end)
+    AND COALESCE(aed.aed_date, semh.epm_date) BETWEEN @start AND @end
 
 ORDER BY em.ep_name
