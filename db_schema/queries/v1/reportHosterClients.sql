@@ -9,7 +9,7 @@ WITH clients_data AS (
     WHERE h.account_id = @podcast_id
         AND h.dimension = 'clients'
         AND h.start = h.end
-        AND h.start BETWEEN @start_date AND @end_date
+        AND h.start BETWEEN @start AND @end
     GROUP BY s.dim_id, s.dim_name
     HAVING total_downloads > 0
 )
