@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (17, 'podigee totals dimensions');
+INSERT INTO migrations (migration_id, migration_name) VALUES (18, 'episode mapping indexes');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadata (
   ep_has_video BOOLEAN,
   PRIMARY KEY (account_id, episode_id)
 );
+CREATE INDEX idx_spotify_episode_meta_account_name ON spotifyEpisodeMetadata(account_id, ep_name(255));
 
 CREATE TABLE IF NOT EXISTS spotifyEpisodeMetadataHistory (
   account_id INTEGER NOT NULL,
@@ -214,6 +215,7 @@ CREATE TABLE IF NOT EXISTS appleEpisodeMetadata (
   ep_type VARCHAR(255) NOT NULL,
   PRIMARY KEY (account_id, episode_id)
 );
+CREATE INDEX idx_apple_episode_meta_account_name ON appleEpisodeMetadata(account_id, ep_name(255));
 
 CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   account_id INTEGER NOT NULL,
@@ -236,7 +238,6 @@ CREATE TABLE IF NOT EXISTS appleEpisodeDetails (
   PRIMARY KEY (account_id, episode_id,aed_date)
 );
 CREATE INDEX idx_apple_details_account_date ON appleEpisodeDetails(account_id, aed_date, episode_id);
-
 
 -- listeners values per day and per episode coming from the apple trends api
 CREATE TABLE IF NOT EXISTS appleTrendsEpisodeListeners (
@@ -782,6 +783,7 @@ CREATE TABLE IF NOT EXISTS hosterEpisodeMetadata (
   ep_release_date DATETIME,
   PRIMARY KEY (account_id, hoster_id, episode_id)
 );
+CREATE INDEX idx_hoster_episode_meta_account_name ON hosterEpisodeMetadata(account_id, ep_name(255));
 
 CREATE TABLE IF NOT EXISTS hosterEpisodeMetrics (
   account_id INTEGER NOT NULL,
