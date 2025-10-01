@@ -8,7 +8,7 @@ const options: swaggerJsdoc.Options = {
     info: {
       title: 'Open Podcast Analytics API',
       version: version,
-      description: 'Podcast analytics API providing metrics from Spotify, Apple Podcasts, and custom hosting providers. See https://github.com/openpodcast/api/blob/main/docs/AVAILABLE_QUERIES.md for a complete list of available queries.',
+      description: 'Podcast analytics API providing metrics from Spotify, Apple Podcasts, and custom hosting providers. Query endpoints are defined as SQL files in db_schema/queries/v1/.',
       contact: {
         name: 'Open Podcast',
         url: 'https://openpodcast.dev',

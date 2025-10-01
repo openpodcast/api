@@ -280,18 +280,27 @@ app.get(
  *   get:
  *     summary: Get analytics data for a podcast
  *     description: |
- *       Query analytics data for a specific podcast.
+ *       Query analytics data for a specific podcast using SQL-based query endpoints.
  *
- *       The `query` parameter specifies which metric to retrieve. Common queries include:
+ *       **How it works:** The `query` parameter maps to SQL files in `db_schema/queries/v1/`.
+ *       For example, `reportHosterPlatforms` executes the SQL query defined in
+ *       `db_schema/queries/v1/reportHosterPlatforms.sql`.
+ *
+ *       **Common queries:**
  *       - `reportSpotifyPodcastBaseMetrics` - Spotify podcast metrics (streams, listeners, followers)
  *       - `reportApplePodcastBaseMetrics` - Apple Podcasts metrics (plays, listeners, engagement)
  *       - `episodesTotalMetrics` - Combined episode metrics across platforms
  *       - `reportHosterPlatforms` - Platform/app distribution (e.g., Apple Podcasts, Spotify, Overcast)
  *       - `reportHosterClients` - Client/device distribution
+ *       - `podcastFollowers` - Combined follower counts from all platforms
+ *       - `episodesLTRHistogram` - Listen-through rate histograms per episode
  *
- *       See [AVAILABLE_QUERIES.md](https://github.com/openpodcast/api/blob/main/docs/AVAILABLE_QUERIES.md) for the complete list of 50+ available queries.
+ *       **Output formats:**
+ *       - JSON (default): Returns structured data with metadata
+ *       - CSV: Append `/csv` to the path for CSV export
  *
- *       Results can be returned in JSON (default) or CSV format by appending `/csv` to the path.
+ *       **Available queries:** 50+ SQL queries covering Spotify, Apple Podcasts, cross-platform metrics,
+ *       hoster data, demographics, impressions, and chart rankings.
  *     tags:
  *       - Analytics
  *     parameters:
