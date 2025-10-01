@@ -37,6 +37,8 @@ import { formatDate, nowString } from './utils/dateHelpers'
 import { AccountKeyRepository } from './db/AccountKeyRepository'
 import fs from 'fs'
 import path from 'path'
+import swaggerUi from 'swagger-ui-express'
+import { swaggerSpec } from './config/swagger'
 
 const config = new Config()
 
@@ -168,6 +170,8 @@ const publicEndpoints = [
     '^/status',
     '^/feedback/*',
     '^/comments/*',
+    '^/api-docs',
+    '^/api-docs.json',
 ]
 
 const authController = new AuthController(accountKeyRepo)
@@ -270,12 +274,101 @@ app.get(
     }
 )
 
-// Analytics endpoint, which returns a JSON of the query results.
-// Check that the user is allowed to access the endpoint
-// and then run the query
-// The endpoint must contain a version number and a query name
-// e.g. /analytics/v1/1234/someQuery or /analytics/v1/1234/someQuery/csv
-// where 1234 is the podcast id and someQuery is the name of the query
+/**
+ * @openapi
+ * /analytics/{version}/{podcastId}/{query}/{format}:
+ *   get:
+ *     summary: Get analytics data for a podcast
+ *     description: |
+ *       Returns analytics data for a specific podcast and query endpoint.
+ *
+ *       Supports multiple data sources (Spotify, Apple Podcasts, generic hosters) and various metrics including:
+ *       - Episode and podcast performance metrics
+ *       - Audience demographics
+ *       - Listen-through data
+ *       - Follower statistics
+ *       - Chart rankings
+ *
+ *       Results can be returned in JSON or CSV format.
+ *     tags:
+ *       - Analytics
+ *     parameters:
+ *       - name: version
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           enum: [v1]
+ *         description: API version
+ *       - $ref: '#/components/parameters/podcastId'
+ *       - name: query
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Query endpoint name (e.g., episodesTotalMetrics, reportHosterPlatforms)
+ *         examples:
+ *           spotify:
+ *             value: reportSpotifyPodcastBaseMetrics
+ *             summary: Spotify podcast metrics
+ *           apple:
+ *             value: reportApplePodcastBaseMetrics
+ *             summary: Apple Podcasts metrics
+ *           episodes:
+ *             value: episodesTotalMetrics
+ *             summary: Combined episode metrics
+ *           hoster:
+ *             value: reportHosterPlatforms
+ *             summary: Platform distribution
+ *       - name: format
+ *         in: path
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum: [csv]
+ *         description: Optional output format (defaults to JSON)
+ *       - $ref: '#/components/parameters/startDate'
+ *       - $ref: '#/components/parameters/endDate'
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Analytics data returned successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 meta:
+ *                   type: object
+ *                   properties:
+ *                     query:
+ *                       type: string
+ *                     podcastId:
+ *                       type: string
+ *                     date:
+ *                       type: string
+ *                       format: date-time
+ *                     startDate:
+ *                       type: string
+ *                       format: date
+ *                     endDate:
+ *                       type: string
+ *                       format: date
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *           text/csv:
+ *             schema:
+ *               type: string
+ *       401:
+ *         description: Unauthorized - Invalid or missing token, or no access to podcast
+ *       404:
+ *         description: Query endpoint not found or no data available
+ *       400:
+ *         description: Invalid parameters (e.g., invalid date format, unsupported format)
+ */
 app.get(
     '/analytics/:version/:podcastId/:query/:format?',
     async (req: Request, res: Response, next: NextFunction) => {
@@ -509,6 +602,29 @@ app.get(
         db: mysqlHealthy(pool),
     })
 )
+
+/**
+ * @openapi
+ * /api-docs:
+ *   get:
+ *     summary: API Documentation
+ *     description: Interactive API documentation powered by Swagger UI
+ *     tags:
+ *       - Documentation
+ *     responses:
+ *       200:
+ *         description: Returns the Swagger UI HTML page
+ */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'Open Podcast API Documentation',
+}))
+
+// Serve OpenAPI spec as JSON
+app.get('/api-docs.json', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'application/json')
+    res.send(swaggerSpec)
+})
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
