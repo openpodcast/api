@@ -280,16 +280,18 @@ app.get(
  *   get:
  *     summary: Get analytics data for a podcast
  *     description: |
- *       Returns analytics data for a specific podcast and query endpoint.
+ *       Query analytics data for a specific podcast.
  *
- *       Supports multiple data sources (Spotify, Apple Podcasts, generic hosters) and various metrics including:
- *       - Episode and podcast performance metrics
- *       - Audience demographics
- *       - Listen-through data
- *       - Follower statistics
- *       - Chart rankings
+ *       The `query` parameter specifies which metric to retrieve. Common queries include:
+ *       - `reportSpotifyPodcastBaseMetrics` - Spotify podcast metrics (streams, listeners, followers)
+ *       - `reportApplePodcastBaseMetrics` - Apple Podcasts metrics (plays, listeners, engagement)
+ *       - `episodesTotalMetrics` - Combined episode metrics across platforms
+ *       - `reportHosterPlatforms` - Platform/app distribution (e.g., Apple Podcasts, Spotify, Overcast)
+ *       - `reportHosterClients` - Client/device distribution
  *
- *       Results can be returned in JSON or CSV format.
+ *       See [AVAILABLE_QUERIES.md](https://github.com/openpodcast/api/blob/main/docs/AVAILABLE_QUERIES.md) for the complete list of 50+ available queries.
+ *
+ *       Results can be returned in JSON (default) or CSV format by appending `/csv` to the path.
  *     tags:
  *       - Analytics
  *     parameters:
@@ -344,21 +346,43 @@ app.get(
  *                   properties:
  *                     query:
  *                       type: string
+ *                       example: reportHosterPlatforms
  *                     podcastId:
  *                       type: string
+ *                       example: "123"
  *                     date:
  *                       type: string
  *                       format: date-time
+ *                       example: "2024-09-24T12:00:00Z"
  *                     startDate:
  *                       type: string
  *                       format: date
+ *                       example: "2024-08-01"
  *                     endDate:
  *                       type: string
  *                       format: date
+ *                       example: "2024-08-31"
  *                 data:
  *                   type: array
  *                   items:
  *                     type: object
+ *             example:
+ *               meta:
+ *                 query: reportHosterPlatforms
+ *                 podcastId: "123"
+ *                 date: "2024-09-24T12:00:00Z"
+ *                 startDate: "2024-08-01"
+ *                 endDate: "2024-08-31"
+ *               data:
+ *                 - platform_name: "Apple Podcasts"
+ *                   total_downloads: 15420
+ *                   percentage: 45.2
+ *                 - platform_name: "Spotify"
+ *                   total_downloads: 10280
+ *                   percentage: 30.1
+ *                 - platform_name: "Overcast"
+ *                   total_downloads: 4120
+ *                   percentage: 12.1
  *           text/csv:
  *             schema:
  *               type: string
