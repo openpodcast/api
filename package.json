@@ -20,7 +20,9 @@
     "hbs": "^4.2.0",
     "mathjs": "^11.4.0",
     "moment": "^2.29.4",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
@@ -28,6 +30,8 @@
     "@types/jest": "^30.0.0",
     "@types/mysql2": "types/mysql2",
     "@types/node": "^18.7.18",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "concurrently": "^7.4.0",

@@ -37,6 +37,8 @@ import { formatDate, nowString } from './utils/dateHelpers'
 import { AccountKeyRepository } from './db/AccountKeyRepository'
 import fs from 'fs'
 import path from 'path'
+import swaggerUi from 'swagger-ui-express'
+import { swaggerSpec } from './config/swagger'
 
 const config = new Config()
 
@@ -168,6 +170,8 @@ const publicEndpoints = [
     '^/status',
     '^/feedback/*',
     '^/comments/*',
+    '^/api-docs',
+    '^/api-docs.json',
 ]
 
 const authController = new AuthController(accountKeyRepo)
@@ -270,12 +274,134 @@ app.get(
     }
 )
 
-// Analytics endpoint, which returns a JSON of the query results.
-// Check that the user is allowed to access the endpoint
-// and then run the query
-// The endpoint must contain a version number and a query name
-// e.g. /analytics/v1/1234/someQuery or /analytics/v1/1234/someQuery/csv
-// where 1234 is the podcast id and someQuery is the name of the query
+/**
+ * @openapi
+ * /analytics/{version}/{podcastId}/{query}/{format}:
+ *   get:
+ *     summary: Get analytics data for a podcast
+ *     description: |
+ *       Query analytics data for a specific podcast using SQL-based query endpoints.
+ *
+ *       **How it works:** The `query` parameter maps to SQL files in `db_schema/queries/v1/`.
+ *       For example, `reportHosterPlatforms` executes the SQL query defined in
+ *       `db_schema/queries/v1/reportHosterPlatforms.sql`.
+ *
+ *       **Common queries:**
+ *       - `reportSpotifyPodcastBaseMetrics` - Spotify podcast metrics (streams, listeners, followers)
+ *       - `reportApplePodcastBaseMetrics` - Apple Podcasts metrics (plays, listeners, engagement)
+ *       - `episodesTotalMetrics` - Combined episode metrics across platforms
+ *       - `reportHosterPlatforms` - Platform/app distribution (e.g., Apple Podcasts, Spotify, Overcast)
+ *       - `reportHosterClients` - Client/device distribution
+ *       - `podcastFollowers` - Combined follower counts from all platforms
+ *       - `episodesLTRHistogram` - Listen-through rate histograms per episode
+ *
+ *       **Output formats:**
+ *       - JSON (default): Returns structured data with metadata
+ *       - CSV: Append `/csv` to the path for CSV export
+ *
+ *       **Available queries:** 50+ SQL queries covering Spotify, Apple Podcasts, cross-platform metrics,
+ *       hoster data, demographics, impressions, and chart rankings.
+ *     tags:
+ *       - Analytics
+ *     parameters:
+ *       - name: version
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *           enum: [v1]
+ *         description: API version
+ *       - $ref: '#/components/parameters/podcastId'
+ *       - name: query
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Query endpoint name (e.g., episodesTotalMetrics, reportHosterPlatforms)
+ *         examples:
+ *           spotify:
+ *             value: reportSpotifyPodcastBaseMetrics
+ *             summary: Spotify podcast metrics
+ *           apple:
+ *             value: reportApplePodcastBaseMetrics
+ *             summary: Apple Podcasts metrics
+ *           episodes:
+ *             value: episodesTotalMetrics
+ *             summary: Combined episode metrics
+ *           hoster:
+ *             value: reportHosterPlatforms
+ *             summary: Platform distribution
+ *       - name: format
+ *         in: path
+ *         required: false
+ *         schema:
+ *           type: string
+ *           enum: [csv]
+ *         description: Optional output format (defaults to JSON)
+ *       - $ref: '#/components/parameters/startDate'
+ *       - $ref: '#/components/parameters/endDate'
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Analytics data returned successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 meta:
+ *                   type: object
+ *                   properties:
+ *                     query:
+ *                       type: string
+ *                       example: reportHosterPlatforms
+ *                     podcastId:
+ *                       type: string
+ *                       example: "123"
+ *                     date:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2024-09-24T12:00:00Z"
+ *                     startDate:
+ *                       type: string
+ *                       format: date
+ *                       example: "2024-08-01"
+ *                     endDate:
+ *                       type: string
+ *                       format: date
+ *                       example: "2024-08-31"
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *             example:
+ *               meta:
+ *                 query: reportHosterPlatforms
+ *                 podcastId: "123"
+ *                 date: "2024-09-24T12:00:00Z"
+ *                 startDate: "2024-08-01"
+ *                 endDate: "2024-08-31"
+ *               data:
+ *                 - platform_name: "Apple Podcasts"
+ *                   total_downloads: 15420
+ *                   percentage: 45.2
+ *                 - platform_name: "Spotify"
+ *                   total_downloads: 10280
+ *                   percentage: 30.1
+ *                 - platform_name: "Overcast"
+ *                   total_downloads: 4120
+ *                   percentage: 12.1
+ *           text/csv:
+ *             schema:
+ *               type: string
+ *       401:
+ *         description: Unauthorized - Invalid or missing token, or no access to podcast
+ *       404:
+ *         description: Query endpoint not found or no data available
+ *       400:
+ *         description: Invalid parameters (e.g., invalid date format, unsupported format)
+ */
 app.get(
     '/analytics/:version/:podcastId/:query/:format?',
     async (req: Request, res: Response, next: NextFunction) => {
@@ -509,6 +635,29 @@ app.get(
         db: mysqlHealthy(pool),
     })
 )
+
+/**
+ * @openapi
+ * /api-docs:
+ *   get:
+ *     summary: API Documentation
+ *     description: Interactive API documentation powered by Swagger UI
+ *     tags:
+ *       - Documentation
+ *     responses:
+ *       200:
+ *         description: Returns the Swagger UI HTML page
+ */
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'Open Podcast API Documentation',
+}))
+
+// Serve OpenAPI spec as JSON
+app.get('/api-docs.json', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'application/json')
+    res.send(swaggerSpec)
+})
 
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
