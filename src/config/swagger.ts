@@ -1,6 +1,9 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import { version } from '../../package.json';
 import './swagger-schemas';
+import { generateQueryPaths } from './generate-query-docs';
+
+const { paths: queryPaths, categories } = generateQueryPaths();
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -82,7 +85,12 @@ const options: swaggerJsdoc.Options = {
         name: 'Analytics',
         description: 'Query podcast analytics data from multiple sources',
       },
+      ...categories.map(cat => ({
+        name: cat,
+        description: `${cat} analytics endpoints`,
+      })),
     ],
+    paths: queryPaths,
   },
   apis: ['./src/api/*.ts', './src/index.ts', './src/config/swagger-schemas.ts'],
 };
