@@ -56,12 +56,15 @@ BEGIN
   -- delete auth data from openpodcast_auth schema
   DELETE FROM openpodcast_auth.podcastSources WHERE account_id = p_account_id;
   -- only delete API keys that are exclusively associated with this account
-  DELETE ak1 FROM openpodcast_auth.apiKeys ak1
-  WHERE ak1.account_id = p_account_id 
-    AND NOT EXISTS (
-      SELECT 1 FROM openpodcast_auth.apiKeys ak2 
-      WHERE ak2.key_hash = ak1.key_hash 
-        AND ak2.account_id != p_account_id
+  DELETE FROM openpodcast_auth.apiKeys 
+  WHERE account_id = p_account_id 
+    AND key_hash IN (
+      SELECT key_hash FROM (
+        SELECT key_hash
+        FROM openpodcast_auth.apiKeys
+        GROUP BY key_hash
+        HAVING COUNT(DISTINCT account_id) = 1 AND MIN(account_id) = p_account_id
+      ) AS exclusive_keys
     );
   
   -- delete the podcast itself
