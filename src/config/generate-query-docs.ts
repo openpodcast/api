@@ -58,8 +58,17 @@ export const generateQueryDocs = () => {
         const queryName = file.replace('.sql', '')
         const filePath = path.join(QUERIES_DIR, file)
         const sqlContent = fs.readFileSync(filePath, 'utf-8')
-        const description = extractDescription(sqlContent)
+
+        let description = extractDescription(sqlContent)
         const category = categorizeQuery(queryName)
+
+        // First line has to start with `-- @doc`. If not, ignore the file
+        if (!description.startsWith('@doc')) {
+            continue
+        } else {
+            // Remove @doc from description
+            description = description.replace('@doc', '').trim()
+        }
 
         queries.push({
             name: queryName,
@@ -151,44 +160,6 @@ export const generateQueryPaths = () => {
                                         },
                                     },
                                 },
-                            },
-                        },
-                    },
-                },
-            },
-        }
-
-        // Also add CSV endpoint
-        paths[`${query.path}/csv`] = {
-            get: {
-                summary: `${query.name} (CSV)`,
-                description: `${query.description} Returns data in CSV format.`,
-                tags: [query.category],
-                parameters: [
-                    {
-                        name: 'podcastId',
-                        in: 'path',
-                        required: true,
-                        schema: { type: 'integer' },
-                    },
-                    {
-                        name: 'start',
-                        in: 'query',
-                        schema: { type: 'string', format: 'date' },
-                    },
-                    {
-                        name: 'end',
-                        in: 'query',
-                        schema: { type: 'string', format: 'date' },
-                    },
-                ],
-                security: [{ bearerAuth: [] }],
-                responses: {
-                    200: {
-                        description: 'CSV data',
-                        content: {
-                            'text/csv': {
-                                schema: { type: 'string' },
                             },
                         },
                     },
