@@ -1,3 +1,7 @@
+-- @doc
+-- Returns Spotify podcast listener demographics broken down by gender and age group.
+-- Fields: Date, Gender, Listeners Count, Age Group
+
 WITH data as (
   SELECT *
   FROM spotifyPodcastAggregate

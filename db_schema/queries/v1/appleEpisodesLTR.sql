@@ -1,3 +1,7 @@
+-- @doc
+-- Returns Apple Podcasts episode listener-through-rate (LTR) data showing retention at 25%, 50%, 75%, and 100% completion points.
+-- Fields: Episode Name, GUID, Date, Quarter 1-4 LTR percentages, Apple Listeners count
+
 WITH
 apple as (
   SELECT 

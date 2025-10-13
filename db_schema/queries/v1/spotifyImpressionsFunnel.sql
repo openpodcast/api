@@ -1,5 +1,6 @@
--- Gets the latest 30-day funnel data (impressions -> considerations -> streams)
--- Returns data for the most recent day within the requested date range
+-- @doc
+-- Returns Spotify conversion funnel data showing the progression from impressions to considerations to streams with conversion rates.
+-- Fields: Account ID, Date, Step ID, Step Count, Conversion Percentage
 
 SELECT DISTINCT 
 	account_id,

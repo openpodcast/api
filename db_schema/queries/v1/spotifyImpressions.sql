@@ -1,3 +1,7 @@
+-- @doc
+-- Returns daily Spotify impression metrics showing how many times the podcast appeared in user interfaces.
+-- Fields: Account ID, Date, Impressions Count
+
 SELECT
 	account_id,
 	date,

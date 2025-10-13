@@ -1,5 +1,6 @@
--- Combined podcast metadata from Apple and Spotify platforms
--- Returns the latest metadata information for the podcast
+-- @doc
+-- Returns comprehensive podcast metadata including basic information, Spotify statistics, and Apple follower data.
+-- Fields: Account ID, Podcast Name, Artwork URL, Release Date, Publisher, Latest Platform Statistics
 
 SELECT 
     pm.account_id,

@@ -1,6 +1,10 @@
 -- Total episodes metrics from Apple and Spotify platforms using episodeMapping view
 -- Returns cumulative/total performance metrics for plays, listeners, and engagement data
 
+-- @doc
+-- Returns aggregated total metrics for episodes combining data from Spotify, Apple Podcasts, and hosting providers over the specified date range.
+-- Fields: Episode identifiers, Total Streams, Plays, Listeners, Downloads, Time Listened across all platforms
+
 SELECT 
     -- Episode identifiers from mapping view
     em.account_id,

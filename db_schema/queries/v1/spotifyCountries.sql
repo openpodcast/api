@@ -1,3 +1,7 @@
+-- @doc
+-- Returns Spotify podcast listener geographic distribution by country with listener counts and percentages.
+-- Fields: Country Short Code, Listeners Count, Percentage of Total
+
 WITH
 data as (
 SELECT 

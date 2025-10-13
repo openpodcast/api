@@ -1,3 +1,7 @@
+-- @doc
+-- Returns Apple Podcasts episode performance metrics including plays, listening time, and engagement data.
+-- Fields: Date, Episode Name, GUID, Plays Count, Total Time Listened, Unique Engaged Listeners, Unique Listeners
+
 WITH
 apple as (
   SELECT 

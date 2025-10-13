@@ -1,3 +1,7 @@
+-- @doc
+-- Returns Spotify podcast listener demographics by age group with listener counts and percentages of total audience.
+-- Fields: Date, Age Group, Listeners Count, Percentage of Total
+
 WITH data as
 (
   SELECT

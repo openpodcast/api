@@ -1,5 +1,6 @@
 -- @doc
 -- Returns daily performance metrics for plays, listeners, streams, and engagement data of episodes from Apple and Spotify.
+-- Fields: Podcast ID, Spotify Episode ID, Apple Episode ID, GUID, Date, Spotify Starts, Spotify Streams, Spotify Listeners, Apple Plays, Apple Unique Listeners, Apple Engaged Listeners, Apple Total Time Listened
 
 SELECT 
     -- Episode identifiers from mapping view
