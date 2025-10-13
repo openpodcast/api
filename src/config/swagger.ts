@@ -20,7 +20,8 @@ const servers = [
     },
 ]
 
-if (process.env.NODE_ENV !== 'production') {
+// Add localhost server in development mode
+if (process.env.NODE_ENV === 'development') {
     servers.push({
         url: 'http://localhost:8080',
         description: 'Local development server',

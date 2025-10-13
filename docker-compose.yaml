@@ -8,6 +8,7 @@ services:
             - ./dist:/app/dist
             - ./db_schema:/app/db_schema
         environment:
+            - NODE_ENV=development
             - MYSQL_HOST=db
             - MYSQL_USER=openpodcast
             - MYSQL_PASSWORD=openpodcast
