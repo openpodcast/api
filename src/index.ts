@@ -5,6 +5,7 @@ import express, {
     RequestHandler,
     NextFunction,
 } from 'express'
+import cors from 'cors'
 import bodyParser from 'body-parser'
 import { EventsApi, ConnectorApi } from './api'
 import { EventRepository } from './db/EventRepository'
@@ -178,6 +179,16 @@ const authController = new AuthController(accountKeyRepo)
 
 const app: Express = express()
 const port = config.getExpressPort()
+
+// Configure CORS to allow Swagger UI to make API calls
+app.use(
+    cors({
+        origin: ['http://localhost:8080', 'https://api.openpodcast.dev'],
+        credentials: true,
+        methods: ['GET', 'POST', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+)
 
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '5mb' }))
