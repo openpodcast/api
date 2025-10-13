@@ -1,4 +1,6 @@
--- Gets impressions breakdown by source (HOME, SEARCH, LIBRARY, OTHER)
+-- @doc
+-- Returns Spotify impressions broken down by source location (HOME, SEARCH, LIBRARY, OTHER) showing where users discover the podcast.
+-- Fields: Account ID, Date Start, Date End, Source ID, Impression Count
 
 SELECT DISTINCT
     account_id,

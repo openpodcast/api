@@ -1,4 +1,8 @@
 
+-- @doc
+-- Returns detailed listener retention histogram data for episodes from both Spotify and Apple Podcasts at 15-second intervals.
+-- Fields: Episode GUID, Date, Max Listeners (Spotify/Apple), Histogram Data Arrays
+
 WITH spotify as (
   SELECT JSON_ARRAYAGG(JSON_OBJECT(sample_id-1,listeners)) as histogram,episode_id,account_id,spp_date,spp_sample_max FROM 
     spotifyEpisodePerformance CROSS JOIN

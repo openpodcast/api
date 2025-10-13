@@ -1,5 +1,6 @@
--- Chart rankings query using provider IDs from podcasts table
--- Requires @account_id parameter to be set
+-- @doc
+-- Returns podcast and episode chart rankings from Spotify and Apple Podcasts across different markets and categories.
+-- Fields: Platform, Item Type, Show ID, Episode ID, Episode Name, Market, Chart Name, Position, Chart Date
 
 WITH podcast_ids AS (
   SELECT 

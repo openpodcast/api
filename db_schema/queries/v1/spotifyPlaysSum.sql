@@ -1,3 +1,7 @@
+-- @doc
+-- Returns aggregated Spotify podcast metrics totals including episodes, starts, streams, listeners, and followers over the date range.
+-- Fields: Podcast ID, Total Episodes, Starts, Streams, Listeners, Followers
+
 SELECT
   account_id as podcast_id,
   SUM(spm_total_episodes) as spotify_total_episodes,

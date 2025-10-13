@@ -1,3 +1,7 @@
+-- @doc
+-- Returns combined episode listener-through-rate (LTR) data from both Spotify and Apple Podcasts showing retention at different completion points.
+-- Fields: Episode Name, GUID, Date, Combined Quarter 1-4 LTR, Individual Platform LTR values, Listener Counts
+
 WITH
 spotify as (
   SELECT 

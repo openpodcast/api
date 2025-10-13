@@ -1,3 +1,7 @@
+-- @doc
+-- Returns Apple Podcasts follower metrics showing daily follower growth and churn.
+-- Fields: Date, Total Followers, Total Unfollowers, Gained Followers, Lost Followers
+
 SELECT 
   atf_date as `date`,
   atf_totalfollowers as total_followers,

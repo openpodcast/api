@@ -1,3 +1,7 @@
+-- @doc
+-- Returns Spotify episode listener demographics broken down by gender and age group.
+-- Fields: Date, Episode GUID, Gender, Listeners Count, Age Group
+
 WITH data as
 (
     SELECT spa_date,ep_guid,spa_facet,spa_gender_female,spa_gender_male,spa_gender_non_binary,spa_gender_not_specified

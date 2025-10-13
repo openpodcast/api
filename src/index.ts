@@ -5,6 +5,7 @@ import express, {
     RequestHandler,
     NextFunction,
 } from 'express'
+import cors from 'cors'
 import bodyParser from 'body-parser'
 import { EventsApi, ConnectorApi } from './api'
 import { EventRepository } from './db/EventRepository'
@@ -37,6 +38,8 @@ import { formatDate, nowString } from './utils/dateHelpers'
 import { AccountKeyRepository } from './db/AccountKeyRepository'
 import fs from 'fs'
 import path from 'path'
+import swaggerUi from 'swagger-ui-express'
+import { swaggerSpec } from './config/swagger'
 
 const config = new Config()
 
@@ -168,12 +171,26 @@ const publicEndpoints = [
     '^/status',
     '^/feedback/*',
     '^/comments/*',
+    '^/api-docs',
+    '^/api-docs.json',
 ]
 
 const authController = new AuthController(accountKeyRepo)
 
 const app: Express = express()
 const port = config.getExpressPort()
+
+// Configure CORS to allow Swagger UI to make API calls
+app.use(
+    cors({
+        origin: ['http://localhost:8080', 'https://api.openpodcast.dev'],
+        methods: ['GET', 'POST', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+    })
+)
+
+// Remove X-Powered-By header for security
+app.disable('x-powered-by')
 
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '5mb' }))
@@ -270,12 +287,6 @@ app.get(
     }
 )
 
-// Analytics endpoint, which returns a JSON of the query results.
-// Check that the user is allowed to access the endpoint
-// and then run the query
-// The endpoint must contain a version number and a query name
-// e.g. /analytics/v1/1234/someQuery or /analytics/v1/1234/someQuery/csv
-// where 1234 is the podcast id and someQuery is the name of the query
 app.get(
     '/analytics/:version/:podcastId/:query/:format?',
     async (req: Request, res: Response, next: NextFunction) => {
@@ -510,6 +521,21 @@ app.get(
     })
 )
 
+app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+        customCss: '.swagger-ui .topbar { display: none }',
+        customSiteTitle: 'Open Podcast API Documentation',
+    })
+)
+
+// Serve OpenAPI spec as JSON
+app.get('/api-docs.json', (req: Request, res: Response) => {
+    res.setHeader('Content-Type', 'application/json')
+    res.send(swaggerSpec)
+})
+
 // catch 404 and forward to error handler
 app.use(function (req: Request, res: Response, next: NextFunction) {
     const err = new HttpError(`Not Found: ${req.originalUrl}`)
@@ -537,10 +563,21 @@ app.use(function (
         // if it is not a known http error, print it for debugging purposes
         console.log(err)
     }
-    res.status(
+
+    const status =
         err instanceof HttpError || err instanceof AuthError ? err.status : 500
-    )
-    res.send(`Something's wrong. We're looking into it. (${tracingId})`)
+    res.status(status)
+
+    // Provide more specific error messages for common HTTP status codes
+    if (status === 401) {
+        res.send(
+            `Authentication required. Please provide a valid API token. (${tracingId})`
+        )
+    } else if (status === 404) {
+        res.send(`Resource not found. (${tracingId})`)
+    } else {
+        res.send(`Something's wrong. We're looking into it. (${tracingId})`)
+    }
 })
 
 dbInit.init().then(() => {

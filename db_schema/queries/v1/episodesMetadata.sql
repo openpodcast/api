@@ -1,5 +1,6 @@
--- Combined episodes metadata from Apple and Spotify platforms using episodeMapping view
--- Returns metadata for all episodes with their basic information
+-- @doc
+-- Returns comprehensive episode metadata from both Spotify and Apple Podcasts including URLs, descriptions, release dates, and technical details.
+-- Fields: Account ID, Episode IDs, Name, GUID, URLs, Release Dates, Descriptions, Duration, Language, Content Flags
 
 SELECT 
     -- Common episode identifiers from mapping view
