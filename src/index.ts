@@ -563,10 +563,21 @@ app.use(function (
         // if it is not a known http error, print it for debugging purposes
         console.log(err)
     }
-    res.status(
+
+    const status =
         err instanceof HttpError || err instanceof AuthError ? err.status : 500
-    )
-    res.send(`Something's wrong. We're looking into it. (${tracingId})`)
+    res.status(status)
+
+    // Provide more specific error messages for common HTTP status codes
+    if (status === 401) {
+        res.send(
+            `Authentication required. Please provide a valid API token. (${tracingId})`
+        )
+    } else if (status === 404) {
+        res.send(`Resource not found. (${tracingId})`)
+    } else {
+        res.send(`Something's wrong. We're looking into it. (${tracingId})`)
+    }
 })
 
 dbInit.init().then(() => {
