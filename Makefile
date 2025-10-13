@@ -15,6 +15,10 @@ up-db: ## docker-compose up db
 	touch dbinit.sql
 	docker compose up db
 
+.PHONY: logs
+logs: ## docker-compose logs -f
+	docker compose logs -f
+
 .PHONY: down-db
 down-db: ## docker-compose down db and remove volumes
 	docker compose down -v 
