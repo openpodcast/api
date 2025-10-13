@@ -1,8 +1,31 @@
 import swaggerJsdoc from 'swagger-jsdoc'
-import { version } from '../../package.json'
 import { generateQueryPaths } from './generate-query-docs'
 
+// Use hardcoded version to avoid rootDir issues with package.json import
+const version = '1.0.0'
+
+// Calculate dynamic date (2 days ago)
+const getTwoDaysAgo = (): string => {
+    const date = new Date()
+    date.setDate(date.getDate() - 2)
+    return date.toISOString().split('T')[0] // YYYY-MM-DD format
+}
+
 const { paths: queryPaths, categories } = generateQueryPaths()
+
+const servers = [
+    {
+        url: 'https://api.openpodcast.dev',
+        description: 'OpenPodcast API',
+    },
+]
+
+if (process.env.NODE_ENV !== 'production') {
+    servers.push({
+        url: 'http://localhost:8080',
+        description: 'Local development server',
+    })
+}
 
 const options: swaggerJsdoc.Options = {
     definition: {
@@ -22,16 +45,7 @@ const options: swaggerJsdoc.Options = {
                 url: 'https://github.com/openpodcast/api/blob/main/LICENSE',
             },
         },
-        servers: [
-            {
-                url: 'https://api.openpodcast.dev',
-                description: 'Production server',
-            },
-            {
-                url: 'http://localhost:3000',
-                description: 'Development server',
-            },
-        ],
+        servers,
         components: {
             securitySchemes: {
                 bearerAuth: {
@@ -58,7 +72,7 @@ const options: swaggerJsdoc.Options = {
                     schema: {
                         type: 'string',
                         format: 'date',
-                        example: '2024-01-01',
+                        example: getTwoDaysAgo(),
                     },
                     description: 'Start date (YYYY-MM-DD)',
                 },
@@ -69,7 +83,7 @@ const options: swaggerJsdoc.Options = {
                     schema: {
                         type: 'string',
                         format: 'date',
-                        example: '2024-12-31',
+                        example: getTwoDaysAgo(),
                     },
                     description: 'End date (YYYY-MM-DD)',
                 },
