@@ -5,7 +5,7 @@ import { generateQueryPaths } from './generate-query-docs'
 const version = '1.0.0'
 
 // Calculate dynamic date (2 days ago)
-const getTwoDaysAgo = (): string => {
+export const getTwoDaysAgo = (): string => {
     const date = new Date()
     date.setDate(date.getDate() - 2)
     return date.toISOString().split('T')[0] // YYYY-MM-DD format

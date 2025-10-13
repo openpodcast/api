@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { getTwoDaysAgo } from './swagger'
 
 /**
  * Generates OpenAPI documentation for SQL query endpoints
@@ -114,7 +115,7 @@ export const generateQueryPaths = () => {
                         schema: {
                             type: 'string',
                             format: 'date',
-                            example: '2024-01-01',
+                            example: getTwoDaysAgo(),
                         },
                         description: 'Start date (YYYY-MM-DD)',
                     },
@@ -125,7 +126,7 @@ export const generateQueryPaths = () => {
                         schema: {
                             type: 'string',
                             format: 'date',
-                            example: '2024-12-31',
+                            example: getTwoDaysAgo(),
                         },
                         description: 'End date (YYYY-MM-DD)',
                     },
