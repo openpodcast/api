@@ -8,7 +8,7 @@ help: ## help message, list all command
 .PHONY: up docker-run
 up docker-run: docker-build ## docker-compose up
 	touch dbinit.sql
-	docker compose up --build
+	docker compose -d up --build
 
 .PHONY: up-db
 up-db: ## docker-compose up db
