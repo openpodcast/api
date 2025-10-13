@@ -1,1 +1,0 @@
-SELECT @start as start, @end as end, "pong" as result
