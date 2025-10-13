@@ -184,11 +184,13 @@ const port = config.getExpressPort()
 app.use(
     cors({
         origin: ['http://localhost:8080', 'https://api.openpodcast.dev'],
-        credentials: true,
         methods: ['GET', 'POST', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
     })
 )
+
+// Remove X-Powered-By header for security
+app.disable('x-powered-by')
 
 // extract json payload from body automatically
 app.use(bodyParser.json({ limit: '5mb' }))
