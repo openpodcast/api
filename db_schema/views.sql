@@ -211,3 +211,58 @@ CREATE OR REPLACE VIEW spotifyEpisodeGenderStats AS
   FROM spotifyEpisodeAggregate
   WHERE spa_facet_type = 'age_sum'
   GROUP BY account_id,episode_id;
+
+
+
+-- list all podcasts that have outdated data
+CREATE OR REPLACE VIEW podcastMonitorOutdatedData AS
+WITH
+podcasts_spotify as (SELECT DISTINCT account_id FROM podcasts WHERE spotify_id IS NOT NULL AND monitored=1),
+podcasts_apple as (SELECT DISTINCT account_id FROM podcasts WHERE apple_id IS NOT NULL AND monitored=1),
+podcasts_anchor as (SELECT DISTINCT account_id FROM podcasts WHERE anchor_id IS NOT NULL AND monitored=1),
+podcasts_hoster as (SELECT DISTINCT account_id FROM podcasts WHERE podigee_id IS NOT NULL AND monitored=1),
+yesterday as (SELECT DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY) as day),
+
+problems as (
+
+SELECT CONCAT("no data in spotifyPodcastListeners on ",day) as problem, podcasts.account_id FROM
+podcasts_spotify as podcasts
+JOIN yesterday
+LEFT JOIN spotifyPodcastListeners spotify ON (podcasts.account_id = spotify.account_id AND day=spl_date)
+WHERE spl_date IS NULL
+
+union
+
+SELECT CONCAT("no data in appleTrendsPodcastFollowers on ",day) as problem, podcasts.account_id FROM
+podcasts_apple as podcasts
+JOIN yesterday
+LEFT JOIN appleTrendsPodcastFollowers apple ON (podcasts.account_id = apple.account_id AND day=atf_date)
+WHERE atf_date IS NULL
+
+union
+
+SELECT CONCAT("no data in anchorTotalPlays on ",day) as problem, podcasts.account_id FROM
+podcasts_anchor as podcasts
+JOIN yesterday
+LEFT JOIN anchorTotalPlays anchor ON (podcasts.account_id = anchor.account_id AND day=date)
+WHERE date IS NULL
+
+union 
+
+SELECT CONCAT("0 values for listeners in spotifyPodcastAgeBase on ",date) as problem, account_id
+FROM `spotifyPodcastAgeBase` 
+WHERE `spotifyPodcastAgeBase`.`date` >= DATE_SUB(NOW(), INTERVAL 1 week)
+GROUP BY account_id, date
+having SUM(`spotifyPodcastAgeBase`.`listeners`) = 0 AND account_id = 2
+
+union
+
+SELECT CONCAT("no data in hosterPodcastMetrics on ",day) as problem, podcasts.account_id FROM
+podcasts_hoster as podcasts
+JOIN yesterday
+LEFT JOIN hosterPodcastMetrics hoster ON (podcasts.account_id = hoster.account_id AND `start` = day AND `end` = day)
+WHERE `start` IS NULL
+
+)
+
+SELECT account_id, pod_name, problem FROM problems JOIN podcasts USING (account_id);
