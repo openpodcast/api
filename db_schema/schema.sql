@@ -707,7 +707,6 @@ CREATE TABLE IF NOT EXISTS anchorPodcastEpisodes (
   share_link_embed_path VARCHAR(512) NOT NULL,
   ad_count INTEGER NOT NULL,
   created DATETIME NOT NULL,
-  publishOn DATETIME,
   duration BIGINT NOT NULL,
   hour_offset INTEGER NOT NULL,
   is_deleted BOOLEAN NOT NULL,
@@ -765,9 +764,7 @@ CREATE TABLE IF NOT EXISTS hosterPodcastMetrics (
     'downloads',
     'platforms',
     'clients',
-    'sources',
-    'listeners',
-    'subscribers'
+    'sources'
   ) NOT NULL,
   subdimension SMALLINT UNSIGNED NOT NULL,
   value INTEGER NOT NULL,
