@@ -146,3 +146,21 @@ export interface SpotifyImpressionsFunnelPayload {
         conversionPercent?: number
     }[]
 }
+
+// ---------------------------------------------------------------------------
+// Spotify GraphQL pipeline types (provider: spotify, spotify_graphql pipeline)
+// ---------------------------------------------------------------------------
+
+// Generic wrapper for all GraphQL payloads - the actual shape is deeply nested
+// GraphQL-specific, so we use 'any' for the inner structure.
+
+export interface SpotifyGraphQLShowPayload {
+    showByShowUri: any
+}
+
+export interface SpotifyGraphQLEpisodePayload {
+    episodeByUri: any
+}
+
+// Union type that covers both shapes
+export type SpotifyGraphQLPayload = SpotifyGraphQLShowPayload | SpotifyGraphQLEpisodePayload

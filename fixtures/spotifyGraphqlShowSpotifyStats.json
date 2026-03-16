@@ -1,0 +1,92 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "showSpotifyStats"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "showByShowUri": {
+      "playsDaily": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "TimeSeriesValue",
+            "points": [
+              {
+                "date": "2026-03-10",
+                "value": {
+                  "__typename": "CountValueLong",
+                  "value": 0
+                }
+              }
+            ]
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "consumptionHoursTotal": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "ConsumptionValue",
+            "totalConsumptionHours": 0.0
+          }
+        }
+      },
+      "consumptionHoursDaily": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "TimeSeriesValue",
+            "points": [
+              {
+                "date": "2026-03-10",
+                "value": {
+                  "__typename": "ConsumptionValue",
+                  "backgroundMsPlayed": 0,
+                  "foregroundMsPlayed": 0,
+                  "totalConsumptionHours": 0.0
+                }
+              }
+            ]
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "followerGrowthTotal": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "SingleValueLong",
+            "value": 0
+          }
+        }
+      },
+      "followersDaily": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "TimeSeriesValue",
+            "points": []
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "followerGrowthDaily": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "TimeSeriesValue",
+            "points": []
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "uri": "spotify:show:0tJRC0UsObPCWLmmzmOkIs"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/showSpotifyStats.schema.json",
+    "title": "Spotify show daily plays, consumption, followers (GraphQL)",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}
