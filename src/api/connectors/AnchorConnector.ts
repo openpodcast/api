@@ -1,11 +1,12 @@
 import { ConnectorHandler } from '.'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { PayloadError } from '../../types/api'
+import { normalizeAnchorEpisodeId } from '../../utils/anchorId'
 import audienceSizeSchema from '../../schema/anchor/audienceSize.json'
 import aggregatedPerformanceSchema from '../../schema/anchor/aggregatedPerformance.json'
 import episodePerformanceSchema from '../../schema/anchor/episodePerformance.json'
 import episodePlaysSchema from '../../schema/anchor/episodePlays.json'
-import episodesPageSchema from '../../schema/anchor/episodesPage.json'
+
 import playsSchema from '../../schema/anchor/plays.json'
 import playsByAgeRangeSchema from '../../schema/anchor/playsByAgeRange.json'
 import playsByAppSchema from '../../schema/anchor/playsByApp.json'
@@ -36,7 +37,6 @@ import {
     RawAnchorTotalPlaysData,
     RawAnchorTotalPlaysByEpisodeData,
     RawAnchorUniqueListenersData,
-    RawAnchorEpisodesPageData,
 } from '../../types/provider/anchor'
 import { AnchorRepository } from '../../db/AnchorRepository'
 import { isArray } from 'mathjs'
@@ -80,6 +80,14 @@ class AnchorConnector implements ConnectorHandler {
         // We need to convert the ConnectorPayload to AnchorConnectorPayload
         const payload = rawPayload as AnchorConnectorPayload
 
+        // Normalize episode ID from meta.episode to Spotify base62 format.
+        // If not set, keep old format (normalizeAnchorEpisodeId returns undefined).
+        const normalizedEpisodeId = normalizeAnchorEpisodeId(
+            payload.meta.episode
+        )
+        // Use normalized ID if available, otherwise fall back to original
+        const episodeId = normalizedEpisodeId ?? payload.meta.episode
+
         if (endpoint == 'audienceSize') {
             // The schema ensures that we only have one row
             validateJsonApiPayload(audienceSizeSchema, rawPayload)
@@ -94,7 +102,7 @@ class AnchorConnector implements ConnectorHandler {
             )
         } else if (endpoint == 'aggregatedPerformance') {
             validateJsonApiPayload(aggregatedPerformanceSchema, rawPayload)
-            if (payload.meta.episode === undefined) {
+            if (episodeId === undefined) {
                 throw new PayloadError('missing episode id')
             }
             if (!isDataPayload(payload.data)) {
@@ -103,17 +111,16 @@ class AnchorConnector implements ConnectorHandler {
 
             await this.repo.storeAggregatedPerformance(
                 accountId,
-                payload.meta.episode,
+                episodeId,
                 payload.data.data as RawAnchorAggregatedPerformanceData
             )
         } else if (endpoint == 'episodesPage') {
-            validateJsonApiPayload(episodesPageSchema, rawPayload)
-            const data = payload.data as RawAnchorEpisodesPageData[]
-            // episodeId and webEpisodeId are part of the `data` payload
-            await this.repo.storeEpisodesPage(accountId, data)
+            // episodesPage is deprecated - the mapping table is no longer needed
+            // Accept the payload but don't store it
+            return
         } else if (endpoint == 'episodePerformance') {
             validateJsonApiPayload(episodePerformanceSchema, rawPayload)
-            if (payload.meta.episode === undefined) {
+            if (episodeId === undefined) {
                 throw new PayloadError('missing episode id')
             }
             if (!isDataPayload(payload.data)) {
@@ -121,12 +128,12 @@ class AnchorConnector implements ConnectorHandler {
             }
             await this.repo.storeEpisodePerformance(
                 accountId,
-                payload.meta.episode,
+                episodeId,
                 payload.data.data as RawAnchorEpisodePerformanceData
             )
         } else if (endpoint == 'episodePlays') {
             validateJsonApiPayload(episodePlaysSchema, rawPayload)
-            if (payload.meta.episode === undefined) {
+            if (episodeId === undefined) {
                 throw new PayloadError('missing episode id')
             }
             if (!isDataPayload(payload.data)) {
@@ -134,7 +141,7 @@ class AnchorConnector implements ConnectorHandler {
             }
             await this.repo.storeEpisodePlays(
                 accountId,
-                payload.meta.episode,
+                episodeId,
                 payload.data.data as RawAnchorPlaysByEpisodeData
             )
         } else if (endpoint == 'plays') {

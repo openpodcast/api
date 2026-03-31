@@ -240,7 +240,6 @@ export interface AnchorConnectorPayload {
 type AnchorConnectorPayloadData =
     | (AnchorDataPayload & { stationId: string })
     | RawAnchorPodcastData
-    | RawAnchorEpisodesPageData[]
 
 export interface RawAnchorEpisodeData {
     adCount: number

@@ -29,7 +29,6 @@ BEGIN
   DELETE FROM openpodcast.appleTrendsPodcastListeners WHERE account_id = p_account_id;
   DELETE FROM openpodcast.appleTrendsPodcastListeningTimeFollowerState WHERE account_id = p_account_id;
   DELETE FROM openpodcast.appleTrendsPodcastFollowers WHERE account_id = p_account_id;
-  DELETE FROM openpodcast.anchorEpisodesPage WHERE account_id = p_account_id;
   DELETE FROM openpodcast.anchorAudienceSize WHERE account_id = p_account_id;
   DELETE FROM openpodcast.anchorAggregatedPerformance WHERE account_id = p_account_id;
   DELETE FROM openpodcast.anchorEpisodePerformance WHERE account_id = p_account_id;

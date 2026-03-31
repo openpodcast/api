@@ -1,12 +1,10 @@
 SELECT
     a.account_id,
     a.date,
-    e.web_episode_id as episode_id,
+    a.episode_id,
     a.plays
 FROM
     anchorTotalPlaysByEpisode AS a
-JOIN 
-    anchorEpisodesPage e ON a.account_id = e.account_id AND a.episode_id = e.episode_id
 WHERE
     a.account_id = @podcast_id
 
