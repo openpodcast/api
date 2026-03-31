@@ -707,6 +707,7 @@ CREATE TABLE IF NOT EXISTS anchorPodcastEpisodes (
   share_link_embed_path VARCHAR(512) NOT NULL,
   ad_count INTEGER NOT NULL,
   created DATETIME NOT NULL,
+  publishOn DATETIME DEFAULT NULL,  
   duration BIGINT NOT NULL,
   hour_offset INTEGER NOT NULL,
   is_deleted BOOLEAN NOT NULL,
