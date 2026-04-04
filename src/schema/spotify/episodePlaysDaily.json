@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/episodePlaysDaily.schema.json",
+    "title": "Spotify episode plays daily (GraphQL)",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}
