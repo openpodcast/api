@@ -1,22 +1,19 @@
-WITH last_date AS (
-    SELECT 
-        MAX(date) AS max_date
-    FROM 
-        anchorPlaysByGeo
-    WHERE
-        date >= @start
-        AND date <= @end
-        AND account_id = @podcast_id
-)
 SELECT
     a.account_id,
-    a.date,
+    MAX(a.date) as `date`,
     a.geo,
-    a.plays_percent
+    SUM(a.plays_percent * b.plays) / NULLIF(SUM(b.plays), 0) as plays_percent
 FROM
-    anchorPlaysByGeo AS a, last_date AS b
+    anchorPlaysByGeo a
+JOIN anchorPlays b
+    ON a.account_id = b.account_id
+    AND a.date = b.date
 WHERE
-    a.account_id = @podcast_id
-    AND a.date = b.max_date
+    a.date >= @start
+    AND a.date <= @end
+    AND a.account_id = @podcast_id
+GROUP BY
+    a.account_id,
+    a.geo
 ORDER BY 
-    a.date ASC;
+    plays_percent DESC;

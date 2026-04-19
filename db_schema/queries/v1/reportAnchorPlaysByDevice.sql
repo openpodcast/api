@@ -1,20 +1,17 @@
-WITH last_date AS (
-    SELECT
-        MAX(date) as last_date
-    FROM
-        anchorPlaysByDevice
-    WHERE
-        date >= @start
-        AND date <= @end
-        AND account_id = @podcast_id
-)
 SELECT 
-    account_id,
-    `date`,
-    device,
-    plays_percent
+    a.account_id,
+    MAX(a.date) as `date`,
+    a.device,
+    SUM(a.plays_percent * b.plays) / NULLIF(SUM(b.plays), 0) as plays_percent
 FROM
-    anchorPlaysByDevice
+    anchorPlaysByDevice a
+JOIN anchorPlays b
+    ON a.account_id = b.account_id
+    AND a.date = b.date
 WHERE
-    date = (SELECT last_date FROM last_date)
-    AND account_id = @podcast_id
+    a.date >= @start
+    AND a.date <= @end
+    AND a.account_id = @podcast_id
+GROUP BY
+    a.account_id,
+    a.device
