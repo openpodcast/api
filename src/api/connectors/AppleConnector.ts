@@ -53,6 +53,20 @@ class AppleConnector implements ConnectorHandler {
                 throw new PayloadError('missing episode id')
             }
 
+            const rawEpisodeDetails = payload.data as {
+                episodePlayCountAllTime?: Record<string, unknown>
+            }
+
+            // Apple can return an empty object while metrics are not yet available.
+            // Accept the payload, but skip persistence to avoid storing invalid values.
+            if (
+                rawEpisodeDetails.episodePlayCountAllTime !== undefined &&
+                Object.keys(rawEpisodeDetails.episodePlayCountAllTime)
+                    .length === 0
+            ) {
+                return
+            }
+
             return await this.repo.storeEpisodeDetails(
                 accountId,
                 payload.meta.episode,

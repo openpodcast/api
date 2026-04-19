@@ -1,105 +1,109 @@
 {
-  "$id": "http://openpodcast.dev/schema/apple/episodeDetails.schema.json",
-  "title": "Performance details of one episode all time",
-  "type": "object",
-  "properties": {
-    "episodePlayCountAllTime": {
-      "type": "object",
-      "properties": {
-        "episodeid": {
-          "type": "string",
-          "default": "unknown"
+    "$id": "http://openpodcast.dev/schema/apple/episodeDetails.schema.json",
+    "title": "Performance details of one episode all time",
+    "type": "object",
+    "properties": {
+        "episodePlayCountAllTime": {
+            "type": "object",
+            "oneOf": [
+                {
+                    "maxProperties": 0
+                },
+                {
+                    "properties": {
+                        "episodeid": {
+                            "type": "string",
+                            "default": "unknown"
+                        },
+                        "followstate": {
+                            "type": "string",
+                            "default": "unknown"
+                        },
+                        "playscount": {
+                            "type": "number",
+                            "default": 0
+                        },
+                        "podcastid": {
+                            "type": "string",
+                            "default": "unknown"
+                        },
+                        "totaltimelistened": {
+                            "type": "number",
+                            "default": 0
+                        },
+                        "uniqueengagedlistenerscount": {
+                            "type": "number",
+                            "default": 0
+                        },
+                        "uniquelistenerscount": {
+                            "type": "number",
+                            "default": 0
+                        },
+                        "engagedplayscount": {
+                            "type": "number",
+                            "default": 0
+                        }
+                    },
+                    "required": [
+                        "episodeid",
+                        "playscount",
+                        "podcastid",
+                        "totaltimelistened",
+                        "uniqueengagedlistenerscount",
+                        "uniquelistenerscount",
+                        "engagedplayscount"
+                    ],
+                    "additionalProperties": false
+                }
+            ]
         },
-        "followstate": {
-          "type": "string",
-          "default": "unknown"
-        },
-        "playscount": {
-          "type": "number",
-          "default": 0
-        },
-        "podcastid": {
-          "type": "string",
-          "default": "unknown"
-        },
-        "totaltimelistened": {
-          "type": "number",
-          "default": 0
-        },
-        "uniqueengagedlistenerscount": {
-          "type": "number",
-          "default": 0
-        },
-        "uniquelistenerscount": {
-          "type": "number",
-          "default": 0
-        },
-        "engagedplayscount": {
-          "type": "number",
-          "default": 0
-        }
-      },
-      "required": [
-        "episodeid",
-        "playscount",
-        "podcastid",
-        "totaltimelistened",
-        "uniqueengagedlistenerscount",
-        "uniquelistenerscount",
-        "engagedplayscount"
-      ]
-    },
-    "episodePlayHistogram": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "patternProperties": {
-          "^[0-9]*$": {
-            "type": "number"
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "showTopCities": {
-      "type": "object",
-      "patternProperties": {
-        "^[0-9]*$": {
-          "type": "object",
-          "properties": {
-            "latestValue": {
-              "type": "number"
+        "episodePlayHistogram": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "patternProperties": {
+                    "^[0-9]*$": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false
             }
-          },
-          "required": [
-            "latestValue"
-          ]
+        },
+        "showTopCities": {
+            "type": "object",
+            "patternProperties": {
+                "^[0-9]*$": {
+                    "type": "object",
+                    "properties": {
+                        "latestValue": {
+                            "type": "number"
+                        }
+                    },
+                    "required": ["latestValue"]
+                }
+            },
+            "additionalProperties": false
+        },
+        "showTopCountries": {
+            "type": "object",
+            "patternProperties": {
+                "^[0-9]*$": {
+                    "type": "object",
+                    "properties": {
+                        "latestValue": {
+                            "type": "number"
+                        }
+                    },
+                    "required": ["latestValue"]
+                }
+            },
+            "additionalProperties": false
         }
-      },
-      "additionalProperties": false
     },
-    "showTopCountries": {
-      "type": "object",
-      "patternProperties": {
-        "^[0-9]*$": {
-          "type": "object",
-          "properties": {
-            "latestValue": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "latestValue"
-          ]
-        }
-      },
-      "additionalProperties": false
-    }
-  },
-  "required": [
-    "episodePlayCountAllTime",
-    "episodePlayHistogram",
-    "showTopCities",
-    "showTopCountries"
-  ]
+    "required": [
+        "episodePlayCountAllTime",
+        "episodePlayHistogram",
+        "showTopCities",
+        "showTopCountries"
+    ]
 }
