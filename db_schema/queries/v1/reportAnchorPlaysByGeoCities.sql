@@ -1,7 +1,7 @@
 WITH top_country AS (
     SELECT
         a.geo as country,
-        SUM(a.plays_percent * b.plays) / SUM(b.plays) as plays_percent
+        SUM(a.plays_percent * b.plays) / NULLIF(SUM(b.plays), 0) as plays_percent
     FROM
         anchorPlaysByGeo a
     JOIN anchorPlays b
@@ -22,7 +22,7 @@ SELECT
     MAX(a.date) as `date`,
     a.country,
     a.city,
-    SUM(a.plays_percent * b.plays) / SUM(b.plays) as plays_percent
+    SUM(a.plays_percent * b.plays) / NULLIF(SUM(b.plays), 0) as plays_percent
 FROM
     anchorPlaysByGeoCity a
 JOIN anchorPlays b
