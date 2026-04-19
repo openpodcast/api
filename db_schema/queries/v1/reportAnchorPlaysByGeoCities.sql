@@ -1,34 +1,40 @@
-WITH last_date AS (
-    SELECT 
-        MAX(date) AS max_date
-    FROM 
-        anchorPlaysByGeoCity
-    WHERE
-        date >= @start
-        AND date <= @end
-        AND account_id = @podcast_id
-),
-top_country AS (
+WITH top_country AS (
     SELECT
-        geo as country
+        a.geo as country,
+        SUM(a.plays_percent * b.plays) / SUM(b.plays) as plays_percent
     FROM
-        anchorPlaysByGeo
+        anchorPlaysByGeo a
+    JOIN anchorPlays b
+        ON a.account_id = b.account_id
+        AND a.date = b.date
     WHERE
-        date = (SELECT max_date FROM last_date)
-        AND account_id = @podcast_id
+        a.date >= @start
+        AND a.date <= @end
+        AND a.account_id = @podcast_id
+    GROUP BY
+        a.account_id,
+        a.geo
     ORDER BY plays_percent DESC
     LIMIT 1
 )
 SELECT
-    account_id,
-    `date`,
-    country,
-    city,
-    plays_percent
+    a.account_id,
+    MAX(a.date) as `date`,
+    a.country,
+    a.city,
+    SUM(a.plays_percent * b.plays) / SUM(b.plays) as plays_percent
 FROM
-    anchorPlaysByGeoCity
+    anchorPlaysByGeoCity a
+JOIN anchorPlays b
+    ON a.account_id = b.account_id
+    AND a.date = b.date
 WHERE
-    date = (SELECT max_date FROM last_date)
-    AND account_id = @podcast_id
-    AND country = (SELECT country FROM top_country)
+    a.date >= @start
+    AND a.date <= @end
+    AND a.account_id = @podcast_id
+    AND a.country = (SELECT country FROM top_country)
+GROUP BY
+    a.account_id,
+    a.country,
+    a.city
 ORDER BY plays_percent DESC;

@@ -1,20 +1,17 @@
-WITH last_date AS (
-    SELECT
-        MAX(date) as last_date
-    FROM
-        anchorPlaysByAgeRange
-    WHERE
-        date >= @start
-        AND date <= @end
-        AND account_id = @podcast_id
-)
 SELECT 
-    account_id,
-    `date`,
-    age_range,
-    plays_percent
+    a.account_id,
+    MAX(a.date) as `date`,
+    a.age_range,
+    SUM(a.plays_percent * b.plays) / SUM(b.plays) as plays_percent
 FROM
-    anchorPlaysByAgeRange
+    anchorPlaysByAgeRange a
+JOIN anchorPlays b
+    ON a.account_id = b.account_id
+    AND a.date = b.date
 WHERE
-    date = (SELECT last_date FROM last_date)
-    AND account_id = @podcast_id
+    a.date >= @start
+    AND a.date <= @end
+    AND a.account_id = @podcast_id
+GROUP BY
+    a.account_id,
+    a.age_range
