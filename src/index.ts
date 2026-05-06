@@ -264,6 +264,22 @@ const userHashMiddleware = (
     next()
 }
 
+const renderFeedbackForm = async (
+    res: Response,
+    episodeId: string,
+    status = 200,
+    values: { email?: string; comment?: string } = {},
+    formError?: string
+) => {
+    const numberOfComments = await feedbackApi.getNumberOfComments(episodeId)
+    res.status(status).render('feedback.hbs', {
+        episodeId,
+        numberOfComments,
+        values,
+        formError,
+    })
+}
+
 app.get(
     '/feedback/:episodeId/:feedbackType',
     userHashMiddleware,
@@ -277,10 +293,7 @@ app.get(
                 req.headers.agent as string,
                 feedbackType
             )
-            const numberOfComments = await feedbackApi.getNumberOfComments(
-                episodeId
-            )
-            res.render('feedback.hbs', { episodeId, numberOfComments })
+            await renderFeedbackForm(res, episodeId)
         } catch (err) {
             next(err)
         }
@@ -454,18 +467,29 @@ app.post(
     async (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
+            if (req.is('application/json')) {
+                return res.status(400).json({ errors: errors.array() })
+            }
+
+            return await renderFeedbackForm(
+                res,
+                req.params.episodeId,
+                400,
+                {
+                    email: req.body.email,
+                    comment: req.body.comment,
+                },
+                'Please enter a valid email address and a comment between 3 and 1000 characters.'
+            )
         }
 
         const episodeId = req.params.episodeId
         try {
-            const comment = req.body.email
-                ? `${req.body.email}: ${req.body.comment}`
-                : req.body.comment
             await feedbackApi.handleCommentPost(
                 episodeId,
                 req.headers.userHash as string,
-                comment
+                req.body.comment,
+                req.body.email
             )
 
             res.render('comment.hbs')
@@ -569,7 +593,11 @@ app.use(function (
     res.status(status)
 
     // Provide more specific error messages for common HTTP status codes
-    if (status === 401) {
+    if (status === 400) {
+        res.send(
+            `Invalid request. ${err.message.replace(` - Tracing ID: ${tracingId}`, '')} (${tracingId})`
+        )
+    } else if (status === 401) {
         res.send(
             `Authentication required. Please provide a valid API token. (${tracingId})`
         )
