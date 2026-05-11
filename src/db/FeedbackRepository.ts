@@ -5,14 +5,16 @@ class FeedbackRepository {
         accountId: number,
         episodeId: number,
         hash: string,
-        comment: string
+        comment: string,
+        email?: string
     ) {
         const query = `INSERT INTO feedbackComment (account_id, episode_id, user_hash, comment) VALUES (?, ?, ?, ?)`
+        const commentWithEmail = email ? `${email}: ${comment}` : comment
         return await this.pool.query(query, [
             accountId,
             episodeId,
             hash,
-            comment,
+            commentWithEmail,
         ])
     }
     pool: Pool
@@ -28,7 +30,11 @@ class FeedbackRepository {
         agent: string,
         vote: boolean
     ): Promise<any> {
-        const query = `REPLACE INTO feedbackVote (account_id, episode_id, user_hash, agent, vote) VALUES (?, ?, ?, ?, ?)`
+        const query = `
+            INSERT INTO feedbackVote (account_id, episode_id, user_hash, agent, vote)
+            VALUES (?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE agent = VALUES(agent), vote = VALUES(vote)
+        `
         return await this.pool.query(query, [
             accountId,
             episodeId,
