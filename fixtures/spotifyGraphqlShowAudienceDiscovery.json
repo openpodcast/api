@@ -1,0 +1,66 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "showAudienceDiscovery"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "showByShowUri": {
+      "impressionsFunnel": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "FunnelValue",
+            "steps": [
+              {
+                "conversionRate": 0.0,
+                "count": 0,
+                "displayName": "Reached",
+                "displayNameFull": "People you reached",
+                "stepName": "impressions"
+              }
+            ]
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "audienceSize": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "SingleValueLong",
+            "value": 0
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "audienceFollowRate": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "PercentageValueFloat",
+            "value": 0.0
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "consumptionHoursPerPerson": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "PercentageValueFloat",
+            "value": 0.0
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "uri": "spotify:show:0tJRC0UsObPCWLmmzmOkIs"
+    }
+  }
+}

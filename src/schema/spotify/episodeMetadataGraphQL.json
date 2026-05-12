@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/episodeMetadataGraphQL.schema.json",
+    "title": "Spotify episode metadata from GraphQL pipeline",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}

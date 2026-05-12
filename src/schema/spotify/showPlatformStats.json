@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/showPlatformStats.schema.json",
+    "title": "Spotify show platform stats (GraphQL)",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}

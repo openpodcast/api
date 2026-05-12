@@ -1,0 +1,35 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "episodeMetadata",
+    "episode": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "episodeByUri": {
+      "contentType": "EPISODE_CONTENT_TYPE_AUDIO",
+      "coverArt": {
+        "large": {
+          "url": "https://example.com/large.jpg"
+        },
+        "small": {
+          "url": "https://example.com/small.jpg"
+        }
+      },
+      "publishedOn": {
+        "seconds": 1773381600
+      },
+      "thumbnail": {
+        "images": []
+      },
+      "title": "Ep. 139: Example Episode",
+      "uri": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+    }
+  }
+}
