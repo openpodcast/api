@@ -1,6 +1,14 @@
 import { StatusRepository } from '../db/StatusRepository'
 import { StatusPayload } from '../types/api'
 
+// An alert that is intentionally muted, identified by the podcast (account id)
+// and the endpoint identifier in the `provider/endpoint` format used by
+// `getStatus` (e.g. `anchor/playsByGender`).
+export type MutedAlert = {
+    podcastId: number
+    endpoint: string
+}
+
 class StatusApi {
     statusRepo: StatusRepository
 
@@ -15,6 +23,10 @@ class StatusApi {
 
     // checks all dates and create yellow and red alerts if too old
     // returns an object with the alerts if there are any
+    //
+    // `mutedAlerts` lists podcast/endpoint combinations that should never
+    // generate an alert, e.g. for podcasts that only report a given endpoint
+    // sporadically and would otherwise produce noisy false positives.
     getAgeAlerts(
         statusData: {
             [podcastId: number]: {
@@ -22,7 +34,8 @@ class StatusApi {
             }
         },
         yellowAgeHours: number,
-        redAgeHours: number
+        redAgeHours: number,
+        mutedAlerts: MutedAlert[] = []
     ) {
         type AlertData = {
             podcastId: number
@@ -36,6 +49,16 @@ class StatusApi {
             const podcastId = parseInt(podcastIdStr)
             Object.entries(podcastData.latestUpdates).forEach(
                 ([endpointName, endpointDate]) => {
+                    // skip alerts that have been explicitly muted for this
+                    // podcast/endpoint combination
+                    const isMuted = mutedAlerts.some(
+                        (muted) =>
+                            muted.podcastId === podcastId &&
+                            muted.endpoint === endpointName
+                    )
+                    if (isMuted) {
+                        return
+                    }
                     const ageHours = Math.round(
                         (new Date().getTime() -
                             new Date(endpointDate).getTime()) /

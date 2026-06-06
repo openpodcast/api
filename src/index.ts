@@ -27,6 +27,7 @@ import { FeedbackRepository } from './db/FeedbackRepository'
 import { FeedbackApi } from './api/FeedbackApi'
 import { StatusRepository } from './db/StatusRepository'
 import { StatusApi } from './api/StatusApi'
+import { MUTED_ALERTS } from './api/mutedAlerts'
 import crypto from 'crypto'
 import { body, validationResult } from 'express-validator'
 import { Config } from './config'
@@ -429,7 +430,8 @@ app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
         const alerts = statusApi.getAgeAlerts(
             status,
             yellowAgeHours,
-            redAgeHours
+            redAgeHours,
+            MUTED_ALERTS
         )
         // the key yellow or red is is only set if there is an alert
         // this allows the client to check for the existence of the keys yellow and red
