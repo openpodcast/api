@@ -11,6 +11,7 @@ const anchorPlaysByAgeRangePayload = require('../../fixtures/anchorPlaysByAgeRan
 const anchorPlaysByAppPayload = require('../../fixtures/anchorPlaysByApp.json')
 const anchorPlaysByDevicePayload = require('../../fixtures/anchorPlaysByDevice.json')
 const anchorPlaysByGenderPayload = require('../../fixtures/anchorPlaysByGender.json')
+const anchorPlaysByGenderEmptyPayload = require('../../fixtures/anchorPlaysByGenderEmpty.json')
 const anchorPlaysByGeoPayload = require('../../fixtures/anchorPlaysByGeo.json')
 const anchorPodcastEpisodePayload = require('../../fixtures/anchorPodcastEpisode.json')
 const anchorTotalPlaysPayload = require('../../fixtures/anchorTotalPlays.json')
@@ -166,6 +167,16 @@ describe('check Connector API with anchorPlaysByGenderPayload', () => {
             .post('/connector')
             .set(auth)
             .send(anchorPlaysByGenderPayload)
+        expect(response.statusCode).toBe(200)
+    })
+})
+
+describe('check Connector API with anchorPlaysByGenderEmptyPayload', () => {
+    it('should return status 200 when sending Anchor playsByGender payload with empty translationMapping and colors', async () => {
+        const response = await request(baseURL)
+            .post('/connector')
+            .set(auth)
+            .send(anchorPlaysByGenderEmptyPayload)
         expect(response.statusCode).toBe(200)
     })
 })
