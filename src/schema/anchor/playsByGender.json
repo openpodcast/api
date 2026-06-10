@@ -100,11 +100,18 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "Female",
-                "Male",
-                "Non-binary",
-                "Not specified"
+              "anyOf": [
+                {
+                  "maxProperties": 0
+                },
+                {
+                  "required": [
+                    "Female",
+                    "Male",
+                    "Non-binary",
+                    "Not specified"
+                  ]
+                }
               ]
             },
             "columnHeaders": {
@@ -141,11 +148,18 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "Male",
-                "Female",
-                "Not specified",
-                "Non-binary"
+              "anyOf": [
+                {
+                  "maxProperties": 0
+                },
+                {
+                  "required": [
+                    "Male",
+                    "Female",
+                    "Not specified",
+                    "Non-binary"
+                  ]
+                }
               ]
             }
           },

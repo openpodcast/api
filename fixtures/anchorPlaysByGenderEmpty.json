@@ -1,0 +1,35 @@
+{
+  "provider": "anchor",
+  "version": 1,
+  "retrieved": "2023-05-05T16:20:56.696026",
+  "meta": {
+    "show": "123abcde",
+    "endpoint": "playsByGender"
+  },
+  "range": {
+    "start": "2023-05-01",
+    "end": "2023-05-04"
+  },
+  "data": {
+    "stationId": 98765432,
+    "kind": "playsByGender",
+    "parameters": {
+      "timeRange": []
+    },
+    "data": {
+      "rows": [],
+      "columnHeaders": [
+        {
+          "name": "Gender",
+          "type": "string"
+        },
+        {
+          "name": "Percent of Plays",
+          "type": "number"
+        }
+      ],
+      "translationMapping": {},
+      "colors": {}
+    }
+  }
+}
