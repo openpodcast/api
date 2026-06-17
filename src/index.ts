@@ -42,6 +42,30 @@ import swaggerUi from 'swagger-ui-express'
 import { swaggerSpec } from './config/swagger'
 
 const config = new Config()
+const ERROR_LOG_ID_PATTERN = /^[a-f0-9]{32}$/
+const errorLogDir = config.getErrorLogDir()
+
+const sendEmptyPage = (res: Response) => {
+    res.status(200).send('')
+}
+
+const passwordsMatch = (
+    configuredPassword: string | undefined,
+    requestedPassword: string
+) => {
+    if (!configuredPassword) {
+        return false
+    }
+
+    const configuredBuffer = Buffer.from(configuredPassword)
+    const requestedBuffer = Buffer.from(requestedPassword)
+
+    if (configuredBuffer.length !== requestedBuffer.length) {
+        return false
+    }
+
+    return crypto.timingSafeEqual(configuredBuffer, requestedBuffer)
+}
 
 // Helper function to log error details to a file
 const logErrorToFile = (
@@ -51,9 +75,8 @@ const logErrorToFile = (
     err: Error
 ) => {
     try {
-        const tmpDir = '/tmp'
         const filename = `error_${tracingId}.json`
-        const filepath = path.join(tmpDir, filename)
+        const filepath = path.join(errorLogDir, filename)
 
         const errorLog = {
             tracingId,
@@ -80,9 +103,9 @@ const logErrorToFile = (
             user: res.locals?.user || null,
         }
 
-        // Ensure tmp directory exists
-        if (!fs.existsSync(tmpDir)) {
-            fs.mkdirSync(tmpDir, { recursive: true })
+        // Ensure error log directory exists
+        if (!fs.existsSync(errorLogDir)) {
+            fs.mkdirSync(errorLogDir, { recursive: true })
         }
 
         fs.writeFileSync(filepath, JSON.stringify(errorLog, null, 2))
@@ -199,6 +222,37 @@ app.use(express.static('public'))
 app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: false }))
+
+app.get('/errorlog/:password/:id', (req: Request, res: Response) => {
+    const password = req.params.password
+    const id = req.params.id
+
+    if (
+        !passwordsMatch(config.getErrorLogPassword(), password) ||
+        !ERROR_LOG_ID_PATTERN.test(id)
+    ) {
+        sendEmptyPage(res)
+        return
+    }
+
+    const filepath = path.join(errorLogDir, `error_${id}.json`)
+
+    if (!fs.existsSync(filepath)) {
+        sendEmptyPage(res)
+        return
+    }
+
+    res.setHeader('Content-Type', 'application/json; charset=utf-8')
+    res.sendFile(filepath, (err) => {
+        if (err && !res.headersSent) {
+            sendEmptyPage(res)
+        }
+    })
+})
+
+app.all('/errorlog*', (req: Request, res: Response) => {
+    sendEmptyPage(res)
+})
 
 // throw exception if not authorized
 app.use(unless(publicEndpoints, authController.getMiddleware()))

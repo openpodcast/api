@@ -85,6 +85,14 @@ class Config {
         return parseInt(portString || '8080', 10)
     }
 
+    getErrorLogPassword(): string | undefined {
+        return this.readStringFromEnvOrFile('ERROR_LOG_PASSWORD', undefined)
+    }
+
+    getErrorLogDir(): string {
+        return this.readStringFromEnvOrFile('ERROR_LOG_DIR', '/tmp') as string
+    }
+
     /**
      * Get the MySQL connection string for a database defined in the environment variables
      *
