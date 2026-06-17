@@ -45,8 +45,9 @@ const config = new Config()
 const ERROR_LOG_ID_PATTERN = /^[a-f0-9]{32}$/
 const errorLogDir = config.getErrorLogDir()
 
-const sendEmptyPage = (res: Response) => {
-    res.status(200).send('')
+const sendErrorLogResponse = (res: Response, status: number) => {
+    const message = status === 401 ? 'not authenticated' : 'not found'
+    res.status(status).send(message)
 }
 
 const passwordsMatch = (
@@ -228,30 +229,34 @@ app.get('/errorlog/:password/:id', (req: Request, res: Response) => {
     const id = req.params.id
 
     if (
-        !passwordsMatch(config.getErrorLogPassword(), password) ||
-        !ERROR_LOG_ID_PATTERN.test(id)
+        !passwordsMatch(config.getErrorLogPassword(), password)
     ) {
-        sendEmptyPage(res)
+        sendErrorLogResponse(res, 401)
+        return
+    }
+
+    if (!ERROR_LOG_ID_PATTERN.test(id)) {
+        sendErrorLogResponse(res, 404)
         return
     }
 
     const filepath = path.join(errorLogDir, `error_${id}.json`)
 
     if (!fs.existsSync(filepath)) {
-        sendEmptyPage(res)
+        sendErrorLogResponse(res, 404)
         return
     }
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8')
     res.sendFile(filepath, (err) => {
         if (err && !res.headersSent) {
-            sendEmptyPage(res)
+            sendErrorLogResponse(res, 404)
         }
     })
 })
 
 app.all('/errorlog*', (req: Request, res: Response) => {
-    sendEmptyPage(res)
+    sendErrorLogResponse(res, 404)
 })
 
 // throw exception if not authorized
