@@ -1,0 +1,57 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "episodePerformanceAllTime",
+    "episode": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "episodeByUri": {
+      "episodePerformanceTotalAllTime": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "PerformanceValue",
+            "medianCompletionSeconds": 72,
+            "percentiles": [
+              {
+                "audiencePercentage": 50.0,
+                "completionPercentage": 25
+              },
+              {
+                "audiencePercentage": 25.0,
+                "completionPercentage": 50
+              },
+              {
+                "audiencePercentage": 13.0,
+                "completionPercentage": 75
+              },
+              {
+                "audiencePercentage": 13.0,
+                "completionPercentage": 100
+              }
+            ],
+            "points": [
+              {
+                "sampleCount": 8,
+                "second": 0
+              },
+              {
+                "sampleCount": 8,
+                "second": 1
+              }
+            ]
+          }
+        },
+        "endDate": "",
+        "startDate": ""
+      },
+      "uri": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+    }
+  }
+}

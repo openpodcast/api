@@ -1,0 +1,33 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "episodeConsumptionAllTime",
+    "episode": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "episodeByUri": {
+      "episodeConsumptionAllTime": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "ConsumptionValue",
+            "backgroundMsPlayed": 0,
+            "foregroundConsumptionHours": 0.0,
+            "foregroundConsumptionPercent": 0.0,
+            "foregroundMsPlayed": 0,
+            "totalConsumptionHours": 3.62
+          }
+        },
+        "endDate": "",
+        "startDate": ""
+      },
+      "uri": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+    }
+  }
+}
