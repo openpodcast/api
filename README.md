@@ -88,3 +88,28 @@ make test-one-e2e-"should return not be authenticated with random token"
 - `make up-db` starts the db and inits basic auth related tables
 - `make dev` starts the dev server which also creates the tables using migrations
 - to finalize the auth data run `make init-auth-db` which creates the auth structures
+
+#### Adding API Keys
+
+To add new API keys to the development database:
+
+**Using npm:**
+```bash
+npm run insert-api-key <api-key> <account-id>
+```
+
+**Using make:**
+```bash
+make insert-api-key API_KEY=<api-key> ACCOUNT_ID=<account-id>
+```
+
+**Examples:**
+```bash
+npm run insert-api-key dummy-cn389ncoiwuencr 3
+make insert-api-key API_KEY=dummy-cn389ncoiwuencr ACCOUNT_ID=3
+```
+
+The script will:
+- Hash the API key using SHA256 (matching the existing authentication system)
+- Insert it into the `openpodcast_auth.apiKeys` table
+- Associate it with the specified account ID
