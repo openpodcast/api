@@ -1,14 +1,14 @@
-// @ts-nocheck
-
 import {
     calcApplePodcastPerformanceQuarters,
     removeLongtailFromPerformanceData,
 } from './performance'
 
-const buildTestStructure = function (arr) {
+const buildTestStructure = function (
+    arr: number[]
+): { [seconds: string]: number }[] {
     let counter = 0
     return arr.map((v) => {
-        const ret = {}
+        const ret: { [seconds: string]: number } = {}
         ret[String(++counter)] = v
         return ret
     })
@@ -70,7 +70,7 @@ describe('remove longtail from performance data', () => {
 
     // Test with empty data
     it('empty data', () => {
-        const testdata = []
+        const testdata: number[] = []
         const res = removeLongtailFromPerformanceData(testdata, 0.05)
         expect(res.maxListeners).toBe(0)
         expect(res.performanceValues).toStrictEqual([])

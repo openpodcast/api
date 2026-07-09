@@ -3,7 +3,7 @@ export interface JsonPayload {
     meta?: {
         endpoint?: string
     }
-    data?: Object
+    data?: unknown
     provider?: string
 }
 
@@ -23,5 +23,5 @@ export class AuthError extends HttpError {
 export interface StatusPayload {
     provider: string
     endpoint: string
-    data: Object
+    data: unknown
 }
