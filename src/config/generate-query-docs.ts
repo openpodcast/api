@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { getTwoDaysAgo } from './swagger'
+import { getQueryDataSchema, getQueryResponseExample } from './query-examples'
 
 /**
  * Generates OpenAPI documentation for SQL query endpoints
@@ -8,6 +9,13 @@ import { getTwoDaysAgo } from './swagger'
  */
 
 const QUERIES_DIR = path.join(__dirname, '../../db_schema/queries/v1')
+
+type QueryDoc = {
+    name: string
+    category: string
+    description: string
+    path: string
+}
 
 // Category mappings based on query name patterns
 const categorizeQuery = (queryName: string): string => {
@@ -45,8 +53,8 @@ const extractDescription = (sqlContent: string): string => {
     return commentLines.join('<br>') || 'Analytics query endpoint'
 }
 
-export const generateQueryDocs = () => {
-    const queries: any[] = []
+export const generateQueryDocs = (): QueryDoc[] => {
+    const queries: QueryDoc[] = []
 
     if (!fs.existsSync(QUERIES_DIR)) {
         console.warn(`Queries directory not found: ${QUERIES_DIR}`)
@@ -85,16 +93,23 @@ export const generateQueryDocs = () => {
 // Generate OpenAPI paths object for all queries
 export const generateQueryPaths = () => {
     const queries = generateQueryDocs()
-    const paths: any = {}
+    const paths: Record<string, unknown> = {}
 
     // Group by category for better organization
     const byCategory = queries.reduce((acc, q) => {
         if (!acc[q.category]) acc[q.category] = []
         acc[q.category].push(q)
         return acc
-    }, {} as Record<string, typeof queries>)
+    }, {} as Record<string, QueryDoc[]>)
 
     for (const query of queries) {
+        const exampleDate = getTwoDaysAgo()
+        const responseExample = getQueryResponseExample(
+            query.name,
+            exampleDate,
+            exampleDate
+        )
+
         paths[query.path] = {
             get: {
                 summary: query.name,
@@ -115,7 +130,7 @@ export const generateQueryPaths = () => {
                         schema: {
                             type: 'string',
                             format: 'date',
-                            example: getTwoDaysAgo(),
+                            example: exampleDate,
                         },
                         description: 'Start date (YYYY-MM-DD)',
                     },
@@ -126,7 +141,7 @@ export const generateQueryPaths = () => {
                         schema: {
                             type: 'string',
                             format: 'date',
-                            example: getTwoDaysAgo(),
+                            example: exampleDate,
                         },
                         description: 'End date (YYYY-MM-DD)',
                     },
@@ -144,7 +159,9 @@ export const generateQueryPaths = () => {
                                             type: 'object',
                                             properties: {
                                                 query: { type: 'string' },
+                                                accountId: { type: 'string' },
                                                 podcastId: { type: 'string' },
+                                                date: { type: 'string' },
                                                 startDate: {
                                                     type: 'string',
                                                     format: 'date',
@@ -153,14 +170,15 @@ export const generateQueryPaths = () => {
                                                     type: 'string',
                                                     format: 'date',
                                                 },
+                                                result: { type: 'string' },
                                             },
                                         },
-                                        data: {
-                                            type: 'array',
-                                            items: { type: 'object' },
-                                        },
+                                        data: getQueryDataSchema(query.name),
                                     },
                                 },
+                                ...(responseExample
+                                    ? { example: responseExample }
+                                    : {}),
                             },
                         },
                     },
