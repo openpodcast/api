@@ -649,7 +649,10 @@ app.use(function (
     // Provide more specific error messages for common HTTP status codes
     if (status === 400) {
         res.send(
-            `Invalid request. ${err.message.replace(` - Tracing ID: ${tracingId}`, '')} (${tracingId})`
+            `Invalid request. ${err.message.replace(
+                ` - Tracing ID: ${tracingId}`,
+                ''
+            )} (${tracingId})`
         )
     } else if (status === 401) {
         res.send(
