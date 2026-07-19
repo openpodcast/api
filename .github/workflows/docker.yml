@@ -95,6 +95,12 @@ jobs:
                       BUILD_TIME=${{ steps.get_build_time.outputs.build_time }}
                       COMMIT_HASH=${{ github.sha }}
 
+            - name: Trigger deployment update
+              if: github.event_name != 'pull_request' && github.actor != 'dependabot[bot]'
+              env:
+                  AUTOUPDATER_URL: ${{ secrets.AUTOUPDATER_URL }}
+              run: curl --fail --silent --show-error --retry 3 "$AUTOUPDATER_URL"
+
             - name: Update DockerHub description
               uses: peter-evans/dockerhub-description@v3
               with:
