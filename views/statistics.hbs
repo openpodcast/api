@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Open Podcast Status</title>
+    <title>Open Podcast Import Activity</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
@@ -23,16 +23,23 @@
 
         .hero {
             border-radius: 8px;
-            background: #2da44e;
+            background: #1f2937;
             color: #fff;
             font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 36px;
+            margin-bottom: 14px;
             padding: 18px 24px;
         }
 
         .hero-icon {
             margin-right: 8px;
+        }
+
+        .intro {
+            color: #4b5563;
+            line-height: 1.5;
+            margin: 0 0 36px;
+            max-width: 780px;
         }
 
         .heading-row {
@@ -90,25 +97,15 @@
             word-break: break-word;
         }
 
-        .status-dot {
-            align-items: center;
+        .freshness-pill {
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
             border-radius: 999px;
-            color: #fff;
-            display: inline-flex;
+            color: #3730a3;
             flex: 0 0 auto;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            height: 28px;
-            justify-content: center;
-            width: 28px;
-        }
-
-        .status-dot.operational {
-            background: #2da44e;
-        }
-
-        .status-dot.degraded {
-            background: #bf8700;
+            padding: 5px 10px;
         }
 
         .daily-bars {
@@ -118,18 +115,16 @@
         }
 
         .daily-bar {
-            background: #8ddb9a;
+            background: #d1d5db;
             border-radius: 3px;
             flex: 1 1 0;
             height: 42px;
             min-width: 2px;
         }
 
-        .daily-bar.degraded {
-            background: #d4a72c;
+        .daily-bar.has-updates {
+            background: #2da44e;
         }
-
-
 
         .stats-row {
             align-items: center;
@@ -141,44 +136,14 @@
             margin-bottom: 16px;
         }
 
-        .failed-podcasts {
+        .note {
             background: #f9fafb;
             border: 1px solid #e5e7eb;
             border-radius: 6px;
+            color: #4b5563;
+            font-size: 0.92rem;
+            line-height: 1.45;
             padding: 12px;
-        }
-
-        .failed-title {
-            color: #374151;
-            font-size: 0.82rem;
-            font-weight: 700;
-            letter-spacing: 0.02em;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .podcast-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 0;
-            padding: 0;
-        }
-
-        .podcast-list li {
-            background: #fff;
-            border: 1px solid #d1d5db;
-            border-radius: 999px;
-            color: #374151;
-            display: inline-flex;
-            font-size: 0.88rem;
-            list-style: none;
-            padding: 5px 10px;
-        }
-
-        .empty-state {
-            color: #6b7280;
-            font-size: 0.95rem;
         }
 
         @media (max-width: 760px) {
@@ -221,18 +186,23 @@
 <body>
     <main class="page">
         <section class="hero" aria-live="polite">
-            <span class="hero-icon">✓</span>Import status
+            <span class="hero-icon">↻</span>Import activity
         </section>
 
+        <p class="intro">
+            This page shows what the API can verify today: successful import updates recorded by provider and endpoint.
+            It does not show failed pipeline runs or missing expected runs yet, because those events are not reported to the API.
+        </p>
+
         <div class="heading-row">
-            <h1>Current Status: Open Podcast Imports</h1>
+            <h1>Open Podcast Imports</h1>
             <div class="meta">
-                <div>Endpoint imports over the past {{periodDays}} days.</div>
+                <div>Successful endpoint imports over the past {{periodDays}} days.</div>
                 <div>Generated at {{generatedAt}}</div>
             </div>
         </div>
 
-        <section class="grid" aria-label="Endpoint status">
+        <section class="grid" aria-label="Endpoint import activity">
             {{#each endpoints}}
                 {{> statistics_endpoint_card}}
             {{/each}}

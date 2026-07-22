@@ -1,17 +1,13 @@
 <article class="endpoint-card">
     <div class="endpoint-header">
         <h2>{{provider}}/{{endpoint}}</h2>
-        {{#if failedPodcasts}}
-            <span class="status-dot degraded" title="Failed podcasts">!</span>
-        {{else}}
-            <span class="status-dot operational" title="Operational">✓</span>
-        {{/if}}
+        <span class="freshness-pill" title="{{lastSuccessfulAt}}">{{lastSuccessfulLabel}}</span>
     </div>
 
-    <div class="daily-bars" aria-label="Daily endpoint imports">
+    <div class="daily-bars" aria-label="Daily successful endpoint imports">
         {{#each days}}
-            {{#if isDegraded}}
-                <div class="daily-bar degraded" title="{{title}}"></div>
+            {{#if hasUpdates}}
+                <div class="daily-bar has-updates" title="{{title}}"></div>
             {{else}}
                 <div class="daily-bar" title="{{title}}"></div>
             {{/if}}
@@ -19,9 +15,11 @@
     </div>
 
     <div class="stats-row">
-        <span>{{requests.successful}}/{{requests.total}} successful</span>
-        <span>{{requests.failed}} failed</span>
+        <span>{{successfulUpdates}} successful imports</span>
+        <span>{{activeDays}} days with imports</span>
     </div>
 
-    {{> failed_podcasts}}
+    <div class="note">
+        {{podcastCount}} podcasts have recorded at least one successful import for this endpoint.
+    </div>
 </article>

@@ -9,6 +9,16 @@ const formatDate = (date: Date) => {
     return `${year}-${month}-${day}`
 }
 
+const formatDateTime = (date: Date) => {
+    const year = date.getFullYear()
+    const month = `${date.getMonth() + 1}`.padStart(2, '0')
+    const day = `${date.getDate()}`.padStart(2, '0')
+    const hours = `${date.getHours()}`.padStart(2, '0')
+    const minutes = `${date.getMinutes()}`.padStart(2, '0')
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`
+}
+
 const getDateRange = (periodDays: number) => {
     const endDate = new Date()
     const dates: string[] = []
@@ -23,7 +33,7 @@ const getDateRange = (periodDays: number) => {
 }
 
 describe('StatusApi', () => {
-    it('returns endpoint statistics from the same status data as the status endpoint', async () => {
+    it('returns only observed successful endpoint import statistics', async () => {
         const periodDays = 90
         const dates = getDateRange(periodDays)
         const today = dates[dates.length - 1]
@@ -80,59 +90,41 @@ describe('StatusApi', () => {
             expect.objectContaining({
                 provider: 'spotify',
                 endpoint: 'aggregate',
-                requests: {
-                    total: 3,
-                    successful: 2,
-                    failed: 1,
-                    successRate: 2 / 3,
-                },
-                failedPodcasts: [
-                    {
-                        podcastId: 2,
-                        podcastName: null,
-                    },
-                ],
+                podcastCount: 3,
+                successfulUpdates: 2,
+                activeDays: 1,
+                lastSuccessfulAt: formatDateTime(recentDate),
+                lastSuccessfulAgeHours: expect.any(Number),
+                lastSuccessfulLabel: expect.stringMatching(
+                    /^Last success \d+ hours ago$/
+                ),
             })
         )
         expect(statistics[0].days).toHaveLength(periodDays)
         expect(statistics[0].days[0]).toEqual({
             date: dates[0],
-            title: `${dates[0]}: 0/3 successful, 3 failed`,
-            isDegraded: true,
-            requests: {
-                total: 3,
-                successful: 0,
-                failed: 3,
-                successRate: 0,
-            },
+            title: `${dates[0]}: 0 successful imports recorded`,
+            hasUpdates: false,
+            successfulUpdates: 0,
         })
         expect(statistics[0].days[periodDays - 1]).toEqual({
             date: today,
-            title: `${today}: 2/3 successful, 1 failed`,
-            isDegraded: true,
-            requests: {
-                total: 3,
-                successful: 2,
-                failed: 1,
-                successRate: 2 / 3,
-            },
+            title: `${today}: 2 successful imports recorded`,
+            hasUpdates: true,
+            successfulUpdates: 2,
         })
         expect(statistics[1]).toEqual(
             expect.objectContaining({
                 provider: 'apple',
                 endpoint: 'trends',
-                requests: {
-                    total: 1,
-                    successful: 0,
-                    failed: 1,
-                    successRate: 0,
-                },
-                failedPodcasts: [
-                    {
-                        podcastId: 1,
-                        podcastName: null,
-                    },
-                ],
+                podcastCount: 1,
+                successfulUpdates: 0,
+                activeDays: 0,
+                lastSuccessfulAt: formatDateTime(oldDate),
+                lastSuccessfulAgeHours: expect.any(Number),
+                lastSuccessfulLabel: expect.stringMatching(
+                    /^Last success \d+ hours ago$/
+                ),
             })
         )
     })
