@@ -12,6 +12,23 @@ type Status = {
     }
 }
 
+type FailedPodcast = {
+    podcastId: number
+    podcastName: string | null
+}
+
+type EndpointStatistics = {
+    provider: string
+    endpoint: string
+    requests: {
+        total: number
+        successful: number
+        failed: number
+        successRate: number
+    }
+    failedPodcasts: FailedPodcast[]
+}
+
 class StatusRepository {
     pool: Pool
 
@@ -68,6 +85,77 @@ class StatusRepository {
         return status
     }
 
+    // Returns endpoint-level update statistics for the given period. Since the
+    // updates table only records successful connector runs, a failed request here
+    // means a podcast has not had a successful update for this endpoint within
+    // the given period.
+    async getEndpointStatistics(
+        periodDays: number
+    ): Promise<EndpointStatistics[]> {
+        const query = `
+            SELECT
+                account_id,
+                provider,
+                endpoint,
+                MAX(created) AS last_successful_update
+            FROM updates
+            GROUP BY account_id, provider, endpoint
+            ORDER BY provider, endpoint, account_id
+        `
+        const response = (await this.pool.query(query)) as RowDataPacket[]
+
+        const statistics: EndpointStatistics[] = []
+        const statisticsByEndpoint: {
+            [key: string]: EndpointStatistics
+        } = {}
+        const startDate = new Date()
+        startDate.setDate(startDate.getDate() - periodDays)
+
+        response[0].forEach((row: RowDataPacket) => {
+            const identifier = `${row.provider}/${row.endpoint}`
+
+            if (!statisticsByEndpoint[identifier]) {
+                statisticsByEndpoint[identifier] = {
+                    provider: row.provider,
+                    endpoint: row.endpoint,
+                    requests: {
+                        total: 0,
+                        successful: 0,
+                        failed: 0,
+                        successRate: 0,
+                    },
+                    failedPodcasts: [],
+                }
+                statistics.push(statisticsByEndpoint[identifier])
+            }
+
+            const endpointStatistics = statisticsByEndpoint[identifier]
+            const lastSuccessfulUpdate = new Date(row.last_successful_update)
+            const hasRecentSuccessfulUpdate = lastSuccessfulUpdate >= startDate
+
+            endpointStatistics.requests.total += 1
+            if (hasRecentSuccessfulUpdate) {
+                endpointStatistics.requests.successful += 1
+            } else {
+                endpointStatistics.requests.failed += 1
+                endpointStatistics.failedPodcasts.push({
+                    podcastId: row.account_id,
+                    podcastName: null,
+                })
+            }
+        })
+
+        statistics.forEach((endpointStatistics) => {
+            endpointStatistics.requests.successRate =
+                endpointStatistics.requests.total > 0
+                    ? endpointStatistics.requests.successful /
+                      endpointStatistics.requests.total
+                    : 0
+        })
+
+        return statistics
+    }
+
     // Write the raw JSON status data into the `updates` table
     // Use the current timestamp as the update time
     async updateStatus(accountId: number, update: StatusPayload): Promise<any> {
@@ -81,4 +169,4 @@ class StatusRepository {
     }
 }
 
-export { StatusRepository }
+export { StatusRepository, EndpointStatistics }
