@@ -98,6 +98,59 @@
             font-weight: 700;
         }
 
+        .section-title {
+            font-size: 1.18rem;
+            margin: 28px 0 12px;
+        }
+
+        .group-grid {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-bottom: 24px;
+        }
+
+        .group-card {
+            background: #fff;
+            border: 1px solid #d8dee4;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .group-header {
+            align-items: flex-start;
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .group-title {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.35;
+            word-break: break-word;
+        }
+
+        .group-meta {
+            color: #4b5563;
+            font-size: 0.92rem;
+            line-height: 1.45;
+            margin-bottom: 10px;
+        }
+
+        .mini-list {
+            color: #6b7280;
+            font-size: 0.9rem;
+            line-height: 1.45;
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .mini-list li + li {
+            margin-top: 4px;
+        }
+
         .panel {
             background: #fff;
             border: 1px solid #d8dee4;
@@ -194,8 +247,9 @@
                 text-align: left;
             }
 
-            .summary-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .summary-grid,
+            .group-grid {
+                grid-template-columns: 1fr;
             }
 
             table,
@@ -286,6 +340,49 @@
             </div>
         </section>
 
+        {{#if issues}}
+            <h2 class="section-title">Grouped by endpoint</h2>
+            <section class="group-grid" aria-label="Issues grouped by endpoint">
+                {{#each endpointGroups}}
+                    <article class="group-card">
+                        <div class="group-header">
+                            <div class="group-title">{{provider}}/{{endpoint}}</div>
+                            <span class="severity {{severity}}">{{severityLabel}}</span>
+                        </div>
+                        <div class="group-meta">
+                            Affected podcasts: {{affectedPodcastCount}} · Stale imports: {{issueCount}} · Worst delay: {{worstAgeHours}}h
+                        </div>
+                        <ol class="mini-list">
+                            {{#each issues}}
+                                <li>#{{podcastId}} · {{ageHours}}h since {{latestUpdateAt}}</li>
+                            {{/each}}
+                        </ol>
+                    </article>
+                {{/each}}
+            </section>
+
+            <h2 class="section-title">Grouped by podcast</h2>
+            <section class="group-grid" aria-label="Issues grouped by podcast">
+                {{#each podcastGroups}}
+                    <article class="group-card">
+                        <div class="group-header">
+                            <div class="group-title">Podcast #{{podcastId}}</div>
+                            <span class="severity {{severity}}">{{severityLabel}}</span>
+                        </div>
+                        <div class="group-meta">
+                            Affected endpoints: {{affectedEndpointCount}} · Stale imports: {{issueCount}} · Worst delay: {{worstAgeHours}}h
+                        </div>
+                        <ol class="mini-list">
+                            {{#each issues}}
+                                <li>{{provider}}/{{endpoint}} · {{ageHours}}h since {{latestUpdateAt}}</li>
+                            {{/each}}
+                        </ol>
+                    </article>
+                {{/each}}
+            </section>
+        {{/if}}
+
+        <h2 class="section-title">Details</h2>
         <section class="panel" aria-label="Stale podcast endpoints">
             {{#if issues}}
                 <table>

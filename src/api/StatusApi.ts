@@ -26,8 +26,31 @@ type ImportIssueSummary = {
     hasIssues: boolean
 }
 
+type EndpointIssueGroup = {
+    provider: string
+    endpoint: string
+    issueCount: number
+    affectedPodcastCount: number
+    worstAgeHours: number
+    severity: ImportIssue['severity']
+    severityLabel: string
+    issues: ImportIssue[]
+}
+
+type PodcastIssueGroup = {
+    podcastId: number
+    issueCount: number
+    affectedEndpointCount: number
+    worstAgeHours: number
+    severity: ImportIssue['severity']
+    severityLabel: string
+    issues: ImportIssue[]
+}
+
 type ImportIssueReport = {
     summary: ImportIssueSummary
+    endpointGroups: EndpointIssueGroup[]
+    podcastGroups: PodcastIssueGroup[]
     issues: ImportIssue[]
 }
 
@@ -91,6 +114,115 @@ const getIssueGuidance = (severity: ImportIssue['severity']) => {
     }
 
     return 'Watch this import; it is older than the daily window.'
+}
+
+const sortIssues = (issues: ImportIssue[]) => {
+    issues.sort((a, b) => {
+        if (b.ageHours !== a.ageHours) {
+            return b.ageHours - a.ageHours
+        }
+
+        if (a.podcastId !== b.podcastId) {
+            return a.podcastId - b.podcastId
+        }
+
+        return `${a.provider}/${a.endpoint}`.localeCompare(
+            `${b.provider}/${b.endpoint}`
+        )
+    })
+}
+
+const getEndpointIssueGroups = (issues: ImportIssue[]) => {
+    const groupIssuesByEndpoint: {
+        [endpointIdentifier: string]: ImportIssue[]
+    } = {}
+
+    issues.forEach((issue) => {
+        const endpointIdentifier = `${issue.provider}/${issue.endpoint}`
+
+        if (!groupIssuesByEndpoint[endpointIdentifier]) {
+            groupIssuesByEndpoint[endpointIdentifier] = []
+        }
+
+        groupIssuesByEndpoint[endpointIdentifier].push(issue)
+    })
+
+    const groups = Object.values(groupIssuesByEndpoint).map((groupIssues) => {
+        sortIssues(groupIssues)
+
+        const worstIssue = groupIssues[0]
+        const affectedPodcasts = new Set(
+            groupIssues.map((issue) => issue.podcastId)
+        )
+
+        return {
+            provider: worstIssue.provider,
+            endpoint: worstIssue.endpoint,
+            issueCount: groupIssues.length,
+            affectedPodcastCount: affectedPodcasts.size,
+            worstAgeHours: worstIssue.ageHours,
+            severity: worstIssue.severity,
+            severityLabel: worstIssue.severityLabel,
+            issues: groupIssues,
+        }
+    })
+
+    groups.sort((a, b) => {
+        if (b.worstAgeHours !== a.worstAgeHours) {
+            return b.worstAgeHours - a.worstAgeHours
+        }
+
+        return `${a.provider}/${a.endpoint}`.localeCompare(
+            `${b.provider}/${b.endpoint}`
+        )
+    })
+
+    return groups
+}
+
+const getPodcastIssueGroups = (issues: ImportIssue[]) => {
+    const groupIssuesByPodcast: { [podcastId: number]: ImportIssue[] } = {}
+
+    issues.forEach((issue) => {
+        if (!groupIssuesByPodcast[issue.podcastId]) {
+            groupIssuesByPodcast[issue.podcastId] = []
+        }
+
+        groupIssuesByPodcast[issue.podcastId].push(issue)
+    })
+
+    const groups = Object.entries(groupIssuesByPodcast).map(
+        ([podcastIdStr, groupIssues]) => {
+            sortIssues(groupIssues)
+
+            const worstIssue = groupIssues[0]
+            const affectedEndpoints = new Set(
+                groupIssues.map(
+                    (issue) => `${issue.provider}/${issue.endpoint}`
+                )
+            )
+
+            return {
+                podcastId: parseInt(podcastIdStr),
+                issueCount: groupIssues.length,
+                affectedEndpointCount: affectedEndpoints.size,
+                worstAgeHours: worstIssue.ageHours,
+                severity: worstIssue.severity,
+                severityLabel: worstIssue.severityLabel,
+                issues: groupIssues,
+            }
+        }
+    )
+
+    groups.sort((a, b) => {
+        if (b.worstAgeHours !== a.worstAgeHours) {
+            return b.worstAgeHours - a.worstAgeHours
+        }
+
+        return a.podcastId - b.podcastId
+    })
+
+    return groups
 }
 
 class StatusApi {
@@ -193,19 +325,7 @@ class StatusApi {
             )
         })
 
-        issues.sort((a, b) => {
-            if (b.ageHours !== a.ageHours) {
-                return b.ageHours - a.ageHours
-            }
-
-            if (a.podcastId !== b.podcastId) {
-                return a.podcastId - b.podcastId
-            }
-
-            return `${a.provider}/${a.endpoint}`.localeCompare(
-                `${b.provider}/${b.endpoint}`
-            )
-        })
+        sortIssues(issues)
 
         return {
             summary: {
@@ -215,6 +335,8 @@ class StatusApi {
                 worstAgeHours: issues[0]?.ageHours ?? null,
                 hasIssues: issues.length > 0,
             },
+            endpointGroups: getEndpointIssueGroups(issues),
+            podcastGroups: getPodcastIssueGroups(issues),
             issues,
         }
     }

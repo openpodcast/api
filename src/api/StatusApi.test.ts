@@ -72,6 +72,48 @@ describe('StatusApi', () => {
                     'Watch this import; it is older than the daily window.',
             },
         ])
+        expect(report.endpointGroups).toEqual([
+            expect.objectContaining({
+                provider: 'spotify',
+                endpoint: 'aggregate',
+                issueCount: 2,
+                affectedPodcastCount: 2,
+                worstAgeHours: 80,
+                severity: 'serious',
+            }),
+            expect.objectContaining({
+                provider: 'apple',
+                endpoint: 'episodeDetails',
+                issueCount: 1,
+                affectedPodcastCount: 1,
+                worstAgeHours: 52,
+                severity: 'concerning',
+            }),
+        ])
+        expect(report.endpointGroups[0].issues).toEqual([
+            report.issues[0],
+            report.issues[2],
+        ])
+        expect(report.podcastGroups).toEqual([
+            expect.objectContaining({
+                podcastId: 2,
+                issueCount: 2,
+                affectedEndpointCount: 2,
+                worstAgeHours: 80,
+                severity: 'serious',
+            }),
+            expect.objectContaining({
+                podcastId: 1,
+                issueCount: 1,
+                affectedEndpointCount: 1,
+                worstAgeHours: 30,
+                severity: 'stale',
+            }),
+        ])
+        expect(report.podcastGroups[0].issues).toEqual([
+            report.issues[0],
+            report.issues[1],
+        ])
     })
 
     it('returns an empty issue report when all imports are fresh', () => {
@@ -97,6 +139,8 @@ describe('StatusApi', () => {
                 worstAgeHours: null,
                 hasIssues: false,
             },
+            endpointGroups: [],
+            podcastGroups: [],
             issues: [],
         })
     })
