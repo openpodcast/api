@@ -222,7 +222,19 @@ app.disable('x-powered-by')
 app.use(bodyParser.json({ limit: '5mb' }))
 
 app.use(express.static('public'))
-hbs.registerPartials(path.join(__dirname, '../views/partials'))
+
+const partialsDir = path.join(__dirname, '../views/partials')
+hbs.registerPartial(
+    'failed-podcasts',
+    fs.readFileSync(path.join(partialsDir, 'failed-podcasts.hbs'), 'utf8')
+)
+hbs.registerPartial(
+    'statistics-endpoint-card',
+    fs.readFileSync(
+        path.join(partialsDir, 'statistics-endpoint-card.hbs'),
+        'utf8'
+    )
+)
 app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: false }))
