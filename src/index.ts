@@ -193,6 +193,7 @@ const publicEndpoints = [
     '^/images/*',
     '^/health',
     '^/status',
+    '^/statistics',
     '^/feedback/*',
     '^/comments/*',
     '^/api-docs',
@@ -228,9 +229,7 @@ app.get('/errorlog/:password/:id', (req: Request, res: Response) => {
     const password = req.params.password
     const id = req.params.id
 
-    if (
-        !passwordsMatch(config.getErrorLogPassword(), password)
-    ) {
+    if (!passwordsMatch(config.getErrorLogPassword(), password)) {
         sendErrorLogResponse(res, 401)
         return
     }
@@ -485,6 +484,28 @@ app.get(
             // (instead of the default 500)
             res.status(404)
             console.log(err)
+            next(err)
+        }
+    }
+)
+
+// Endpoint for update statistics.
+app.get(
+    '/statistics',
+    async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const periodDays = 7
+            const endpoints = await statusApi.getEndpointStatistics(periodDays)
+
+            res.status(200).json({
+                meta: {
+                    generatedAt: nowString(),
+                    periodDays,
+                    result: 'success',
+                },
+                endpoints,
+            })
+        } catch (err) {
             next(err)
         }
     }

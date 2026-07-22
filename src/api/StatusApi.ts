@@ -1,4 +1,4 @@
-import { StatusRepository } from '../db/StatusRepository'
+import { EndpointStatistics, StatusRepository } from '../db/StatusRepository'
 import { StatusPayload } from '../types/api'
 
 class StatusApi {
@@ -69,6 +69,12 @@ class StatusApi {
             alerts.red = redAlerts
         }
         return alerts
+    }
+
+    async getEndpointStatistics(
+        periodDays: number
+    ): Promise<EndpointStatistics[]> {
+        return await this.statusRepo.getEndpointStatistics(periodDays)
     }
 
     async updateStatus(accountId: number, update: StatusPayload): Promise<any> {
