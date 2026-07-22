@@ -40,6 +40,7 @@ import fs from 'fs'
 import path from 'path'
 import swaggerUi from 'swagger-ui-express'
 import { swaggerSpec } from './config/swagger'
+import hbs from 'hbs'
 
 const config = new Config()
 const ERROR_LOG_ID_PATTERN = /^[a-f0-9]{32}$/
@@ -221,6 +222,7 @@ app.disable('x-powered-by')
 app.use(bodyParser.json({ limit: '5mb' }))
 
 app.use(express.static('public'))
+hbs.registerPartials(path.join(__dirname, '../views/partials'))
 app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -494,15 +496,12 @@ app.get(
     '/statistics',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const periodDays = 7
+            const periodDays = 90
             const endpoints = await statusApi.getEndpointStatistics(periodDays)
 
-            res.status(200).json({
-                meta: {
-                    generatedAt: nowString(),
-                    periodDays,
-                    result: 'success',
-                },
+            res.status(200).render('statistics.hbs', {
+                generatedAt: nowString(),
+                periodDays,
                 endpoints,
             })
         } catch (err) {

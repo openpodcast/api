@@ -1,0 +1,31 @@
+<article class="endpoint-card">
+    <div class="endpoint-header">
+        <h2>{{provider}}/{{endpoint}}</h2>
+        {{#if failedPodcasts}}
+            <span class="status-dot degraded" title="Failed podcasts">!</span>
+        {{else}}
+            <span class="status-dot operational" title="Operational">✓</span>
+        {{/if}}
+    </div>
+
+    <div class="daily-bars" aria-label="Daily endpoint imports">
+        {{#each days}}
+            {{#if isUnavailable}}
+                <div class="daily-bar unavailable" title="{{title}}"></div>
+            {{else}}
+                {{#if isDegraded}}
+                    <div class="daily-bar degraded" title="{{title}}"></div>
+                {{else}}
+                    <div class="daily-bar" title="{{title}}"></div>
+                {{/if}}
+            {{/if}}
+        {{/each}}
+    </div>
+
+    <div class="stats-row">
+        <span>{{requests.successful}}/{{requests.total}} successful</span>
+        <span>{{requests.failed}} failed</span>
+    </div>
+
+    {{> failed-podcasts}}
+</article>

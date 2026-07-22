@@ -17,76 +17,104 @@ describe('StatusRepository', () => {
         jest.clearAllMocks()
     })
 
-    it('returns endpoint statistics with failed podcasts', async () => {
-        const recentDate = new Date()
-        recentDate.setDate(recentDate.getDate() - 1)
-
-        const oldDate = new Date()
-        oldDate.setDate(oldDate.getDate() - 10)
-
+    it('returns latest updates grouped by podcast and endpoint', async () => {
         const rows = [
             {
                 account_id: 1,
                 provider: 'spotify',
                 endpoint: 'aggregate',
-                last_successful_update: recentDate.toISOString(),
+                latest_update: '2026-07-22 10:00:00',
+            },
+            {
+                account_id: 1,
+                provider: 'apple',
+                endpoint: 'trends',
+                latest_update: '2026-07-22 11:00:00',
             },
             {
                 account_id: 2,
                 provider: 'spotify',
                 endpoint: 'aggregate',
-                last_successful_update: oldDate.toISOString(),
-            },
-            {
-                account_id: 3,
-                provider: 'spotify',
-                endpoint: 'aggregate',
-                last_successful_update: recentDate.toISOString(),
-            },
-            {
-                account_id: 4,
-                provider: 'apple',
-                endpoint: 'trends',
-                last_successful_update: oldDate.toISOString(),
+                latest_update: '2026-07-21 10:00:00',
             },
         ] as RowDataPacket[]
 
         mockPool.query.mockResolvedValue([rows, []] as any)
 
-        const statistics = await statusRepository.getEndpointStatistics(7)
+        const status = await statusRepository.getStatus()
 
-        expect(statistics).toEqual([
+        expect(status).toEqual({
+            1: {
+                latestUpdates: {
+                    'spotify/aggregate': new Date('2026-07-22 10:00:00'),
+                    'apple/trends': new Date('2026-07-22 11:00:00'),
+                },
+            },
+            2: {
+                latestUpdates: {
+                    'spotify/aggregate': new Date('2026-07-21 10:00:00'),
+                },
+            },
+        })
+    })
+
+    it('returns daily endpoint updates for the requested period', async () => {
+        const rows = [
             {
+                account_id: 1,
                 provider: 'spotify',
                 endpoint: 'aggregate',
-                requests: {
-                    total: 3,
-                    successful: 2,
-                    failed: 1,
-                    successRate: 2 / 3,
-                },
-                failedPodcasts: [
-                    {
-                        podcastId: 2,
-                        podcastName: null,
-                    },
-                ],
+                update_date: '2026-07-21',
             },
             {
-                provider: 'apple',
-                endpoint: 'trends',
-                requests: {
-                    total: 1,
-                    successful: 0,
-                    failed: 1,
-                    successRate: 0,
-                },
-                failedPodcasts: [
-                    {
-                        podcastId: 4,
-                        podcastName: null,
-                    },
-                ],
+                account_id: 2,
+                provider: 'spotify',
+                endpoint: 'aggregate',
+                update_date: '2026-07-21',
+            },
+        ] as RowDataPacket[]
+
+        mockPool.query.mockResolvedValue([rows, []] as any)
+
+        const updates = await statusRepository.getDailyEndpointUpdates(90)
+
+        expect(mockPool.query).toHaveBeenCalledWith(expect.any(String), [89])
+        expect(updates).toEqual([
+            {
+                accountId: 1,
+                provider: 'spotify',
+                endpoint: 'aggregate',
+                date: '2026-07-21',
+            },
+            {
+                accountId: 2,
+                provider: 'spotify',
+                endpoint: 'aggregate',
+                date: '2026-07-21',
+            },
+        ])
+    })
+
+    it('returns the first update date per podcast and endpoint', async () => {
+        const rows = [
+            {
+                account_id: 1,
+                provider: 'spotify',
+                endpoint: 'aggregate',
+                first_update_date: '2026-07-01',
+            },
+        ] as RowDataPacket[]
+
+        mockPool.query.mockResolvedValue([rows, []] as any)
+
+        const updates = await statusRepository.getEndpointFirstUpdates()
+
+        expect(updates).toEqual([
+            {
+                accountId: 1,
+                provider: 'spotify',
+                endpoint: 'aggregate',
+                date: '2026-07-01',
             },
         ])
     })
