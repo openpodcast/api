@@ -1,4 +1,4 @@
-import { StatusRepository } from '../db/StatusRepository'
+import { StatusRepository, Status } from '../db/StatusRepository'
 import { StatusPayload } from '../types/api'
 
 type AlertData = {
@@ -7,23 +7,28 @@ type AlertData = {
     ageHours: number
 }
 
-type DailyEndpointStatistics = {
-    date: string
-    title: string
-    hasUpdates: boolean
-    successfulUpdates: number
-}
-
-type EndpointStatistics = {
+type ImportIssue = {
+    podcastId: number
     provider: string
     endpoint: string
-    podcastCount: number
-    successfulUpdates: number
-    activeDays: number
-    lastSuccessfulAt: string | null
-    lastSuccessfulAgeHours: number | null
-    lastSuccessfulLabel: string
-    days: DailyEndpointStatistics[]
+    latestUpdateAt: string
+    ageHours: number
+    severity: 'stale' | 'concerning' | 'serious'
+    severityLabel: string
+    guidance: string
+}
+
+type ImportIssueSummary = {
+    issueCount: number
+    affectedPodcastCount: number
+    affectedEndpointCount: number
+    worstAgeHours: number | null
+    hasIssues: boolean
+}
+
+type ImportIssueReport = {
+    summary: ImportIssueSummary
+    issues: ImportIssue[]
 }
 
 const getEndpointAgeHours = (endpointDate: Date) => {
@@ -42,55 +47,6 @@ const splitEndpointIdentifier = (identifier: string) => {
     }
 }
 
-const getEndpointIdentifier = (provider: string, endpoint: string) => {
-    return `${provider}/${endpoint}`
-}
-
-const formatDate = (date: Date) => {
-    const year = date.getFullYear()
-    const month = `${date.getMonth() + 1}`.padStart(2, '0')
-    const day = `${date.getDate()}`.padStart(2, '0')
-
-    return `${year}-${month}-${day}`
-}
-
-const getDateRange = (periodDays: number) => {
-    const endDate = new Date()
-    const dates: string[] = []
-
-    for (let offset = periodDays - 1; offset >= 0; offset--) {
-        const date = new Date(endDate)
-        date.setDate(date.getDate() - offset)
-        dates.push(formatDate(date))
-    }
-
-    return dates
-}
-
-const getDayTitle = (date: string, successfulUpdates: number) => {
-    if (successfulUpdates === 1) {
-        return `${date}: 1 successful import recorded`
-    }
-
-    return `${date}: ${successfulUpdates} successful imports recorded`
-}
-
-const getLastSuccessfulLabel = (ageHours: number | null) => {
-    if (ageHours === null) {
-        return 'No successful import recorded'
-    }
-
-    if (ageHours < 1) {
-        return 'Last success less than 1 hour ago'
-    }
-
-    if (ageHours === 1) {
-        return 'Last success 1 hour ago'
-    }
-
-    return `Last success ${ageHours} hours ago`
-}
-
 const formatDateTime = (date: Date) => {
     const year = date.getFullYear()
     const month = `${date.getMonth() + 1}`.padStart(2, '0')
@@ -99,6 +55,42 @@ const formatDateTime = (date: Date) => {
     const minutes = `${date.getMinutes()}`.padStart(2, '0')
 
     return `${year}-${month}-${day} ${hours}:${minutes}`
+}
+
+const getIssueSeverity = (ageHours: number): ImportIssue['severity'] => {
+    if (ageHours >= 72) {
+        return 'serious'
+    }
+
+    if (ageHours >= 48) {
+        return 'concerning'
+    }
+
+    return 'stale'
+}
+
+const getIssueSeverityLabel = (severity: ImportIssue['severity']) => {
+    if (severity === 'serious') {
+        return 'Needs attention'
+    }
+
+    if (severity === 'concerning') {
+        return 'Concerning'
+    }
+
+    return 'Stale'
+}
+
+const getIssueGuidance = (severity: ImportIssue['severity']) => {
+    if (severity === 'serious') {
+        return 'Check the import pipeline and provider credentials.'
+    }
+
+    if (severity === 'concerning') {
+        return 'Check whether the pipeline is delayed or stuck.'
+    }
+
+    return 'Watch this import; it is older than the daily window.'
 }
 
 class StatusApi {
@@ -162,145 +154,69 @@ class StatusApi {
         return alerts
     }
 
-    async getEndpointStatistics(
-        periodDays: number
-    ): Promise<EndpointStatistics[]> {
-        const status = await this.getStatus()
-        const dailyUpdates = await this.statusRepo.getDailyEndpointUpdates(
-            periodDays
-        )
-        const dates = getDateRange(periodDays)
-        const statistics: EndpointStatistics[] = []
-        const statisticsByEndpoint: { [key: string]: EndpointStatistics } = {}
-        const successfulPodcastsByEndpointAndDate: {
-            [endpointIdentifier: string]: { [date: string]: Set<number> }
-        } = {}
-        const observedPodcastsByEndpoint: {
-            [endpointIdentifier: string]: Set<number>
-        } = {}
-        const latestSuccessfulDateByEndpoint: {
-            [endpointIdentifier: string]: Date
-        } = {}
-
-        const ensureEndpointStatistics = (endpointIdentifier: string) => {
-            if (!statisticsByEndpoint[endpointIdentifier]) {
-                const { provider, endpoint } =
-                    splitEndpointIdentifier(endpointIdentifier)
-
-                statisticsByEndpoint[endpointIdentifier] = {
-                    provider,
-                    endpoint,
-                    podcastCount: 0,
-                    successfulUpdates: 0,
-                    activeDays: 0,
-                    lastSuccessfulAt: null,
-                    lastSuccessfulAgeHours: null,
-                    lastSuccessfulLabel: getLastSuccessfulLabel(null),
-                    days: dates.map((date) => ({
-                        date,
-                        title: getDayTitle(date, 0),
-                        hasUpdates: false,
-                        successfulUpdates: 0,
-                    })),
-                }
-                statistics.push(statisticsByEndpoint[endpointIdentifier])
-            }
-
-            return statisticsByEndpoint[endpointIdentifier]
-        }
+    getImportIssueReport(
+        status: Status,
+        staleAgeHours: number
+    ): ImportIssueReport {
+        const affectedPodcasts = new Set<number>()
+        const affectedEndpoints = new Set<string>()
+        const issues: ImportIssue[] = []
 
         Object.entries(status).forEach(([podcastIdStr, podcastData]) => {
             const podcastId = parseInt(podcastIdStr)
 
             Object.entries(podcastData.latestUpdates).forEach(
                 ([endpointIdentifier, endpointDate]) => {
-                    const endpointStatistics =
-                        ensureEndpointStatistics(endpointIdentifier)
+                    const ageHours = getEndpointAgeHours(endpointDate)
 
-                    if (!observedPodcastsByEndpoint[endpointIdentifier]) {
-                        observedPodcastsByEndpoint[endpointIdentifier] =
-                            new Set()
+                    if (ageHours < staleAgeHours) {
+                        return
                     }
-                    observedPodcastsByEndpoint[endpointIdentifier].add(
-                        podcastId
-                    )
 
-                    if (
-                        !latestSuccessfulDateByEndpoint[endpointIdentifier] ||
-                        endpointDate >
-                            latestSuccessfulDateByEndpoint[endpointIdentifier]
-                    ) {
-                        const ageHours = getEndpointAgeHours(endpointDate)
+                    const { provider, endpoint } =
+                        splitEndpointIdentifier(endpointIdentifier)
+                    const severity = getIssueSeverity(ageHours)
 
-                        latestSuccessfulDateByEndpoint[endpointIdentifier] =
-                            endpointDate
-                        endpointStatistics.lastSuccessfulAt =
-                            formatDateTime(endpointDate)
-                        endpointStatistics.lastSuccessfulAgeHours = ageHours
-                        endpointStatistics.lastSuccessfulLabel =
-                            getLastSuccessfulLabel(ageHours)
-                    }
+                    affectedPodcasts.add(podcastId)
+                    affectedEndpoints.add(endpointIdentifier)
+                    issues.push({
+                        podcastId,
+                        provider,
+                        endpoint,
+                        latestUpdateAt: formatDateTime(endpointDate),
+                        ageHours,
+                        severity,
+                        severityLabel: getIssueSeverityLabel(severity),
+                        guidance: getIssueGuidance(severity),
+                    })
                 }
             )
         })
 
-        dailyUpdates.forEach((update) => {
-            const endpointIdentifier = getEndpointIdentifier(
-                update.provider,
-                update.endpoint
-            )
-            ensureEndpointStatistics(endpointIdentifier)
-
-            if (!successfulPodcastsByEndpointAndDate[endpointIdentifier]) {
-                successfulPodcastsByEndpointAndDate[endpointIdentifier] = {}
-            }
-            if (
-                !successfulPodcastsByEndpointAndDate[endpointIdentifier][
-                    update.date
-                ]
-            ) {
-                successfulPodcastsByEndpointAndDate[endpointIdentifier][
-                    update.date
-                ] = new Set()
+        issues.sort((a, b) => {
+            if (b.ageHours !== a.ageHours) {
+                return b.ageHours - a.ageHours
             }
 
-            successfulPodcastsByEndpointAndDate[endpointIdentifier][
-                update.date
-            ].add(update.accountId)
-        })
+            if (a.podcastId !== b.podcastId) {
+                return a.podcastId - b.podcastId
+            }
 
-        statistics.forEach((endpointStatistics) => {
-            const endpointIdentifier = getEndpointIdentifier(
-                endpointStatistics.provider,
-                endpointStatistics.endpoint
+            return `${a.provider}/${a.endpoint}`.localeCompare(
+                `${b.provider}/${b.endpoint}`
             )
-            const successfulPodcastsByDate =
-                successfulPodcastsByEndpointAndDate[endpointIdentifier] ?? {}
-
-            endpointStatistics.podcastCount =
-                observedPodcastsByEndpoint[endpointIdentifier]?.size ?? 0
-
-            // The updates table only records successful imports. We therefore
-            // show observed successful imports only. Missing days are not marked
-            // as failures here because failed import attempts are not stored yet.
-            endpointStatistics.days.forEach((day) => {
-                day.successfulUpdates =
-                    successfulPodcastsByDate[day.date]?.size ?? 0
-                day.hasUpdates = day.successfulUpdates > 0
-                day.title = getDayTitle(day.date, day.successfulUpdates)
-            })
-
-            endpointStatistics.successfulUpdates =
-                endpointStatistics.days.reduce(
-                    (total, day) => total + day.successfulUpdates,
-                    0
-                )
-            endpointStatistics.activeDays = endpointStatistics.days.filter(
-                (day) => day.hasUpdates
-            ).length
         })
 
-        return statistics
+        return {
+            summary: {
+                issueCount: issues.length,
+                affectedPodcastCount: affectedPodcasts.size,
+                affectedEndpointCount: affectedEndpoints.size,
+                worstAgeHours: issues[0]?.ageHours ?? null,
+                hasIssues: issues.length > 0,
+            },
+            issues,
+        }
     }
 
     async updateStatus(accountId: number, update: StatusPayload): Promise<any> {
@@ -308,4 +224,4 @@ class StatusApi {
     }
 }
 
-export { StatusApi, EndpointStatistics }
+export { StatusApi, ImportIssue, ImportIssueReport }

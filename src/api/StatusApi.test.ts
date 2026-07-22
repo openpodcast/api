@@ -1,131 +1,103 @@
 import { StatusApi } from './StatusApi'
 import { StatusRepository } from '../db/StatusRepository'
 
-const formatDate = (date: Date) => {
-    const year = date.getFullYear()
-    const month = `${date.getMonth() + 1}`.padStart(2, '0')
-    const day = `${date.getDate()}`.padStart(2, '0')
-
-    return `${year}-${month}-${day}`
-}
-
-const formatDateTime = (date: Date) => {
-    const year = date.getFullYear()
-    const month = `${date.getMonth() + 1}`.padStart(2, '0')
-    const day = `${date.getDate()}`.padStart(2, '0')
-    const hours = `${date.getHours()}`.padStart(2, '0')
-    const minutes = `${date.getMinutes()}`.padStart(2, '0')
-
-    return `${year}-${month}-${day} ${hours}:${minutes}`
-}
-
-const getDateRange = (periodDays: number) => {
-    const endDate = new Date()
-    const dates: string[] = []
-
-    for (let offset = periodDays - 1; offset >= 0; offset--) {
-        const date = new Date(endDate)
-        date.setDate(date.getDate() - offset)
-        dates.push(formatDate(date))
-    }
-
-    return dates
-}
-
 describe('StatusApi', () => {
-    it('returns only observed successful endpoint import statistics', async () => {
-        const periodDays = 90
-        const dates = getDateRange(periodDays)
-        const today = dates[dates.length - 1]
-        const recentDate = new Date()
-        recentDate.setDate(recentDate.getDate() - 1)
+    beforeEach(() => {
+        jest.useFakeTimers().setSystemTime(new Date(2026, 6, 22, 12, 0, 0))
+    })
 
-        const oldDate = new Date()
-        oldDate.setDate(oldDate.getDate() - 100)
+    afterEach(() => {
+        jest.useRealTimers()
+    })
 
-        const statusRepo = {
-            getStatus: jest.fn().mockResolvedValue({
+    it('returns stale import issues from latest status data', () => {
+        const statusRepo = {} as StatusRepository
+        const statusApi = new StatusApi(statusRepo)
+
+        const report = statusApi.getImportIssueReport(
+            {
                 1: {
                     latestUpdates: {
-                        'spotify/aggregate': recentDate,
-                        'apple/trends': oldDate,
+                        'spotify/metadata': new Date(2026, 6, 22, 0, 0, 0),
+                        'spotify/aggregate': new Date(2026, 6, 21, 6, 0, 0),
                     },
                 },
                 2: {
                     latestUpdates: {
-                        'spotify/aggregate': oldDate,
+                        'apple/episodeDetails': new Date(2026, 6, 20, 8, 0, 0),
+                        'spotify/aggregate': new Date(2026, 6, 19, 4, 0, 0),
                     },
                 },
-                3: {
-                    latestUpdates: {
-                        'spotify/aggregate': recentDate,
-                    },
-                },
-            }),
-            getDailyEndpointUpdates: jest.fn().mockResolvedValue([
-                {
-                    accountId: 1,
-                    provider: 'spotify',
-                    endpoint: 'aggregate',
-                    date: today,
-                },
-                {
-                    accountId: 3,
-                    provider: 'spotify',
-                    endpoint: 'aggregate',
-                    date: today,
-                },
-            ]),
-        } as unknown as StatusRepository
-
-        const statusApi = new StatusApi(statusRepo)
-
-        const statistics = await statusApi.getEndpointStatistics(periodDays)
-
-        expect(statusRepo.getDailyEndpointUpdates).toHaveBeenCalledWith(
-            periodDays
+            },
+            24
         )
-        expect(statistics).toHaveLength(2)
-        expect(statistics[0]).toEqual(
-            expect.objectContaining({
+
+        expect(report.summary).toEqual({
+            issueCount: 3,
+            affectedPodcastCount: 2,
+            affectedEndpointCount: 2,
+            worstAgeHours: 80,
+            hasIssues: true,
+        })
+        expect(report.issues).toEqual([
+            {
+                podcastId: 2,
                 provider: 'spotify',
                 endpoint: 'aggregate',
-                podcastCount: 3,
-                successfulUpdates: 2,
-                activeDays: 1,
-                lastSuccessfulAt: formatDateTime(recentDate),
-                lastSuccessfulAgeHours: expect.any(Number),
-                lastSuccessfulLabel: expect.stringMatching(
-                    /^Last success \d+ hours ago$/
-                ),
-            })
-        )
-        expect(statistics[0].days).toHaveLength(periodDays)
-        expect(statistics[0].days[0]).toEqual({
-            date: dates[0],
-            title: `${dates[0]}: 0 successful imports recorded`,
-            hasUpdates: false,
-            successfulUpdates: 0,
-        })
-        expect(statistics[0].days[periodDays - 1]).toEqual({
-            date: today,
-            title: `${today}: 2 successful imports recorded`,
-            hasUpdates: true,
-            successfulUpdates: 2,
-        })
-        expect(statistics[1]).toEqual(
-            expect.objectContaining({
+                latestUpdateAt: '2026-07-19 04:00',
+                ageHours: 80,
+                severity: 'serious',
+                severityLabel: 'Needs attention',
+                guidance: 'Check the import pipeline and provider credentials.',
+            },
+            {
+                podcastId: 2,
                 provider: 'apple',
-                endpoint: 'trends',
-                podcastCount: 1,
-                successfulUpdates: 0,
-                activeDays: 0,
-                lastSuccessfulAt: formatDateTime(oldDate),
-                lastSuccessfulAgeHours: expect.any(Number),
-                lastSuccessfulLabel: expect.stringMatching(
-                    /^Last success \d+ hours ago$/
-                ),
-            })
+                endpoint: 'episodeDetails',
+                latestUpdateAt: '2026-07-20 08:00',
+                ageHours: 52,
+                severity: 'concerning',
+                severityLabel: 'Concerning',
+                guidance: 'Check whether the pipeline is delayed or stuck.',
+            },
+            {
+                podcastId: 1,
+                provider: 'spotify',
+                endpoint: 'aggregate',
+                latestUpdateAt: '2026-07-21 06:00',
+                ageHours: 30,
+                severity: 'stale',
+                severityLabel: 'Stale',
+                guidance:
+                    'Watch this import; it is older than the daily window.',
+            },
+        ])
+    })
+
+    it('returns an empty issue report when all imports are fresh', () => {
+        const statusRepo = {} as StatusRepository
+        const statusApi = new StatusApi(statusRepo)
+
+        const report = statusApi.getImportIssueReport(
+            {
+                1: {
+                    latestUpdates: {
+                        'spotify/metadata': new Date(2026, 6, 22, 0, 0, 0),
+                    },
+                },
+            },
+            24
         )
+
+        expect(report).toEqual({
+            summary: {
+                issueCount: 0,
+                affectedPodcastCount: 0,
+                affectedEndpointCount: 0,
+                worstAgeHours: null,
+                hasIssues: false,
+            },
+            issues: [],
+        })
     })
 })

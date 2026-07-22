@@ -12,13 +12,6 @@ type Status = {
     }
 }
 
-type DailyEndpointUpdate = {
-    accountId: number
-    provider: string
-    endpoint: string
-    date: string
-}
-
 class StatusRepository {
     pool: Pool
 
@@ -75,32 +68,6 @@ class StatusRepository {
         return status
     }
 
-    async getDailyEndpointUpdates(
-        periodDays: number
-    ): Promise<DailyEndpointUpdate[]> {
-        const query = `
-            SELECT
-                account_id,
-                provider,
-                endpoint,
-                DATE(created) AS update_date
-            FROM updates
-            WHERE created >= DATE_SUB(CURDATE(), INTERVAL ? DAY)
-            GROUP BY account_id, provider, endpoint, update_date
-            ORDER BY update_date, provider, endpoint, account_id
-        `
-        const response = (await this.pool.query(query, [
-            Math.max(periodDays - 1, 0),
-        ])) as RowDataPacket[]
-
-        return response[0].map((row: RowDataPacket) => ({
-            accountId: row.account_id,
-            provider: row.provider,
-            endpoint: row.endpoint,
-            date: row.update_date,
-        }))
-    }
-
     // Write the raw JSON status data into the `updates` table
     // Use the current timestamp as the update time
     async updateStatus(accountId: number, update: StatusPayload): Promise<any> {
@@ -114,4 +81,4 @@ class StatusRepository {
     }
 }
 
-export { StatusRepository, Status, DailyEndpointUpdate }
+export { StatusRepository, Status }

@@ -222,7 +222,10 @@ app.disable('x-powered-by')
 app.use(bodyParser.json({ limit: '5mb' }))
 
 app.use(express.static('public'))
-hbs.registerPartials(path.join(__dirname, '../views/partials'))
+const partialsPath = path.join(__dirname, '../views/partials')
+if (fs.existsSync(partialsPath)) {
+    hbs.registerPartials(partialsPath)
+}
 app.set('view engine', 'handlebars')
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -491,18 +494,19 @@ app.get(
     }
 )
 
-// Endpoint for update statistics.
+// Human-readable import issue overview based on the same data as /status.
 app.get(
     '/statistics',
     async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const periodDays = 90
-            const endpoints = await statusApi.getEndpointStatistics(periodDays)
+            const staleAgeHours = 24
+            const status = await statusApi.getStatus()
+            const report = statusApi.getImportIssueReport(status, staleAgeHours)
 
             res.status(200).render('statistics.hbs', {
                 generatedAt: nowString(),
-                periodDays,
-                endpoints,
+                staleAgeHours,
+                ...report,
             })
         } catch (err) {
             next(err)
@@ -515,8 +519,8 @@ app.get(
 // Additionally, it returns a list of alerts if any of the imports are too old.
 app.get('/status', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const yellowAgeHours = 26
-        const redAgeHours = 50
+        const yellowAgeHours = 24
+        const redAgeHours = 48
         const status = await statusApi.getStatus()
         const alerts = statusApi.getAgeAlerts(
             status,

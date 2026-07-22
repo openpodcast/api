@@ -57,41 +57,4 @@ describe('StatusRepository', () => {
             },
         })
     })
-
-    it('returns daily endpoint updates for the requested period', async () => {
-        const rows = [
-            {
-                account_id: 1,
-                provider: 'spotify',
-                endpoint: 'aggregate',
-                update_date: '2026-07-21',
-            },
-            {
-                account_id: 2,
-                provider: 'spotify',
-                endpoint: 'aggregate',
-                update_date: '2026-07-21',
-            },
-        ] as RowDataPacket[]
-
-        mockPool.query.mockResolvedValue([rows, []] as any)
-
-        const updates = await statusRepository.getDailyEndpointUpdates(90)
-
-        expect(mockPool.query).toHaveBeenCalledWith(expect.any(String), [89])
-        expect(updates).toEqual([
-            {
-                accountId: 1,
-                provider: 'spotify',
-                endpoint: 'aggregate',
-                date: '2026-07-21',
-            },
-            {
-                accountId: 2,
-                provider: 'spotify',
-                endpoint: 'aggregate',
-                date: '2026-07-21',
-            },
-        ])
-    })
 })
