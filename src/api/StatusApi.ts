@@ -15,7 +15,6 @@ type FailedPodcast = {
 type DailyEndpointStatistics = {
     date: string
     title: string
-    isUnavailable: boolean
     isDegraded: boolean
     requests: {
         total: number
@@ -95,10 +94,6 @@ const getDayTitle = (
     date: string,
     requests: EndpointStatistics['requests']
 ) => {
-    if (requests.total === 0) {
-        return `${date}: no data available`
-    }
-
     return `${date}: ${requests.successful}/${requests.total} successful, ${requests.failed} failed`
 }
 
@@ -170,7 +165,6 @@ class StatusApi {
         const dailyUpdates = await this.statusRepo.getDailyEndpointUpdates(
             periodDays
         )
-        const firstUpdates = await this.statusRepo.getEndpointFirstUpdates()
         const maxAgeHours = periodDays * 24
         const dates = getDateRange(periodDays)
         const statistics: EndpointStatistics[] = []
@@ -178,8 +172,8 @@ class StatusApi {
         const successfulPodcastsByEndpointAndDate: {
             [endpointIdentifier: string]: { [date: string]: Set<number> }
         } = {}
-        const firstUpdateByEndpointAndPodcast: {
-            [endpointIdentifier: string]: { [podcastId: number]: string }
+        const expectedPodcastsByEndpoint: {
+            [endpointIdentifier: string]: Set<number>
         } = {}
 
         Object.entries(status).forEach(([podcastIdStr, podcastData]) => {
@@ -198,8 +192,7 @@ class StatusApi {
                             failedPodcasts: [],
                             days: dates.map((date) => ({
                                 date,
-                                title: `${date}: no data available`,
-                                isUnavailable: true,
+                                title: '',
                                 isDegraded: false,
                                 requests: emptyRequests(),
                             })),
@@ -208,6 +201,14 @@ class StatusApi {
                             statisticsByEndpoint[endpointIdentifier]
                         )
                     }
+
+                    if (!expectedPodcastsByEndpoint[endpointIdentifier]) {
+                        expectedPodcastsByEndpoint[endpointIdentifier] =
+                            new Set()
+                    }
+                    expectedPodcastsByEndpoint[endpointIdentifier].add(
+                        podcastId
+                    )
 
                     const endpointStatistics =
                         statisticsByEndpoint[endpointIdentifier]
@@ -226,20 +227,6 @@ class StatusApi {
                     }
                 }
             )
-        })
-
-        firstUpdates.forEach((update) => {
-            const endpointIdentifier = getEndpointIdentifier(
-                update.provider,
-                update.endpoint
-            )
-            if (!firstUpdateByEndpointAndPodcast[endpointIdentifier]) {
-                firstUpdateByEndpointAndPodcast[endpointIdentifier] = {}
-            }
-
-            firstUpdateByEndpointAndPodcast[endpointIdentifier][
-                update.accountId
-            ] = update.date
         })
 
         dailyUpdates.forEach((update) => {
@@ -273,13 +260,16 @@ class StatusApi {
             )
             const successfulPodcastsByDate =
                 successfulPodcastsByEndpointAndDate[endpointIdentifier] ?? {}
-            const firstUpdateByPodcast =
-                firstUpdateByEndpointAndPodcast[endpointIdentifier] ?? {}
+            const expectedPodcasts =
+                expectedPodcastsByEndpoint[endpointIdentifier] ?? new Set()
 
+            // The updates table only records successful imports. Until failed
+            // attempts are stored explicitly, daily failures are inferred as
+            // expected podcasts without a successful update for that endpoint on
+            // that day. Expected podcasts are all podcasts that have ever
+            // reported for the endpoint.
             endpointStatistics.days.forEach((day) => {
-                day.requests.total = Object.values(firstUpdateByPodcast).filter(
-                    (firstUpdateDate) => firstUpdateDate <= day.date
-                ).length
+                day.requests.total = expectedPodcasts.size
                 day.requests.successful =
                     successfulPodcastsByDate[day.date]?.size ?? 0
                 day.requests.failed = Math.max(
@@ -287,9 +277,7 @@ class StatusApi {
                     0
                 )
                 updateSuccessRate(day.requests)
-                day.isUnavailable = day.requests.total === 0
-                day.isDegraded =
-                    day.requests.total > 0 && day.requests.failed > 0
+                day.isDegraded = day.requests.failed > 0
                 day.title = getDayTitle(day.date, day.requests)
             })
         })

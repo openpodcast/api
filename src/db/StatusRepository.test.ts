@@ -94,28 +94,4 @@ describe('StatusRepository', () => {
             },
         ])
     })
-
-    it('returns the first update date per podcast and endpoint', async () => {
-        const rows = [
-            {
-                account_id: 1,
-                provider: 'spotify',
-                endpoint: 'aggregate',
-                first_update_date: '2026-07-01',
-            },
-        ] as RowDataPacket[]
-
-        mockPool.query.mockResolvedValue([rows, []] as any)
-
-        const updates = await statusRepository.getEndpointFirstUpdates()
-
-        expect(updates).toEqual([
-            {
-                accountId: 1,
-                provider: 'spotify',
-                endpoint: 'aggregate',
-                date: '2026-07-01',
-            },
-        ])
-    })
 })

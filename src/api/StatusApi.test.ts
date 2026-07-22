@@ -26,7 +26,6 @@ describe('StatusApi', () => {
     it('returns endpoint statistics from the same status data as the status endpoint', async () => {
         const periodDays = 90
         const dates = getDateRange(periodDays)
-        const firstAvailableDate = dates[1]
         const today = dates[dates.length - 1]
         const recentDate = new Date()
         recentDate.setDate(recentDate.getDate() - 1)
@@ -67,32 +66,6 @@ describe('StatusApi', () => {
                     date: today,
                 },
             ]),
-            getEndpointFirstUpdates: jest.fn().mockResolvedValue([
-                {
-                    accountId: 1,
-                    provider: 'spotify',
-                    endpoint: 'aggregate',
-                    date: firstAvailableDate,
-                },
-                {
-                    accountId: 2,
-                    provider: 'spotify',
-                    endpoint: 'aggregate',
-                    date: firstAvailableDate,
-                },
-                {
-                    accountId: 3,
-                    provider: 'spotify',
-                    endpoint: 'aggregate',
-                    date: firstAvailableDate,
-                },
-                {
-                    accountId: 1,
-                    provider: 'apple',
-                    endpoint: 'trends',
-                    date: today,
-                },
-            ]),
         } as unknown as StatusRepository
 
         const statusApi = new StatusApi(statusRepo)
@@ -102,7 +75,6 @@ describe('StatusApi', () => {
         expect(statusRepo.getDailyEndpointUpdates).toHaveBeenCalledWith(
             periodDays
         )
-        expect(statusRepo.getEndpointFirstUpdates).toHaveBeenCalledTimes(1)
         expect(statistics).toHaveLength(2)
         expect(statistics[0]).toEqual(
             expect.objectContaining({
@@ -125,20 +97,7 @@ describe('StatusApi', () => {
         expect(statistics[0].days).toHaveLength(periodDays)
         expect(statistics[0].days[0]).toEqual({
             date: dates[0],
-            title: `${dates[0]}: no data available`,
-            isUnavailable: true,
-            isDegraded: false,
-            requests: {
-                total: 0,
-                successful: 0,
-                failed: 0,
-                successRate: 0,
-            },
-        })
-        expect(statistics[0].days[1]).toEqual({
-            date: firstAvailableDate,
-            title: `${firstAvailableDate}: 0/3 successful, 3 failed`,
-            isUnavailable: false,
+            title: `${dates[0]}: 0/3 successful, 3 failed`,
             isDegraded: true,
             requests: {
                 total: 3,
@@ -150,7 +109,6 @@ describe('StatusApi', () => {
         expect(statistics[0].days[periodDays - 1]).toEqual({
             date: today,
             title: `${today}: 2/3 successful, 1 failed`,
-            isUnavailable: false,
             isDegraded: true,
             requests: {
                 total: 3,

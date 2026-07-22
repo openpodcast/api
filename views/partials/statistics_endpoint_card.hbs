@@ -10,14 +10,10 @@
 
     <div class="daily-bars" aria-label="Daily endpoint imports">
         {{#each days}}
-            {{#if isUnavailable}}
-                <div class="daily-bar unavailable" title="{{title}}"></div>
+            {{#if isDegraded}}
+                <div class="daily-bar degraded" title="{{title}}"></div>
             {{else}}
-                {{#if isDegraded}}
-                    <div class="daily-bar degraded" title="{{title}}"></div>
-                {{else}}
-                    <div class="daily-bar" title="{{title}}"></div>
-                {{/if}}
+                <div class="daily-bar" title="{{title}}"></div>
             {{/if}}
         {{/each}}
     </div>
