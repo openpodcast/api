@@ -151,6 +151,19 @@
             margin-top: 4px;
         }
 
+        .grafana-link {
+            color: #0969da;
+            display: inline-flex;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+
+        .grafana-link:hover {
+            text-decoration: underline;
+        }
+
         .panel {
             background: #fff;
             border: 1px solid #d8dee4;
@@ -194,10 +207,21 @@
         }
 
         .timestamp,
-        .guidance {
+        .guidance,
+        .logs-link {
             color: #6b7280;
             font-size: 0.92rem;
             line-height: 1.4;
+        }
+
+        .logs-link a {
+            color: #0969da;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logs-link a:hover {
+            text-decoration: underline;
         }
 
         .severity {
@@ -357,6 +381,7 @@
                                 <li>#{{podcastId}} · {{ageHours}}h since {{latestUpdateAt}}</li>
                             {{/each}}
                         </ol>
+                        <a class="grafana-link" href="{{grafanaUrl}}" target="_blank" rel="noopener noreferrer">Open Grafana logs</a>
                     </article>
                 {{/each}}
             </section>
@@ -377,6 +402,7 @@
                                 <li>{{provider}}/{{endpoint}} · {{ageHours}}h since {{latestUpdateAt}}</li>
                             {{/each}}
                         </ol>
+                        <a class="grafana-link" href="{{grafanaUrl}}" target="_blank" rel="noopener noreferrer">Open Grafana logs</a>
                     </article>
                 {{/each}}
             </section>
@@ -394,6 +420,7 @@
                             <th>Last success</th>
                             <th>Severity</th>
                             <th>Guidance</th>
+                            <th>Logs</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -407,6 +434,9 @@
                                     <span class="severity {{severity}}">{{severityLabel}}</span>
                                 </td>
                                 <td class="guidance" data-label="Guidance">{{guidance}}</td>
+                                <td class="logs-link" data-label="Logs">
+                                    <a href="{{grafanaUrl}}" target="_blank" rel="noopener noreferrer">Grafana</a>
+                                </td>
                             </tr>
                         {{/each}}
                     </tbody>

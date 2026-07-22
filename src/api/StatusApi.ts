@@ -16,6 +16,7 @@ type ImportIssue = {
     severity: 'stale' | 'concerning' | 'serious'
     severityLabel: string
     guidance: string
+    grafanaUrl: string
 }
 
 type ImportIssueSummary = {
@@ -34,6 +35,7 @@ type EndpointIssueGroup = {
     worstAgeHours: number
     severity: ImportIssue['severity']
     severityLabel: string
+    grafanaUrl: string
     issues: ImportIssue[]
 }
 
@@ -44,6 +46,7 @@ type PodcastIssueGroup = {
     worstAgeHours: number
     severity: ImportIssue['severity']
     severityLabel: string
+    grafanaUrl: string
     issues: ImportIssue[]
 }
 
@@ -52,6 +55,49 @@ type ImportIssueReport = {
     endpointGroups: EndpointIssueGroup[]
     podcastGroups: PodcastIssueGroup[]
     issues: ImportIssue[]
+}
+
+const GRAFANA_EXPLORE_URL = 'https://openpodcast.grafana.net/explore'
+const GRAFANA_LOGS_DATASOURCE_UID = 'grafanacloud-logs'
+const GRAFANA_SWARM_STACK = 'openpod-engineeringkiosk'
+
+const getGrafanaLogsUrl = () => {
+    const pane = {
+        datasource: GRAFANA_LOGS_DATASOURCE_UID,
+        queries: [
+            {
+                refId: 'A',
+                expr: `{swarm_stack="${GRAFANA_SWARM_STACK}"} |~ \`(?i)error\``,
+                queryType: 'range',
+                datasource: {
+                    type: 'loki',
+                    uid: GRAFANA_LOGS_DATASOURCE_UID,
+                },
+                editorMode: 'code',
+                direction: 'backward',
+            },
+        ],
+        range: {
+            from: 'now-7d',
+            to: 'now',
+        },
+        panelsState: {
+            logs: {
+                sortOrder: 'Descending',
+            },
+        },
+        compact: false,
+    }
+    const panes = {
+        importErrors: pane,
+    }
+    const params = new URLSearchParams({
+        schemaVersion: '1',
+        panes: JSON.stringify(panes),
+        orgId: '1',
+    })
+
+    return `${GRAFANA_EXPLORE_URL}?${params.toString()}`
 }
 
 const getEndpointAgeHours = (endpointDate: Date) => {
@@ -163,6 +209,7 @@ const getEndpointIssueGroups = (issues: ImportIssue[]) => {
             worstAgeHours: worstIssue.ageHours,
             severity: worstIssue.severity,
             severityLabel: worstIssue.severityLabel,
+            grafanaUrl: worstIssue.grafanaUrl,
             issues: groupIssues,
         }
     })
@@ -209,6 +256,7 @@ const getPodcastIssueGroups = (issues: ImportIssue[]) => {
                 worstAgeHours: worstIssue.ageHours,
                 severity: worstIssue.severity,
                 severityLabel: worstIssue.severityLabel,
+                grafanaUrl: worstIssue.grafanaUrl,
                 issues: groupIssues,
             }
         }
@@ -292,6 +340,7 @@ class StatusApi {
     ): ImportIssueReport {
         const affectedPodcasts = new Set<number>()
         const affectedEndpoints = new Set<string>()
+        const grafanaUrl = getGrafanaLogsUrl()
         const issues: ImportIssue[] = []
 
         Object.entries(status).forEach(([podcastIdStr, podcastData]) => {
@@ -320,6 +369,7 @@ class StatusApi {
                         severity,
                         severityLabel: getIssueSeverityLabel(severity),
                         guidance: getIssueGuidance(severity),
+                        grafanaUrl,
                     })
                 }
             )
