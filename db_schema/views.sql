@@ -80,7 +80,7 @@ SELECT
   hoster.episode_id as hoster_episode_id
 FROM 
   spotifyEpisodeMetadata spotify
-  JOIN appleEpisodeMetadata apple USING (account_id, ep_name)
+  LEFT JOIN appleEpisodeMetadata apple USING (account_id, ep_name)
   LEFT JOIN hosterEpisodeMetadata hoster USING (account_id, ep_name);
 
 
