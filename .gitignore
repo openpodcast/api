@@ -3,3 +3,4 @@ dist
 .env
 .env.prod
 dbinit.sql
+Errors OpenPodcast Default Stack-logs-*.txt

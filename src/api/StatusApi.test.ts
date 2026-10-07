@@ -1,6 +1,8 @@
 import { StatusApi } from './StatusApi'
 import { StatusRepository } from '../db/StatusRepository'
 
+const GRAFANA_EXPLORE_URL = 'https://openpodcast.grafana.net/explore'
+
 describe('StatusApi', () => {
     beforeEach(() => {
         jest.useFakeTimers().setSystemTime(new Date(2026, 6, 22, 12, 0, 0))
@@ -49,6 +51,7 @@ describe('StatusApi', () => {
                 severity: 'serious',
                 severityLabel: 'Needs attention',
                 guidance: 'Check the import pipeline and provider credentials.',
+                grafanaUrl: expect.stringContaining(GRAFANA_EXPLORE_URL),
             },
             {
                 podcastId: 2,
@@ -59,6 +62,7 @@ describe('StatusApi', () => {
                 severity: 'concerning',
                 severityLabel: 'Concerning',
                 guidance: 'Check whether the pipeline is delayed or stuck.',
+                grafanaUrl: expect.stringContaining(GRAFANA_EXPLORE_URL),
             },
             {
                 podcastId: 1,
@@ -70,6 +74,7 @@ describe('StatusApi', () => {
                 severityLabel: 'Stale',
                 guidance:
                     'Watch this import; it is older than the daily window.',
+                grafanaUrl: expect.stringContaining(GRAFANA_EXPLORE_URL),
             },
         ])
         expect(report.endpointGroups).toEqual([
@@ -80,6 +85,7 @@ describe('StatusApi', () => {
                 affectedPodcastCount: 2,
                 worstAgeHours: 80,
                 severity: 'serious',
+                grafanaUrl: expect.stringContaining(GRAFANA_EXPLORE_URL),
             }),
             expect.objectContaining({
                 provider: 'apple',
@@ -88,6 +94,7 @@ describe('StatusApi', () => {
                 affectedPodcastCount: 1,
                 worstAgeHours: 52,
                 severity: 'concerning',
+                grafanaUrl: expect.stringContaining(GRAFANA_EXPLORE_URL),
             }),
         ])
         expect(report.endpointGroups[0].issues).toEqual([
@@ -101,6 +108,7 @@ describe('StatusApi', () => {
                 affectedEndpointCount: 2,
                 worstAgeHours: 80,
                 severity: 'serious',
+                grafanaUrl: expect.stringContaining(GRAFANA_EXPLORE_URL),
             }),
             expect.objectContaining({
                 podcastId: 1,
@@ -108,6 +116,7 @@ describe('StatusApi', () => {
                 affectedEndpointCount: 1,
                 worstAgeHours: 30,
                 severity: 'stale',
+                grafanaUrl: expect.stringContaining(GRAFANA_EXPLORE_URL),
             }),
         ])
         expect(report.podcastGroups[0].issues).toEqual([
