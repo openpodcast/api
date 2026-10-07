@@ -1,0 +1,31 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "showDemographicsStats"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "showByShowUri": {
+      "showStreamsFaceted": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "FacetedAnalyticsValue",
+            "ageBreakdown": [],
+            "countryBreakdown": [],
+            "genderBreakdown": null,
+            "totalValue": 0
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "uri": "spotify:show:0tJRC0UsObPCWLmmzmOkIs"
+    }
+  }
+}

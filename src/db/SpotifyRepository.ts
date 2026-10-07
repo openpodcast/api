@@ -494,6 +494,33 @@ class SpotifyRepository {
 
         return Promise.all(queryPromises)
     }
+
+    async storeGraphQLRaw(
+        accountId: number,
+        showUri: string,
+        episodeUri: string | null | undefined,
+        endpoint: string,
+        data: object,
+        retrievedAt: string
+    ): Promise<any> {
+        const insertStmt = `INSERT INTO spotifyGraphQLRaw (
+            account_id,
+            show_uri,
+            episode_uri,
+            endpoint,
+            data,
+            retrieved_at
+        ) VALUES (?,?,?,?,?,?)`
+
+        return await this.pool.query(insertStmt, [
+            accountId,
+            showUri,
+            episodeUri ?? null,
+            endpoint,
+            JSON.stringify(data),
+            retrievedAt,
+        ])
+    }
 }
 
 export { SpotifyRepository }

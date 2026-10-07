@@ -14,6 +14,7 @@ import {
     SpotifyImpressionsDailyPayload,
     SpotifyImpressionsFacetedPayload,
     SpotifyImpressionsFunnelPayload,
+    SpotifyGraphQLPayload,
 } from '../../types/provider/spotify'
 import aggregateSchema from '../../schema/spotify/aggregate.json'
 import detailedStreamsSchema from '../../schema/spotify/detailedStreams.json'
@@ -26,6 +27,20 @@ import impressionsTotalSchema from '../../schema/spotify/impressionsTotal.json'
 import impressionsDailySchema from '../../schema/spotify/impressionsDaily.json'
 import impressionsFacetedSchema from '../../schema/spotify/impressionsFaceted.json'
 import impressionsFunnelSchema from '../../schema/spotify/impressionsFunnel.json'
+import showSpotifyStatsSchema from '../../schema/spotify/showSpotifyStats.json'
+import showDemographicsStatsSchema from '../../schema/spotify/showDemographicsStats.json'
+import showAudienceDiscoverySchema from '../../schema/spotify/showAudienceDiscovery.json'
+import showGeoStatsSchema from '../../schema/spotify/showGeoStats.json'
+import showPlatformStatsSchema from '../../schema/spotify/showPlatformStats.json'
+import showImpressionsTrendSchema from '../../schema/spotify/showImpressionsTrend.json'
+import showImpressionsSourcesSchema from '../../schema/spotify/showImpressionsSources.json'
+import showTopEpisodesSchema from '../../schema/spotify/showTopEpisodes.json'
+import episodeMetadataGraphQLSchema from '../../schema/spotify/episodeMetadataGraphQL.json'
+import episodePerformanceAllTimeSchema from '../../schema/spotify/episodePerformanceAllTime.json'
+import episodeStreamsAndDownloadsSchema from '../../schema/spotify/episodeStreamsAndDownloads.json'
+import episodePlaysGraphQLDailySchema from '../../schema/spotify/episodePlaysDaily.json'
+import episodeConsumptionAllTimeSchema from '../../schema/spotify/episodeConsumptionAllTime.json'
+import episodeAudienceSizeAllTimeSchema from '../../schema/spotify/episodeAudienceSizeAllTime.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
 
@@ -67,13 +82,28 @@ class SpotifyConnector implements ConnectorHandler {
                 )
             }
         } else if (payload.meta.endpoint === 'episodeMetadata') {
-            // metadata of single episode
-            validateJsonApiPayload(episodeMetadataSchema, payload.data)
-
-            return await this.repo.storeEpisodeMetadata(
-                accountId,
-                payload.data as SpotifyEpisodeMetadataPayload
-            )
+            // Handle both the old Spotify API shape (flat fields) and the new
+            // GraphQL pipeline shape ({ episodeByUri: { ... } }).
+            const episodeData = payload.data as any
+            if (episodeData.episodeByUri !== undefined) {
+                // New GraphQL pipeline shape
+                validateJsonApiPayload(episodeMetadataGraphQLSchema, episodeData)
+                return await this.repo.storeGraphQLRaw(
+                    accountId,
+                    payload.meta.show as string,
+                    payload.meta.episode,
+                    'episodeMetadata',
+                    payload.data,
+                    payload.retrieved
+                )
+            } else {
+                // Old Spotify API shape
+                validateJsonApiPayload(episodeMetadataSchema, payload.data)
+                return await this.repo.storeEpisodeMetadata(
+                    accountId,
+                    payload.data as SpotifyEpisodeMetadataPayload
+                )
+            }
         } else if (payload.meta.endpoint === 'followers') {
             // follower count per day
             validateJsonApiPayload(followerSchema, payload.data)
@@ -174,6 +204,45 @@ class SpotifyConnector implements ConnectorHandler {
                 accountId,
                 payload.data as SpotifyImpressionsFunnelPayload
             )
+        } else if (payload.meta.endpoint === 'showSpotifyStats') {
+            validateJsonApiPayload(showSpotifyStatsSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showSpotifyStats', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'showDemographicsStats') {
+            validateJsonApiPayload(showDemographicsStatsSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showDemographicsStats', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'showAudienceDiscovery') {
+            validateJsonApiPayload(showAudienceDiscoverySchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showAudienceDiscovery', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'showGeoStats') {
+            validateJsonApiPayload(showGeoStatsSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showGeoStats', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'showPlatformStats') {
+            validateJsonApiPayload(showPlatformStatsSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showPlatformStats', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'showImpressionsTrend') {
+            validateJsonApiPayload(showImpressionsTrendSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showImpressionsTrend', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'showImpressionsSources') {
+            validateJsonApiPayload(showImpressionsSourcesSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showImpressionsSources', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'showTopEpisodes') {
+            validateJsonApiPayload(showTopEpisodesSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'showTopEpisodes', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'episodePerformanceAllTime') {
+            validateJsonApiPayload(episodePerformanceAllTimeSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'episodePerformanceAllTime', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'episodeStreamsAndDownloads') {
+            validateJsonApiPayload(episodeStreamsAndDownloadsSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'episodeStreamsAndDownloads', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'episodePlaysDaily') {
+            validateJsonApiPayload(episodePlaysGraphQLDailySchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'episodePlaysDaily', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'episodeConsumptionAllTime') {
+            validateJsonApiPayload(episodeConsumptionAllTimeSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'episodeConsumptionAllTime', payload.data, payload.retrieved)
+        } else if (payload.meta.endpoint === 'episodeAudienceSizeAllTime') {
+            validateJsonApiPayload(episodeAudienceSizeAllTimeSchema, payload.data)
+            return await this.repo.storeGraphQLRaw(accountId, payload.meta.show as string, payload.meta.episode, 'episodeAudienceSizeAllTime', payload.data, payload.retrieved)
         } else {
             throw new PayloadError(
                 `Unknown endpoint in meta: ${payload.meta.endpoint}`

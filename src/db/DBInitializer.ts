@@ -146,7 +146,7 @@ class DBInitializer {
             migrationId++
         ) {
             console.log(`Running migration number ${migrationId} ...`)
-            this.runMigration(migrationId)
+            await this.runMigration(migrationId)
             console.log(`Migration ${migrationId} done`)
         }
         console.log('All migration work finished')

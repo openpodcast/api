@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/episodeStreamsAndDownloads.schema.json",
+    "title": "Spotify episode streams and downloads (GraphQL)",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}

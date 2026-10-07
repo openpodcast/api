@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/showGeoStats.schema.json",
+    "title": "Spotify show geo stats (GraphQL)",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}

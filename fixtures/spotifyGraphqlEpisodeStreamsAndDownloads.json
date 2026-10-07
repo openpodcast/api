@@ -1,0 +1,46 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "episodeStreamsAndDownloads",
+    "episode": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "episodeByUri": {
+      "episodeStreamsAndDownloads": {
+        "analyticsValue": {
+          "analyticsValue": {
+            "__typename": "StreamsAndDownloadsValue",
+            "downloads": 0,
+            "streams": 0,
+            "downloadsTimeSeries": {
+              "__typename": "TimeSeriesValue",
+              "points": [
+                {
+                  "date": "2026-02-15",
+                  "value": {
+                    "__typename": "CountValueLong",
+                    "value": 0
+                  }
+                }
+              ]
+            },
+            "streamsTimeSeries": {
+              "__typename": "TimeSeriesValue",
+              "points": []
+            }
+          }
+        },
+        "endDate": "2026-03-14",
+        "startDate": "2026-03-07"
+      },
+      "uri": "spotify:episode:7tCwxfSBukfYDYvHD8QbK7"
+    }
+  }
+}

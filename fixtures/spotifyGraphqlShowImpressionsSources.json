@@ -1,0 +1,19 @@
+{
+  "provider": "spotify",
+  "version": 1,
+  "retrieved": "2026-03-14T10:00:00.000Z",
+  "meta": {
+    "show": "spotify:show:0tJRC0UsObPCWLmmzmOkIs",
+    "endpoint": "showImpressionsSources"
+  },
+  "range": {
+    "start": "2026-03-07",
+    "end": "2026-03-14"
+  },
+  "data": {
+    "showByShowUri": {
+      "impressionsSources": null,
+      "uri": "spotify:show:0tJRC0UsObPCWLmmzmOkIs"
+    }
+  }
+}

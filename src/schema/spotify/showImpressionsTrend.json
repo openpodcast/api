@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/showImpressionsTrend.schema.json",
+    "title": "Spotify show impressions trend (GraphQL)",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}

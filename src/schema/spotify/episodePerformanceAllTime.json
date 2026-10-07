@@ -1,0 +1,7 @@
+{
+    "$id": "http://openpodcast.dev/schema/spotify/episodePerformanceAllTime.schema.json",
+    "title": "Spotify episode performance all time (GraphQL)",
+    "type": "object",
+    "additionalProperties": true,
+    "properties": {}
+}
