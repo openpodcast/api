@@ -10,4 +10,5 @@ export interface ConnectorPayload {
     }
     data: object
     provider: string
+    retrieved?: string
 }

@@ -23,8 +23,11 @@ DEFAULT_END_DATE=$(date -d "$(date +%Y-%m-01) -1 day" +%Y-%m-%d)
 START_DATE=${2:-$DEFAULT_START_DATE}
 END_DATE=${3:-$DEFAULT_END_DATE}
 
+# Query version (v1, v2, ...), defaults to v1
+VERSION=${4:-v1}
+
 # Directory to watch
-WATCH_DIR="./db_schema/queries/v1/"
+WATCH_DIR="./db_schema/queries/$VERSION/"
 
 echo "Watching directory: $WATCH_DIR"
 echo "Using podcast ID: $PODCAST_ID in $START_DATE to $END_DATE"

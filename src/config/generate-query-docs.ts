@@ -5,13 +5,16 @@ import { getQueryDataSchema, getQueryResponseExample } from './query-examples'
 
 /**
  * Generates OpenAPI documentation for SQL query endpoints
- * Reads SQL files from db_schema/queries/v1/ and creates endpoint specs
+ * Reads SQL files from db_schema/queries/<version>/ and creates endpoint specs
  */
 
-const QUERIES_DIR = path.join(__dirname, '../../db_schema/queries/v1')
+const QUERIES_BASE_DIR = path.join(__dirname, '../../db_schema/queries')
+const QUERY_VERSIONS = ['v1', 'v2']
 
 type QueryDoc = {
     name: string
+    // key of the response example: name for v1, <version>/<name> otherwise
+    exampleKey: string
     category: string
     description: string
     path: string
@@ -53,23 +56,27 @@ const extractDescription = (sqlContent: string): string => {
     return commentLines.join('<br>') || 'Analytics query endpoint'
 }
 
-export const generateQueryDocs = (): QueryDoc[] => {
+const generateVersionQueryDocs = (version: string): QueryDoc[] => {
     const queries: QueryDoc[] = []
+    const queriesDir = path.join(QUERIES_BASE_DIR, version)
 
-    if (!fs.existsSync(QUERIES_DIR)) {
-        console.warn(`Queries directory not found: ${QUERIES_DIR}`)
+    if (!fs.existsSync(queriesDir)) {
+        console.warn(`Queries directory not found: ${queriesDir}`)
         return queries
     }
 
-    const files = fs.readdirSync(QUERIES_DIR).filter((f) => f.endsWith('.sql'))
+    const files = fs.readdirSync(queriesDir).filter((f) => f.endsWith('.sql'))
 
     for (const file of files) {
         const queryName = file.replace('.sql', '')
-        const filePath = path.join(QUERIES_DIR, file)
+        const filePath = path.join(queriesDir, file)
         const sqlContent = fs.readFileSync(filePath, 'utf-8')
 
         let description = extractDescription(sqlContent)
-        const category = categorizeQuery(queryName)
+        const category =
+            version === 'v1'
+                ? categorizeQuery(queryName)
+                : `Metrics (${version})`
 
         // First line has to start with `-- @doc`. If not, ignore the file
         if (!description.startsWith('@doc')) {
@@ -81,14 +88,19 @@ export const generateQueryDocs = (): QueryDoc[] => {
 
         queries.push({
             name: queryName,
+            exampleKey:
+                version === 'v1' ? queryName : `${version}/${queryName}`,
             category,
             description,
-            path: `/analytics/v1/{podcastId}/${queryName}`,
+            path: `/analytics/${version}/{podcastId}/${queryName}`,
         })
     }
 
     return queries
 }
+
+export const generateQueryDocs = (): QueryDoc[] =>
+    QUERY_VERSIONS.flatMap(generateVersionQueryDocs)
 
 // Generate OpenAPI paths object for all queries
 export const generateQueryPaths = () => {
@@ -105,7 +117,7 @@ export const generateQueryPaths = () => {
     for (const query of queries) {
         const exampleDate = getTwoDaysAgo()
         const responseExample = getQueryResponseExample(
-            query.name,
+            query.exampleKey,
             exampleDate,
             exampleDate
         )
@@ -173,7 +185,9 @@ export const generateQueryPaths = () => {
                                                 result: { type: 'string' },
                                             },
                                         },
-                                        data: getQueryDataSchema(query.name),
+                                        data: getQueryDataSchema(
+                                            query.exampleKey
+                                        ),
                                     },
                                 },
                                 ...(responseExample
