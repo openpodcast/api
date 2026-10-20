@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS migrations (
 -- -----------------------------------------
 -- IMPORTANT: this is the schema version
 -- ID has to be incremented for each change
-INSERT INTO migrations (migration_id, migration_name) VALUES (18, 'episode mapping indexes');
+INSERT INTO migrations (migration_id, migration_name) VALUES (19, 'v2 metrics');
 -- -----------------------------------------
 
 CREATE TABLE IF NOT EXISTS events (
@@ -806,3 +806,89 @@ CREATE TABLE IF NOT EXISTS hosterEpisodeMetrics (
         FOREIGN KEY (subdimension) REFERENCES subdimensions(dim_id)
         ON DELETE RESTRICT
 );
+
+-- -----------------------------------------
+-- v2 metrics schema (own podcast/episode ids, platform id mappings, metrics by date range)
+-- -----------------------------------------
+
+-- platforms data is fetched from (ids are referenced in code, see src/types/metrics.ts)
+CREATE TABLE IF NOT EXISTS platforms (
+  platform_id TINYINT UNSIGNED NOT NULL,
+  name VARCHAR(32) NOT NULL,
+  PRIMARY KEY (platform_id),
+  UNIQUE KEY (name)
+);
+
+INSERT INTO platforms (platform_id, name) VALUES
+  (1, 'spotify'),
+  (2, 'apple'),
+  (3, 'anchor'),
+  (4, 'podigee');
+
+-- metric definitions (ids are referenced in code, see src/types/metrics.ts)
+-- additive metrics (e.g. plays) are stored as daily values and can be summed up
+-- non additive metrics (e.g. unique listeners) are stored with explicit date ranges
+CREATE TABLE IF NOT EXISTS metrics (
+  metric_id SMALLINT UNSIGNED NOT NULL,
+  name VARCHAR(64) NOT NULL,
+  additive BOOLEAN NOT NULL,
+  PRIMARY KEY (metric_id),
+  UNIQUE KEY (name)
+);
+
+INSERT INTO metrics (metric_id, name, additive) VALUES
+  (1, 'plays', 1);
+
+-- episodes with an id which is unique across all podcasts
+CREATE TABLE IF NOT EXISTS episodes (
+  episode_id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  podcast_id INTEGER NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (episode_id),
+  KEY (podcast_id)
+);
+
+-- maps the podcast id (podcasts.account_id) to the id of the podcast on a platform
+CREATE TABLE IF NOT EXISTS podcastPlatformIds (
+  podcast_id INTEGER NOT NULL,
+  platform_id TINYINT UNSIGNED NOT NULL,
+  platform_podcast_id VARCHAR(128) NOT NULL,
+  PRIMARY KEY (podcast_id, platform_id),
+  KEY (platform_id, platform_podcast_id)
+);
+
+-- maps the id of an episode on a platform to our episode id
+-- scoped by podcast as the same platform show might be connected to multiple podcasts
+CREATE TABLE IF NOT EXISTS episodePlatformIds (
+  podcast_id INTEGER NOT NULL,
+  platform_id TINYINT UNSIGNED NOT NULL,
+  platform_episode_id VARCHAR(128) NOT NULL,
+  episode_id INT UNSIGNED NOT NULL,
+  PRIMARY KEY (podcast_id, platform_id, platform_episode_id),
+  KEY (episode_id)
+);
+
+-- metric values of a podcast for a date range
+-- daily values: start_date = end_date
+-- lifetime values: start_date = release date, end_date = date the data was fetched
+CREATE TABLE IF NOT EXISTS podcastMetrics (
+  podcast_id INTEGER NOT NULL,
+  metric_id SMALLINT UNSIGNED NOT NULL,
+  platform_id TINYINT UNSIGNED NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  value BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (podcast_id, metric_id, platform_id, start_date, end_date)
+);
+
+-- metric values of an episode for a date range (same semantics as podcastMetrics)
+CREATE TABLE IF NOT EXISTS episodeMetrics (
+  episode_id INT UNSIGNED NOT NULL,
+  metric_id SMALLINT UNSIGNED NOT NULL,
+  platform_id TINYINT UNSIGNED NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  value BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (episode_id, metric_id, platform_id, start_date, end_date)
+);
+

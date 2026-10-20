@@ -28,12 +28,44 @@ import impressionsFacetedSchema from '../../schema/spotify/impressionsFaceted.js
 import impressionsFunnelSchema from '../../schema/spotify/impressionsFunnel.json'
 import { validateJsonApiPayload } from '../JsonPayloadValidator'
 import { SpotifyRepository } from '../../db/SpotifyRepository'
+import { MetricsRepository } from '../../db/MetricsRepository'
+import { METRIC, MetricValue, PLATFORM } from '../../types/metrics'
+
+// date (YYYY-MM-DD) the data was fetched by the connector
+const getFetchDate = (payload: ConnectorPayload): string =>
+    (payload.retrieved ?? new Date().toISOString()).substring(0, 10)
+
+// lifetime value from the release date until the data was fetched
+// returns no value if the release date is unknown or after the fetch date
+const getLifetimeValue = (
+    releaseDate: string | undefined,
+    fetchDate: string,
+    value: number
+): MetricValue[] => {
+    const start = releaseDate?.substring(0, 10)
+    if (!start || start > fetchDate) {
+        return []
+    }
+    return [{ start, end: fetchDate, value }]
+}
+
+// v2: Spotify streams (60+ seconds) are stored as plays
+const streamsToDailyPlays = (
+    payload: SpotifyDetailedStreamsPayload
+): MetricValue[] =>
+    payload.detailedStreams.map((entry) => ({
+        start: entry.date,
+        end: entry.date,
+        value: entry.streams,
+    }))
 
 class SpotifyConnector implements ConnectorHandler {
     repo: SpotifyRepository
+    metricsRepo: MetricsRepository
 
-    constructor(repo: SpotifyRepository) {
+    constructor(repo: SpotifyRepository, metricsRepo: MetricsRepository) {
         this.repo = repo
+        this.metricsRepo = metricsRepo
     }
 
     async handleRequest(
@@ -43,10 +75,26 @@ class SpotifyConnector implements ConnectorHandler {
         if (payload.meta.endpoint === 'metadata') {
             // metadata of podcast
             validateJsonApiPayload(podcastMetadataSchema, payload.data)
+            const data = payload.data as SpotifyPodcastMetadataPayload
 
-            return await this.repo.storePodcastMetadata(
+            await this.repo.storePodcastMetadata(accountId, data)
+
+            if (data.id) {
+                await this.metricsRepo.upsertPodcastPlatformId(
+                    accountId,
+                    PLATFORM.spotify,
+                    data.id
+                )
+            }
+            return await this.metricsRepo.storePodcastMetrics(
                 accountId,
-                payload.data as SpotifyPodcastMetadataPayload
+                PLATFORM.spotify,
+                METRIC.plays,
+                getLifetimeValue(
+                    data.releaseDate,
+                    getFetchDate(payload),
+                    data.streams
+                )
             )
         } else if (payload.meta.endpoint === 'detailedStreams') {
             // validates the payload and throws an error if it is not valid
@@ -54,25 +102,56 @@ class SpotifyConnector implements ConnectorHandler {
 
             // detailedStreams API has the same format for episodes and podcasts
             // it is distinguished by the presence/absence of the episode id
+            const data = payload.data as SpotifyDetailedStreamsPayload
             if (payload.meta.episode !== undefined) {
-                return await this.repo.storeEpisodeDetailedStreams(
+                await this.repo.storeEpisodeDetailedStreams(
                     accountId,
                     payload.meta.episode,
-                    payload.data as SpotifyDetailedStreamsPayload
+                    data
+                )
+
+                const episodeId = await this.metricsRepo.getOrCreateEpisodeId(
+                    accountId,
+                    PLATFORM.spotify,
+                    payload.meta.episode
+                )
+                return await this.metricsRepo.storeEpisodeMetrics(
+                    episodeId,
+                    PLATFORM.spotify,
+                    METRIC.plays,
+                    streamsToDailyPlays(data)
                 )
             } else {
-                return await this.repo.storePodcastDetailedStreams(
+                await this.repo.storePodcastDetailedStreams(accountId, data)
+
+                return await this.metricsRepo.storePodcastMetrics(
                     accountId,
-                    payload.data as SpotifyDetailedStreamsPayload
+                    PLATFORM.spotify,
+                    METRIC.plays,
+                    streamsToDailyPlays(data)
                 )
             }
         } else if (payload.meta.endpoint === 'episodeMetadata') {
             // metadata of single episode
             validateJsonApiPayload(episodeMetadataSchema, payload.data)
+            const data = payload.data as SpotifyEpisodeMetadataPayload
 
-            return await this.repo.storeEpisodeMetadata(
+            await this.repo.storeEpisodeMetadata(accountId, data)
+
+            const episodeId = await this.metricsRepo.getOrCreateEpisodeId(
                 accountId,
-                payload.data as SpotifyEpisodeMetadataPayload
+                PLATFORM.spotify,
+                data.id
+            )
+            return await this.metricsRepo.storeEpisodeMetrics(
+                episodeId,
+                PLATFORM.spotify,
+                METRIC.plays,
+                getLifetimeValue(
+                    data.releaseDate,
+                    getFetchDate(payload),
+                    data.streams
+                )
             )
         } else if (payload.meta.endpoint === 'followers') {
             // follower count per day

@@ -19,6 +19,87 @@ type OpenApiSchema = {
 }
 
 export const queryDataExamples: QueryExampleMap = {
+    'v2/podcastPlays': [
+        {
+            podcastId: 42,
+            metric: 'plays',
+            platform: 'spotify',
+            startDate: '2026-07-01',
+            endDate: '2026-07-01',
+            value: 128,
+        },
+    ],
+    'v2/podcastPlaysTotal': [
+        {
+            podcastId: 42,
+            metric: 'plays',
+            platform: 'spotify',
+            startDate: '2026-07-01',
+            endDate: '2026-07-31',
+            value: 3912,
+            days: 31,
+        },
+    ],
+    'v2/podcastPlaysLifetime': [
+        {
+            podcastId: 42,
+            metric: 'plays',
+            platform: 'spotify',
+            startDate: '2022-10-25',
+            endDate: '2026-07-31',
+            value: 85120,
+        },
+    ],
+    'v2/podcastPlaysMissingDays': [
+        {
+            podcastId: 42,
+            metric: 'plays',
+            platform: 'spotify',
+            date: '2026-07-14',
+        },
+    ],
+    'v2/episodePlays': [
+        {
+            episodeId: 1017,
+            metric: 'plays',
+            platform: 'spotify',
+            startDate: '2026-07-01',
+            endDate: '2026-07-01',
+            value: 37,
+        },
+    ],
+    'v2/episodePlaysTotal': [
+        {
+            episodeId: 1017,
+            metric: 'plays',
+            platform: 'spotify',
+            startDate: '2026-07-01',
+            endDate: '2026-07-31',
+            value: 845,
+            days: 31,
+        },
+    ],
+    'v2/episodePlaysLifetime': [
+        {
+            episodeId: 1017,
+            metric: 'plays',
+            platform: 'spotify',
+            startDate: '2026-06-24',
+            endDate: '2026-07-31',
+            value: 1290,
+        },
+    ],
+    'v2/episodes': [
+        {
+            episodeId: 1017,
+            name: 'How Small Teams Measure Growth',
+            releaseDate: '2026-06-24',
+            spotifyId: '2ebg5MhyOK9rotpCBfe830',
+            appleId: null,
+            anchorId: null,
+            podigeeId: null,
+        },
+    ],
     appleEpisodesLTR: [
         {
             name: 'How Small Teams Measure Growth',
@@ -516,7 +597,8 @@ export const getQueryResponseExample = (
 
     return {
         meta: {
-            query: queryName,
+            // strip the version prefix of keys like v2/podcastPlays
+            query: queryName.split('/').pop() ?? queryName,
             accountId: '42',
             podcastId: '42',
             date: '2026-07-09 12:00:00',

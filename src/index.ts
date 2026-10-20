@@ -10,6 +10,7 @@ import bodyParser from 'body-parser'
 import { EventsApi, ConnectorApi } from './api'
 import { EventRepository } from './db/EventRepository'
 import { SpotifyRepository } from './db/SpotifyRepository'
+import { MetricsRepository } from './db/MetricsRepository'
 import { AuthController } from './auth/AuthController'
 import { AuthError, HttpError, PayloadError } from './types/api'
 import { SpotifyConnector } from './api/connectors/SpotifyConnector'
@@ -148,7 +149,8 @@ const eventRepo = new EventRepository(pool)
 const eventsApi = new EventsApi(eventRepo)
 
 const spotifyRepo = new SpotifyRepository(pool)
-const spotifyConnector = new SpotifyConnector(spotifyRepo)
+const metricsRepo = new MetricsRepository(pool)
+const spotifyConnector = new SpotifyConnector(spotifyRepo, metricsRepo)
 
 const appleRepo = new AppleRepository(pool)
 const appleConnector = new AppleConnector(appleRepo)
@@ -372,11 +374,13 @@ app.get(
             // Throw error if accountIds is not set or empty
             if (!accountIds || accountIds.length === 0) {
                 res.status(401).send('Not authorized: no account access')
+                return
             }
 
             const podcastId = req.params.podcastId
             if (podcastId === '') {
                 res.status(401).send('Not authorized: podcastId not set')
+                return
             }
 
             const version = req.params.version
@@ -390,12 +394,13 @@ app.get(
             }
 
             // Check if the user has access to the requested podcast ID
-            // For v1, the podcast id must be one of the user's account ids
+            // The podcast id must be one of the user's account ids
             const podcastIdNum = parseInt(podcastId, 10)
-            if (version === 'v1' && !accountIds.includes(podcastIdNum)) {
+            if (!accountIds.includes(podcastIdNum)) {
                 res.status(401).send(
-                    'Not authorized: podcastId must be one of your accessible account IDs in v1'
+                    'Not authorized: podcastId must be one of your accessible account IDs'
                 )
+                return
             }
 
             // Get date from query parameters

@@ -73,13 +73,13 @@ integration-test: ## Run integration tests locally
 	npx jest ./tests/api_e2e --verbose true
 
 .PHONY: dev-sql
-dev-sql: ## Watch SQL files and output ready to run queries (specify podcast id as first param)
+dev-sql: ## Watch SQL files and output ready to run queries (PODCAST_ID required, optional START_DATE, END_DATE, VERSION=v1)
 ifndef PODCAST_ID
 	@echo "Error: Podcast ID is missing. Please specify the PODCAST_ID variable. Example: make dev-sql PODCAST_ID=3"
 	@exit 1
 else
 	@echo "Podcast ID: $(PODCAST_ID)"
-	$(SHELL) ./watch-sql-queries.sh "$(PODCAST_ID)" "$(START_DATE)" "$(END_DATE)"
+	$(SHELL) ./watch-sql-queries.sh "$(PODCAST_ID)" "$(START_DATE)" "$(END_DATE)" "$(VERSION)"
 endif
 
 .PHONY: e2e-tests
@@ -106,8 +106,8 @@ send-api-req-local: ## Send a request to the local running server
 	curl -X POST http://localhost:8080/connector -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr' --data-binary "@./fixtures/anchorEpisodeAggregatedPerformance.json" 
 
 .PHONY: send-analytics-%
-send-analytics-%: ## Send analytics request to the local running server
-	curl http://localhost:8080/analytics/v1/3/$*?start=$$(date -d "2 months ago" +%Y-%m-%d)\&end=$$(date -d "2 days ago" +%Y-%m-%d) -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
+send-analytics-%: ## Send analytics request to the local running server (optional VERSION=v1)
+	curl http://localhost:8080/analytics/$(or $(VERSION),v1)/3/$*?start=$$(date -d "2 months ago" +%Y-%m-%d)\&end=$$(date -d "2 days ago" +%Y-%m-%d) -H 'Content-Type: application/json' -H 'Authorization: Bearer dummy-cn389ncoiwuencr'
 
 .PHONY: send-api-req-prod
 send-api-req-prod: ## Send request to production
